@@ -18,3 +18,4 @@ Builds/VisualStudio2019/x86/
 # HIDDEN FILES / FOLDERS
 .*
 !/.gitignore
+!/.gitattributes
