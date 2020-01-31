@@ -1,0 +1,20 @@
+# FOLDERS
+Predev/
+.vs/
+
+# BUILDS
+Builds/VisualStudio2019/.vs/
+Builds/VisualStudio2019/x64/
+Builds/VisualStudio2019/x86/
+
+# add MACOSC paths later...
+
+# USER-SPECIFIC FILES
+*.suo 
+*.user 
+*.userosscache
+*.sln.docstates
+
+# HIDDEN FILES / FOLDERS
+.*
+!/.gitignore
