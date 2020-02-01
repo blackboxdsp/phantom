@@ -16,11 +16,12 @@
 class PhantomSound : public SynthesiserSound
 {
 public:
-    bool appliesToNote(int /* midiNoteNumber */)
+    //==========================================================================
+    bool appliesToNote(int midiNoteNumber) override
     {
         return true;
     }
-    bool appliesToChannel(int /* midiChannel */)
+    bool appliesToChannel(int midiChannel) override
     {
         return true;
     }

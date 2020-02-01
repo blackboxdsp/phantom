@@ -14,25 +14,30 @@
 //==============================================================================
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
-                     #endif
-                       )
+    : AudioProcessor(BusesProperties()
+#if ! JucePlugin_IsMidiEffect
+#if ! JucePlugin_IsSynth
+        .withInput("Input", AudioChannelSet::stereo(), true)
+#endif
+        .withOutput("Output", AudioChannelSet::stereo(), true)
+#endif
+    )
 #endif
 {
+    // clear and add voice(s)
     phantomSynth.clearVoices();
-    phantomSynth.addVoice(new PhantomVoice()); // for polyphony, write this in a loop
+    for(auto i = 0; i < 1; i++)
+        phantomSynth.addVoice(new PhantomVoice());
 
+    // clear and add sound(s)
     phantomSynth.clearSounds();
     phantomSynth.addSound(new PhantomSound());
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
+    phantomSynth.clearSounds();
+    phantomSynth.clearVoices();
 }
 
 //==============================================================================
@@ -104,8 +109,10 @@ void PhantomAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBloc
     // ignore unused samples from last key press
     ignoreUnused(samplesPerBlock);
 
-    // phantom synth setting
+    // set phantom synth settings 
     phantomSynth.setCurrentPlaybackSampleRate(sampleRate);
+    for(auto i = 0; i < phantomSynth.getNumVoices(); i++)
+        phantomSynth.getVoice(i)->setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void PhantomAudioProcessor::releaseResources()
