@@ -11,7 +11,21 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "./PhantomSound.h"
+
+//==============================================================================
+class PhantomSound : public SynthesiserSound
+{
+public:
+    //==========================================================================
+    bool appliesToNote(int midiNoteNumber) override
+    {
+        return true;
+    }
+    bool appliesToChannel(int midiChannel) override
+    {
+        return true;
+    }
+};
 
 //==============================================================================
 class PhantomVoice : public SynthesiserVoice
@@ -71,7 +85,6 @@ public:
             }
             startSample++;
         }
-
     }
 
     //==========================================================================

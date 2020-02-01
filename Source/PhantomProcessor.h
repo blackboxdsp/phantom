@@ -11,8 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "./PhantomSound.h"
-#include "./PhantomVoice.h"
+#include "./PhantomWavetable.h"
 
 //==============================================================================
 /**

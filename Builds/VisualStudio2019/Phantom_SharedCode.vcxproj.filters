@@ -2430,10 +2430,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\PhantomSound.h">
+    <ClInclude Include="..\..\Source\PhantomPhasetable.h">
       <Filter>Phantom\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PhantomVoice.h">
+    <ClInclude Include="..\..\Source\PhantomWavetable.h">
       <Filter>Phantom\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PhantomProcessor.h">

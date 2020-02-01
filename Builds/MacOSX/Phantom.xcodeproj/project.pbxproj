@@ -73,13 +73,9 @@
 			isa = PBXBuildFile;
 			fileRef = B71387EBEF2D2388F8B64B1F;
 		};
-		E2C3F3584E2D7661965DD806 = {
+		A871422B393E24097FD89526 = {
 			isa = PBXBuildFile;
-			fileRef = 407D942D950C589C205DF2EA;
-		};
-		BAA978BFD587C4B25D743675 = {
-			isa = PBXBuildFile;
-			fileRef = F86E4D41A811F92FA45B497F;
+			fileRef = E179BB02FC6A6E4BACF36E90;
 		};
 		DA1036D43FC4259CB43081FA = {
 			isa = PBXBuildFile;
@@ -257,13 +253,6 @@
 			path = "Info-VST3.plist";
 			sourceTree = "SOURCE_ROOT";
 		};
-		407D942D950C589C205DF2EA = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = PhantomSound.h;
-			path = ../../Source/PhantomSound.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		4591EB88B31988A6F0221641 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -299,12 +288,12 @@
 			path = System/Library/Frameworks/IOKit.framework;
 			sourceTree = SDKROOT;
 		};
-		59034C723BC4BD1D49A5F43C = {
+		5AA8EC05F8406A74D0BDF435 = {
 			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = PhantomProcessor.h;
-			path = ../../Source/PhantomProcessor.h;
-			sourceTree = "SOURCE_ROOT";
+			lastKnownFileType = file;
+			name = "juce_graphics";
+			path = "~/JUCE/modules/juce_graphics";
+			sourceTree = "<absolute>";
 		};
 		68421909DCA79FD3FD84B343 = {
 			isa = PBXFileReference;
@@ -312,6 +301,13 @@
 			name = CoreAudioKit.framework;
 			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
+		};
+		697E7D3D981F4114EEEDC48F = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.r;
+			name = "include_juce_audio_plugin_client_AU.r";
+			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r";
+			sourceTree = "SOURCE_ROOT";
 		};
 		A88881FE330C739B99B4A166 = {
 			isa = PBXFileReference;
@@ -327,18 +323,11 @@
 			path = Phantom.component;
 			sourceTree = "BUILT_PRODUCTS_DIR";
 		};
-		5AA8EC05F8406A74D0BDF435 = {
+		59034C723BC4BD1D49A5F43C = {
 			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_graphics";
-			path = "~/JUCE/modules/juce_graphics";
-			sourceTree = "<absolute>";
-		};
-		697E7D3D981F4114EEEDC48F = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.r;
-			name = "include_juce_audio_plugin_client_AU.r";
-			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r";
+			lastKnownFileType = sourcecode.c.h;
+			name = PhantomProcessor.h;
+			path = ../../Source/PhantomProcessor.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		6F46317CBE8A69E8913A9D3D = {
@@ -551,11 +540,25 @@
 			path = System/Library/Frameworks/QuartzCore.framework;
 			sourceTree = SDKROOT;
 		};
+		DC2744D526C4471B6B61EC94 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = PhantomPhasetable.h;
+			path = ../../Source/PhantomPhasetable.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		DE543355D8B48FDA439F7AAA = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_utils.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_utils.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		E179BB02FC6A6E4BACF36E90 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = PhantomWavetable.h;
+			path = ../../Source/PhantomWavetable.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		F568363BA7F920F40C726CC8 = {
@@ -570,13 +573,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_core.mm";
 			path = "../../JuceLibraryCode/include_juce_core.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		F86E4D41A811F92FA45B497F = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = PhantomVoice.h;
-			path = ../../Source/PhantomVoice.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		FE1EACEF93D23217AF347532 = {
@@ -603,8 +599,8 @@
 		E18255857BFDF3D11C92CF74 = {
 			isa = PBXGroup;
 			children = (
-				407D942D950C589C205DF2EA,
-				F86E4D41A811F92FA45B497F,
+				DC2744D526C4471B6B61EC94,
+				E179BB02FC6A6E4BACF36E90,
 				8BD4576D7921CE58D292E6DA,
 				59034C723BC4BD1D49A5F43C,
 				7173DF36203BA5848B189304,
@@ -1320,8 +1316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2C3F3584E2D7661965DD806,
-				BAA978BFD587C4B25D743675,
+				A871422B393E24097FD89526,
 				DA1036D43FC4259CB43081FA,
 				A7E4EA8A6B93AD92802722A0,
 				9256B5ABD672BBA21E8E7178,
