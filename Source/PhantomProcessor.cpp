@@ -24,7 +24,11 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                        )
 #endif
 {
+    phantomSynth.clearVoices();
+    phantomSynth.addVoice(new PhantomVoice()); // for polyphony, write this in a loop
 
+    phantomSynth.clearSounds();
+    phantomSynth.addSound(new PhantomSound());
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
@@ -97,7 +101,11 @@ void PhantomAudioProcessor::changeProgramName (int index, const String& newName)
 //==============================================================================
 void PhantomAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    // ignore unused samples from last key press
+    ignoreUnused(samplesPerBlock);
 
+    // phantom synth setting
+    phantomSynth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void PhantomAudioProcessor::releaseResources()
@@ -132,9 +140,8 @@ bool PhantomAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) 
 
 void PhantomAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    buffer.clear();
+    phantomSynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================

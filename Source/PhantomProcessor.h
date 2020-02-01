@@ -59,7 +59,8 @@ public:
 
 private:
     // synthesizer variables
-    Synthesiser synth;
+    Synthesiser phantomSynth;
+    PhantomVoice phantomVoice;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PhantomAudioProcessor)

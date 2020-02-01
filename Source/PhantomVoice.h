@@ -19,17 +19,19 @@ class PhantomVoice : public SynthesiserVoice
 public:
     bool canPlaySound(SynthesiserSound* sound) override
     {
-        return true;
+        // return if casting sound to my phantom defined sound is successful
+        return dynamic_cast<PhantomSound*> (sound) != nullptr;
     }
 
     void startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition = 0) override
     {
-
+        frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+        DBG(midiNoteNumber);
     }
 
     void stopNote(float velocity, bool allowTailOff) override
     {
-
+        clearCurrentNote();
     }
 
     //==========================================================================
@@ -45,5 +47,7 @@ public:
     }
 
 private:
+    double frequency;
+    double level;
 
 };
