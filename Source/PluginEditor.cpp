@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-PhaseDistortionSynthAudioProcessorEditor::PhaseDistortionSynthAudioProcessorEditor(PhaseDistortionSynthAudioProcessor& p)
+PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     // Make sure that before the constructor has finished, you've set the
@@ -20,12 +20,12 @@ PhaseDistortionSynthAudioProcessorEditor::PhaseDistortionSynthAudioProcessorEdit
     setSize (400, 300);
 }
 
-PhaseDistortionSynthAudioProcessorEditor::~PhaseDistortionSynthAudioProcessorEditor()
+PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
 }
 
 //==============================================================================
-void PhaseDistortionSynthAudioProcessorEditor::paint (Graphics& g)
+void PhantomAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
@@ -35,7 +35,7 @@ void PhaseDistortionSynthAudioProcessorEditor::paint (Graphics& g)
     g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
-void PhaseDistortionSynthAudioProcessorEditor::resized()
+void PhantomAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..

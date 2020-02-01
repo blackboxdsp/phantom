@@ -310,14 +310,14 @@
 			isa = PBXFileReference;
 			explicitFileType = wrapper.cfbundle;
 			includeInIndex = 0;
-			path = "Phase Distortion Synth.vst3";
+			path = Phantom.vst3;
 			sourceTree = "BUILT_PRODUCTS_DIR";
 		};
 		3899AD78AEB5471DF9D1A02B = {
 			isa = PBXFileReference;
 			explicitFileType = wrapper.cfbundle;
 			includeInIndex = 0;
-			path = "Phase Distortion Synth.component";
+			path = Phantom.component;
 			sourceTree = "BUILT_PRODUCTS_DIR";
 		};
 		4B6BA4167BD70658427CD07E = {
@@ -432,6 +432,13 @@
 			path = ../../Source/PluginEditor.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		9DE0930071D17D877C87D124 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			name = Phantom.entitlements;
+			path = Phantom.entitlements;
+			sourceTree = "SOURCE_ROOT";
+		};
 		A240BDE1F8F4C81251B411E3 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -527,7 +534,7 @@
 			isa = PBXFileReference;
 			explicitFileType = archive.ar;
 			includeInIndex = 0;
-			path = "libPhase Distortion Synth.a";
+			path = libPhantom.a;
 			sourceTree = "BUILT_PRODUCTS_DIR";
 		};
 		D5574814D8D35732FC1BD202 = {
@@ -556,13 +563,6 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = PluginEditor.cpp;
 			path = ../../Source/PluginEditor.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
-		E9934C01B41606DC51AC0423 = {
-			isa = PBXFileReference;
-			lastKnownFileType = text.plist.xml;
-			name = "Phase Distortion Synth.entitlements";
-			path = "Phase Distortion Synth.entitlements";
 			sourceTree = "SOURCE_ROOT";
 		};
 		F568363BA7F920F40C726CC8 = {
@@ -618,7 +618,7 @@
 			children = (
 				E18255857BFDF3D11C92CF74,
 			);
-			name = "Phase Distortion Synth";
+			name = Phantom;
 			sourceTree = "<group>";
 		};
 		F2792C40008051E4FE683A77 = {
@@ -780,9 +780,9 @@
 				INSTALL_PATH = "C:/Program Files/Vst3plugins";
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_LDFLAGS = "-bundle -lPhase\\ Distortion\\ Synth";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.PhaseDistortionSynth;
-				PRODUCT_NAME = "Phase Distortion Synth";
+				OTHER_LDFLAGS = "-bundle -lPhantom";
+				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.Phantom;
+				PRODUCT_NAME = "Phantom";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = vst3;
 			};
@@ -833,9 +833,9 @@
 				LIBRARY_STYLE = Bundle;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_LDFLAGS = "-bundle -lPhase\\ Distortion\\ Synth";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.PhaseDistortionSynth;
-				PRODUCT_NAME = "Phase Distortion Synth";
+				OTHER_LDFLAGS = "-bundle -lPhantom";
+				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.Phantom;
+				PRODUCT_NAME = "Phantom";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = vst3;
 			};
@@ -884,10 +884,10 @@
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_LDFLAGS = "-bundle -lPhase\\ Distortion\\ Synth";
+				OTHER_LDFLAGS = "-bundle -lPhantom";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.PhaseDistortionSynth;
-				PRODUCT_NAME = "Phase Distortion Synth";
+				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.Phantom;
+				PRODUCT_NAME = "Phantom";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = component;
 			};
@@ -938,10 +938,10 @@
 				LIBRARY_STYLE = Bundle;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_LDFLAGS = "-bundle -lPhase\\ Distortion\\ Synth";
+				OTHER_LDFLAGS = "-bundle -lPhantom";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.PhaseDistortionSynth;
-				PRODUCT_NAME = "Phase Distortion Synth";
+				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.Phantom;
+				PRODUCT_NAME = "Phantom";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = component;
 			};
@@ -985,8 +985,8 @@
 				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.PhaseDistortionSynth;
-				PRODUCT_NAME = "Phase Distortion Synth";
+				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.Phantom;
+				PRODUCT_NAME = "Phantom";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -1032,8 +1032,8 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.PhaseDistortionSynth;
-				PRODUCT_NAME = "Phase Distortion Synth";
+				PRODUCT_BUNDLE_IDENTIFIER = com.MaxwellAudio.Phantom;
+				PRODUCT_NAME = "Phantom";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -1080,7 +1080,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "Phase Distortion Synth";
+				PRODUCT_NAME = "Phantom";
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
@@ -1125,7 +1125,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_NAME = "Phase Distortion Synth";
+				PRODUCT_NAME = "Phantom";
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
@@ -1171,8 +1171,8 @@
 				321902CCBD866833BC4E049F,
 				16A33381715854056EB87185,
 			);
-			name = "Phase Distortion Synth - All";
-			productName = "Phase Distortion Synth";
+			name = "Phantom - All";
+			productName = Phantom;
 		};
 		35D3B4121E451FEE9DC5194F = {
 			isa = XCConfigurationList;
@@ -1230,8 +1230,8 @@
 			dependencies = (
 				16A33381715854056EB87185,
 			);
-			name = "Phase Distortion Synth - VST3";
-			productName = "Phase Distortion Synth";
+			name = "Phantom - VST3";
+			productName = Phantom;
 			productReference = A88881FE330C739B99B4A166;
 			productType = "com.apple.product-type.bundle";
 		};
@@ -1302,8 +1302,8 @@
 			dependencies = (
 				16A33381715854056EB87185,
 			);
-			name = "Phase Distortion Synth - AU";
-			productName = "Phase Distortion Synth";
+			name = "Phantom - AU";
+			productName = Phantom;
 			productReference = 3899AD78AEB5471DF9D1A02B;
 			productType = "com.apple.product-type.bundle";
 		};
@@ -1352,8 +1352,8 @@
 			);
 			buildRules = ( );
 			dependencies = ( );
-			name = "Phase Distortion Synth - Shared Code";
-			productName = "Phase Distortion Synth";
+			name = "Phantom - Shared Code";
+			productName = Phantom;
 			productReference = CA8F26F0026D1B60B00C45C9;
 			productType = "com.apple.product-type.library.static";
 		};

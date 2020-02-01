@@ -48,7 +48,7 @@
 #if ! JUCE_DONT_DECLARE_PROJECTINFO
 namespace ProjectInfo
 {
-    const char* const  projectName    = "Phase Distortion Synth";
+    const char* const  projectName    = "Phantom";
     const char* const  companyName    = "Maxwell Audio";
     const char* const  versionString  = "1.0.0";
     const int          versionNumber  = 0x10000;

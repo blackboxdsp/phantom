@@ -16,11 +16,11 @@
 //==============================================================================
 /**
 */
-class PhaseDistortionSynthAudioProcessorEditor : public AudioProcessorEditor
+class PhantomAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
-    PhaseDistortionSynthAudioProcessorEditor(PhaseDistortionSynthAudioProcessor&);
-    ~PhaseDistortionSynthAudioProcessorEditor();
+    PhantomAudioProcessorEditor(PhantomAudioProcessor&);
+    ~PhantomAudioProcessorEditor();
 
     //==============================================================================
     void paint (Graphics&) override;
@@ -29,7 +29,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    PhaseDistortionSynthAudioProcessor& processor;
+    PhantomAudioProcessor& processor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PhaseDistortionSynthAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PhantomAudioProcessorEditor)
 };

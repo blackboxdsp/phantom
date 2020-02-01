@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="JrZ1US" name="Phase Distortion Synth" projectType="audioplug"
-              jucerVersion="5.4.5" companyName="Maxwell Audio" companyWebsite="mattmaxwell.tech"
+<JUCERPROJECT id="JrZ1US" name="Phantom" projectType="audioplug" jucerVersion="5.4.5"
+              companyName="Maxwell Audio" companyWebsite="mattmaxwell.tech"
               companyEmail="maxwellmattryan@gmail.com" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginFormats="buildAU,buildVST3">
-  <MAINGROUP id="bRz4Wl" name="Phase Distortion Synth">
+  <MAINGROUP id="bRz4Wl" name="Phantom">
     <GROUP id="{B84FA98D-CB40-D7ED-D457-2C2EE74421FC}" name="Source">
+      <FILE id="muS86E" name="SynthSound.h" compile="1" resource="0" file="Source/SynthSound.h"/>
+      <FILE id="RwKg7O" name="SynthVoice.h" compile="1" resource="0" file="Source/SynthVoice.h"/>
       <FILE id="uKmiGV" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="ytkNR4" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="ytkNR4" name="PluginProcessor.h" compile="1" resource="0"
             file="Source/PluginProcessor.h"/>
       <FILE id="uRcjGB" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
-      <FILE id="PMGXeZ" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="PMGXeZ" name="PluginEditor.h" compile="1" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

@@ -8,11 +8,11 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.MaxwellAudio.PhaseDistortionSynth</string>
+    <string>com.MaxwellAudio.Phantom</string>
     <key>CFBundleName</key>
-    <string>Phase Distortion Synth</string>
+    <string>Phantom</string>
     <key>CFBundleDisplayName</key>
-    <string>Phase Distortion Synth</string>
+    <string>Phantom</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>CFBundleSignature</key>
@@ -29,11 +29,11 @@
     <array>
       <dict>
         <key>name</key>
-        <string>Maxwell Audio: Phase Distortion Synth</string>
+        <string>Maxwell Audio: Phantom</string>
         <key>description</key>
-        <string>Phase Distortion Synth</string>
+        <string>Phantom</string>
         <key>factoryFunction</key>
-        <string>PhaseDistortionSynthAUFactory</string>
+        <string>PhantomAUFactory</string>
         <key>manufacturer</key>
         <string>Manu</string>
         <key>type</key>

@@ -15,12 +15,12 @@
 //==============================================================================
 /**
 */
-class PhaseDistortionSynthAudioProcessor : public AudioProcessor
+class PhantomAudioProcessor : public AudioProcessor
 {
 public:
     //==============================================================================
-    PhaseDistortionSynthAudioProcessor();
-    ~PhaseDistortionSynthAudioProcessor();
+    PhantomAudioProcessor();
+    ~PhantomAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -57,5 +57,5 @@ public:
 
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PhaseDistortionSynthAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PhantomAudioProcessor)
 };

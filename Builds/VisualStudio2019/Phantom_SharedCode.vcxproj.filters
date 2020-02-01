@@ -2,11 +2,11 @@
 
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Phase Distortion Synth\Source">
-      <UniqueIdentifier>{584AA967-8B6B-B8D0-E462-8BFEF2A9158E}</UniqueIdentifier>
+    <Filter Include="Phantom\Source">
+      <UniqueIdentifier>{A7BDA134-304C-B742-DAD6-592A9B905499}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Phase Distortion Synth">
-      <UniqueIdentifier>{14D6B501-081B-4D17-73ED-5F8C75D6F69E}</UniqueIdentifier>
+    <Filter Include="Phantom">
+      <UniqueIdentifier>{224B4B8E-BF4B-7AE3-389E-8511D68EE04B}</UniqueIdentifier>
     </Filter>
     <Filter Include="JUCE Modules\juce_audio_basics\audio_play_head">
       <UniqueIdentifier>{EB58F05A-A968-CEBE-40C4-107CDD8F240F}</UniqueIdentifier>
@@ -434,10 +434,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp">
-      <Filter>Phase Distortion Synth\Source</Filter>
+      <Filter>Phantom\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PluginEditor.cpp">
-      <Filter>Phase Distortion Synth\Source</Filter>
+      <Filter>Phantom\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>JUCE Modules\juce_audio_basics\buffers</Filter>
@@ -2431,16 +2431,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\SynthSound.h">
-      <Filter>Phase Distortion Synth\Source</Filter>
+      <Filter>Phantom\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SynthVoice.h">
-      <Filter>Phase Distortion Synth\Source</Filter>
+      <Filter>Phantom\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginProcessor.h">
-      <Filter>Phase Distortion Synth\Source</Filter>
+      <Filter>Phantom\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginEditor.h">
-      <Filter>Phase Distortion Synth\Source</Filter>
+      <Filter>Phantom\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>

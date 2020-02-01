@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-PhaseDistortionSynthAudioProcessor::PhaseDistortionSynthAudioProcessor()
+PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -26,17 +26,17 @@ PhaseDistortionSynthAudioProcessor::PhaseDistortionSynthAudioProcessor()
 {
 }
 
-PhaseDistortionSynthAudioProcessor::~PhaseDistortionSynthAudioProcessor()
+PhantomAudioProcessor::~PhantomAudioProcessor()
 {
 }
 
 //==============================================================================
-const String PhaseDistortionSynthAudioProcessor::getName() const
+const String PhantomAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool PhaseDistortionSynthAudioProcessor::acceptsMidi() const
+bool PhantomAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -45,7 +45,7 @@ bool PhaseDistortionSynthAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool PhaseDistortionSynthAudioProcessor::producesMidi() const
+bool PhantomAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -54,7 +54,7 @@ bool PhaseDistortionSynthAudioProcessor::producesMidi() const
    #endif
 }
 
-bool PhaseDistortionSynthAudioProcessor::isMidiEffect() const
+bool PhantomAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -63,50 +63,50 @@ bool PhaseDistortionSynthAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double PhaseDistortionSynthAudioProcessor::getTailLengthSeconds() const
+double PhantomAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int PhaseDistortionSynthAudioProcessor::getNumPrograms()
+int PhantomAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int PhaseDistortionSynthAudioProcessor::getCurrentProgram()
+int PhantomAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void PhaseDistortionSynthAudioProcessor::setCurrentProgram (int index)
+void PhantomAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String PhaseDistortionSynthAudioProcessor::getProgramName (int index)
+const String PhantomAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void PhaseDistortionSynthAudioProcessor::changeProgramName (int index, const String& newName)
+void PhantomAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void PhaseDistortionSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void PhantomAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void PhaseDistortionSynthAudioProcessor::releaseResources()
+void PhantomAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool PhaseDistortionSynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool PhantomAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -129,7 +129,7 @@ bool PhaseDistortionSynthAudioProcessor::isBusesLayoutSupported (const BusesLayo
 }
 #endif
 
-void PhaseDistortionSynthAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void PhantomAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -159,25 +159,25 @@ void PhaseDistortionSynthAudioProcessor::processBlock (AudioBuffer<float>& buffe
 }
 
 //==============================================================================
-bool PhaseDistortionSynthAudioProcessor::hasEditor() const
+bool PhantomAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* PhaseDistortionSynthAudioProcessor::createEditor()
+AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 {
-    return new PhaseDistortionSynthAudioProcessorEditor(*this);
+    return new PhantomAudioProcessorEditor(*this);
 }
 
 //==============================================================================
-void PhaseDistortionSynthAudioProcessor::getStateInformation (MemoryBlock& destData)
+void PhantomAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void PhaseDistortionSynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void PhantomAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -187,5 +187,5 @@ void PhaseDistortionSynthAudioProcessor::setStateInformation (const void* data, 
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new PhaseDistortionSynthAudioProcessor();
+    return new PhantomAudioProcessor();
 }

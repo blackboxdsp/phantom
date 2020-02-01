@@ -14,9 +14,9 @@ BEGIN
     BLOCK "040904E4"
     BEGIN
       VALUE "CompanyName",  "Maxwell Audio\0"
-      VALUE "FileDescription",  "Phase Distortion Synth\0"
+      VALUE "FileDescription",  "Phantom\0"
       VALUE "FileVersion",  "1.0.0\0"
-      VALUE "ProductName",  "Phase Distortion Synth\0"
+      VALUE "ProductName",  "Phantom\0"
       VALUE "ProductVersion",  "1.0.0\0"
     END
   END
