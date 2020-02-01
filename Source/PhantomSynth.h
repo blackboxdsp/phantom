@@ -40,6 +40,9 @@ public:
 
         // update all parameters
         level = parameters.getRawParameterValue("level");
+
+        // update any parameter-dependent variables
+        previousGain = powf(2, *level / 6);
     }
 
     ~PhantomVoice() 
@@ -80,12 +83,12 @@ public:
     //==========================================================================
     void renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
     {
+        // processing loop for samples
         for (int sample = 0; sample < numSamples; sample++)
         {
             for (int channel = 0; channel < buffer.getNumChannels(); channel++)
             {
-                auto gain = powf(2, *level / 6);
-                auto currentSample = sinetable[(int) currentTableIndex] * gain;
+                auto currentSample = sinetable[(int) currentTableIndex];
 
                 // keep table index wrapped around table size
                 currentTableIndex = fmod(currentTableIndex + tableDelta, tableSize);
@@ -93,6 +96,18 @@ public:
                 buffer.addSample(channel, startSample, currentSample);
             }
             startSample++;
+        }
+
+        // apply output gain to buffer
+        auto currentGain = powf(2, *level / 6);
+        if (previousGain == currentGain)
+        {
+            buffer.applyGain(currentGain);
+        }
+        else
+        {
+            buffer.applyGainRamp(0, buffer.getNumSamples(), previousGain, currentGain);
+            previousGain = currentGain;
         }
     }
 
@@ -119,7 +134,7 @@ private:
     //==========================================================================
     AudioProcessorValueTreeState& parameters;
 
-    // parameters
+    // value tree state parameters
     float* level;
 
     // wavetable variables
@@ -127,5 +142,6 @@ private:
     float currentTableIndex = 0.0f;
     float frequency = 0.0f;
     float tableDelta = 0.0f;
+    float previousGain;
     const unsigned int tableSize = 1 << 10; // 1024 - 1
 };
