@@ -73,9 +73,13 @@
 			isa = PBXBuildFile;
 			fileRef = B71387EBEF2D2388F8B64B1F;
 		};
-		F3953118FC2EAF6E8A47EF5A = {
+		E2C3F3584E2D7661965DD806 = {
 			isa = PBXBuildFile;
-			fileRef = 0528A23CB4ECCAF5AAA0802D;
+			fileRef = 407D942D950C589C205DF2EA;
+		};
+		BAA978BFD587C4B25D743675 = {
+			isa = PBXBuildFile;
+			fileRef = F86E4D41A811F92FA45B497F;
 		};
 		DA1036D43FC4259CB43081FA = {
 			isa = PBXBuildFile;
@@ -183,13 +187,6 @@
 			path = System/Library/Frameworks/OpenGL.framework;
 			sourceTree = SDKROOT;
 		};
-		0528A23CB4ECCAF5AAA0802D = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = PhantomSynth.cpp;
-			path = ../../Source/PhantomSynth.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		091C3E050FCB4355AB96F41A = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -246,13 +243,6 @@
 			path = System/Library/Frameworks/AudioToolbox.framework;
 			sourceTree = SDKROOT;
 		};
-		2D98F4B189DD172638342D31 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = PhantomSynth.h;
-			path = ../../Source/PhantomSynth.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		37573E09DF16400AE18EB9AD = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -265,6 +255,13 @@
 			lastKnownFileType = text.plist.xml;
 			name = "Info-VST3.plist";
 			path = "Info-VST3.plist";
+			sourceTree = "SOURCE_ROOT";
+		};
+		407D942D950C589C205DF2EA = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = PhantomSound.h;
+			path = ../../Source/PhantomSound.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		4591EB88B31988A6F0221641 = {
@@ -309,26 +306,12 @@
 			path = ../../Source/PhantomProcessor.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		5AA8EC05F8406A74D0BDF435 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_graphics";
-			path = "~/JUCE/modules/juce_graphics";
-			sourceTree = "<absolute>";
-		};
 		68421909DCA79FD3FD84B343 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
 			name = CoreAudioKit.framework;
 			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
-		};
-		697E7D3D981F4114EEEDC48F = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.r;
-			name = "include_juce_audio_plugin_client_AU.r";
-			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r";
-			sourceTree = "SOURCE_ROOT";
 		};
 		A88881FE330C739B99B4A166 = {
 			isa = PBXFileReference;
@@ -343,6 +326,20 @@
 			includeInIndex = 0;
 			path = Phantom.component;
 			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		5AA8EC05F8406A74D0BDF435 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_graphics";
+			path = "~/JUCE/modules/juce_graphics";
+			sourceTree = "<absolute>";
+		};
+		697E7D3D981F4114EEEDC48F = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.r;
+			name = "include_juce_audio_plugin_client_AU.r";
+			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r";
+			sourceTree = "SOURCE_ROOT";
 		};
 		6F46317CBE8A69E8913A9D3D = {
 			isa = PBXFileReference;
@@ -575,6 +572,13 @@
 			path = "../../JuceLibraryCode/include_juce_core.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		F86E4D41A811F92FA45B497F = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = PhantomVoice.h;
+			path = ../../Source/PhantomVoice.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		FE1EACEF93D23217AF347532 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -599,8 +603,8 @@
 		E18255857BFDF3D11C92CF74 = {
 			isa = PBXGroup;
 			children = (
-				0528A23CB4ECCAF5AAA0802D,
-				2D98F4B189DD172638342D31,
+				407D942D950C589C205DF2EA,
+				F86E4D41A811F92FA45B497F,
 				8BD4576D7921CE58D292E6DA,
 				59034C723BC4BD1D49A5F43C,
 				7173DF36203BA5848B189304,
@@ -1316,7 +1320,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3953118FC2EAF6E8A47EF5A,
+				E2C3F3584E2D7661965DD806,
+				BAA978BFD587C4B25D743675,
 				DA1036D43FC4259CB43081FA,
 				A7E4EA8A6B93AD92802722A0,
 				9256B5ABD672BBA21E8E7178,

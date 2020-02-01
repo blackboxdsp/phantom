@@ -11,8 +11,8 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
-#include "./PhantomSynth.h"
+#include "./PhantomSound.h"
+#include "./PhantomVoice.h"
 
 //==============================================================================
 /**
@@ -58,8 +58,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
-    MidiKeyboardState keyboardState;
-    PhantomSynthAudioSource phantomAudioSource;
+    // synthesizer variables
+    Synthesiser synth;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PhantomAudioProcessor)

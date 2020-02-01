@@ -13,22 +13,24 @@
 
 //==============================================================================
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+    : AudioProcessorEditor (&p), 
+      processor (p)
 {
-    setSize (960, 540);
+    setSize(960, 540);
 }
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
+
 }
 
 //==============================================================================
 void PhantomAudioProcessorEditor::paint (Graphics& g)
 {
+
 }
 
 void PhantomAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+
 }

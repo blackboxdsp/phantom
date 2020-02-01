@@ -21,10 +21,10 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                       #endif
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
-                       ),
+                       )
 #endif
-    phantomAudioSource (keyboardState) 
 {
+
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
@@ -91,12 +91,13 @@ const String PhantomAudioProcessor::getProgramName (int index)
 
 void PhantomAudioProcessor::changeProgramName (int index, const String& newName)
 {
+
 }
 
 //==============================================================================
 void PhantomAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    phantomAudioSource.prepareToPlay(samplesPerBlock, sampleRate);
+
 }
 
 void PhantomAudioProcessor::releaseResources()
@@ -134,12 +135,6 @@ void PhantomAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer
     ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
-
-    AudioSourceChannelInfo bufferToFill;
-    bufferToFill.buffer = &buffer;
-    bufferToFill.startSample = 0;
-    bufferToFill.numSamples = buffer.getNumSamples();
-    phantomAudioSource.getNextAudioBlock(bufferToFill);
 }
 
 //==============================================================================
@@ -167,7 +162,6 @@ void PhantomAudioProcessor::setStateInformation (const void* data, int sizeInByt
     // whose contents will have been created by the getStateInformation() call.
 }
 
-//==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {

@@ -433,9 +433,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\PhantomSynth.cpp">
-      <Filter>Phantom\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\PhantomProcessor.cpp">
       <Filter>Phantom\Source</Filter>
     </ClCompile>
@@ -2433,7 +2430,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\PhantomSynth.h">
+    <ClInclude Include="..\..\Source\PhantomSound.h">
+      <Filter>Phantom\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PhantomVoice.h">
       <Filter>Phantom\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PhantomProcessor.h">

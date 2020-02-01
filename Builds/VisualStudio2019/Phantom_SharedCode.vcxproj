@@ -136,7 +136,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\PhantomSynth.cpp"/>
     <ClCompile Include="..\..\Source\PhantomProcessor.cpp"/>
     <ClCompile Include="..\..\Source\PhantomEditor.cpp"/>
     <ClCompile Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -1979,7 +1978,8 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\PhantomSynth.h"/>
+    <ClInclude Include="..\..\Source\PhantomSound.h"/>
+    <ClInclude Include="..\..\Source\PhantomVoice.h"/>
     <ClInclude Include="..\..\Source\PhantomProcessor.h"/>
     <ClInclude Include="..\..\Source\PhantomEditor.h"/>
     <ClInclude Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
