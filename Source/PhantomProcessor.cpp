@@ -14,7 +14,8 @@
 //==============================================================================
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor(BusesProperties()
+    : parameters(*this, nullptr, Identifier("Phantom"), createParameterLayout()),
+      AudioProcessor(BusesProperties()
 #if ! JucePlugin_IsMidiEffect
 #if ! JucePlugin_IsSynth
         .withInput("Input", AudioChannelSet::stereo(), true)
@@ -27,7 +28,7 @@ PhantomAudioProcessor::PhantomAudioProcessor()
     // clear and add voice(s)
     phantomSynth.clearVoices();
     for(auto i = 0; i < 1; i++)
-        phantomSynth.addVoice(new PhantomVoice());
+        phantomSynth.addVoice(new PhantomVoice(parameters));
 
     // clear and add sound(s)
     phantomSynth.clearSounds();
@@ -38,6 +39,18 @@ PhantomAudioProcessor::~PhantomAudioProcessor()
 {
     phantomSynth.clearSounds();
     phantomSynth.clearVoices();
+}
+
+AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParameterLayout()
+{
+    std::vector<std::unique_ptr<RangedAudioParameter>> params;
+
+    // LEVEL
+    auto p_level = std::make_unique<AudioParameterFloat>(
+        "level", "Level", -45.0f, 6.0f, 0.0f);
+    params.push_back(std::move(p_level));
+
+    return { params.begin(), params.end() };
 }
 
 //==============================================================================
@@ -159,21 +172,26 @@ bool PhantomAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 {
-    return new PhantomAudioProcessorEditor(*this);
+    return new PhantomAudioProcessorEditor(*this, parameters);
 }
 
 //==============================================================================
 void PhantomAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    std::unique_ptr<XmlElement> xml(parameters.state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void PhantomAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+    if (xmlState.get() != nullptr)
+    {
+        if (xmlState->hasTagName(parameters.state.getType()))
+        {
+            parameters.replaceState(ValueTree::fromXml(*xmlState));
+        }
+    }
 }
 
 // This creates new instances of the plugin..

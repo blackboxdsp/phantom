@@ -11,7 +11,8 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "./PhantomWavetable.h"
+
+#include "./PhantomSynth.h"
 
 //==============================================================================
 /**
@@ -57,7 +58,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
-    // synthesizer variables
+    //==============================================================================
+    AudioProcessorValueTreeState parameters;
+    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    
     Synthesiser phantomSynth;
 
     //==============================================================================

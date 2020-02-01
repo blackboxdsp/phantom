@@ -1979,7 +1979,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\PhantomPhasetable.h"/>
-    <ClInclude Include="..\..\Source\PhantomWavetable.h"/>
+    <ClInclude Include="..\..\Source\PhantomSynth.h"/>
     <ClInclude Include="..\..\Source\PhantomProcessor.h"/>
     <ClInclude Include="..\..\Source\PhantomEditor.h"/>
     <ClInclude Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>

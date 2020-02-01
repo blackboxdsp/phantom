@@ -32,10 +32,16 @@ class PhantomVoice : public SynthesiserVoice
 {
 public:
     //==========================================================================
-    PhantomVoice()
+    PhantomVoice(AudioProcessorValueTreeState& vts)
+        : parameters(vts)
     {
+        // write sinetable
         createSinetable();
+
+        // update all parameters
+        level = parameters.getRawParameterValue("level");
     }
+
     ~PhantomVoice() 
     {
 
@@ -78,7 +84,10 @@ public:
         {
             for (int channel = 0; channel < buffer.getNumChannels(); channel++)
             {
-                auto currentSample = sinetable[(int) currentTableIndex];
+                auto gain = powf(2, *level / 6);
+                auto currentSample = sinetable[(int) currentTableIndex] * gain;
+
+                // keep table index wrapped around table size
                 currentTableIndex = fmod(currentTableIndex + tableDelta, tableSize);
                 
                 buffer.addSample(channel, startSample, currentSample);
@@ -108,13 +117,15 @@ private:
     }
 
     //==========================================================================
+    AudioProcessorValueTreeState& parameters;
+
     // parameters
-    float frequency = 0.0f;
-    float level = 0.5f;
+    float* level;
 
     // wavetable variables
     Array<float> sinetable;
     float currentTableIndex = 0.0f;
+    float frequency = 0.0f;
     float tableDelta = 0.0f;
     const unsigned int tableSize = 1 << 10; // 1024 - 1
 };

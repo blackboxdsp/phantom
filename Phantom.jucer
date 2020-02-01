@@ -6,10 +6,9 @@
               pluginFormats="buildAU,buildVST3">
   <MAINGROUP id="bRz4Wl" name="Phantom">
     <GROUP id="{B84FA98D-CB40-D7ED-D457-2C2EE74421FC}" name="Source">
-      <FILE id="HRunxC" name="PhantomPhasetable.h" compile="0" resource="0"
+      <FILE id="HRunxC" name="PhantomPhasetable.h" compile="1" resource="0"
             file="Source/PhantomPhasetable.h"/>
-      <FILE id="tyQGS6" name="PhantomWavetable.h" compile="1" resource="0"
-            file="Source/PhantomWavetable.h"/>
+      <FILE id="tyQGS6" name="PhantomSynth.h" compile="1" resource="0" file="Source/PhantomSynth.h"/>
       <FILE id="uKmiGV" name="PhantomProcessor.cpp" compile="1" resource="0"
             file="Source/PhantomProcessor.cpp"/>
       <FILE id="ytkNR4" name="PhantomProcessor.h" compile="1" resource="0"

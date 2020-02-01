@@ -2433,7 +2433,7 @@
     <ClInclude Include="..\..\Source\PhantomPhasetable.h">
       <Filter>Phantom\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PhantomWavetable.h">
+    <ClInclude Include="..\..\Source\PhantomSynth.h">
       <Filter>Phantom\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PhantomProcessor.h">

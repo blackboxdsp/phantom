@@ -11,7 +11,10 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+
 #include "PhantomProcessor.h"
+
+typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
 //==============================================================================
 /**
@@ -19,7 +22,7 @@
 class PhantomAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
-    PhantomAudioProcessorEditor(PhantomAudioProcessor&);
+    PhantomAudioProcessorEditor(PhantomAudioProcessor&, AudioProcessorValueTreeState&);
     ~PhantomAudioProcessorEditor();
 
     //==============================================================================
@@ -30,6 +33,15 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     PhantomAudioProcessor& processor;
+
+    AudioProcessorValueTreeState& parameters;
+
+    OpenGLContext glContext;
+
+    // COMPONENTS ==============================================================
+
+    Slider levelSlider;
+    std::unique_ptr<SliderAttachment> levelAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PhantomAudioProcessorEditor)
 };
