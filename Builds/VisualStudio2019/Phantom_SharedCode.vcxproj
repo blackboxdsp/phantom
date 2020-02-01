@@ -136,8 +136,9 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>
-    <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
+    <ClCompile Include="..\..\Source\PhantomSynth.cpp"/>
+    <ClCompile Include="..\..\Source\PhantomProcessor.cpp"/>
+    <ClCompile Include="..\..\Source\PhantomEditor.cpp"/>
     <ClCompile Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1978,10 +1979,9 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\SynthSound.h"/>
-    <ClInclude Include="..\..\Source\SynthVoice.h"/>
-    <ClInclude Include="..\..\Source\PluginProcessor.h"/>
-    <ClInclude Include="..\..\Source\PluginEditor.h"/>
+    <ClInclude Include="..\..\Source\PhantomSynth.h"/>
+    <ClInclude Include="..\..\Source\PhantomProcessor.h"/>
+    <ClInclude Include="..\..\Source\PhantomEditor.h"/>
     <ClInclude Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>

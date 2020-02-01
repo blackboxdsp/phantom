@@ -12,6 +12,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#include "./PhantomSynth.h"
+
 //==============================================================================
 /**
 */
@@ -56,6 +58,9 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    MidiKeyboardState keyboardState;
+    PhantomSynthAudioSource phantomAudioSource;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PhantomAudioProcessor)
 };

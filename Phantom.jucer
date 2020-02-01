@@ -6,15 +6,16 @@
               pluginFormats="buildAU,buildVST3">
   <MAINGROUP id="bRz4Wl" name="Phantom">
     <GROUP id="{B84FA98D-CB40-D7ED-D457-2C2EE74421FC}" name="Source">
-      <FILE id="muS86E" name="SynthSound.h" compile="1" resource="0" file="Source/SynthSound.h"/>
-      <FILE id="RwKg7O" name="SynthVoice.h" compile="1" resource="0" file="Source/SynthVoice.h"/>
-      <FILE id="uKmiGV" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="ytkNR4" name="PluginProcessor.h" compile="1" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="uRcjGB" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="PMGXeZ" name="PluginEditor.h" compile="1" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="wZZdK3" name="PhantomSynth.cpp" compile="1" resource="0"
+            file="Source/PhantomSynth.cpp"/>
+      <FILE id="T1EaJi" name="PhantomSynth.h" compile="0" resource="0" file="Source/PhantomSynth.h"/>
+      <FILE id="uKmiGV" name="PhantomProcessor.cpp" compile="1" resource="0"
+            file="Source/PhantomProcessor.cpp"/>
+      <FILE id="ytkNR4" name="PhantomProcessor.h" compile="1" resource="0"
+            file="Source/PhantomProcessor.h"/>
+      <FILE id="uRcjGB" name="PhantomEditor.cpp" compile="1" resource="0"
+            file="Source/PhantomEditor.cpp"/>
+      <FILE id="PMGXeZ" name="PhantomEditor.h" compile="1" resource="0" file="Source/PhantomEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

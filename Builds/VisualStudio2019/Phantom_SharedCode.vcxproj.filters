@@ -433,10 +433,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\PluginProcessor.cpp">
+    <ClCompile Include="..\..\Source\PhantomSynth.cpp">
       <Filter>Phantom\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PluginEditor.cpp">
+    <ClCompile Include="..\..\Source\PhantomProcessor.cpp">
+      <Filter>Phantom\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PhantomEditor.cpp">
       <Filter>Phantom\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -2430,16 +2433,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\SynthSound.h">
+    <ClInclude Include="..\..\Source\PhantomSynth.h">
       <Filter>Phantom\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\SynthVoice.h">
+    <ClInclude Include="..\..\Source\PhantomProcessor.h">
       <Filter>Phantom\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PluginProcessor.h">
-      <Filter>Phantom\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\PluginEditor.h">
+    <ClInclude Include="..\..\Source\PhantomEditor.h">
       <Filter>Phantom\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\frameworks\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
