@@ -33,16 +33,16 @@ class PhantomVoice : public SynthesiserVoice
 public:
     //==========================================================================
     PhantomVoice(AudioProcessorValueTreeState& vts)
-        : parameters(vts)
+        : parameters(vts), envelope()
     {
         // write sinetable
         createSinetable();
 
         // update all parameters
-        level = parameters.getRawParameterValue("level");
-
-        // update any parameter-dependent variables
-        previousGain = powf(2, *level / 6);
+        attack = parameters.getRawParameterValue("attack");
+        decay = parameters.getRawParameterValue("decay");
+        sustain = parameters.getRawParameterValue("sustain");
+        release = parameters.getRawParameterValue("release");
     }
 
     ~PhantomVoice() 
@@ -59,8 +59,11 @@ public:
 
     void startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition = 0) override
     {
+        envelope.setSampleRate(getSampleRate());
+        envelope.noteOn();
+
         frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-        setFrequency(frequency);
+        setTableDelta(frequency);
 
         DBG("NOTE ON:");
         DBG(midiNoteNumber);
@@ -70,6 +73,8 @@ public:
     void stopNote(float velocity, bool allowTailOff) override
     {
         clearCurrentNote();
+
+        envelope.noteOff();
 
         DBG("NOTE OFF:");
         DBG(velocity);
@@ -83,36 +88,29 @@ public:
     //==========================================================================
     void renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
     {
+        // first update adsr parameters struct and pass to envelope
+        updateEnvelopeParameters();
+        envelope.setParameters(envelopeParameters);
+
         // processing loop for samples
         for (int sample = 0; sample < numSamples; sample++)
         {
+            // read current index of sinetable and increment value accordingly (modulo tableSize)
+            auto sampleValue = sinetable[(int) currentTableIndex];
+            currentTableIndex = fmod(currentTableIndex + tableDelta, tableSize);
+
+            // apply the envelope
+            sampleValue *= envelope.getNextSample();
+
             for (int channel = 0; channel < buffer.getNumChannels(); channel++)
-            {
-                auto currentSample = sinetable[(int) currentTableIndex];
+                buffer.setSample(channel, startSample, sampleValue);
 
-                // keep table index wrapped around table size
-                currentTableIndex = fmod(currentTableIndex + tableDelta, tableSize);
-                
-                buffer.addSample(channel, startSample, currentSample);
-            }
             startSample++;
-        }
-
-        // apply output gain to buffer
-        auto currentGain = powf(2, *level / 6);
-        if (previousGain == currentGain)
-        {
-            buffer.applyGain(currentGain);
-        }
-        else
-        {
-            buffer.applyGainRamp(0, buffer.getNumSamples(), previousGain, currentGain);
-            previousGain = currentGain;
         }
     }
 
     //==========================================================================
-    void setFrequency(float frequency)
+    void setTableDelta(float frequency)
     {
         auto tableSizeOverSampleRate = (float) tableSize / (float) getSampleRate();
         tableDelta = frequency * tableSizeOverSampleRate;
@@ -124,6 +122,8 @@ private:
     void createSinetable()
     {
         sinetable.clear();
+
+        // iterate over table of length tableSize, mapping sine waveform
         for (auto i = 0; i < tableSize; i++)
         {
             auto sample = sinf(MathConstants<float>::twoPi * (float) i / tableSize);
@@ -132,16 +132,31 @@ private:
     }
 
     //==========================================================================
+    forcedinline void updateEnvelopeParameters() noexcept
+    {
+        envelopeParameters.attack   = *attack;
+        envelopeParameters.decay    = *decay;
+        envelopeParameters.sustain  = powf(2, *sustain / 6);
+        envelopeParameters.release  = *release;
+    }
+
+    //==========================================================================
     AudioProcessorValueTreeState& parameters;
 
     // value tree state parameters
-    float* level;
+    std::atomic<float>* attack;
+    std::atomic<float>* decay;
+    std::atomic<float>* sustain;
+    std::atomic<float>* release;
+
+    // synth envelope variables
+    ADSR envelope;
+    ADSR::Parameters envelopeParameters;
 
     // wavetable variables
     Array<float> sinetable;
     float currentTableIndex = 0.0f;
     float frequency = 0.0f;
     float tableDelta = 0.0f;
-    float previousGain;
-    const unsigned int tableSize = 1 << 10; // 1024 - 1
+    const unsigned int tableSize = 1 << 10; // 1024
 };

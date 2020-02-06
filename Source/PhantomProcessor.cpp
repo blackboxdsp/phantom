@@ -45,10 +45,33 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
-    // LEVEL
-    auto p_level = std::make_unique<AudioParameterFloat>(
-        "level", "Level", -45.0f, 6.0f, 0.0f);
-    params.push_back(std::move(p_level));
+    // ATTACK
+    auto p_attack = std::make_unique<AudioParameterFloat>(
+        "attack", "Attack",
+        NormalisableRange<float>(0.001f, 20.0f, 0.01f, getSkewFactor(0.001f, 15.0f, 1.0f)),
+        0.001f);
+    params.push_back(std::move(p_attack));
+
+    // DECAY
+    auto p_decay = std::make_unique<AudioParameterFloat>(
+        "decay", "Decay",
+        NormalisableRange<float>(0.001f, 60.0f, 0.01f, getSkewFactor(0.001f, 30.0f, 1.0f)),
+        0.6f);
+    params.push_back(std::move(p_decay));
+
+    // SUSTAIN
+    auto p_sustain = std::make_unique<AudioParameterFloat>(
+        "sustain", "Sustain",
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f),
+        0.0f);
+    params.push_back(std::move(p_sustain));
+
+    // RELEASE
+    auto p_release = std::make_unique<AudioParameterFloat>(
+        "release", "Release", 
+        NormalisableRange<float>(0.001f, 60.0f, 0.01f, getSkewFactor(0.001f, 30.0f, 1.0f)),
+        0.05f);
+    params.push_back(std::move(p_release));
 
     return { params.begin(), params.end() };
 }
@@ -198,4 +221,10 @@ void PhantomAudioProcessor::setStateInformation (const void* data, int sizeInByt
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new PhantomAudioProcessor();
+}
+
+//==============================================================================
+float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)
+{
+    return std::log((0.5f)) / std::log((center - start) / (end - start));
 }

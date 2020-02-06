@@ -21,13 +21,36 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     int textBoxWidth = 80;
     int textBoxHeight = 20;
 
-    // LEVEL
-    levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    levelSlider.setTextBoxStyle(Slider::NoTextBox, false, textBoxWidth, textBoxHeight);
-    levelSlider.setTextValueSuffix(" dB");
-    levelSlider.setDoubleClickReturnValue(true, 0.0f);
-    levelAttachment.reset(new SliderAttachment(parameters, "level", levelSlider));
-    addAndMakeVisible(&levelSlider);
+    // ATTACK
+    attackSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    attackSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    attackSlider.setTextValueSuffix(" s");
+    attackSlider.setDoubleClickReturnValue(true, 0.001f);
+    attackAttachment.reset(new SliderAttachment(parameters, "attack", attackSlider));
+    addAndMakeVisible(&attackSlider);
+
+    // DECAY
+    decaySlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    decaySlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    decaySlider.setTextValueSuffix(" s");
+    decaySlider.setDoubleClickReturnValue(true, 0.6f);
+    decayAttachment.reset(new SliderAttachment(parameters, "decay", decaySlider));
+    addAndMakeVisible(&decaySlider);
+
+    // SUSTAIN
+    sustainSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    sustainSlider.setDoubleClickReturnValue(true, 0.0f);
+    sustainAttachment.reset(new SliderAttachment(parameters, "sustain", sustainSlider));
+    addAndMakeVisible(&sustainSlider);
+
+    // RELEASE
+    releaseSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    releaseSlider.setTextValueSuffix(" s");
+    releaseSlider.setDoubleClickReturnValue(true, 0.05f);
+    releaseAttachment.reset(new SliderAttachment(parameters, "release", releaseSlider));
+    addAndMakeVisible(&releaseSlider);
 
     //==========================================================================
 
@@ -49,7 +72,10 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     glContext.detach();
 
     // nullify component attachments
-    levelAttachment = nullptr;
+    attackAttachment = nullptr;
+    decayAttachment = nullptr;
+    sustainAttachment = nullptr;
+    releaseAttachment = nullptr;
 }
 
 //==============================================================================
@@ -74,6 +100,10 @@ void PhantomAudioProcessorEditor::resized()
     canvas.removeFromRight(margin);
     canvas.removeFromTop(margin);
 
-    // LEVEL
-    levelSlider.setBounds(canvas);
+    // ADSR
+    auto width = canvas.getWidth() / 4;
+    attackSlider.setBounds(canvas.removeFromLeft(width));
+    decaySlider.setBounds(canvas.removeFromLeft(width));
+    sustainSlider.setBounds(canvas.removeFromLeft(width));
+    releaseSlider.setBounds(canvas.removeFromLeft(width));
 }

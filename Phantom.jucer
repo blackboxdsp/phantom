@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="JrZ1US" name="Phantom" projectType="audioplug" jucerVersion="5.4.5"
+<JUCERPROJECT id="JrZ1US" name="Phantom" projectType="audioplug" jucerVersion="5.4.6"
               companyName="Maxwell Audio" companyWebsite="mattmaxwell.tech"
               companyEmail="maxwellmattryan@gmail.com" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginFormats="buildAU,buildVST3">

@@ -17,6 +17,10 @@
 			isa = PBXBuildFile;
 			fileRef = CA8F26F0026D1B60B00C45C9;
 		};
+		017736F6C677D6EE0FAC1FF0 = {
+			isa = PBXBuildFile;
+			fileRef = F568363BA7F920F40C726CC8;
+		};
 		76F046BDDDB3441D5F3A759D = {
 			isa = PBXBuildFile;
 			fileRef = 20CCB9C4E0F552141872CF8F;
@@ -24,10 +28,6 @@
 		3F61CA422DC293413CD6E5B9 = {
 			isa = PBXBuildFile;
 			fileRef = 2B5BF017C2BBC0630828E817;
-		};
-		017736F6C677D6EE0FAC1FF0 = {
-			isa = PBXBuildFile;
-			fileRef = F568363BA7F920F40C726CC8;
 		};
 		A1CB54A0E887B4D0691DC674 = {
 			isa = PBXBuildFile;
@@ -306,12 +306,26 @@
 			path = ../../Source/PhantomProcessor.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		5AA8EC05F8406A74D0BDF435 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_graphics";
+			path = "~/JUCE/modules/juce_graphics";
+			sourceTree = "<absolute>";
+		};
 		68421909DCA79FD3FD84B343 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
 			name = CoreAudioKit.framework;
 			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
+		};
+		697E7D3D981F4114EEEDC48F = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.r;
+			name = "include_juce_audio_plugin_client_AU.r";
+			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r";
+			sourceTree = "SOURCE_ROOT";
 		};
 		A88881FE330C739B99B4A166 = {
 			isa = PBXFileReference;
@@ -326,20 +340,6 @@
 			includeInIndex = 0;
 			path = Phantom.component;
 			sourceTree = "BUILT_PRODUCTS_DIR";
-		};
-		5AA8EC05F8406A74D0BDF435 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_graphics";
-			path = "~/JUCE/modules/juce_graphics";
-			sourceTree = "<absolute>";
-		};
-		697E7D3D981F4114EEEDC48F = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.r;
-			name = "include_juce_audio_plugin_client_AU.r";
-			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r";
-			sourceTree = "SOURCE_ROOT";
 		};
 		6F46317CBE8A69E8913A9D3D = {
 			isa = PBXFileReference;
@@ -430,13 +430,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_plugin_client_AU_1.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU_1.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		9DE0930071D17D877C87D124 = {
-			isa = PBXFileReference;
-			lastKnownFileType = text.plist.xml;
-			name = Phantom.entitlements;
-			path = Phantom.entitlements;
 			sourceTree = "SOURCE_ROOT";
 		};
 		A240BDE1F8F4C81251B411E3 = {
@@ -683,9 +676,9 @@
 		A5632A08FD270C3ABC43AE36 = {
 			isa = PBXGroup;
 			children = (
+				F568363BA7F920F40C726CC8,
 				20CCB9C4E0F552141872CF8F,
 				2B5BF017C2BBC0630828E817,
-				F568363BA7F920F40C726CC8,
 				7BD8E1FDF46DB86844C0019B,
 				6F46317CBE8A69E8913A9D3D,
 				9572733BADD0D750E9502C57,
@@ -727,6 +720,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -734,6 +728,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -1081,6 +1076,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Phantom";
+				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
@@ -1126,6 +1122,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = "Phantom";
+				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
@@ -1273,9 +1270,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				017736F6C677D6EE0FAC1FF0,
 				76F046BDDDB3441D5F3A759D,
 				3F61CA422DC293413CD6E5B9,
-				017736F6C677D6EE0FAC1FF0,
 				A1CB54A0E887B4D0691DC674,
 				AEF767B7A5F09BF6EE8C4A18,
 				FF53EF28A1563A997F0AE04D,
