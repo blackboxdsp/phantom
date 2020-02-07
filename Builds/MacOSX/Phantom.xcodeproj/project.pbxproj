@@ -73,10 +73,6 @@
 			isa = PBXBuildFile;
 			fileRef = B71387EBEF2D2388F8B64B1F;
 		};
-		D022B6BAEFD5F9EAB95FCDC2 = {
-			isa = PBXBuildFile;
-			fileRef = DC2744D526C4471B6B61EC94;
-		};
 		709E4B9421001C8D59964D86 = {
 			isa = PBXBuildFile;
 			fileRef = 2D98F4B189DD172638342D31;
@@ -544,13 +540,6 @@
 			path = System/Library/Frameworks/QuartzCore.framework;
 			sourceTree = SDKROOT;
 		};
-		DC2744D526C4471B6B61EC94 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = PhantomPhasetable.h;
-			path = ../../Source/PhantomPhasetable.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		DE543355D8B48FDA439F7AAA = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -596,7 +585,6 @@
 		E18255857BFDF3D11C92CF74 = {
 			isa = PBXGroup;
 			children = (
-				DC2744D526C4471B6B61EC94,
 				2D98F4B189DD172638342D31,
 				8BD4576D7921CE58D292E6DA,
 				59034C723BC4BD1D49A5F43C,
@@ -1317,7 +1305,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D022B6BAEFD5F9EAB95FCDC2,
 				709E4B9421001C8D59964D86,
 				DA1036D43FC4259CB43081FA,
 				A7E4EA8A6B93AD92802722A0,

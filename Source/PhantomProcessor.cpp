@@ -45,28 +45,34 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
-    // ATTACK
+    // PHASE DISTORTION ========================================================
+    /*auto p_phaseId = std::make_unique<AudioParameterInt>(
+        "phaseId", "Phase ID", 0, 1, 0);
+    params.push_back(std::move(p_phaseId));*/
+
+    auto p_phaseOffset = std::make_unique<AudioParameterFloat>(
+        "offset", "Offset", 0.01f, 0.99f, 0.5f);
+    params.push_back(std::move(p_phaseOffset));
+
+    // ADSR ====================================================================
     auto p_attack = std::make_unique<AudioParameterFloat>(
         "attack", "Attack",
         NormalisableRange<float>(0.001f, 20.0f, 0.01f, getSkewFactor(0.001f, 15.0f, 1.0f)),
         0.001f);
     params.push_back(std::move(p_attack));
 
-    // DECAY
     auto p_decay = std::make_unique<AudioParameterFloat>(
         "decay", "Decay",
         NormalisableRange<float>(0.001f, 60.0f, 0.01f, getSkewFactor(0.001f, 30.0f, 1.0f)),
         0.6f);
     params.push_back(std::move(p_decay));
 
-    // SUSTAIN
     auto p_sustain = std::make_unique<AudioParameterFloat>(
         "sustain", "Sustain",
         NormalisableRange<float>(-60.0f, 0.0f, 0.1f),
         0.0f);
     params.push_back(std::move(p_sustain));
 
-    // RELEASE
     auto p_release = std::make_unique<AudioParameterFloat>(
         "release", "Release", 
         NormalisableRange<float>(0.001f, 60.0f, 0.01f, getSkewFactor(0.001f, 30.0f, 1.0f)),

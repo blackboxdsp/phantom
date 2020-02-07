@@ -21,6 +21,13 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     int textBoxWidth = 80;
     int textBoxHeight = 20;
 
+    // PHASE OFFSET
+    phaseOffsetSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    phaseOffsetSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    phaseOffsetSlider.setDoubleClickReturnValue(true, 0.5f);
+    phaseOffsetAttachment.reset(new SliderAttachment(parameters, "offset", phaseOffsetSlider));
+    addAndMakeVisible(&phaseOffsetSlider);
+
     // ATTACK
     attackSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     attackSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -40,6 +47,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     // SUSTAIN
     sustainSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    sustainSlider.setTextValueSuffix(" dB");
     sustainSlider.setDoubleClickReturnValue(true, 0.0f);
     sustainAttachment.reset(new SliderAttachment(parameters, "sustain", sustainSlider));
     addAndMakeVisible(&sustainSlider);
@@ -101,9 +109,13 @@ void PhantomAudioProcessorEditor::resized()
     canvas.removeFromTop(margin);
 
     // ADSR
-    auto width = canvas.getWidth() / 4;
-    attackSlider.setBounds(canvas.removeFromLeft(width));
-    decaySlider.setBounds(canvas.removeFromLeft(width));
-    sustainSlider.setBounds(canvas.removeFromLeft(width));
-    releaseSlider.setBounds(canvas.removeFromLeft(width));
+    auto adsrRect = canvas.removeFromBottom(canvas.getHeight() / 2);
+    attackSlider.setBounds(adsrRect.removeFromLeft(smallDialSize));
+    decaySlider.setBounds(adsrRect.removeFromLeft(smallDialSize));
+    sustainSlider.setBounds(adsrRect.removeFromLeft(smallDialSize));
+    releaseSlider.setBounds(adsrRect.removeFromLeft(smallDialSize));
+
+    // PHASE DISTORTION
+    auto phaseRect = canvas;
+    phaseOffsetSlider.setBounds(phaseRect);
 }

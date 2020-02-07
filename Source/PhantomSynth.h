@@ -35,20 +35,18 @@ public:
     PhantomVoice(AudioProcessorValueTreeState& vts)
         : parameters(vts), envelope()
     {
-        // write sinetable
-        createSinetable();
+        // update phase distortion parameters
+        //phaseId = parameters.getRawParameterValue("");
+        phaseOffset = parameters.getRawParameterValue("offset");
 
-        // update all parameters
+        // update adsr parameters
         attack = parameters.getRawParameterValue("attack");
         decay = parameters.getRawParameterValue("decay");
         sustain = parameters.getRawParameterValue("sustain");
         release = parameters.getRawParameterValue("release");
     }
 
-    ~PhantomVoice() 
-    {
-
-    }
+    ~PhantomVoice() {};
 
     //==========================================================================
     bool canPlaySound(SynthesiserSound* sound) override
@@ -59,11 +57,10 @@ public:
 
     void startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition = 0) override
     {
+        setPhaseDelta(MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+
         envelope.setSampleRate(getSampleRate());
         envelope.noteOn();
-
-        frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-        setTableDelta(frequency);
 
         DBG("NOTE ON:");
         DBG(midiNoteNumber);
@@ -72,9 +69,8 @@ public:
 
     void stopNote(float velocity, bool allowTailOff) override
     {
-        clearCurrentNote();
-
         envelope.noteOff();
+        clearCurrentNote();
 
         DBG("NOTE OFF:");
         DBG(velocity);
@@ -95,11 +91,10 @@ public:
         // processing loop for samples
         for (int sample = 0; sample < numSamples; sample++)
         {
-            // read current index of sinetable and increment value accordingly (modulo tableSize)
-            auto sampleValue = sinetable[(int) currentTableIndex];
-            currentTableIndex = fmod(currentTableIndex + tableDelta, tableSize);
+            updatePhasor();
+            
+            auto sampleValue = sinf(phasor);
 
-            // apply the envelope
             sampleValue *= envelope.getNextSample();
 
             for (int channel = 0; channel < buffer.getNumChannels(); channel++)
@@ -109,27 +104,7 @@ public:
         }
     }
 
-    //==========================================================================
-    void setTableDelta(float frequency)
-    {
-        auto tableSizeOverSampleRate = (float) tableSize / (float) getSampleRate();
-        tableDelta = frequency * tableSizeOverSampleRate;
-    }
-
 private:
-
-    //==========================================================================
-    void createSinetable()
-    {
-        sinetable.clear();
-
-        // iterate over table of length tableSize, mapping sine waveform
-        for (auto i = 0; i < tableSize; i++)
-        {
-            auto sample = sinf(MathConstants<float>::twoPi * (float) i / tableSize);
-            sinetable.insert(i, sample);
-        }
-    }
 
     //==========================================================================
     forcedinline void updateEnvelopeParameters() noexcept
@@ -141,22 +116,53 @@ private:
     }
 
     //==========================================================================
+    forcedinline void updatePhasor() noexcept
+    {
+        // TOOD: use phaseId later to determine different phasor curves...
+        
+        auto currentPosition = phasePosition / MathConstants<float>::twoPi;
+        if (currentPosition < *phaseOffset)
+        {
+            float m1 = 0.5f / *phaseOffset;
+            phasor = m1 * currentPosition;
+        }
+        else
+        {
+            float m2 = 0.5f / (1.0f - *phaseOffset);
+            float b2 = 1.0f - m2;
+            phasor = m2 * currentPosition + b2;
+        }
+
+        phasor *= MathConstants<float>::twoPi;
+
+        phasePosition = fmod(phasePosition + phaseDelta, MathConstants<float>::twoPi);
+    }
+
+    void setPhaseDelta(float frequency)
+    {
+        auto cyclesPerSample = frequency / (float) getSampleRate();
+        phaseDelta = cyclesPerSample * MathConstants<float>::twoPi;
+    }
+
+    //==========================================================================
     AudioProcessorValueTreeState& parameters;
 
-    // value tree state parameters
+    // phase distortion parameters
+    //std::atomic<float>* phaseId;
+    std::atomic<float>* phaseOffset;
+
+    // phase distortion variables
+    float phasor = 0.0f;
+    float phasePosition = 0.0f;
+    float phaseDelta = 0.0f;
+
+    // ADSR parameters
     std::atomic<float>* attack;
     std::atomic<float>* decay;
     std::atomic<float>* sustain;
     std::atomic<float>* release;
 
-    // synth envelope variables
+    // synth variables
     ADSR envelope;
     ADSR::Parameters envelopeParameters;
-
-    // wavetable variables
-    Array<float> sinetable;
-    float currentTableIndex = 0.0f;
-    float frequency = 0.0f;
-    float tableDelta = 0.0f;
-    const unsigned int tableSize = 1 << 10; // 1024
 };
