@@ -43,6 +43,8 @@ private:
     // PHASE DISTORTION
     Slider                              phaseIdSlider;
     std::unique_ptr<SliderAttachment>   phaseIdAttachment;
+    Slider                              phaseIntensitySlider;
+    std::unique_ptr<SliderAttachment>   phaseIntensityAttachment;
 
     // ADSR 
     Slider                              attackSlider;

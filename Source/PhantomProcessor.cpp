@@ -50,6 +50,10 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         "phaseId", "Phase ID", 0, 1, 0);
     params.push_back(std::move(p_phaseId));
 
+    auto p_phaseIntensity = std::make_unique<AudioParameterFloat>(
+        "phaseIntensity", "Phase Intensity", 0.0f, 0.5f, 0.5f);
+    params.push_back(std::move(p_phaseIntensity));
+
     // ADSR ====================================================================
     auto p_attack = std::make_unique<AudioParameterFloat>(
         "attack", "Attack",
