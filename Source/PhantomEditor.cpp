@@ -21,12 +21,12 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     int textBoxWidth = 80;
     int textBoxHeight = 20;
 
-    // PHASE OFFSET
-    phaseOffsetSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    phaseOffsetSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    phaseOffsetSlider.setDoubleClickReturnValue(true, 0.5f);
-    phaseOffsetAttachment.reset(new SliderAttachment(parameters, "offset", phaseOffsetSlider));
-    addAndMakeVisible(&phaseOffsetSlider);
+    // PHASE ID
+    phaseIdSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    phaseIdSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    phaseIdSlider.setDoubleClickReturnValue(true, 0);
+    phaseIdAttachment.reset(new SliderAttachment(parameters, "phaseId", phaseIdSlider));
+    addAndMakeVisible(&phaseIdSlider);
 
     // ATTACK
     attackSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -117,5 +117,5 @@ void PhantomAudioProcessorEditor::resized()
 
     // PHASE DISTORTION
     auto phaseRect = canvas;
-    phaseOffsetSlider.setBounds(phaseRect);
+    phaseIdSlider.setBounds(phaseRect);
 }

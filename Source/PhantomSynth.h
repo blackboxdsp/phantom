@@ -36,8 +36,7 @@ public:
         : parameters(vts), envelope()
     {
         // update phase distortion parameters
-        //phaseId = parameters.getRawParameterValue("");
-        phaseOffset = parameters.getRawParameterValue("offset");
+        phaseId = parameters.getRawParameterValue("phaseId");
 
         // update adsr parameters
         attack = parameters.getRawParameterValue("attack");
@@ -61,20 +60,12 @@ public:
 
         envelope.setSampleRate(getSampleRate());
         envelope.noteOn();
-
-        DBG("NOTE ON:");
-        DBG(midiNoteNumber);
-        DBG(velocity);
     }
 
     void stopNote(float velocity, bool allowTailOff) override
     {
         envelope.noteOff();
         clearCurrentNote();
-
-        DBG("NOTE OFF:");
-        DBG(velocity);
-        DBG("");
     }
 
     //==========================================================================
@@ -93,7 +84,7 @@ public:
         {
             updatePhasor();
             
-            auto sampleValue = sinf(phasor);
+            auto sampleValue = cosf(phasor);
 
             sampleValue *= envelope.getNextSample();
 
@@ -117,20 +108,29 @@ private:
 
     //==========================================================================
     forcedinline void updatePhasor() noexcept
-    {
-        // TOOD: use phaseId later to determine different phasor curves...
-        
+    {        
+        // get current position in float from 0.0f to 1.0f
         auto currentPosition = phasePosition / MathConstants<float>::twoPi;
-        if (currentPosition < *phaseOffset)
+
+        // update phaseOffset according to DCW envelope (see Casio CZ-101 manual)
+        phaseOffset = envelope.getNextSample() * -0.5f + 0.5f;
+
+        switch ((int) *phaseId)
         {
-            float m1 = 0.5f / *phaseOffset;
-            phasor = m1 * currentPosition;
-        }
-        else
-        {
-            float m2 = 0.5f / (1.0f - *phaseOffset);
-            float b2 = 1.0f - m2;
-            phasor = m2 * currentPosition + b2;
+            // SAWTOOTH WAVE
+            default:
+            case 0:
+                if (currentPosition < phaseOffset)
+                {
+                    float m1 = 0.5f / phaseOffset;
+                    phasor = m1 * currentPosition;
+                }
+                else
+                {
+                    float m2 = 0.5f / (1.0f - phaseOffset);
+                    float b2 = 1.0f - m2;
+                    phasor = m2 * currentPosition + b2;
+                }
         }
 
         phasor *= MathConstants<float>::twoPi;
@@ -148,13 +148,13 @@ private:
     AudioProcessorValueTreeState& parameters;
 
     // phase distortion parameters
-    //std::atomic<float>* phaseId;
-    std::atomic<float>* phaseOffset;
+    std::atomic<float>* phaseId;
 
     // phase distortion variables
     float phasor = 0.0f;
-    float phasePosition = 0.0f;
     float phaseDelta = 0.0f;
+    float phaseOffset = 0.5f;
+    float phasePosition = 0.0f;
 
     // ADSR parameters
     std::atomic<float>* attack;

@@ -41,8 +41,8 @@ private:
     // COMPONENTS ==============================================================
 
     // PHASE DISTORTION
-    Slider                              phaseOffsetSlider;
-    std::unique_ptr<SliderAttachment>   phaseOffsetAttachment;
+    Slider                              phaseIdSlider;
+    std::unique_ptr<SliderAttachment>   phaseIdAttachment;
 
     // ADSR 
     Slider                              attackSlider;

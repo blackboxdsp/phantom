@@ -46,13 +46,9 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
     // PHASE DISTORTION ========================================================
-    /*auto p_phaseId = std::make_unique<AudioParameterInt>(
+    auto p_phaseId = std::make_unique<AudioParameterInt>(
         "phaseId", "Phase ID", 0, 1, 0);
-    params.push_back(std::move(p_phaseId));*/
-
-    auto p_phaseOffset = std::make_unique<AudioParameterFloat>(
-        "offset", "Offset", 0.01f, 0.99f, 0.5f);
-    params.push_back(std::move(p_phaseOffset));
+    params.push_back(std::move(p_phaseId));
 
     // ADSR ====================================================================
     auto p_attack = std::make_unique<AudioParameterFloat>(
