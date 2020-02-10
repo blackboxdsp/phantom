@@ -11,11 +11,11 @@
       <FILE id="tyQGS6" name="PhantomSynth.h" compile="1" resource="0" file="Source/PhantomSynth.h"/>
       <FILE id="uKmiGV" name="PhantomProcessor.cpp" compile="1" resource="0"
             file="Source/PhantomProcessor.cpp"/>
-      <FILE id="ytkNR4" name="PhantomProcessor.h" compile="1" resource="0"
+      <FILE id="ytkNR4" name="PhantomProcessor.h" compile="0" resource="0"
             file="Source/PhantomProcessor.h"/>
       <FILE id="uRcjGB" name="PhantomEditor.cpp" compile="1" resource="0"
             file="Source/PhantomEditor.cpp"/>
-      <FILE id="PMGXeZ" name="PhantomEditor.h" compile="1" resource="0" file="Source/PhantomEditor.h"/>
+      <FILE id="PMGXeZ" name="PhantomEditor.h" compile="0" resource="0" file="Source/PhantomEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

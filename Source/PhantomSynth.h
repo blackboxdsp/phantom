@@ -28,17 +28,117 @@ public:
 };
 
 //==============================================================================
+class PhantomPhasor
+{
+public:
+    //==========================================================================
+    PhantomPhasor(AudioProcessorValueTreeState& vts)     
+        : parameters(vts)
+    {
+        // update phase distortion parameters
+        phaseId = parameters.getRawParameterValue("phaseId");
+        phaseIntensity = parameters.getRawParameterValue("phaseIntensity");
+    };
+
+    ~PhantomPhasor()    
+    {
+
+    };
+
+    //==========================================================================
+    void setPhaseDelta(float frequency, float sampleRate)
+    {
+        auto cyclesPerSample = frequency / sampleRate;
+        phaseDelta = cyclesPerSample * MathConstants<float>::twoPi;
+    }
+
+    forcedinline float getNextSample(float envelope) noexcept
+    {
+        // get current position in float from 0.0f to 1.0f
+        auto currentPhase = phase / MathConstants<float>::twoPi;
+
+        // update phaseOffset according to DCW envelope (see Casio CZ-101 manual)
+        phaseOffset = *phaseIntensity * envelope * -0.5f + 0.5f;
+
+        switch ((int) *phaseId)
+        {
+            // SAWTOOTH WAVE
+            default:
+            case 0:
+                phasor = Sawtooth(currentPhase, phaseOffset);
+                break;
+
+            // SQUARE WAVE 
+            case 1:
+                phasor = Square(currentPhase, phaseOffset);
+                break;
+        }
+
+        phase = fmod(phase + phaseDelta, MathConstants<float>::twoPi);
+
+        phasor *= MathConstants<float>::twoPi;
+
+        return phasor;
+    }
+
+private:
+    //==========================================================================
+    float Sawtooth(float currentPhase, float phaseOffset)
+    {
+        float m;
+        if (currentPhase < phaseOffset)
+        {
+            m = 0.5f / phaseOffset;
+            phasor = m * currentPhase;
+        }
+        else
+        {
+            m = 0.5f / (1.0f - phaseOffset);
+            float b = 1.0f - m;
+            phasor = m * currentPhase + b;
+        }
+        return phasor;
+    };
+
+    float Square(float currentPhase, float phaseOffset)
+    {
+        float m;
+        if (currentPhase < phaseOffset)
+        {
+            m = 0.5f / phaseOffset;
+            phasor = m * currentPhase;
+        }
+        else
+        {
+            m = 0.1f / (1.0f - phaseOffset);
+            float b = 0.6f;
+            phasor = m * currentPhase + b;
+        }
+        return phasor;
+    }
+
+    //==========================================================================
+    AudioProcessorValueTreeState& parameters;
+
+    // phase distortion parameters
+    std::atomic<float>* phaseId;
+    std::atomic<float>* phaseIntensity;
+
+    // phase distortion variables
+    float phasor = 0.0f;
+    float phase = 0.0f;
+    float phaseDelta = 0.0f;
+    float phaseOffset = 0.5f;
+};
+
+//==============================================================================
 class PhantomVoice : public SynthesiserVoice
 {
 public:
     //==========================================================================
     PhantomVoice(AudioProcessorValueTreeState& vts)
-        : parameters(vts), envelope()
+        : parameters(vts), envelope(), phasor(vts)
     {
-        // update phase distortion parameters
-        phaseId = parameters.getRawParameterValue("phaseId");
-        phaseIntensity = parameters.getRawParameterValue("phaseIntensity");
-
         // update adsr parameters
         attack = parameters.getRawParameterValue("attack");
         decay = parameters.getRawParameterValue("decay");
@@ -60,7 +160,7 @@ public:
 
     void startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition = 0) override
     {
-        setPhaseDelta(MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+        phasor.setPhaseDelta(MidiMessage::getMidiNoteInHertz(midiNoteNumber), getSampleRate());
 
         envelope.setSampleRate(getSampleRate());
         envelope.noteOn();
@@ -85,12 +185,11 @@ public:
 
         // processing loop for samples
         for (int sample = 0; sample < numSamples; sample++)
-        {
-            updatePhasor();
-            
-            auto sampleValue = cosf(phasor);
+        {            
+            auto envelopeValue = envelope.getNextSample();
+            auto sampleValue = cosf(phasor.getNextSample(envelopeValue));
 
-            sampleValue *= envelope.getNextSample();
+            sampleValue *= envelopeValue;
 
             for (int channel = 0; channel < buffer.getNumChannels(); channel++)
                 buffer.setSample(channel, startSample, sampleValue);
@@ -111,55 +210,7 @@ private:
     }
 
     //==========================================================================
-    forcedinline void updatePhasor() noexcept
-    {        
-        // get current position in float from 0.0f to 1.0f
-        auto currentPosition = phasePosition / MathConstants<float>::twoPi;
-
-        // update phaseOffset according to DCW envelope (see Casio CZ-101 manual)
-        phaseOffset = *phaseIntensity * envelope.getNextSample() * -0.5f + 0.5f;
-
-        switch ((int) *phaseId)
-        {
-            // SAWTOOTH WAVE
-            default:
-            case 0:
-                if (currentPosition < phaseOffset)
-                {
-                    float m1 = 0.5f / phaseOffset;
-                    phasor = m1 * currentPosition;
-                }
-                else
-                {
-                    float m2 = 0.5f / (1.0f - phaseOffset);
-                    float b2 = 1.0f - m2;
-                    phasor = m2 * currentPosition + b2;
-                }
-        }
-
-        phasor *= MathConstants<float>::twoPi;
-
-        phasePosition = fmod(phasePosition + phaseDelta, MathConstants<float>::twoPi);
-    }
-
-    void setPhaseDelta(float frequency)
-    {
-        auto cyclesPerSample = frequency / (float) getSampleRate();
-        phaseDelta = cyclesPerSample * MathConstants<float>::twoPi;
-    }
-
-    //==========================================================================
     AudioProcessorValueTreeState& parameters;
-
-    // phase distortion parameters
-    std::atomic<float>* phaseId;
-    std::atomic<float>* phaseIntensity;
-
-    // phase distortion variables
-    float phasor = 0.0f;
-    float phaseDelta = 0.0f;
-    float phaseOffset = 0.5f;
-    float phasePosition = 0.0f;
 
     // ADSR parameters
     std::atomic<float>* attack;
@@ -170,4 +221,5 @@ private:
     // synth variables
     ADSR envelope;
     ADSR::Parameters envelopeParameters;
+    PhantomPhasor phasor;
 };

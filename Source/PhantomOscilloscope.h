@@ -20,7 +20,7 @@ public:
     //==========================================================================
     PhantomOscilloscope()   
     {
-        startTimerHz(30);
+        startTimerHz(60);
     };
 
     ~PhantomOscilloscope()  
