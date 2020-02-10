@@ -1978,6 +1978,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\PhantomOscilloscope.h"/>
     <ClInclude Include="..\..\Source\PhantomSynth.h"/>
     <ClInclude Include="..\..\Source\PhantomProcessor.h"/>
     <ClInclude Include="..\..\Source\PhantomEditor.h"/>

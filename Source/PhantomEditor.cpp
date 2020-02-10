@@ -15,7 +15,8 @@
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts)
     : AudioProcessorEditor (&p), 
       processor (p),
-      parameters(vts)
+      parameters(vts),
+      phaseOscilloscope()
 {
     // GUI variables
     int textBoxWidth = 80;
@@ -69,6 +70,11 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
     //==========================================================================
 
+    phaseOscilloscope = std::make_unique<PhantomOscilloscope>();
+    addAndMakeVisible(phaseOscilloscope.get());
+
+    //==========================================================================
+
     // handle open gl initializing
     glContext.setComponentPaintingEnabled(true);
     glContext.attachTo(*this);
@@ -96,7 +102,7 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 //==============================================================================
 void PhantomAudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll(Colours::darkblue);
+    g.fillAll(primaryColour);
 }
 
 void PhantomAudioProcessorEditor::resized()
@@ -117,13 +123,16 @@ void PhantomAudioProcessorEditor::resized()
 
     // ADSR
     auto adsrRect = canvas.removeFromBottom(canvas.getHeight() / 2);
-    attackSlider.setBounds(adsrRect.removeFromLeft(smallDialSize));
-    decaySlider.setBounds(adsrRect.removeFromLeft(smallDialSize));
-    sustainSlider.setBounds(adsrRect.removeFromLeft(smallDialSize));
-    releaseSlider.setBounds(adsrRect.removeFromLeft(smallDialSize));
+    auto quarter = adsrRect.getWidth() / 4;
+    attackSlider.setBounds(adsrRect.removeFromLeft(quarter));
+    decaySlider.setBounds(adsrRect.removeFromLeft(quarter));
+    sustainSlider.setBounds(adsrRect.removeFromLeft(quarter));
+    releaseSlider.setBounds(adsrRect);
 
     // PHASE DISTORTION
     auto phaseRect = canvas;
-    phaseIdSlider.setBounds(phaseRect.removeFromLeft(phaseRect.getWidth() / 2));
-    phaseIntensitySlider.setBounds(phaseRect);
+    quarter = phaseRect.getWidth() / 4;
+    phaseIdSlider.setBounds(phaseRect.removeFromLeft(quarter));
+    phaseIntensitySlider.setBounds(phaseRect.removeFromLeft(quarter));
+    phaseOscilloscope->setBounds(phaseRect);
 }

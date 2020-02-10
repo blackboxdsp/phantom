@@ -37,6 +37,7 @@ public:
     {
         // update phase distortion parameters
         phaseId = parameters.getRawParameterValue("phaseId");
+        phaseIntensity = parameters.getRawParameterValue("phaseIntensity");
 
         // update adsr parameters
         attack = parameters.getRawParameterValue("attack");
@@ -45,7 +46,10 @@ public:
         release = parameters.getRawParameterValue("release");
     }
 
-    ~PhantomVoice() {};
+    ~PhantomVoice() 
+    {
+    
+    };
 
     //==========================================================================
     bool canPlaySound(SynthesiserSound* sound) override
@@ -113,7 +117,7 @@ private:
         auto currentPosition = phasePosition / MathConstants<float>::twoPi;
 
         // update phaseOffset according to DCW envelope (see Casio CZ-101 manual)
-        phaseOffset = envelope.getNextSample() * -0.5f + 0.5f;
+        phaseOffset = *phaseIntensity * envelope.getNextSample() * -0.5f + 0.5f;
 
         switch ((int) *phaseId)
         {
@@ -149,6 +153,7 @@ private:
 
     // phase distortion parameters
     std::atomic<float>* phaseId;
+    std::atomic<float>* phaseIntensity;
 
     // phase distortion variables
     float phasor = 0.0f;

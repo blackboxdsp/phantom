@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#include "PhantomOscilloscope.h"
 #include "PhantomProcessor.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
@@ -29,6 +30,9 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+    //==========================================================================
+    std::unique_ptr<PhantomOscilloscope> phaseOscilloscope;
+
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -38,7 +42,10 @@ private:
 
     OpenGLContext glContext;
 
+    const Colour primaryColour = Colour::fromRGBA(78, 152, 212, 255);
+
     // COMPONENTS ==============================================================
+
 
     // PHASE DISTORTION
     Slider                              phaseIdSlider;

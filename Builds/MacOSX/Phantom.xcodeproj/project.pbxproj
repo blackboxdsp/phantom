@@ -73,6 +73,10 @@
 			isa = PBXBuildFile;
 			fileRef = B71387EBEF2D2388F8B64B1F;
 		};
+		1CB4553E09C987476DEF8F0C = {
+			isa = PBXBuildFile;
+			fileRef = DC80D4B5FFC241701D30B594;
+		};
 		709E4B9421001C8D59964D86 = {
 			isa = PBXBuildFile;
 			fileRef = 2D98F4B189DD172638342D31;
@@ -540,6 +544,13 @@
 			path = System/Library/Frameworks/QuartzCore.framework;
 			sourceTree = SDKROOT;
 		};
+		DC80D4B5FFC241701D30B594 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = PhantomOscilloscope.h;
+			path = ../../Source/PhantomOscilloscope.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		DE543355D8B48FDA439F7AAA = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -585,6 +596,7 @@
 		E18255857BFDF3D11C92CF74 = {
 			isa = PBXGroup;
 			children = (
+				DC80D4B5FFC241701D30B594,
 				2D98F4B189DD172638342D31,
 				8BD4576D7921CE58D292E6DA,
 				59034C723BC4BD1D49A5F43C,
@@ -1305,6 +1317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CB4553E09C987476DEF8F0C,
 				709E4B9421001C8D59964D86,
 				DA1036D43FC4259CB43081FA,
 				A7E4EA8A6B93AD92802722A0,

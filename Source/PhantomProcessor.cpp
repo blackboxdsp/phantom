@@ -51,7 +51,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     params.push_back(std::move(p_phaseId));
 
     auto p_phaseIntensity = std::make_unique<AudioParameterFloat>(
-        "phaseIntensity", "Phase Intensity", 0.0f, 0.5f, 0.5f);
+        "phaseIntensity", "Phase Intensity", 0.0f, 1.0f, 1.0f);
     params.push_back(std::move(p_phaseIntensity));
 
     // ADSR ====================================================================
@@ -189,8 +189,16 @@ bool PhantomAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) 
 
 void PhantomAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
+    // clear any unwanted data from buffer
     buffer.clear();
+
+    // call synth method to fill buffer
     phantomSynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+
+    // push samples to the oscilloscope buffer
+    PhantomAudioProcessorEditor* editor = static_cast<PhantomAudioProcessorEditor*>(getActiveEditor());
+    if (editor)
+        editor->phaseOscilloscope->readBuffer(buffer);
 }
 
 //==============================================================================
