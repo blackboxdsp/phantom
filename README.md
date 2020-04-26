@@ -10,7 +10,7 @@ Phantom is a phase distortion synthesizer plugin targeting VST3 and AU for OS X 
 
 ## Dependencies
 
-- JUCE (v5.4.6)
+- JUCE (v5.4.7)
 - VST3 SDK (v3.6.14)
 
 ## Usage

@@ -1,0 +1,580 @@
+{
+	"archive" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/machine:x64 /IGNORE:4221",
+				"role" : "flags"
+			}
+		]
+	},
+	"artifacts" : 
+	[
+		{
+			"path" : "lib/vstgui_standalone.lib"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"add_compile_options",
+			"include",
+			"setupPlatformToolset",
+			"target_compile_definitions",
+			"add_definitions"
+		],
+		"files" : 
+		[
+			"vstgui4/vstgui/standalone/CMakeLists.txt",
+			"cmake/modules/Global.cmake",
+			"cmake/modules/SMTG_VST3_SDK.cmake",
+			"CMakeLists.txt",
+			"cmake/modules/PlatformToolset.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 122,
+				"parent" : 0
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 3,
+				"line" : 10,
+				"parent" : 2
+			},
+			{
+				"file" : 2,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 2,
+				"parent" : 4
+			},
+			{
+				"file" : 1,
+				"parent" : 5
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 99,
+				"parent" : 6
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 104,
+				"parent" : 6
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 106,
+				"parent" : 6
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 112,
+				"parent" : 6
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 17,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 4,
+				"line" : 5,
+				"parent" : 11
+			},
+			{
+				"command" : 1,
+				"file" : 4,
+				"line" : 47,
+				"parent" : 11
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 124,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 46,
+				"parent" : 11
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /Zi /MDd /Zi /Ob0 /Od /RTC1  "
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-DDEVELOPMENT=1"
+				},
+				{
+					"backtrace" : 8,
+					"fragment" : "/MP"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "/ZI"
+				},
+				{
+					"backtrace" : 10,
+					"fragment" : "/MDd"
+				},
+				{
+					"backtrace" : 12,
+					"fragment" : "-DSMTG_RENAME_ASSERT=1"
+				},
+				{
+					"backtrace" : 13,
+					"fragment" : "/fp:fast"
+				},
+				{
+					"fragment" : "-std:c++14"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 14,
+					"define" : "DEBUG"
+				},
+				{
+					"backtrace" : 14,
+					"define" : "VSTGUI_LIVE_EDITING"
+				},
+				{
+					"backtrace" : 14,
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 15,
+					"define" : "_UNICODE"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				29,
+				31,
+				33,
+				35,
+				36,
+				39,
+				40,
+				41,
+				44,
+				45,
+				47,
+				49
+			]
+		}
+	],
+	"folder" : 
+	{
+		"name" : "Libraries"
+	},
+	"id" : "vstgui_standalone::@8800145cdd56d2a8ebc3",
+	"name" : "vstgui_standalone",
+	"nameOnDisk" : "vstgui_standalone.lib",
+	"paths" : 
+	{
+		"build" : "vstgui4/vstgui/standalone",
+		"source" : "vstgui4/vstgui/standalone"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "include",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18
+			]
+		},
+		{
+			"name" : "include\\helpers",
+			"sourceIndexes" : 
+			[
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26
+			]
+		},
+		{
+			"name" : "include\\helpers\\uidesc",
+			"sourceIndexes" : 
+			[
+				27,
+				28
+			]
+		},
+		{
+			"name" : "source",
+			"sourceIndexes" : 
+			[
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37
+			]
+		},
+		{
+			"name" : "source\\platform",
+			"sourceIndexes" : 
+			[
+				38
+			]
+		},
+		{
+			"name" : "source\\helpers",
+			"sourceIndexes" : 
+			[
+				39
+			]
+		},
+		{
+			"name" : "source\\platform\\win32",
+			"sourceIndexes" : 
+			[
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/appinit.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/doc.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/fwd.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/ialertbox.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/iappdelegate.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/iapplication.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/iasync.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/icommand.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/icommondirectories.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/imenubuilder.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/interface.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/ipreference.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/ishareduiresources.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/iuidescwindow.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/ivalue.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/ivaluelistener.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/iwindow.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/iwindowcontroller.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/iwindowlistener.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/appdelegate.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/async.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/menubuilder.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/preferences.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/value.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/valuelistener.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/windowcontroller.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/windowlistener.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/uidesc/modelbinding.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/include/helpers/uidesc/customization.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/application.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/application.h",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/genericalertbox.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/genericalertbox.h",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/shareduiresources.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/shareduiresources.h",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/uidescriptionwindowcontroller.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/window.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/window.h",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/platform/iplatformwindow.h",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/helpers/value.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32application.cpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32async.cpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32async.h",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32commondirectories.h",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32commondirectories.cpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32menu.cpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32menu.h",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32preference.cpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32preference.h",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32window.cpp",
+			"sourceGroupIndex" : 6
+		},
+		{
+			"backtrace" : 1,
+			"path" : "vstgui4/vstgui/standalone/source/platform/win32/win32window.h",
+			"sourceGroupIndex" : 6
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

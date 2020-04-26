@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="ZsdYaQ" name="Phantom" projectType="audioplug" jucerVersion="5.4.7"
+              version="0.0.1" companyName="Maxwell Audio" companyWebsite="mattmaxwell.tech"
+              companyEmail="maxwellmattryan@gmail.com" pluginFormats="buildAU,buildVST3"
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
+              pluginName="Phantom" pluginDesc="Phase distortion synthesizer"
+              pluginManufacturer="Maxwell Audio" binaryDataNamespace="PhantomData"
+              cppLanguageStandard="17">
+  <MAINGROUP id="zSxiOh" name="Phantom">
+    <GROUP id="{1BEC0AF4-F3B4-3C6D-6A8E-6590504FBDD2}" name="src">
+      <FILE id="ypoLWi" name="editor.cpp" compile="1" resource="0" file="src/editor.cpp"/>
+      <FILE id="ZBPhH7" name="editor.h" compile="0" resource="0" file="src/editor.h"/>
+      <FILE id="F0o6Qx" name="processor.cpp" compile="1" resource="0" file="src/processor.cpp"/>
+      <FILE id="Ylhrko" name="processor.h" compile="0" resource="0" file="src/processor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="builds/mac-osx" vst3Folder="vst3-sdk">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="debug" targetName="Phantom"/>
+        <CONFIGURATION isDebug="0" name="release" targetName="Phantom"/>
+        <CONFIGURATION isDebug="0" name="dist" targetName="Phantom" enablePluginBinaryCopyStep="0"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../frameworks/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2019 targetFolder="builds/visual-studio-2019" vst3Folder="vst3-sdk">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="debug" enablePluginBinaryCopyStep="1" vst3BinaryLocation="C:\Program Files\Vst3plugins\"
+                       targetName="Phantom"/>
+        <CONFIGURATION isDebug="0" name="release" enablePluginBinaryCopyStep="1" vst3BinaryLocation="C:\Program Files\Vst3plugins\"
+                       targetName="Phantom"/>
+        <CONFIGURATION isDebug="0" name="dist" targetName="Phantom"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../frameworks/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../frameworks/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2019>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+</JUCERPROJECT>

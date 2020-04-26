@@ -1,0 +1,5 @@
+# Directories and folders
+.vs/
+
+phantom/builds/visual-studio-2019/x64
+phantom/builds/mac-osx/build

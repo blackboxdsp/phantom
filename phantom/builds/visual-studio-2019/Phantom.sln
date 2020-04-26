@@ -1,0 +1,34 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2019
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Phantom - VST3", "Phantom_VST3.vcxproj", "{1DB8432F-1AD4-D599-FCDE-F032CB575E84}"
+	ProjectSection(ProjectDependencies) = postProject
+		{480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5} = {480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Phantom - Shared Code", "Phantom_SharedCode.vcxproj", "{480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		debug|x64 = debug|x64
+		release|x64 = release|x64
+		dist|x64 = dist|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DB8432F-1AD4-D599-FCDE-F032CB575E84}.debug|x64.ActiveCfg = debug|x64
+		{1DB8432F-1AD4-D599-FCDE-F032CB575E84}.debug|x64.Build.0 = debug|x64
+		{1DB8432F-1AD4-D599-FCDE-F032CB575E84}.release|x64.ActiveCfg = release|x64
+		{1DB8432F-1AD4-D599-FCDE-F032CB575E84}.release|x64.Build.0 = release|x64
+		{1DB8432F-1AD4-D599-FCDE-F032CB575E84}.dist|x64.ActiveCfg = dist|x64
+		{1DB8432F-1AD4-D599-FCDE-F032CB575E84}.dist|x64.Build.0 = dist|x64
+		{480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5}.debug|x64.ActiveCfg = debug|x64
+		{480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5}.debug|x64.Build.0 = debug|x64
+		{480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5}.release|x64.ActiveCfg = release|x64
+		{480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5}.release|x64.Build.0 = release|x64
+		{480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5}.dist|x64.ActiveCfg = dist|x64
+		{480F1ACD-F232-878C-5AD5-2F5EA6EC2BC5}.dist|x64.Build.0 = dist|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
