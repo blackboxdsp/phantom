@@ -1,2 +1,3 @@
 # Python3 virtual environment 
 venv/
+phantom/__pycache__/
