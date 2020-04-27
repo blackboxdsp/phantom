@@ -10,8 +10,6 @@ class Buffer(object):
 
     #===========================================================================
     def __init__(self, buffer_size: int):
-        assert buffer_size >= 1, f"Invalid buffer size"
-
         self.buffer_size = int(buffer_size)
         self.clear()
 
@@ -29,22 +27,14 @@ class Buffer(object):
         return [sample for sample in self.buffer]
 
     def set_buffer(self, buffer: list) -> None:
-        for sample in buffer:
-            assert isinstance(sample, Sample), f"{sample} is Non-Sample object"
-
         self.buffer = buffer
         self.buffer_size = len(buffer)
 
     #===========================================================================
     def get_sample(self, index: int) -> Sample:
-        assert (index >= 0 and index < self.buffer_size), f"Invalid sample index for buffer of size {self.buffer_size}"
-        
         return self.buffer[index]
 
     def set_sample(self, index: int, sample: Sample) -> None:
-        assert index >= 0 and index < self.buffer_size, f"Invalid sample index for buffer of size {self.buffer_size}"
-        assert isinstance(sample, Sample), f"{sample} is Non-Sample object"
-
         self.buffer[index] = sample
 
     #===========================================================================
@@ -68,9 +58,6 @@ class Buffer(object):
 
     #===========================================================================
     def export_wav(self, filename: str, sampling_rate: int) -> None:
-        assert isinstance(filename, str), "Invalid filename"
-        assert sampling_rate >= 1, "Invalid sampling rate"
-
         signal = np.array(self.get_raw_buffer())
 
         w.write(filename, signal, sampling_rate, sampwidth = 3)
