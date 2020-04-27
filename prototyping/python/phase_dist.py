@@ -4,6 +4,7 @@ import random
 
 import matplotlib.pyplot as plt
 import numpy as np
+import wavio
 
 #===============================================================================
 class Point(object):
@@ -59,8 +60,34 @@ class Wavetable(object):
         if show:
             plt.show()
 
+    def get_point_in_table(self, index):
+        if index >= 0 and index < len(self.table):
+            return self.table[index]
+
     def reset_table(self):
         self.create_table()
+
+    def write_file(self, frequency = 220.0, rate = 44100, time = 1.0):
+        max_num_samples = round(rate * time)
+        sample_index = 0
+        samples = []
+
+        phase_delta = (frequency / rate) * math.pi * 2.0
+        phase = 0
+        while(sample_index < max_num_samples):
+            sample_point = self.get_point_in_table(int(self.table_size * phase) % self.table_size)
+            samples.append(sample_point.y)
+
+            sample_index += 1
+
+            phase = (phase + phase_delta) % (math.pi * 2.0)
+
+        plt.plot(samples[:rate], "C2")
+        plt.show()
+
+        filename = "phase-distortion.wav"
+        wavio.write(filename, np.array(samples), rate, sampwidth = 3)
+        print(f"Audio exported as \"{filename}\"")
 
 #===============================================================================
 class Phasor(object):
@@ -135,17 +162,22 @@ class Phasor(object):
 
 #===============================================================================
 def main():
+    frequency = 220.0
+    rate = 44100
+    time = 3.0
+
     wavetable = Wavetable(table_size = 2048, map_func = math.sin)
     wavetable.create_table()
 
     inflection_count = eval(input("Enter inflection count: "))
+    inflection_points = [Point(random.uniform(0.0, 1.0), random.uniform(0.0, 1.0)) for _ in range(inflection_count)]
 
-    for i in range(1, inflection_count + 1):
-        phasor = Phasor([Point(random.uniform(0.0, 1.0), random.uniform(0.0, 1.0)) for _ in range(i)])
-        phasor.display(show = False)
+    phasor = Phasor(inflection_points)
+    phasor.display(show = True)
 
-        wavetable.apply_phasor(phasor)
-        wavetable.display(show = True)
+    wavetable.apply_phasor(phasor)
+    wavetable.display(show = True)
+    wavetable.write_file(frequency, rate, time)
     
 if __name__ == "__main__":
     main()
