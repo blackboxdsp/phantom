@@ -14,6 +14,36 @@ class Point(object):
         return f"({self.x}, {self.y})"
 
 #===============================================================================
+class Wavetable(object):
+    def __init__(self, table_size = 2048, map_func = math.sin):
+        self.table_size = table_size
+        self.table = []
+        self.map_func = map_func
+
+    def __str__(self):
+        return f"Wavetable ({self.table_size}):{self.map_func}, [{self.table[0]}, {self.table[1]}, ..., {self.table[-1]}]"
+
+    def create_table(self, table_size = 2048):
+        self.table = []
+        
+        self.table_size = table_size
+        for i in range(self.table_size):
+            phase = float(i / self.table_size)
+            value = self.map_func(phase * math.pi * 2.0) / 2.0 + 0.5
+            self.table.append(Point(phase, value))
+
+        self.table.append(Point(1.0, self.map_func(math.pi * 2.0) / 2.0 + 0.5))
+
+    def display(self):
+        print(self)
+
+        x = [point.x for point in self.table]
+        y = [point.y for point in self.table]
+
+        plt.plot(x, y, "C4")
+        plt.show()
+
+#===============================================================================
 class Phasor(object):
     def __init__(self, inflections = []):
         self.inflections = inflections + [Point(0.0, 0.0), Point(1.0, 1.0)]
@@ -78,15 +108,9 @@ def plt_init():
 def main():
     plt_init()
 
-    phasor = Phasor()
-
-    phasor.add_inflection(Point(0.1, 0.6))
-    phasor.add_inflection(Point(0.6, 0.9))
-    for i in range(1, 100, 10):
-        phasor.phase = i / 100
-        phasor.evaluate()
-
-    phasor.display()
+    wavetable = Wavetable()
+    wavetable.create_table(2048)
+    wavetable.display()
     
 if __name__ == "__main__":
     main()
