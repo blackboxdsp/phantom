@@ -1,4 +1,6 @@
 #===============================================================================
+import random
+
 from modules import buffer, phasor, point, sample, wavetable
 
 #===============================================================================
@@ -10,11 +12,17 @@ def write_wav_file(frequency, rate, time):
     sinetable = wavetable.Wavetable(table_size)
     sinetable.fill_table()
     sinetable.set_phase_delta(frequency, rate)
+
+    inflections = [point.Point(random.uniform(0.0, 1.0), random.uniform(0.0, 1.0))]
+    saw_phasor = phasor.Phasor(inflections)
+    saw_phasor.display()
     
     for i in range(output.buffer_size):
-        output.set_sample(i, sinetable.get_next_sample())
+        signal = sinetable.get_next_sample(saw_phasor)
+        output.set_sample(i, signal)
 
     output.export_wav(f"sounds/sine-{frequency}.wav", rate)
+    output.display(show = True)
 
 #===============================================================================
 def main():

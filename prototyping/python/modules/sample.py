@@ -7,4 +7,4 @@ class Sample(object):
             self.value = value
 
     def __str__(self) -> str:
-        return f"<Sample_obj: value = {self.value}>"
+        return f"<Sample_obj: value = {self.value:.03}>"

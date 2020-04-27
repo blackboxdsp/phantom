@@ -14,7 +14,7 @@ class Buffer(object):
         self.clear()
 
     def __str__(self) -> str:
-        return f"<Buffer_obj: size = {self.buffer_size}, buffer = [{self.buffer[0]}, ..., {self.buffer[-1]}]>"
+        return f"<Buffer_obj: size = {self.buffer_size}, buffer = [{self.buffer[0]}, ..., {self.buffer[-1]}]>\n"
 
     #===========================================================================
     def clear(self) -> None:
@@ -38,7 +38,7 @@ class Buffer(object):
         self.buffer[index] = sample
 
     #===========================================================================
-    def display(self) -> None:
+    def display(self, show: bool = False) -> None:
         plt.title("Buffer")
 
         plt.xlabel("Sample Index")
@@ -51,7 +51,9 @@ class Buffer(object):
         y = self.get_raw_buffer()
 
         plt.plot(x, y, "C2")
-        plt.show()
+
+        if show:
+            plt.show()
 
     def print(self) -> None:
         print(self)
