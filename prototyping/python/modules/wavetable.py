@@ -13,7 +13,6 @@ class Wavetable(object):
 
         self.table_size = table_size
         self.wavetable = Buffer(table_size)
-        self.create_table()
 
         self.phase = 0.0
         self.phase_delta = 0.0
@@ -22,7 +21,7 @@ class Wavetable(object):
         return f"<Wavetable_obj: size = {self.table_size}, wavetable = {self.wavetable}>"
 
     #===========================================================================
-    def create_table(self) -> None:
+    def fill_table(self) -> None:
         for i in range(self.table_size):
             phase = float(i / self.table_size)
             value = math.sin(phase * math.pi * 2.0)
@@ -41,6 +40,17 @@ class Wavetable(object):
 
         table_size_over_sample_rate = self.table_size / sample_rate
         self.phase_delta = frequency * table_size_over_sample_rate
+
+    def reset(self):
+        self.reset_phase()
+        self.reset_table()
+
+    def reset_phase(self):
+        self.phase = 0.0
+        self.phase_delta = 0.0
+
+    def reset_table(self):
+        self.wavetable = Buffer(self.table_size)
 
     #===========================================================================
     def display(self) -> None:

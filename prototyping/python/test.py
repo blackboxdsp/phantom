@@ -1,7 +1,7 @@
 #===============================================================================
 import unittest
 
-from modules import buffer, phasor, point, sample, wavetable
+from modules import point, sample
 
 #===============================================================================
 class PointTest(unittest.TestCase):
