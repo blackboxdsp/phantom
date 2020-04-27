@@ -1,8 +1,10 @@
+#===============================================================================
 import math
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+#===============================================================================
 class Phasor(object):
     def __init__(self, inflections = []):
         self.inflections = inflections
@@ -25,6 +27,7 @@ class Phasor(object):
         plt.plot(x, y, "C2")
         plt.show()
 
+#===============================================================================
 def plt_init():
     plt.title("Phasor Table")
 
@@ -36,6 +39,7 @@ def plt_init():
 
     plt.plot([0.0, 1.0], [0.0, 1.0], "k--")
 
+#===============================================================================
 def main():
     plt_init()
 
