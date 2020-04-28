@@ -3,7 +3,7 @@ venv/
 
 # Python3 distribution
 build/
-phantom.egg-info/S
+phantom.egg-info/
 
 # Python cache directories
 */__pycache__/
