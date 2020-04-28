@@ -2,12 +2,12 @@
 class Point(object):
 
     #===========================================================================
-    def __init__(self, x, y):
+    def __init__(self, x: float, y: float):
         self.x = x
         self.y = y
 
     def __str__(self) -> str:
-        return f"<Point_obj: ({self.x:.03}, {self.y:.03})>"
+        return f"<Point(float)_obj: ({float(self.x):.03}, {float(self.y):.03})>"
 
     #===========================================================================
     def __eq__(self, other) -> bool:

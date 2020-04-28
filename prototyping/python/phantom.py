@@ -1,10 +1,10 @@
 #===============================================================================
 import random
 
-from modules import buffer, phasor, point, sample, wavetable
+from phantom import buffer, phasor, point, sample, wavetable
 
 #===============================================================================
-def write_wav_file(frequency, rate, time):
+def write_wav_file(frequency: float, rate: int, time: float):
     num_samples = int(rate * time)
     output = buffer.Buffer(num_samples)
     
@@ -22,20 +22,23 @@ def write_wav_file(frequency, rate, time):
 
     for inflection in inflections:
         saw_phasor = phasor.Phasor([inflection])
+        #saw_phasor.display()
     
         for i in range(output.buffer_size):
             value = sinetable.get_next_sample(saw_phasor)
             output.set_sample(i, value)
 
         output.normalize()
+        # output.display()
         output.export_wav(f"sounds/sine-{frequency}-{inflection.x:.1}-{inflection.y:.1}.wav", rate)
+
 
 #===============================================================================
 def main():
     rate = 44100
     time = 1.2
 
-    base_frequency = 55
+    base_frequency = 55.0
     num_octaves = 3
     frequencies = [base_frequency * (2 ** i) for i in range(num_octaves)]
 

@@ -1,7 +1,16 @@
 #===============================================================================
+import enum
+
 import matplotlib.pyplot as plt
 
 from .point import Point
+
+#===============================================================================
+class Waveform(enum.Enum):
+    Sine = 0
+    Sawtooth = 1
+    Triangle = 2
+    Square = 3
 
 #===============================================================================
 class Phasor(object):
@@ -43,6 +52,7 @@ class Phasor(object):
     def evaluate(self, phase: float) -> float:
         p1, p2 = self.get_surrounding_inflections(phase)
 
+        # TODO: add linear interpolation somewhere here for smoothing values 
         m, b = self.compute_line(p1, p2)
         return m * phase + b
 
@@ -63,7 +73,7 @@ class Phasor(object):
         return slope, y_int
 
     #===========================================================================
-    def display(self, show: bool = False) -> None:
+    def display(self, show: bool = True) -> None:
         plt.title("Phasor")
 
         plt.xlabel("Input Phase")

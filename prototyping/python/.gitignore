@@ -1,3 +1,9 @@
 # Python3 virtual environment 
 venv/
+
+# Python3 distribution
+build/
+phantom.egg-info/S
+
+# Python cache directories
 */__pycache__/

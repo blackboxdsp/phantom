@@ -37,7 +37,7 @@ class Wavetable(object):
         self.phase = (self.phase + self.phase_delta) % 1.0
 
         return self.wavetable.get_sample(sample_index)
-
+ 
     #===========================================================================
     def set_phase_delta(self, frequency: float, sample_rate: float) -> None:
         self.phase_delta = frequency / sample_rate
@@ -54,7 +54,7 @@ class Wavetable(object):
         self.wavetable = Buffer(self.table_size)
 
     #===========================================================================
-    def display(self, show: bool = False) -> None:
+    def display(self, show: bool = True) -> None:
         self.wavetable.display(show = show)
 
     def print(self) -> None:

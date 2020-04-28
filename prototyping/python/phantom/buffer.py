@@ -1,6 +1,4 @@
 #===============================================================================
-import math 
-
 import matplotlib.pyplot as plt
 import numpy as np
 import wavio as w
@@ -66,7 +64,7 @@ class Buffer(object):
         return (min_sample, max_sample)
 
     #===========================================================================
-    def display(self, show: bool = False) -> None:
+    def display(self, show: bool = True) -> None:
         plt.title("Buffer")
 
         plt.xlabel("Sample Index")
