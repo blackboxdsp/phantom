@@ -17,6 +17,9 @@ class Phasor(object):
     def get_inflection_count(self) -> int:
         return self.inflection_count
 
+    def get_inflection(self, index: int) -> Point:
+        return self.inflections[index]
+
     def get_inflections(self) -> list:
         return self.inflections
 

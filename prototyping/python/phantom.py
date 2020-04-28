@@ -15,22 +15,21 @@ def write_wav_file(frequency, rate, time):
 
     inflections = [point.Point(random.uniform(0.0, 1.0), random.uniform(0.0, 1.0))]
     saw_phasor = phasor.Phasor(inflections)
-    saw_phasor.display()
     
     for i in range(output.buffer_size):
-        signal = sinetable.get_next_sample(saw_phasor)
-        output.set_sample(i, signal)
+        value = sinetable.get_next_sample(saw_phasor)
+        output.set_sample(i, value)
 
-    output.export_wav(f"sounds/sine-{frequency}.wav", rate)
-    output.display(show = True)
+    output.normalize()
+    output.export_wav(f"sounds/sine-{frequency}-{inflections[0].x:.1}-{inflections[0].y:.1}.wav", rate)
 
 #===============================================================================
 def main():
     rate = 44100
-    time = 2.4
+    time = 1.6
 
     base_frequency = 55
-    num_octaves = 5
+    num_octaves = 4
     frequencies = [base_frequency * (2 ** i) for i in range(num_octaves)]
 
     for frequency in frequencies:
@@ -42,4 +41,5 @@ def main():
     sinetable.set_phase_delta(frequency, rate)
 
 #===============================================================================
-main()
+if __name__ == "__main__":
+    main()

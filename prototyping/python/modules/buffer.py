@@ -1,4 +1,6 @@
 #===============================================================================
+import math 
+
 import matplotlib.pyplot as plt
 import numpy as np
 import wavio as w
@@ -36,6 +38,32 @@ class Buffer(object):
 
     def set_sample(self, index: int, sample: Sample) -> None:
         self.buffer[index] = sample
+
+    #===========================================================================
+    def normalize(self):
+        sample_range = self.get_sample_range()
+        max_amplitude_range = abs(sample_range[1] - sample_range[0])
+
+        for i in range(self.buffer_size):
+            current_amplitude_range = abs(self.buffer[i].value - sample_range[0])
+
+            amplitude = current_amplitude_range / max_amplitude_range * 2.0 - 1.0
+
+            self.set_sample(i, Sample(amplitude))
+
+    def get_sample_range(self):
+        # TODO: overload comparison operators for samples (add unittests too)
+        min_sample = 1.0
+        max_sample = -1.0
+
+        for sample in self.buffer:
+            if min_sample > sample.value:
+                min_sample = sample.value
+
+            if max_sample < sample.value:
+                max_sample = sample.value
+        
+        return (min_sample, max_sample)
 
     #===========================================================================
     def display(self, show: bool = False) -> None:
