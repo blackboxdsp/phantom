@@ -1,0 +1,52 @@
+name: phantom
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+
+    steps:
+    - name: "Preparation"
+      uses: actions/checkout@v2
+
+    - name: "1/7 (JUCE): Clone Repository"
+      uses: actions/checkout@v2
+      with:
+        repository: juce-framework/JUCE
+        path: ${{runner.workspace}}/phantom/JUCE
+  
+    # JUCE
+    - name: "2/7 (JUCE): Create Build Environment"
+      working-directory: ${{runner.workspace}}/phantom/JUCE
+      run: cmake -E make_directory ${{runner.workspace}}/phantom/JUCE/build
+
+    - name: "3/7 (JUCE): Configuration"
+      working-directory: ${{runner.workspace}}/phantom/JUCE/build
+      run: cmake ${{runner.workspace}}/phantom/JUCE
+
+    - name: "4/7 (JUCE): Build"
+      working-directory: ${{runner.workspace}}/phantom/JUCE/build
+      run: cmake --build .
+
+    # Phantom
+    - name: "5/7 (Phantom): Create Build Environment"
+      working-directory: ${{runner.workspace}}/phantom
+      run: cmake -E make_directory ${{runner.workspace}}/phantom/build
+    
+    - name: "6/7 (Phantom): Configuration"
+      working-directory: ${{runner.workspace}}/phantom/build
+      run: cmake ${{runner.workspace}}/phantom
+
+    - name: "7/7 (Phantom): Build"
+      working-directory: ${{runner.workspace}}/phantom/build
+      run: cmake --build . --config Release
