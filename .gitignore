@@ -1,5 +1,9 @@
-# Directories and folders
+# Visual Studio
 .vs/
 
-resources/
-thesis/
+# JUCE
+JUCE/
+Phantom/JuceLibraryCode/
+
+# Binaries and executables
+build/
