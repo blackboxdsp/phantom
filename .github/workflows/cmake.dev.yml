@@ -17,38 +17,37 @@ jobs:
         os: [windows-latest, macos-latest]
 
     steps:
-    - name: "Preparation"
+    - name: "準備"
       uses: actions/checkout@v2
 
-    - name: "1/7 (JUCE): Clone Repository"
+    - name: "1/7 (JUCE): レポジトリーを複写"
       uses: actions/checkout@v2
       with:
         repository: juce-framework/JUCE
         path: ${{runner.workspace}}/phantom/JUCE
   
     # JUCE
-    - name: "2/7 (JUCE): Create Build Environment"
+    - name: "2/7 (JUCE): ビルドの環境を作成"
       working-directory: ${{runner.workspace}}/phantom/JUCE
       run: cmake -E make_directory ${{runner.workspace}}/phantom/JUCE/build
 
-    - name: "3/7 (JUCE): Configuration"
+    - name: "3/7 (JUCE): 設定"
       working-directory: ${{runner.workspace}}/phantom/JUCE/build
       run: cmake ${{runner.workspace}}/phantom/JUCE
 
-    - name: "4/7 (JUCE): Build"
+    - name: "4/7 (JUCE): ビルド"
       working-directory: ${{runner.workspace}}/phantom/JUCE/build
       run: cmake --build .
 
     # Phantom
-    - name: "5/7 (Phantom): Create Build Environment"
+    - name: "5/7 (Phantom): ビルドの環境を作成"
       working-directory: ${{runner.workspace}}/phantom
       run: cmake -E make_directory ${{runner.workspace}}/phantom/build
     
-    - name: "6/7 (Phantom): Configuration"
+    - name: "6/7 (Phantom): 設定"
       working-directory: ${{runner.workspace}}/phantom/build
       run: cmake ${{runner.workspace}}/phantom
 
-    - name: "7/7 (Phantom): Build"
+    - name: "7/7 (Phantom): ビルド"
       working-directory: ${{runner.workspace}}/phantom/build
       run: cmake --build .
-      
