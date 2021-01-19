@@ -1,5 +1,9 @@
 # Phantom
 
+[![Phantom](https://github.com/maxwellmattryan/phantom/workflows/phantom/badge.svg)](https://github.com/maxwellmattryan/phantom/actions?query=workflow%3Aphantom)
+[![JUCE](https://img.shields.io/badge/JUCE-v6.0.3-ff69b4)](https://juce.com/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 > Modern phase distortion synthesis
 
 <div style="text-align: center">
