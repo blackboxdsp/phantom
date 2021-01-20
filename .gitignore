@@ -7,3 +7,6 @@ Phantom/JuceLibraryCode/
 
 # Binaries and executables
 build/
+
+# Miscellaneous project stuff
+design/
