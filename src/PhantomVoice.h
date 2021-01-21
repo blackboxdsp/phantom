@@ -46,11 +46,14 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomVoice)
 
     //==========================================================================
+    void updateOscillator();
+
+    //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
     //==========================================================================
     PhantomOscillator* m_oscillator;
     std::atomic<float>* p_oscillatorTune;
 
-    float m_frequency = 440.0f;
+    int m_midiNoteNumber = 0;
 };
