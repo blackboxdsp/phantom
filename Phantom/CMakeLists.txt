@@ -1,5 +1,5 @@
 juce_add_plugin(Phantom
-        VERSION "1.1.0"
+        VERSION "0.0.1"
         COMPANY_NAME "Maxwell Audio"
         IS_SYNTH TRUE
         IS_MIDI_EFFECT FALSE
@@ -16,7 +16,9 @@ juce_generate_juce_header(Phantom)
 # Declare necessary source files to include into the target
 target_sources(Phantom PRIVATE
         src/PhantomEditor.cpp
-        src/PhantomProcessor.cpp)
+        src/PhantomProcessor.cpp
+        src/PhantomSynth.cpp
+        src/PhantomOscillator.cpp)
 
 # Preprocessor definitions for our target
 target_compile_definitions(Phantom PUBLIC

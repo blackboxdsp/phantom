@@ -1,6 +1,7 @@
 #pragma once
 
-#include <JuceHeader.h>
+#include "JuceHeader.h"
+
 #include "PhantomProcessor.h"
 
 //==============================================================================
