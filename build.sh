@@ -29,9 +29,9 @@ for i in "$@"; do
 done
 
 if [ "$REMOVE_PREV_BUILD" = true ]; then
-    rm -rf ./build
+    rm -rf ./bin
     rm -rf ./juce/build
-    echo -e "SUCCESS: Removed previous build's folders and cache\n"
+    echo -e "SUCCESS: Removed previous build's folders\n"
 fi
 
 if [ ! -d "./juce" ]; then
@@ -55,11 +55,11 @@ if [ ! -d "./juce/build" ]; then
 fi
 
 echo -e "Configuring (Phantom)...\n"
-cmake -B phantom/build
+cmake -B bin
 echo -e "\nSUCCESS: Configured plugin build\n"
 
 echo -e "Building (Phantom)...\n"
-cmake --build phantom/build --config "$BUILD_TYPE" --target Phantom_All
+cmake --build bin --config "$BUILD_TYPE" --target Phantom_All
 echo -e "\nSUCCESS: Built plugin executable(s)\n"
 
 if [ ! -z "$DAW_TO_OPEN" ]; then
@@ -70,15 +70,15 @@ fi
 if [ "$COPY_BUILD_STEP" = true ]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         rm -rf /Library/Audio/Plug-Ins/VST3/Phantom.vst3
-        cp -r ./phantom/build/Phantom/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3 /Library/Audio/Plug-Ins/VST3/Phantom.vst3
+        cp -r ./bin/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3 /Library/Audio/Plug-Ins/VST3/Phantom.vst3
         echo -e "SUCCESS: Copied VST3 bundle to plugins directory\n"
 
         rm -rf /Library/Audio/Plug-Ins/Components/Phantom.component
-        cp -r ./phantom/build/Phantom/Phantom_artefacts/${BUILD_TYPE}/AU/Phantom.component /Library/Audio/Plug-Ins/Components/Phantom.component
+        cp -r ./bin/Phantom_artefacts/${BUILD_TYPE}/AU/Phantom.component /Library/Audio/Plug-Ins/Components/Phantom.component
         echo -e "SUCCESS: Copied AU bundle to plugins directory\n"
     else
         rm -f /c/Program\ Files/Common\ Files/VST3/Phantom.vst3
-        cp ./phantom/build/Phantom/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3 /c/Program\ Files/Common\ Files/VST3/Phantom.vst3
+        cp ./bin/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3 /c/Program\ Files/Common\ Files/VST3/Phantom.vst3
         echo -e "SUCCESS: Copied VST3 bundle to plugins directory\n"
     fi
 fi
