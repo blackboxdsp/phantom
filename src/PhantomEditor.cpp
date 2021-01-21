@@ -16,6 +16,13 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     const int textBoxHeight = 20;
 
     //==========================================================================
+    m_oscillatorTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_oscillatorTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscillatorTuneSlider.setTextValueSuffix(" Semi");
+    m_oscillatorTuneSlider.setDoubleClickReturnValue(true, 0.0f);
+    m_oscillatorTuneSliderAttachment.reset(new SliderAttachment(m_parameters, "oscillatorTune", m_oscillatorTuneSlider));
+    addAndMakeVisible(&m_oscillatorTuneSlider);
+
     m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_levelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
     m_levelSlider.setTextValueSuffix(" dB");
@@ -52,5 +59,9 @@ void PhantomAudioProcessorEditor::resized()
     canvas.removeFromBottom(margin);
     canvas.removeFromLeft(margin);
 
-    m_levelSlider.setBounds(canvas);
+    Rectangle<int> left = canvas.removeFromLeft(getWidth() / 2);
+    m_oscillatorTuneSlider.setBounds(left);
+
+    Rectangle<int> right = canvas;
+    m_levelSlider.setBounds(right);
 }

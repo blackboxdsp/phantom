@@ -14,7 +14,8 @@
 #include "PhantomVoice.h"
 
 //==========================================================================
-PhantomSynth::PhantomSynth()
+PhantomSynth::PhantomSynth(AudioProcessorValueTreeState& vts)
+    :   m_parameters(vts)
 {
     clear();
     init();
@@ -43,7 +44,7 @@ void PhantomSynth::addVoices()
 {
     for(int i = 0; i < k_numVoices; i++)
     {
-        PhantomVoice* voice = new PhantomVoice();
+        PhantomVoice* voice = new PhantomVoice(m_parameters);
         addVoice(voice);
     }
 }

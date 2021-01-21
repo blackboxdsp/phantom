@@ -13,11 +13,12 @@
 #include "PhantomSound.h"
 
 //==============================================================================
-PhantomVoice::PhantomVoice()
+PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts)
+    :   m_parameters(vts)
 {
-    m_oscillator = new PhantomOscillator();
+    p_oscillatorTune = m_parameters.getRawParameterValue("oscillatorTune");
 
-    m_frequency = 220.0;
+    m_oscillator = new PhantomOscillator();
 }
 
 PhantomVoice::~PhantomVoice()
@@ -32,8 +33,8 @@ bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
 }
 
 void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
-{    
-    m_frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+{ 
+    m_frequency = midiNoteToFrequency(midiNoteNumber + *p_oscillatorTune);
     m_oscillator->setPhaseDelta(m_frequency, getSampleRate());
 }
 
@@ -67,4 +68,10 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
         startSample++;
     }
+}
+
+//==========================================================================
+float PhantomVoice::midiNoteToFrequency(float midiNote)
+{
+    return std::exp((midiNote - 69) * std::log(2) / 12.0) * 440.0;
 }

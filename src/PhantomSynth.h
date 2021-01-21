@@ -19,7 +19,7 @@ class PhantomSynth : public Synthesiser
 {
 public:
     //==========================================================================
-    PhantomSynth();
+    PhantomSynth(AudioProcessorValueTreeState&);
     ~PhantomSynth() override;
 
     //==========================================================================
@@ -29,6 +29,9 @@ public:
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomSynth)
+
+    //==========================================================================
+    AudioProcessorValueTreeState& m_parameters;
 
     //==========================================================================
     void addVoices();

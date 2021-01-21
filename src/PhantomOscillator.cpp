@@ -39,10 +39,10 @@ void PhantomOscillator::clearWavetable()
 }
 
 //==============================================================================
-void PhantomOscillator::setPhaseDelta(double frequency, double sampleRate)
+void PhantomOscillator::setPhaseDelta(float frequency, float sampleRate)
 {
-    auto cyclesPerSample = frequency / sampleRate;
-    m_phaseDelta = cyclesPerSample * (double) k_wavetableSize;
+    float cyclesPerSample = frequency / sampleRate;
+    m_phaseDelta = cyclesPerSample * (float) k_wavetableSize;
 }
 
 //==============================================================================

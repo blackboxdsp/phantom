@@ -38,6 +38,9 @@ private:
     AudioProcessorValueTreeState& m_parameters;
 
     //==========================================================================
+    Slider m_oscillatorTuneSlider;
+    std::unique_ptr<SliderAttachment> m_oscillatorTuneSliderAttachment;
+    
     Slider m_levelSlider;
     std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
 };

@@ -23,7 +23,7 @@ public:
     ~PhantomOscillator();
 
     //==========================================================================
-    void setPhaseDelta(double frequency, double sampleRate);
+    void setPhaseDelta(float frequency, float sampleRate);
 
     //==========================================================================
     float evaluate();
@@ -36,12 +36,10 @@ private:
     void initWavetable();
     void clearWavetable();
 
-    void updatePhase();
-
     //==========================================================================
     Array<float> m_wavetable;
     const int k_wavetableSize = 1 << 10;
 
-    double m_phase = 0.0;
-    double m_phaseDelta = 0.0;
+    float m_phase = 0.0;
+    float m_phaseDelta = 0.0;
 };

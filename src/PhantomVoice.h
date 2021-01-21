@@ -21,7 +21,7 @@ class PhantomVoice : public SynthesiserVoice
 {
 public:
     //==========================================================================
-    PhantomVoice();
+    PhantomVoice(AudioProcessorValueTreeState&);
     ~PhantomVoice();
 
     //==========================================================================
@@ -38,12 +38,19 @@ public:
     //==========================================================================
     void renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples) override;
 
+    //==========================================================================
+    float midiNoteToFrequency(float midiNote);
+
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomVoice)
 
     //==========================================================================
-    PhantomOscillator* m_oscillator;
+    AudioProcessorValueTreeState& m_parameters;
 
-    double m_frequency;
+    //==========================================================================
+    PhantomOscillator* m_oscillator;
+    std::atomic<float>* p_oscillatorTune;
+
+    float m_frequency = 440.0f;
 };

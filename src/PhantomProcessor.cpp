@@ -24,7 +24,7 @@ PhantomAudioProcessor::PhantomAudioProcessor()
 {
     p_level = m_parameters.getRawParameterValue("level");
 
-    m_phantom = new PhantomSynth();
+    m_phantom = new PhantomSynth(m_parameters);
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
@@ -38,6 +38,13 @@ PhantomAudioProcessor::~PhantomAudioProcessor()
 AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParameterLayout()
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
+
+    auto oscillatorTune = std::make_unique<AudioParameterFloat>(
+        "oscillatorTune", "Osc Tune",
+        NormalisableRange<float>(-12.0f, 12.0f, 0.1f),
+        0.0f    
+    );
+    params.push_back(std::move(oscillatorTune));
 
     auto level = std::make_unique<AudioParameterFloat>(
         "level", "Level",
