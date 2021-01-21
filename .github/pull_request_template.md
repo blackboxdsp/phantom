@@ -1,20 +1,20 @@
-## タイプ
+## Type
 
-- [ ] _chore_ - シンプルなタスク（ライブラリーや従属を更新する）
-- [ ] _feature_ - 新しい特徴とか新機能を実装する）
-- [ ] _fix_ - バグとか動かないことを直す
-- [ ] _refactor_ - 対外の行動が前と同じでもうあるコードを改善する
-- [ ] _sandbox_ - プロトタイプを作ったり、新しいものをデザインしてテストしたりする
-- [ ] _test_ - テストに関係あること
+- [ ] _chore_ - simple, grunt tasks like updating a library
+- [ ] _feature_ - implementation of a new functionality, behavior, design, etc.
+- [ ] _fix_ - fixing bugs or other things
+- [ ] _refactor_ - improving existing code without changing external behavior
+- [ ] _sandbox_ - prototyping, designing, or testing new things
+- [ ] _test_ - things related to tests
 
-## 要約
+## Summary
 
-プルリクエストを説明したり、大事な点を書いたりする。
+Provide an explanation for the pull request along with any important or cautionary information. 
 
-[カード](https://trello.com/c/card-id/card-name)
+[Card](https://trello.com/c/card-id/card-name)
 
-## ノート
+## Notes
 
-- [ノート XXX]
-- [ノート YYY]
-- [ノート ZZZ]
+- [Note XXX]
+- [Note YYY]
+- [Note ZZZ]

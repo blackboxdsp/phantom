@@ -30,6 +30,7 @@ void PhantomAudioProcessorEditor::paint(juce::Graphics& g)
 
     g.setColour(juce::Colours::white);
     g.setFont(15.0f);
+   
     g.drawFittedText("Phantom", getLocalBounds(), juce::Justification::centred, 1);
 }
 
