@@ -37,8 +37,8 @@ class PhantomSynth : public SynthesiserVoice
 {
 public:
     //==========================================================================
-    PhantomSynth() { }
-    ~PhantomSynth() { }
+    PhantomSynth();
+    ~PhantomSynth();
 
     //==========================================================================
     bool canPlaySound(SynthesiserSound* sound) override;
