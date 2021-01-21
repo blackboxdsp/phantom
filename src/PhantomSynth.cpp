@@ -44,9 +44,6 @@ void PhantomSynth::addVoices()
     for(int i = 0; i < k_numVoices; i++)
     {
         PhantomVoice* voice = new PhantomVoice();
-
-        voice->setCurrentPlaybackSampleRate(getSampleRate());
-
         addVoice(voice);
     }
 }
@@ -54,6 +51,5 @@ void PhantomSynth::addVoices()
 void PhantomSynth::addSounds()
 {
     PhantomSound* sound = new PhantomSound();
-    
     addSound(sound);
 }

@@ -53,11 +53,11 @@ void PhantomVoice::controllerMoved(int controllerNumber, int newControllerValue)
 //==============================================================================
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
-    m_oscillator->setPhaseDelta(220.0, getSampleRate());
+    m_oscillator->setPhaseDelta(440.0, getSampleRate());
 
     for (int sample = 0; sample < numSamples; sample++)
     {
-        float value = m_oscillator->evaluate();
+        float value = m_oscillator->evaluate() * 0.3f;
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
             buffer.setSample(channel, startSample, value);
