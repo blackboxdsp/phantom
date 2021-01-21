@@ -28,25 +28,25 @@ jobs:
     # JUCE
     - name: "2/7 (JUCE): Create Build Environment"
       working-directory: ${{runner.workspace}}/phantom/JUCE
-      run: cmake -E make_directory ${{runner.workspace}}/phantom/JUCE/build
+      run: cmake -E make_directory ${{runner.workspace}}/phantom/JUCE/bin
 
     - name: "3/7 (JUCE): Configuration"
-      working-directory: ${{runner.workspace}}/phantom/JUCE/build
+      working-directory: ${{runner.workspace}}/phantom/JUCE/bin
       run: cmake ${{runner.workspace}}/phantom/JUCE
 
     - name: "4/7 (JUCE): Build"
-      working-directory: ${{runner.workspace}}/phantom/JUCE/build
+      working-directory: ${{runner.workspace}}/phantom/JUCE/bin
       run: cmake --build .
 
     # Phantom
     - name: "5/7 (Phantom): Create Build Environment"
       working-directory: ${{runner.workspace}}/phantom
-      run: cmake -E make_directory ${{runner.workspace}}/phantom/build
+      run: cmake -E make_directory ${{runner.workspace}}/phantom/bin
     
     - name: "6/7 (Phantom): Configuration"
-      working-directory: ${{runner.workspace}}/phantom/build
+      working-directory: ${{runner.workspace}}/phantom/bin
       run: cmake ${{runner.workspace}}/phantom
 
     - name: "7/7 (Phantom): Build"
-      working-directory: ${{runner.workspace}}/phantom/build
+      working-directory: ${{runner.workspace}}/phantom/bin
       run: cmake --build . --config Release

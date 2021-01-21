@@ -30,7 +30,7 @@ done
 
 if [ "$REMOVE_PREV_BUILD" = true ]; then
     rm -rf ./bin
-    rm -rf ./juce/build
+    rm -rf ./juce/bin
     echo -e "SUCCESS: Removed previous build's folders\n"
 fi
 
@@ -44,11 +44,11 @@ if [ ! -d "./juce/build" ]; then
     cd ./juce
 
     echo -e "Configuring (JUCE)...\n"
-    cmake -B build .
+    cmake -B bin .
     echo -e "\nSUCCESS: Configured JUCE build\n"
 
     echo -e "Building (JUCE)...\n"
-    cmake --build build
+    cmake --build bin
     echo -e "\nSUCCESS: Built JUCE libraries and targets\n"
 
     cd ../
