@@ -13,6 +13,7 @@ public:
     ~PhantomAudioProcessor() override;
 
     //==============================================================================
+    void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock);
     void releaseResources() override;
 
    #ifndef JucePlugin_PreferredChannelConfigurations
