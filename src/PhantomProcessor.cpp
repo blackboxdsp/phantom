@@ -11,7 +11,7 @@
 //==============================================================================
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     :  parameters(*this, nullptr, Identifier("Phantom"), createParameterLayout()),
+     :  m_parameters(*this, nullptr, Identifier("Phantom"), createParameterLayout()),
         AudioProcessor(BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
@@ -22,18 +22,28 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                        )
 #endif
 {
+    p_level = m_parameters.getRawParameterValue("level");
+
     m_phantom = new PhantomSynth();
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
     m_phantom->clear();
+
+    p_level = nullptr;
 }
 
 //==============================================================================
 AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParameterLayout()
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
+
+    auto level = std::make_unique<AudioParameterFloat>(
+        "level", "Level",
+        NormalisableRange<float>(-48.0f, 12.0f, 0.0f, getSkewFactor(-48.0f, 12.0f, 0.0f), false),
+        0.0f);
+    params.push_back(std::move(level));
 
     return { params.begin(), params.end() };
 }
@@ -103,6 +113,8 @@ void PhantomAudioProcessor::changeProgramName(int index, const String& newName)
 //==============================================================================
 void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
+    ignoreUnused(samplesPerBlock);
+
     m_phantom->setCurrentPlaybackSampleRate(sampleRate);
 }
 
@@ -142,7 +154,21 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
 {
     buffer.clear();
 
-    m_phantom->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    const int startSample = 0;
+    const int numSamples = buffer.getNumSamples();
+
+    m_phantom->renderNextBlock(buffer, midiMessages, startSample, numSamples);
+
+    float gain = powf(2, *p_level / 6);
+    if(gain != m_previousGain)
+    {
+        buffer.applyGainRamp(startSample, numSamples, m_previousGain, gain);
+        m_previousGain = gain;
+    }
+    else 
+    {
+        buffer.applyGain(gain);
+    }
 }
 
 //==============================================================================
@@ -153,13 +179,13 @@ bool PhantomAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 {
-    return new PhantomAudioProcessorEditor(*this);
+    return new PhantomAudioProcessorEditor(*this, m_parameters);
 }
 
 //==============================================================================
 void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    std::unique_ptr<XmlElement> xml(parameters.state.createXml());
+    std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
     copyXmlToBinary(*xml, destData);
 }
 
@@ -168,9 +194,9 @@ void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInByte
     std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
     if(xmlState.get() != nullptr)
     {
-        if(xmlState->hasTagName(parameters.state.getType()))
+        if(xmlState->hasTagName(m_parameters.state.getType()))
         {
-            parameters.replaceState(ValueTree::fromXml(*xmlState));
+            m_parameters.replaceState(ValueTree::fromXml(*xmlState));
         }
     }
 }
@@ -180,4 +206,10 @@ void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInByte
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new PhantomAudioProcessor();
+}
+
+//==========================================================================
+float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)
+{
+    return std::log((0.5f)) / std::log((center - start) / (end - start));
 }

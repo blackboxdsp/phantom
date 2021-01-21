@@ -59,8 +59,14 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessor)
 
     //==========================================================================
-    AudioProcessorValueTreeState parameters;
+    float getSkewFactor(float start, float end, float center);
+
+    //==========================================================================
+    AudioProcessorValueTreeState m_parameters;
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
+    std::atomic<float>* p_level = nullptr;
+    float m_previousGain;
 
     //==========================================================================
     PhantomSynth* m_phantom;

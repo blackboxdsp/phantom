@@ -9,16 +9,27 @@
 #include "PhantomProcessor.h"
 
 //==============================================================================
-PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p)
-    : AudioProcessorEditor(&p), m_audioProcessor(p)
+PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts)
+    : AudioProcessorEditor(&p), m_audioProcessor(p), m_parameters(vts)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
+    const int textBoxWidth = 80;
+    const int textBoxHeight = 20;
+
+    //==========================================================================
+    m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_levelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_levelSlider.setTextValueSuffix(" dB");
+    m_levelSlider.setDoubleClickReturnValue(true, 0.0f);
+    m_levelSliderAttachment.reset(new SliderAttachment(m_parameters, "level", m_levelSlider));
+    addAndMakeVisible(&m_levelSlider);
+
+    //==========================================================================
     setSize(400, 300);
 }
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
+    m_levelSliderAttachment = nullptr;
 }
 
 //==============================================================================
@@ -29,12 +40,17 @@ void PhantomAudioProcessorEditor::paint(Graphics& g)
 
     g.setColour(Colours::white);
     g.setFont(15.0f);
-   
-    g.drawFittedText("Phantom", getLocalBounds(), Justification::centred, 1);
 }
 
 void PhantomAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    Rectangle<int> canvas = getLocalBounds();
+
+    int margin = getWidth() / 30;
+    canvas.removeFromTop(margin);
+    canvas.removeFromRight(margin);
+    canvas.removeFromBottom(margin);
+    canvas.removeFromLeft(margin);
+
+    m_levelSlider.setBounds(canvas);
 }
