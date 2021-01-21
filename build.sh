@@ -30,17 +30,18 @@ done
 
 if [ "$REMOVE_PREV_BUILD" = true ]; then
     rm -rf ./build
-    rm -rf ./JUCE/build
+    rm -rf ./juce/build
     echo -e "SUCCESS: Removed previous build's folders and cache\n"
 fi
 
-if [ ! -d "./JUCE" ]; then
+if [ ! -d "./juce" ]; then
     git clone https://github.com/juce-framework/JUCE.git
+    mv JUCE/ juce/
     echo -e "\nSUCCESS: Cloned JUCE repository\n"
 fi
 
-if [ ! -d "./JUCE/build" ]; then
-    cd ./JUCE
+if [ ! -d "./juce/build" ]; then
+    cd ./juce
 
     echo -e "Configuring (JUCE)...\n"
     cmake -B build .

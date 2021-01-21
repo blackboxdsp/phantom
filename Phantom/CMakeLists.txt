@@ -15,8 +15,8 @@ juce_generate_juce_header(Phantom)
 
 # Declare necessary source files to include into the target
 target_sources(Phantom PRIVATE
-        Source/PhantomEditor.cpp
-        Source/PhantomProcessor.cpp)
+        src/PhantomEditor.cpp
+        src/PhantomProcessor.cpp)
 
 # Preprocessor definitions for our target
 target_compile_definitions(Phantom PUBLIC

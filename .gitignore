@@ -2,8 +2,8 @@
 .vs/
 
 # JUCE
-JUCE/
-Phantom/JuceLibraryCode/
+juce/
+phantom/lib/
 
 # Binaries and executables
 build/
