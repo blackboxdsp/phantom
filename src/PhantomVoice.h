@@ -44,4 +44,6 @@ private:
 
     //==========================================================================
     PhantomOscillator* m_oscillator;
+
+    double m_frequency;
 };

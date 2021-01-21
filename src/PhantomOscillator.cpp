@@ -28,7 +28,7 @@ void PhantomOscillator::initWavetable()
 
     for (int i = 0; i < k_wavetableSize; i++)
     {
-        float value = sinf(MathConstants<float>::twoPi * (float) i / k_wavetableSize);
+        float value = cosf(MathConstants<float>::twoPi * (float) i / k_wavetableSize);
         m_wavetable.insert(i, value);
     }
 }

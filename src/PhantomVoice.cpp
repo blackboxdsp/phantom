@@ -16,6 +16,8 @@
 PhantomVoice::PhantomVoice()
 {
     m_oscillator = new PhantomOscillator();
+
+    m_frequency = 220.0;
 }
 
 PhantomVoice::~PhantomVoice()
@@ -31,7 +33,8 @@ bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
 
 void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {    
-
+    m_frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+    m_oscillator->setPhaseDelta(m_frequency, getSampleRate());
 }
 
 void PhantomVoice::stopNote(float velocity, bool allowTailOff)
@@ -53,7 +56,7 @@ void PhantomVoice::controllerMoved(int controllerNumber, int newControllerValue)
 //==============================================================================
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
-    m_oscillator->setPhaseDelta(440.0, getSampleRate());
+    m_oscillator->setPhaseDelta(m_frequency, getSampleRate());
 
     for (int sample = 0; sample < numSamples; sample++)
     {
