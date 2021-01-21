@@ -11,7 +11,8 @@
 //==============================================================================
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor(BusesProperties()
+     :  parameters(*this, nullptr, Identifier("Phantom"), createParameterLayout()),
+        AudioProcessor(BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
                        .withInput("Input",  AudioChannelSet::stereo(), true)
@@ -27,6 +28,14 @@ PhantomAudioProcessor::PhantomAudioProcessor()
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
     m_phantom->clear();
+}
+
+//==============================================================================
+AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParameterLayout()
+{
+    std::vector<std::unique_ptr<RangedAudioParameter>> params;
+
+    return { params.begin(), params.end() };
 }
 
 //==============================================================================
@@ -150,15 +159,20 @@ AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 //==============================================================================
 void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    std::unique_ptr<XmlElement> xml(parameters.state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+    if(xmlState.get() != nullptr)
+    {
+        if(xmlState->hasTagName(parameters.state.getType()))
+        {
+            parameters.replaceState(ValueTree::fromXml(*xmlState));
+        }
+    }
 }
 
 //==============================================================================
