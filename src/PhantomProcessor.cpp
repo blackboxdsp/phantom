@@ -11,7 +11,8 @@
 //==============================================================================
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor(BusesProperties()
+     :  parameters(*this, nullptr, Identifier("Phantom"), createParameterLayout()),
+        AudioProcessor(BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
                        .withInput("Input",  AudioChannelSet::stereo(), true)
@@ -27,6 +28,14 @@ PhantomAudioProcessor::PhantomAudioProcessor()
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
     m_phantom->clear();
+}
+
+//==============================================================================
+AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParameterLayout()
+{
+    std::vector<std::unique_ptr<RangedAudioParameter>> params;
+
+    return { params.begin(), params.end() };
 }
 
 //==============================================================================
