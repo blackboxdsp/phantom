@@ -22,15 +22,15 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 }
 
 //==============================================================================
-void PhantomAudioProcessorEditor::paint(juce::Graphics& g)
+void PhantomAudioProcessorEditor::paint(Graphics& g)
 {
     // Our component is opaque, so we must completely fill the background with a solid colour
-    g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 
-    g.setColour(juce::Colours::white);
+    g.setColour(Colours::white);
     g.setFont(15.0f);
    
-    g.drawFittedText("Phantom", getLocalBounds(), juce::Justification::centred, 1);
+    g.drawFittedText("Phantom", getLocalBounds(), Justification::centred, 1);
 }
 
 void PhantomAudioProcessorEditor::resized()

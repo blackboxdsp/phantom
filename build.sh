@@ -37,6 +37,14 @@ fi
 if [ ! -d "./juce" ]; then
     git clone https://github.com/juce-framework/JUCE.git
     mv JUCE/ juce/
+
+    cd ./juce
+
+    git checkout develop
+    git pull
+    
+    cd ../
+
     echo -e "\nSUCCESS: Cloned JUCE repository\n"
 fi
 

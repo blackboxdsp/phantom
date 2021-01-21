@@ -14,14 +14,14 @@
 //==============================================================================
 /**
 */
-class PhantomAudioProcessorEditor  : public juce::AudioProcessorEditor
+class PhantomAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
     PhantomAudioProcessorEditor(PhantomAudioProcessor&);
     ~PhantomAudioProcessorEditor() override;
 
     //==========================================================================
-    void paint(juce::Graphics&) override;
+    void paint(Graphics&) override;
     void resized() override;
 
 private:
