@@ -6,7 +6,8 @@ juce/
 phantom/lib/
 
 # Binaries and executables
-build/
+phantom/build/
 
 # Miscellaneous project stuff
 design/
+project/

@@ -11,50 +11,52 @@
 #include "PhantomSynth.h"
 
 //==============================================================================
-PhantomSynth::PhantomSynth()
+PhantomVoice::PhantomVoice()
 {
-
+    oscillator = new PhantomOscillator();
 }
 
-PhantomSynth::~PhantomSynth()
+PhantomVoice::~PhantomVoice()
 {
-
+    oscillator = nullptr;
 }
 
 //==============================================================================
-bool PhantomSynth::canPlaySound(SynthesiserSound* sound)
+bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
 {
     return dynamic_cast<PhantomSound*> (sound) != nullptr;
 }
 
-void PhantomSynth::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
+void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {    
 
 }
 
-void PhantomSynth::stopNote(float velocity, bool allowTailOff)
+void PhantomVoice::stopNote(float velocity, bool allowTailOff)
 {
 
 }
 
 //==============================================================================
-void PhantomSynth::pitchWheelMoved(int newPitchWheel)
+void PhantomVoice::pitchWheelMoved(int newPitchWheel)
 {
 
 }
 
-void PhantomSynth::controllerMoved(int controllerNumber, int newControllerValue) 
+void PhantomVoice::controllerMoved(int controllerNumber, int newControllerValue) 
 {
 
 }
 
-//==========================================================================
-void PhantomSynth::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
+//==============================================================================
+void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
     for (int sample = 0; sample < numSamples; sample++)
     {
+        float value = ((float) std::rand() / (float) RAND_MAX) * 0.3f;
+
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
-            buffer.setSample(channel, startSample, 0.0f);
+            buffer.setSample(channel, startSample, value);
 
         startSample++;
     }

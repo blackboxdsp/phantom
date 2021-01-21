@@ -33,12 +33,12 @@ public:
 
 };
 
-class PhantomSynth : public SynthesiserVoice
+class PhantomVoice : public SynthesiserVoice
 {
 public:
     //==========================================================================
-    PhantomSynth();
-    ~PhantomSynth();
+    PhantomVoice();
+    ~PhantomVoice();
 
     //==========================================================================
     bool canPlaySound(SynthesiserSound* sound) override;
@@ -52,10 +52,10 @@ public:
     void controllerMoved(int controllerNumber, int newControllerValue) override;
 
     //==========================================================================
-    void renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples);
+    void renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples) override;
 
 private:
     //==========================================================================
-    PhantomOscillator oscillator;
+    PhantomOscillator* oscillator;
 };
 

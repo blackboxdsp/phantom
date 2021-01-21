@@ -10,6 +10,17 @@
 
 #include "PhantomOscillator.h"
 
+//==========================================================================
+PhantomOscillator::PhantomOscillator()
+{
+
+}
+
+PhantomOscillator::~PhantomOscillator()
+{
+
+}
+
 //==============================================================================
 void PhantomOscillator::initWavetable()
 {
