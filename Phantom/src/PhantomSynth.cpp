@@ -27,7 +27,7 @@ bool PhantomSynth::canPlaySound(SynthesiserSound* sound)
     return dynamic_cast<PhantomSound*> (sound) != nullptr;
 }
 
-void PhantomSynth::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition = 0)
+void PhantomSynth::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {    
 
 }
