@@ -15,12 +15,12 @@
 //==============================================================================
 PhantomVoice::PhantomVoice()
 {
-    oscillator = new PhantomOscillator();
+    m_oscillator = new PhantomOscillator();
 }
 
 PhantomVoice::~PhantomVoice()
 {
-    oscillator = nullptr;
+    m_oscillator = nullptr;
 }
 
 //==============================================================================
@@ -53,9 +53,11 @@ void PhantomVoice::controllerMoved(int controllerNumber, int newControllerValue)
 //==============================================================================
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
+    m_oscillator->setPhaseDelta(220.0, getSampleRate());
+
     for (int sample = 0; sample < numSamples; sample++)
     {
-        float value = ((float) std::rand() / (float) RAND_MAX) * 0.3f;
+        float value = m_oscillator->evaluate();
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
             buffer.setSample(channel, startSample, value);

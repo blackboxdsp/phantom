@@ -1,5 +1,6 @@
 # IDE cache folders
 .vs/
+.vscode/
 .idea/
 
 # JUCE

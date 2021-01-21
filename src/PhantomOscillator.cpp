@@ -13,29 +13,44 @@
 //==========================================================================
 PhantomOscillator::PhantomOscillator()
 {
-
+    initWavetable();
 }
 
 PhantomOscillator::~PhantomOscillator()
 {
-
+    clearWavetable();
 }
 
 //==============================================================================
 void PhantomOscillator::initWavetable()
 {
-    wavetable.clear();
+    clearWavetable();
 
-    for (int i = 0; i < wavetableSize; i++)
+    for (int i = 0; i < k_wavetableSize; i++)
     {
-        float value = sinf(MathConstants<float>::twoPi * (float) i / wavetableSize);
-        wavetable.insert(i, value);
+        float value = sinf(MathConstants<float>::twoPi * (float) i / k_wavetableSize);
+        m_wavetable.insert(i, value);
     }
+}
+
+void PhantomOscillator::clearWavetable()
+{
+    m_wavetable.clear();
 }
 
 //==============================================================================
 void PhantomOscillator::setPhaseDelta(double frequency, double sampleRate)
 {
     auto cyclesPerSample = frequency / sampleRate;
-    phaseDelta = cyclesPerSample * (double) wavetableSize;
+    m_phaseDelta = cyclesPerSample * (double) k_wavetableSize;
+}
+
+//==============================================================================
+float PhantomOscillator::evaluate()
+{
+    float value = m_wavetable[(int) m_phase];
+
+    m_phase = fmod(m_phase + m_phaseDelta, k_wavetableSize);
+
+    return value;
 }

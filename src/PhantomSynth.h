@@ -26,9 +26,6 @@ public:
     void init();
     void clear();
 
-    //==========================================================================
-    void setSampleRate(double newSampleRate);
-
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomSynth)
@@ -38,7 +35,5 @@ private:
     void addSounds();
 
     //==========================================================================
-    const int numVoices = 1;
-
-    double sampleRate;
+    const int k_numVoices = 1;
 };

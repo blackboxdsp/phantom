@@ -21,22 +21,27 @@ public:
     //==========================================================================
     PhantomOscillator();
     ~PhantomOscillator();
-    
-    //==========================================================================
-    void initWavetable();
 
     //==========================================================================
     void setPhaseDelta(double frequency, double sampleRate);
+
+    //==========================================================================
+    float evaluate();
 
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscillator)
 
     //==========================================================================
-    Array<float> wavetable;
-    int wavetableSize = 1 << 10;
+    void initWavetable();
+    void clearWavetable();
 
-    double currentPhase = 0.0;
-    double previousPhase = 0.0;
-    double phaseDelta = 0.0;
+    void updatePhase();
+
+    //==========================================================================
+    Array<float> m_wavetable;
+    const int k_wavetableSize = 1 << 10;
+
+    double m_phase = 0.0;
+    double m_phaseDelta = 0.0;
 };

@@ -21,12 +21,12 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                        )
 #endif
 {
-    phantom = new PhantomSynth();
+    m_phantom = new PhantomSynth();
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
-    phantom->clear();
+    m_phantom->clear();
 }
 
 //==============================================================================
@@ -94,8 +94,7 @@ void PhantomAudioProcessor::changeProgramName(int index, const String& newName)
 //==============================================================================
 void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    m_phantom->setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void PhantomAudioProcessor::releaseResources()
@@ -134,7 +133,7 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
 {
     buffer.clear();
 
-    phantom->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    m_phantom->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
