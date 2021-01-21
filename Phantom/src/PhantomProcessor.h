@@ -9,6 +9,8 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomSynth.h"
+
 //==============================================================================
 /**
 */
@@ -57,12 +59,5 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessor)
 
     //==========================================================================
-    void clearSynth();
-    void initSynth();
-    void initVoices();
-    void initSounds();
-
-    //==========================================================================
-    Synthesiser phantom;
-    const int numVoices = 1;
+    PhantomSynth* phantom;
 };

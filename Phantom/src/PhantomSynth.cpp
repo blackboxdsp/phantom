@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomSynth.cpp
-    Created: 20 Jan 2021 8:59:55pm
+    Created: 21 Jan 2021 10:45:00am
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -10,54 +10,47 @@
 
 #include "PhantomSynth.h"
 
-//==============================================================================
-PhantomVoice::PhantomVoice()
+#include "PhantomSound.h"
+#include "PhantomVoice.h"
+
+//==========================================================================
+PhantomSynth::PhantomSynth()
 {
-    oscillator = new PhantomOscillator();
+    clear();
+    
+    init();
 }
 
-PhantomVoice::~PhantomVoice()
+PhantomSynth::~PhantomSynth()
 {
-    oscillator = nullptr;
-}
-
-//==============================================================================
-bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
-{
-    return dynamic_cast<PhantomSound*> (sound) != nullptr;
-}
-
-void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
-{    
-
-}
-
-void PhantomVoice::stopNote(float velocity, bool allowTailOff)
-{
-
+    clear();
 }
 
 //==============================================================================
-void PhantomVoice::pitchWheelMoved(int newPitchWheel)
+void PhantomSynth::init()
 {
-
+    addVoices();
+    addSounds();
 }
 
-void PhantomVoice::controllerMoved(int controllerNumber, int newControllerValue) 
+void PhantomSynth::clear()
 {
-
+    clearSounds();
+    clearVoices();
 }
 
 //==============================================================================
-void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
+void PhantomSynth::addVoices()
 {
-    for (int sample = 0; sample < numSamples; sample++)
+    for(int i = 0; i < numVoices; i++)
     {
-        float value = ((float) std::rand() / (float) RAND_MAX) * 0.3f;
-
-        for (int channel = 0; channel < buffer.getNumChannels(); channel++)
-            buffer.setSample(channel, startSample, value);
-
-        startSample++;
+        PhantomVoice* voice = new PhantomVoice();
+        addVoice(voice);
     }
+}
+
+void PhantomSynth::addSounds()
+{
+    PhantomSound* sound = new PhantomSound();
+    addSound(sound);
 }

@@ -30,8 +30,11 @@ public:
 
 private:
     //==========================================================================
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscillator);
+
+    //==========================================================================
     Array<float> wavetable;
-    int wavetableSize;
+    int wavetableSize = 1 << 10;
 
     double currentPhase = 0.0;
     double previousPhase = 0.0;

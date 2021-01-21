@@ -5,8 +5,8 @@
   ==============================================================================
 */
 
-#include "PhantomProcessor.h"
 #include "PhantomEditor.h"
+#include "PhantomProcessor.h"
 
 //==============================================================================
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p)

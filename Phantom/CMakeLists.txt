@@ -18,6 +18,8 @@ target_sources(Phantom PRIVATE
         src/PhantomEditor.cpp
         src/PhantomProcessor.cpp
         src/PhantomSynth.cpp
+        src/PhantomVoice.cpp
+        src/PhantomSound.cpp
         src/PhantomOscillator.cpp)
 
 # Preprocessor definitions for our target

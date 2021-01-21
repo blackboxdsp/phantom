@@ -27,10 +27,10 @@ void PhantomOscillator::initWavetable()
     wavetable.clear();
 
     for (int i = 0; i < wavetableSize; i++)
-        {
-            float val = sinf(MathConstants<float>::twoPi * (float) i / wavetableSize);
-            wavetable.insert(i, val);
-        }
+    {
+        float value = sinf(MathConstants<float>::twoPi * (float) i / wavetableSize);
+        wavetable.insert(i, value);
+    }
 }
 
 //==============================================================================

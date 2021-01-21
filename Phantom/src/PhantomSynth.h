@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomSynth.h
-    Created: 20 Jan 2021 8:59:55pm
+    Created: 21 Jan 2021 10:45:00am
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -12,50 +12,33 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomOscillator.h"
-
 //==============================================================================
 /**
 */
-class PhantomSound : public SynthesiserSound
+class PhantomSynth : public Synthesiser
 {
 public:
     //==========================================================================
-    bool appliesToNote(int midiNoteNumber) override 
-    {
-        return true;
-    }
-    
-    bool appliesToChannel(int midiChannelNumber) override 
-    {
-        return true;
-    }
-
-};
-
-class PhantomVoice : public SynthesiserVoice
-{
-public:
-    //==========================================================================
-    PhantomVoice();
-    ~PhantomVoice();
+    PhantomSynth();
+    ~PhantomSynth() override;
 
     //==========================================================================
-    bool canPlaySound(SynthesiserSound* sound) override;
-
-    void startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition = 0) override;
-
-    void stopNote(float velocity, bool allowTailOff) override;
+    void init();
+    void clear();
 
     //==========================================================================
-    void pitchWheelMoved(int newPitchWheel) override;
-    void controllerMoved(int controllerNumber, int newControllerValue) override;
-
-    //==========================================================================
-    void renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples) override;
+    void setSampleRate(double newSampleRate);
 
 private:
     //==========================================================================
-    PhantomOscillator* oscillator;
-};
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomSynth);
 
+    //==========================================================================
+    void addVoices();
+    void addSounds();
+
+    //==========================================================================
+    const int numVoices = 1;
+
+    double sampleRate;
+};

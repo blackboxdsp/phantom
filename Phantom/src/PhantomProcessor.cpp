@@ -5,9 +5,8 @@
   ==============================================================================
 */
 
-#include "PhantomProcessor.h"
 #include "PhantomEditor.h"
-#include "PhantomSynth.h"
+#include "PhantomProcessor.h"
 
 //==============================================================================
 PhantomAudioProcessor::PhantomAudioProcessor()
@@ -22,42 +21,12 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                        )
 #endif
 {
-    initSynth();
+    phantom = new PhantomSynth();
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
-    clearSynth();
-}
-
-//==============================================================================
-void PhantomAudioProcessor::clearSynth()
-{
-    phantom.clearSounds();
-    phantom.clearVoices();
-}
-
-void PhantomAudioProcessor::initSynth()
-{
-    clearSynth();
-
-    initVoices();
-    initSounds();
-}
-
-void PhantomAudioProcessor::initVoices()
-{
-    for(int i = 0; i < numVoices; i++)
-    {
-        PhantomVoice* voice = new PhantomVoice();
-        phantom.addVoice(voice);
-    }
-}
-
-void PhantomAudioProcessor::initSounds()
-{
-    PhantomSound* sound = new PhantomSound();
-    phantom.addSound(sound);
+    phantom->clear();
 }
 
 //==============================================================================
@@ -165,9 +134,7 @@ void PhantomAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce:
 {
     buffer.clear();
 
-    phantom.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
-
-    // TODO: oscilloscope and analyzer here
+    phantom->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
