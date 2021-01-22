@@ -54,12 +54,12 @@ public:
     void getStateInformation(MemoryBlock& destData) override;
     void setStateInformation(const void* data, int sizeInBytes) override;
 
+    //==========================================================================
+    float getSkewFactor(float start, float end, float center);
+
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessor)
-
-    //==========================================================================
-    float getSkewFactor(float start, float end, float center);
 
     //==========================================================================
     AudioProcessorValueTreeState m_parameters;

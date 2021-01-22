@@ -7,6 +7,7 @@
 
 #include "PhantomEditor.h"
 #include "PhantomProcessor.h"
+#include "PhantomUtils.h"
 
 //==============================================================================
 PhantomAudioProcessor::PhantomAudioProcessor()
@@ -22,7 +23,7 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                        )
 #endif
 {
-    p_level = m_parameters.getRawParameterValue("level");
+    p_level = m_parameters.getRawParameterValue(Parameters::_LEVEL_PARAM_ID);
 
     m_phantom = new PhantomSynth(m_parameters);
 }
@@ -39,24 +40,53 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
-    auto oscillatorRange = std::make_unique<AudioParameterFloat>(
-        "oscillatorRange", "Osc Range",
+    auto oscRange = std::make_unique<AudioParameterFloat>(
+        Parameters::_OSC_RANGE_PARAM_ID, Parameters::_OSC_RANGE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 3.0f, 1.0f),
-        2.0f
+        Parameters::_OSC_RANGE_DEFAULT_VAL
     );
-    params.push_back(std::move(oscillatorRange));
+    params.push_back(std::move(oscRange));
 
-    auto oscillatorTune = std::make_unique<AudioParameterFloat>(
-        "oscillatorTune", "Osc Tune",
+    auto oscTune = std::make_unique<AudioParameterFloat>(
+        Parameters::_OSC_TUNE_PARAM_ID, Parameters::_OSC_TUNE_PARAM_NAME,
         NormalisableRange<float>(-12.0f, 12.0f, 0.1f),
-        0.0f    
+        Parameters::_OSC_TUNE_DEFAULT_VAL
     );
-    params.push_back(std::move(oscillatorTune));
+    params.push_back(std::move(oscTune));
+
+    auto ampEgAtk = std::make_unique<AudioParameterFloat>(
+        Parameters::_AMP_EG_ATK_PARAM_ID, Parameters::_AMP_EG_ATK_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
+        Parameters::_AMP_EG_ATK_DEFAULT_VAL
+    );
+    params.push_back(std::move(ampEgAtk));
+
+    auto ampEgDec = std::make_unique<AudioParameterFloat>(
+        Parameters::_AMP_EG_DEC_PARAM_ID, Parameters::_AMP_EG_DEC_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
+        Parameters::_AMP_EG_DEC_DEFAULT_VAL
+    );
+    params.push_back(std::move(ampEgDec));
+
+    auto ampEgSus = std::make_unique<AudioParameterFloat>(
+        Parameters::_AMP_EG_SUS_PARAM_ID, Parameters::_AMP_EG_SUS_PARAM_NAME,
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        Parameters::_AMP_EG_SUS_DEFAULT_VAL
+    );
+    params.push_back(std::move(ampEgSus));
+
+    auto ampEgRel = std::make_unique<AudioParameterFloat>(
+        Parameters::_AMP_EG_REL_PARAM_ID, Parameters::_AMP_EG_REL_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 2.0f), false),
+        Parameters::_AMP_EG_REL_DEFAULT_VAL
+    );
+    params.push_back(std::move(ampEgRel));
 
     auto level = std::make_unique<AudioParameterFloat>(
-        "level", "Level",
-        NormalisableRange<float>(-48.0f, 12.0f, 0.1f, getSkewFactor(-48.0f, 12.0f, 0.0f), false),
-        0.0f);
+        Parameters::_LEVEL_PARAM_ID, Parameters::_LEVEL_PARAM_NAME,
+        NormalisableRange<float>(-60.0f, 6.0f, 0.1f, getSkewFactor(-60.0f, 6.0f, 0.0f), false),
+        Parameters::_LEVEL_DEFAULT_VAL
+    );
     params.push_back(std::move(level));
 
     return { params.begin(), params.end() };
@@ -216,14 +246,14 @@ void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInByte
 }
 
 //==============================================================================
+float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)
+{
+    return std::log((0.5f)) / std::log((center - start) / (end - start));
+}
+
+//==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new PhantomAudioProcessor();
-}
-
-//==========================================================================
-float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)
-{
-    return std::log((0.5f)) / std::log((center - start) / (end - start));
 }

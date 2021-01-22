@@ -13,6 +13,7 @@
 #include "JuceHeader.h"
 
 #include "PhantomOscillator.h"
+#include "PhantomEnvelopeGenerator.h"
 
 //==============================================================================
 /**
@@ -46,14 +47,17 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomVoice)
 
     //==========================================================================
-    void updateOscillator();
+    forcedinline void updateOscillator() noexcept;
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
+    std::atomic<float>* p_oscRange;
+    std::atomic<float>* p_oscTune;
+
     //==========================================================================
     int m_midiNoteNumber = 60;
-    PhantomOscillator* m_oscillator;
-    std::atomic<float>* p_oscillatorRange;
-    std::atomic<float>* p_oscillatorTune;
+    
+    PhantomOscillator* m_osc;
+    PhantomEnvelopeGenerator* m_ampEg;
 };
