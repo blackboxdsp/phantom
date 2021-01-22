@@ -27,7 +27,7 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts)
         Parameters::_AMP_EG_SUS_PARAM_ID,
         Parameters::_AMP_EG_REL_PARAM_ID
     };
-    m_ampEg = new PhantomEnvelopeGenerator(m_parameters, ampEgParams, getSampleRate());
+    m_ampEg = new PhantomEnvelopeGenerator(m_parameters, ampEgParams);
 }
 
 PhantomVoice::~PhantomVoice()
@@ -51,6 +51,7 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
     updateOscillator();
     
     m_ampEg->setSampleRate(getSampleRate());
+    m_ampEg->update();
     m_ampEg->noteOn();
 }
 
@@ -76,7 +77,7 @@ void PhantomVoice::controllerMoved(int controllerNumber, int newControllerValue)
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
     updateOscillator();
-    updateAmpEnvelope();
+    m_ampEg->update();
 
     for (int sample = 0; sample < numSamples; sample++)
     {
@@ -103,10 +104,4 @@ forcedinline void PhantomVoice::updateOscillator() noexcept
     float frequency = midiNoteFrequency * range;
 
     m_osc->setPhaseDelta(frequency, getSampleRate());
-}
-
-//==============================================================================
-forcedinline void PhantomVoice::updateAmpEnvelope() noexcept
-{
-    m_ampEg->update();
 }

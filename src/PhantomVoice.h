@@ -48,7 +48,6 @@ private:
 
     //==========================================================================
     forcedinline void updateOscillator() noexcept;
-    forcedinline void updateAmpEnvelope() noexcept;
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;

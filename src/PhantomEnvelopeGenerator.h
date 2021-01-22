@@ -19,19 +19,21 @@ class PhantomEnvelopeGenerator : public ADSR
 {
 public:
     //==========================================================================
-    PhantomEnvelopeGenerator(AudioProcessorValueTreeState&, char* [4], double);
+    PhantomEnvelopeGenerator(AudioProcessorValueTreeState&, char* [4]);
     ~PhantomEnvelopeGenerator();
 
     //==========================================================================
     void init();
 
     //==========================================================================
-    forcedinline void update() noexcept;
-    forcedinline void setEnvelope() noexcept;
+    void update();
 
 private:
     //==========================================================================
     ADSR::Parameters m_envelope;
+
+    //==========================================================================
+    void setEnvelope();
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;

@@ -11,17 +11,15 @@
 #include "PhantomEnvelopeGenerator.h"
 
 //==========================================================================
-PhantomEnvelopeGenerator::PhantomEnvelopeGenerator(AudioProcessorValueTreeState& vts, char* parameterIds[4], double sampleRate)
+PhantomEnvelopeGenerator::PhantomEnvelopeGenerator(AudioProcessorValueTreeState& vts, char* parameterIds[4])
     :   m_parameters(vts)
 {
-    setSampleRate(sampleRate);
-
     p_attack = m_parameters.getRawParameterValue(parameterIds[0]);
     p_decay = m_parameters.getRawParameterValue(parameterIds[1]);
     p_sustain = m_parameters.getRawParameterValue(parameterIds[2]);
     p_release = m_parameters.getRawParameterValue(parameterIds[3]);
 
-    update();
+    setEnvelope();
 }
 
 PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
@@ -33,13 +31,14 @@ PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
 }
 
 //==============================================================================
-forcedinline void PhantomEnvelopeGenerator::update() noexcept
+void PhantomEnvelopeGenerator::update()
 {
     setEnvelope();
     setParameters(m_envelope);
 }
 
-forcedinline void PhantomEnvelopeGenerator::setEnvelope() noexcept
+//==============================================================================
+void PhantomEnvelopeGenerator::setEnvelope()
 {
     m_envelope.attack = *p_attack;
     m_envelope.decay = *p_decay;

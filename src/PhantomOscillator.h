@@ -38,7 +38,7 @@ private:
 
     //==========================================================================
     Array<float> m_wavetable;
-    const int k_wavetableSize = 1 << 10;
+    const int k_wavetableSize = 1 << 11;
 
     float m_phase = 0.0;
     float m_phaseDelta = 0.0;
