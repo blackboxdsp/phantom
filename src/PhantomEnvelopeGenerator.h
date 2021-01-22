@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    PhantomOscillator.h
-    Created: 20 Jan 2021 9:17:28pm
+    PhantomEnvelopeGenerator.h
+    Created: 22 Jan 2021 10:41:40am
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -15,31 +15,25 @@
 //==============================================================================
 /**
 */
-class PhantomOscillator 
+class PhantomEnvelopeGenerator : public ADSR
 {
 public:
     //==========================================================================
-    PhantomOscillator();
-    ~PhantomOscillator();
+    PhantomEnvelopeGenerator(AudioProcessorValueTreeState&, char* [4]);
+    ~PhantomEnvelopeGenerator();
 
     //==========================================================================
-    void setPhaseDelta(float frequency, float sampleRate);
-
-    //==========================================================================
-    float getNextSample();
+    forcedinline void update() noexcept;
 
 private:
     //==========================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscillator)
+    ADSR::Parameters m_envelope;
 
     //==========================================================================
-    void initWavetable();
-    void clearWavetable();
+    AudioProcessorValueTreeState& m_parameters;
 
-    //==========================================================================
-    Array<float> m_wavetable;
-    const int k_wavetableSize = 1 << 10;
-
-    float m_phase = 0.0;
-    float m_phaseDelta = 0.0;
+    std::atomic<float>* p_attack;
+    std::atomic<float>* p_decay;
+    std::atomic<float>* p_sustain;
+    std::atomic<float>* p_release;
 };

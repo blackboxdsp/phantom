@@ -7,6 +7,7 @@
 
 #include "PhantomEditor.h"
 #include "PhantomProcessor.h"
+#include "PhantomUtils.h"
 
 //==============================================================================
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts)
@@ -16,24 +17,24 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     const int textBoxHeight = 20;
 
     //==========================================================================
-    m_oscillatorRangeSlider.setSliderStyle(Slider::LinearVertical);
-    m_oscillatorRangeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_oscillatorRangeSlider.setDoubleClickReturnValue(true, 2);
-    m_oscillatorRangeSliderAttachment.reset(new SliderAttachment(m_parameters, "oscillatorRange", m_oscillatorRangeSlider));
-    addAndMakeVisible(&m_oscillatorRangeSlider);
+    m_oscRangeSlider.setSliderStyle(Slider::LinearVertical);
+    m_oscRangeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscRangeSlider.setTextValueSuffix("'");
+    m_oscRangeSlider.setDoubleClickReturnValue(true, 2);
+    m_oscRangeSliderAttachment.reset(new SliderAttachment(m_parameters, Parameters::_OSC_RANGE_PARAM_ID, m_oscRangeSlider));
+    addAndMakeVisible(&m_oscRangeSlider);
 
-    m_oscillatorTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_oscillatorTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_oscillatorTuneSlider.setTextValueSuffix(" Semi");
-    m_oscillatorTuneSlider.setDoubleClickReturnValue(true, 0.0f);
-    m_oscillatorTuneSliderAttachment.reset(new SliderAttachment(m_parameters, "oscillatorTune", m_oscillatorTuneSlider));
-    addAndMakeVisible(&m_oscillatorTuneSlider);
+    m_oscTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_oscTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscTuneSlider.setDoubleClickReturnValue(true, 0.0f);
+    m_oscTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Parameters::_OSC_TUNE_PARAM_ID, m_oscTuneSlider));
+    addAndMakeVisible(&m_oscTuneSlider);
 
     m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_levelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
     m_levelSlider.setTextValueSuffix(" dB");
     m_levelSlider.setDoubleClickReturnValue(true, 0.0f);
-    m_levelSliderAttachment.reset(new SliderAttachment(m_parameters, "level", m_levelSlider));
+    m_levelSliderAttachment.reset(new SliderAttachment(m_parameters, Parameters::_LEVEL_PARAM_ID, m_levelSlider));
     addAndMakeVisible(&m_levelSlider);
 
     //==========================================================================
@@ -42,8 +43,8 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
-    m_oscillatorRangeSliderAttachment = nullptr;
-    m_oscillatorTuneSliderAttachment = nullptr;
+    m_oscRangeSliderAttachment = nullptr;
+    m_oscTuneSliderAttachment = nullptr;
 
     m_levelSliderAttachment = nullptr;
 }
@@ -71,10 +72,10 @@ void PhantomAudioProcessorEditor::resized()
     int width = getWidth();
 
     Rectangle<int> left = canvas.removeFromLeft(width / 3);
-    m_oscillatorRangeSlider.setBounds(left);
+    m_oscRangeSlider.setBounds(left);
 
     Rectangle<int> middle = canvas.removeFromLeft(width / 3);
-    m_oscillatorTuneSlider.setBounds(middle);
+    m_oscTuneSlider.setBounds(middle);
 
     Rectangle<int> right = canvas;
     m_levelSlider.setBounds(right);

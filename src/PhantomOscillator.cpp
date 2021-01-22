@@ -22,6 +22,23 @@ PhantomOscillator::~PhantomOscillator()
 }
 
 //==============================================================================
+void PhantomOscillator::setPhaseDelta(float frequency, float sampleRate)
+{
+    float cyclesPerSample = frequency / sampleRate;
+    m_phaseDelta = cyclesPerSample * (float) k_wavetableSize;
+}
+
+//==============================================================================
+float PhantomOscillator::getNextSample()
+{
+    float value = m_wavetable[(int) m_phase];
+
+    m_phase = fmod(m_phase + m_phaseDelta, k_wavetableSize);
+
+    return value;
+}
+
+//==============================================================================
 void PhantomOscillator::initWavetable()
 {
     clearWavetable();
@@ -36,21 +53,4 @@ void PhantomOscillator::initWavetable()
 void PhantomOscillator::clearWavetable()
 {
     m_wavetable.clear();
-}
-
-//==============================================================================
-void PhantomOscillator::setPhaseDelta(float frequency, float sampleRate)
-{
-    float cyclesPerSample = frequency / sampleRate;
-    m_phaseDelta = cyclesPerSample * (float) k_wavetableSize;
-}
-
-//==============================================================================
-float PhantomOscillator::evaluate()
-{
-    float value = m_wavetable[(int) m_phase];
-
-    m_phase = fmod(m_phase + m_phaseDelta, k_wavetableSize);
-
-    return value;
 }
