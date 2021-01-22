@@ -42,6 +42,9 @@ void PhantomEnvelopeGenerator::setEnvelope()
 {
     m_envelope.attack = *p_attack;
     m_envelope.decay = *p_decay;
-    m_envelope.sustain = powf(2, *p_sustain / 6);
     m_envelope.release = *p_release;
+
+    float sustain = powf(2, *p_sustain / 6);
+    if(m_envelope.sustain != sustain)
+        m_envelope.sustain = (m_envelope.sustain + sustain) / 2.0f;
 }

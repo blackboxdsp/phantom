@@ -42,4 +42,6 @@ private:
     std::atomic<float>* p_decay;
     std::atomic<float>* p_sustain;
     std::atomic<float>* p_release;
+
+    float previousSustain;
 };
