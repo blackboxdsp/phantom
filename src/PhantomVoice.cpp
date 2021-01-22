@@ -27,12 +27,16 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts)
         Parameters::_AMP_EG_SUS_PARAM_ID,
         Parameters::_AMP_EG_REL_PARAM_ID
     };
-    m_ampEg = new PhantomEnvelopeGenerator(m_parameters, ampEgParams);
+    m_ampEg = new PhantomEnvelopeGenerator(m_parameters, ampEgParams, getSampleRate());
 }
 
 PhantomVoice::~PhantomVoice()
 {
     m_osc = nullptr;
+    p_oscTune = nullptr;
+    p_oscRange = nullptr;
+
+    m_ampEg = nullptr;
 }
 
 //==============================================================================
@@ -72,6 +76,7 @@ void PhantomVoice::controllerMoved(int controllerNumber, int newControllerValue)
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
     updateOscillator();
+    updateAmpEnvelope();
 
     for (int sample = 0; sample < numSamples; sample++)
     {

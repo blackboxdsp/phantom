@@ -84,8 +84,9 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto level = std::make_unique<AudioParameterFloat>(
         Parameters::_LEVEL_PARAM_ID, Parameters::_LEVEL_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 12.0f, 0.1f, getSkewFactor(-60.0f, 12.0f, 0.0f), false),
-        0.0f);
+        NormalisableRange<float>(-60.0f, 6.0f, 0.1f, getSkewFactor(-60.0f, 6.0f, 0.0f), false),
+        0.0f
+    );
     params.push_back(std::move(level));
 
     return { params.begin(), params.end() };
