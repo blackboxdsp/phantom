@@ -16,6 +16,7 @@
 PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
+    p_oscillatorRange = m_parameters.getRawParameterValue("oscillatorRange");
     p_oscillatorTune = m_parameters.getRawParameterValue("oscillatorTune");
 
     m_oscillator = new PhantomOscillator();
@@ -62,7 +63,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
     for (int sample = 0; sample < numSamples; sample++)
     {
-        float value = m_oscillator->evaluate() * 0.3f;
+        float value = m_oscillator->evaluate();
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
             buffer.setSample(channel, startSample, value);
@@ -80,6 +81,9 @@ float PhantomVoice::midiNoteToFrequency(float midiNote)
 //==========================================================================
 void PhantomVoice::updateOscillator()
 {
-    float frequency = midiNoteToFrequency(m_midiNoteNumber + *p_oscillatorTune);
+    float midiNoteFrequency = midiNoteToFrequency(m_midiNoteNumber + *p_oscillatorTune);
+    float range = std::exp2f((int)*p_oscillatorRange - 2);
+    float frequency = midiNoteFrequency * range;
+
     m_oscillator->setPhaseDelta(frequency, getSampleRate());
 }

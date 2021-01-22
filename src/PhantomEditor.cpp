@@ -16,6 +16,12 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     const int textBoxHeight = 20;
 
     //==========================================================================
+    m_oscillatorRangeSlider.setSliderStyle(Slider::LinearVertical);
+    m_oscillatorRangeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscillatorRangeSlider.setDoubleClickReturnValue(true, 2);
+    m_oscillatorRangeSliderAttachment.reset(new SliderAttachment(m_parameters, "oscillatorRange", m_oscillatorRangeSlider));
+    addAndMakeVisible(&m_oscillatorRangeSlider);
+
     m_oscillatorTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_oscillatorTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
     m_oscillatorTuneSlider.setTextValueSuffix(" Semi");
@@ -31,11 +37,14 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     addAndMakeVisible(&m_levelSlider);
 
     //==========================================================================
-    setSize(400, 300);
+    setSize(540, 360);
 }
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
+    m_oscillatorRangeSliderAttachment = nullptr;
+    m_oscillatorTuneSliderAttachment = nullptr;
+
     m_levelSliderAttachment = nullptr;
 }
 
@@ -59,8 +68,13 @@ void PhantomAudioProcessorEditor::resized()
     canvas.removeFromBottom(margin);
     canvas.removeFromLeft(margin);
 
-    Rectangle<int> left = canvas.removeFromLeft(getWidth() / 2);
-    m_oscillatorTuneSlider.setBounds(left);
+    int width = getWidth();
+
+    Rectangle<int> left = canvas.removeFromLeft(width / 3);
+    m_oscillatorRangeSlider.setBounds(left);
+
+    Rectangle<int> middle = canvas.removeFromLeft(width / 3);
+    m_oscillatorTuneSlider.setBounds(middle);
 
     Rectangle<int> right = canvas;
     m_levelSlider.setBounds(right);

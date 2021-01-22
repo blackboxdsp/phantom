@@ -52,8 +52,8 @@ private:
     AudioProcessorValueTreeState& m_parameters;
 
     //==========================================================================
+    int m_midiNoteNumber = 60;
     PhantomOscillator* m_oscillator;
+    std::atomic<float>* p_oscillatorRange;
     std::atomic<float>* p_oscillatorTune;
-
-    int m_midiNoteNumber = 0;
 };
