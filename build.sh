@@ -29,36 +29,45 @@ for i in "$@"; do
 done
 
 if [ "$REMOVE_PREV_BUILD" = true ]; then
-    rm -rf ./build
-    rm -rf ./JUCE/build
-    echo -e "SUCCESS: Removed previous build's folders and cache\n"
+    rm -rf ./bin
+    rm -rf ./juce/bin
+    echo -e "SUCCESS: Removed previous build's folders\n"
 fi
 
-if [ ! -d "./JUCE" ]; then
+if [ ! -d "./juce" ]; then
     git clone https://github.com/juce-framework/JUCE.git
+    mv JUCE/ juce/
+
+    cd ./juce
+
+    git checkout develop
+    git pull
+    
+    cd ../
+
     echo -e "\nSUCCESS: Cloned JUCE repository\n"
 fi
 
-if [ ! -d "./JUCE/build" ]; then
-    cd ./JUCE
+if [ ! -d "./juce/build" ]; then
+    cd ./juce
 
     echo -e "Configuring (JUCE)...\n"
-    cmake -B build .
+    cmake -B bin .
     echo -e "\nSUCCESS: Configured JUCE build\n"
 
     echo -e "Building (JUCE)...\n"
-    cmake --build build
+    cmake --build bin
     echo -e "\nSUCCESS: Built JUCE libraries and targets\n"
 
     cd ../
 fi
 
 echo -e "Configuring (Phantom)...\n"
-cmake -B build
+cmake -B bin
 echo -e "\nSUCCESS: Configured plugin build\n"
 
 echo -e "Building (Phantom)...\n"
-cmake --build build --config "$BUILD_TYPE" --target Phantom_All
+cmake --build bin --config "$BUILD_TYPE" --target Phantom_All
 echo -e "\nSUCCESS: Built plugin executable(s)\n"
 
 if [ ! -z "$DAW_TO_OPEN" ]; then
@@ -69,15 +78,15 @@ fi
 if [ "$COPY_BUILD_STEP" = true ]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         rm -rf /Library/Audio/Plug-Ins/VST3/Phantom.vst3
-        cp -r ./build/Phantom/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3 /Library/Audio/Plug-Ins/VST3/Phantom.vst3
+        cp -r ./bin/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3 /Library/Audio/Plug-Ins/VST3/Phantom.vst3
         echo -e "SUCCESS: Copied VST3 bundle to plugins directory\n"
 
         rm -rf /Library/Audio/Plug-Ins/Components/Phantom.component
-        cp -r ./build/Phantom/Phantom_artefacts/${BUILD_TYPE}/AU/Phantom.component /Library/Audio/Plug-Ins/Components/Phantom.component
+        cp -r ./bin/Phantom_artefacts/${BUILD_TYPE}/AU/Phantom.component /Library/Audio/Plug-Ins/Components/Phantom.component
         echo -e "SUCCESS: Copied AU bundle to plugins directory\n"
     else
         rm -f /c/Program\ Files/Common\ Files/VST3/Phantom.vst3
-        cp ./build/Phantom/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3 /c/Program\ Files/Common\ Files/VST3/Phantom.vst3
+        cp ./bin/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3 /c/Program\ Files/Common\ Files/VST3/Phantom.vst3
         echo -e "SUCCESS: Copied VST3 bundle to plugins directory\n"
     fi
 fi

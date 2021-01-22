@@ -1,12 +1,14 @@
-# Visual Studio
+# IDE cache folders
 .vs/
+.vscode/
+.idea/
 
 # JUCE
-JUCE/
-Phantom/JuceLibraryCode/
+juce/
 
 # Binaries and executables
-build/
+bin/
 
 # Miscellaneous project stuff
 design/
+project/

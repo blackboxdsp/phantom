@@ -11,7 +11,7 @@
 
 Provide an explanation for the pull request along with any important or cautionary information. 
 
-[Card](https://trello.com/c/card-id/card-name)
+[Trello Card](https://trello.com/c/card-id/card-name)
 
 ## Notes
 
