@@ -36,11 +36,11 @@ PhantomOscillator::~PhantomOscillator()
 float PhantomOscillator::evaluate() noexcept
 {
     float sineValue = m_wavetable[(int) m_phase];
-    float sampleValue = sineValue * m_ampEg->getNextSample();
+    float sampleValue = sineValue * m_ampEg->evaluate();
 
     m_phase = fmod(m_phase + m_phaseDelta, k_wavetableSize);
 
-    float expo = m_modEg->getNextSample() * *p_modDepth * (float) k_modExpoThreshold;
+    float expo = m_modEg->evaluate() * *p_modDepth * (float) k_modExpoThreshold;
     updatePhaseDelta(m_frequency * std::exp2f(expo));
 
     return sampleValue;

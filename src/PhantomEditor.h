@@ -49,8 +49,8 @@ private:
     std::unique_ptr<SliderAttachment> m_filterCutoffSliderAttachment;
     Slider m_filterResoSlider;
     std::unique_ptr<SliderAttachment> m_filterResoSliderAttachment;
-    Slider m_filterEgIntSlider;
-    std::unique_ptr<SliderAttachment> m_filterEgIntSliderAttachment;
+    Slider m_filterModDepthSlider;
+    std::unique_ptr<SliderAttachment> m_filterModDepthSliderAttachment;
 
     Slider m_ampEgAtkSlider;
     std::unique_ptr<SliderAttachment> m_ampEgAtkSliderAttachment;

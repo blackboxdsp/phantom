@@ -81,9 +81,9 @@ namespace Params {
     constexpr char* _FLTR_RESO_PARAM_ID = "filterReso";
     constexpr char* _FLTR_RESO_PARAM_NAME = "Filter Resonance";
     constexpr float _FLTR_RESO_DEFAULT_VAL = 0.70710678;
-    constexpr char* _FLTR_EG_INT_PARAM_ID = "filterEgInt";
-    constexpr char* _FLTR_EG_INT_PARAM_NAME = "Filter EG Int";
-    constexpr float _FLTR_EG_INT_DEFAULT_VAL = 0.0f;
+    constexpr char* _FLTR_MOD_DEPTH_PARAM_ID = "filterEgInt";
+    constexpr char* _FLTR_MOD_DEPTH_PARAM_NAME = "Filter EG Int";
+    constexpr float _FLTR_MOD_DEPTH_DEFAULT_VAL = 0.0f;
 
     constexpr char* _LEVEL_PARAM_ID = "level";
     constexpr char* _LEVEL_PARAM_NAME = "Level";

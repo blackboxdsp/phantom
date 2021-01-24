@@ -55,11 +55,11 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_filterResoSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_RESO_PARAM_ID, m_filterResoSlider));
     addAndMakeVisible(&m_filterResoSlider);
 
-    m_filterEgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterEgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_filterEgIntSlider.setDoubleClickReturnValue(true, Params::_FLTR_EG_INT_DEFAULT_VAL);
-    m_filterEgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_EG_INT_PARAM_ID, m_filterEgIntSlider));
-    addAndMakeVisible(&m_filterEgIntSlider);
+    m_filterModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterModDepthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterModDepthSlider.setDoubleClickReturnValue(true, Params::_FLTR_MOD_DEPTH_DEFAULT_VAL);
+    m_filterModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_MOD_DEPTH_PARAM_ID, m_filterModDepthSlider));
+    addAndMakeVisible(&m_filterModDepthSlider);
     
     // AMP EG
 
@@ -225,7 +225,7 @@ void PhantomAudioProcessorEditor::resized()
 
     m_filterCutoffSlider.setBounds(top.removeFromLeft(width / 7));
     m_filterResoSlider.setBounds(top.removeFromLeft(width / 7));
-    m_filterEgIntSlider.setBounds(top.removeFromLeft(width / 7));
+    m_filterModDepthSlider.setBounds(top.removeFromLeft(width / 7));
 
     m_levelSlider.setBounds(top);
 
