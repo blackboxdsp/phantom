@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomVoice.h
-    Created: 20 Jan 2021 8:59:55pm
+    Created: 20 Jan 2021 20:59:55
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -12,6 +12,7 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomAmplifier.h"
 #include "PhantomOscillator.h"
 #include "PhantomEnvelopeGenerator.h"
 
@@ -39,25 +40,18 @@ public:
     //==========================================================================
     void renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples) override;
 
-    //==========================================================================
-    float midiNoteToFrequency(float midiNote);
-
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomVoice)
 
     //==========================================================================
-    forcedinline void updateOscillator() noexcept;
-
-    //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
-    std::atomic<float>* p_oscRange;
-    std::atomic<float>* p_oscTune;
-
     //==========================================================================
+    // NOTE: 60 corresponds to middle C
     int m_midiNoteNumber = 60;
     
     PhantomOscillator* m_osc;
     PhantomEnvelopeGenerator* m_ampEg;
+    PhantomAmplifier* m_amp;
 };

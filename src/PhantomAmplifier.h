@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    PhantomSynth.h
-    Created: 21 Jan 2021 10:45:00
+    PhantomAmplifier.h
+    Created: 23 Jan 2021 18:23:35
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -15,28 +15,20 @@
 //==============================================================================
 /**
 */
-class PhantomSynth : public Synthesiser
+class PhantomAmplifier
 {
 public:
     //==========================================================================
-    PhantomSynth(AudioProcessorValueTreeState&);
-    ~PhantomSynth() override;
+    PhantomAmplifier(AudioProcessorValueTreeState&);
+    ~PhantomAmplifier();
 
     //==========================================================================
-    void init();
-    void clear();
+    void apply(AudioBuffer<float>&);
 
 private:
     //==========================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomSynth)
-
-    //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
-    //==========================================================================
-    void addVoices();
-    void addSounds();
-
-    //==========================================================================
-    const int k_numVoices = 1;
+    std::atomic<float>* p_level = nullptr;
+    float m_previousGain;
 };

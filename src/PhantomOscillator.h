@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomOscillator.h
-    Created: 20 Jan 2021 9:17:28pm
+    Created: 20 Jan 2021 21:17:28
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -19,22 +19,32 @@ class PhantomOscillator
 {
 public:
     //==========================================================================
-    PhantomOscillator();
+    PhantomOscillator(AudioProcessorValueTreeState&);
     ~PhantomOscillator();
 
     //==========================================================================
-    void setPhaseDelta(float frequency, float sampleRate);
+    void update(int midiNoteNumber, float sampleRate);
 
-    //==========================================================================
     float getNextSample();
+
+    float midiNoteToFrequency(float midiNote);
 
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscillator)
 
     //==========================================================================
+    void initParameters();
     void initWavetable();
-    void clearWavetable();
+
+    void updateFrequency();
+    void updatePhaseDelta();
+    
+    //==========================================================================
+    AudioProcessorValueTreeState& m_parameters;
+
+    std::atomic<float>* p_oscRange;
+    std::atomic<float>* p_oscTune;
 
     //==========================================================================
     Array<float> m_wavetable;
@@ -42,4 +52,8 @@ private:
 
     float m_phase = 0.0;
     float m_phaseDelta = 0.0;
+
+    int m_midiNoteNumber;
+    float m_frequency;
+    float m_sampleRate;
 };
