@@ -29,13 +29,13 @@ PhantomSynth::~PhantomSynth()
 void PhantomSynth::init(float sampleRate, int samplesPerBlock, int numChannels)
 {
     clear();
-    
+
     setCurrentPlaybackSampleRate(sampleRate);
 
     m_processSpec = {
         (double) sampleRate,
         static_cast<uint32>(samplesPerBlock),
-        static_cast<uint32>(numChannels)
+        static_cast<uint32>(1)
     };
 
     addVoices();

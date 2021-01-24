@@ -21,11 +21,14 @@ class PhantomFilter
 {
 public:
     //==========================================================================
-    PhantomFilter(AudioProcessorValueTreeState&);
+    PhantomFilter(AudioProcessorValueTreeState&, dsp::ProcessSpec&);
     ~PhantomFilter();
 
     //==========================================================================
-    void PhantomFilter::initFilter();
+    void update();
+
+    //==========================================================================
+    float evaluate(float sample);
 
 private:
     //==========================================================================
@@ -34,6 +37,10 @@ private:
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
+    std::atomic<float>* p_cutoff;
+    std::atomic<float>* p_resonance;
+
     //==========================================================================
-    dsp::LadderFilter<float>* m_filter;
+    dsp::StateVariableTPTFilter<float>* m_filter;
+    dsp::StateVariableTPTFilterType m_type = dsp::StateVariableTPTFilterType::lowpass;
 };

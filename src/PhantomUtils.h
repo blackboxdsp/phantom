@@ -24,6 +24,22 @@ namespace Params {
     constexpr char* _OSC_TUNE_PARAM_NAME = "Osc Tune";
     constexpr float _OSC_TUNE_DEFAULT_VAL = 0.0f;
 
+    constexpr char* _FLTR_CUTOFF_PARAM_ID = "fltrCutoff";
+    constexpr char* _FLTR_CUTOFF_PARAM_NAME = "Filter Cutoff";
+    constexpr float _FLTR_CUTOFF_DEFAULT_VAL = 1000.0f;
+    constexpr char* _FLTR_RESO_PARAM_ID = "fltrReso";
+    constexpr char* _FLTR_RESO_PARAM_NAME = "Filter Resonance";
+    constexpr float _FLTR_RESO_DEFAULT_VAL = 0.70710678;
+
+    constexpr char* _FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
+    constexpr char* _FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
+    constexpr char* _FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
+    constexpr char* _FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
+    constexpr char* _FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
+    constexpr char* _FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
+    constexpr char* _FLTR_EG_REL_PARAM_ID = "fltrEgRel";
+    constexpr char* _FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
+
     constexpr char* _AMP_EG_ATK_PARAM_ID = "ampEgAtk";
     constexpr char* _AMP_EG_ATK_PARAM_NAME = "Amp EG Atk";
     constexpr float _AMP_EG_ATK_DEFAULT_VAL = 0.1f;
@@ -36,15 +52,6 @@ namespace Params {
     constexpr char* _AMP_EG_REL_PARAM_ID = "ampEgRel";
     constexpr char* _AMP_EG_REL_PARAM_NAME = "Amp EG Rel";
     constexpr float _AMP_EG_REL_DEFAULT_VAL = 1.2f;
-
-    constexpr char* _FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
-    constexpr char* _FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
-    constexpr char* _FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
-    constexpr char* _FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
-    constexpr char* _FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
-    constexpr char* _FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
-    constexpr char* _FLTR_EG_REL_PARAM_ID = "fltrEgRel";
-    constexpr char* _FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
 
     constexpr char* _PHASE_EG_ATK_PARAM_ID = "phaseEgAtk";
     constexpr char* _PHASE_EG_ATK_PARAM_NAME = "Phase EG Atk";
