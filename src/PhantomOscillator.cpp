@@ -65,19 +65,23 @@ float PhantomOscillator::midiNoteToFrequency(float midiNote)
 void PhantomOscillator::update(int midiNoteNumber, float sampleRate)
 {
     if(m_midiNoteNumber != midiNoteNumber)
-    {
         m_midiNoteNumber = midiNoteNumber;
 
-        float midiNoteFrequency = midiNoteToFrequency(m_midiNoteNumber + *p_oscTune);
-        float range = std::exp2f((int) *p_oscRange - 2);
-        m_frequency = midiNoteFrequency * range;
-    }
+    m_sampleRate = sampleRate;
 
-    setPhaseDelta(m_frequency, sampleRate);
+    updateFrequency();
+    updatePhaseDelta();
 }
 
-void PhantomOscillator::setPhaseDelta(float frequency, float sampleRate)
+void PhantomOscillator::updateFrequency()
 {
-    float cyclesPerSample = frequency / sampleRate;
+    float midiNoteFrequency = midiNoteToFrequency(m_midiNoteNumber + *p_oscTune);
+    float range = std::exp2f((int) *p_oscRange - 2);
+    m_frequency = midiNoteFrequency * range;
+}
+
+void PhantomOscillator::updatePhaseDelta()
+{
+    float cyclesPerSample = m_frequency / m_sampleRate;
     m_phaseDelta = cyclesPerSample * (float) k_wavetableSize;
 }

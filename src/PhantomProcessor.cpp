@@ -73,14 +73,14 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto ampEgRel = std::make_unique<AudioParameterFloat>(
         Params::_AMP_EG_REL_PARAM_ID, Params::_AMP_EG_REL_PARAM_NAME,
-        NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 2.0f), false),
+        NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
         Params::_AMP_EG_REL_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgRel));
 
     auto level = std::make_unique<AudioParameterFloat>(
         Params::_LEVEL_PARAM_ID, Params::_LEVEL_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 6.0f, 0.1f, getSkewFactor(-60.0f, 6.0f, 0.0f), false),
+        NormalisableRange<float>(-30.0f, 6.0f, 0.1f, getSkewFactor(-30.0f, 6.0f, 0.0f), false),
         Params::_LEVEL_DEFAULT_VAL
     );
     params.push_back(std::move(level));

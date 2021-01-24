@@ -37,7 +37,8 @@ private:
     void initParameters();
     void initWavetable();
 
-    void setPhaseDelta(float frequency, float sampleRate);
+    void updateFrequency();
+    void updatePhaseDelta();
     
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
