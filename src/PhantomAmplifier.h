@@ -23,9 +23,12 @@ public:
     ~PhantomAmplifier();
 
     //==========================================================================
-    void apply(AudioBuffer<float>&);
+    void apply(AudioBuffer<float>&) noexcept;
 
 private:
+    //==========================================================================
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAmplifier)
+    
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 

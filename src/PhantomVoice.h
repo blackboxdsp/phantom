@@ -13,8 +13,9 @@
 #include "JuceHeader.h"
 
 #include "PhantomAmplifier.h"
-#include "PhantomOscillator.h"
 #include "PhantomEnvelopeGenerator.h"
+#include "PhantomFilter.h"
+#include "PhantomOscillator.h"
 
 //==============================================================================
 /**
@@ -23,7 +24,7 @@ class PhantomVoice : public SynthesiserVoice
 {
 public:
     //==========================================================================
-    PhantomVoice(AudioProcessorValueTreeState&);
+    PhantomVoice(AudioProcessorValueTreeState&, dsp::ProcessSpec&);
     ~PhantomVoice();
 
     //==========================================================================
@@ -52,6 +53,8 @@ private:
     int m_midiNoteNumber = 60;
     
     PhantomOscillator* m_osc;
+    PhantomEnvelopeGenerator* m_filterEg;
+    PhantomFilter* m_filter;
     PhantomEnvelopeGenerator* m_ampEg;
     PhantomAmplifier* m_amp;
 };

@@ -23,11 +23,11 @@ public:
     ~PhantomOscillator();
 
     //==========================================================================
-    void update(int midiNoteNumber, float sampleRate);
+    void update(int midiNoteNumber, float sampleRate) noexcept;
 
-    float getNextSample();
+    float evaluate() noexcept;
 
-    float midiNoteToFrequency(float midiNote);
+    float midiNoteToFrequency(float midiNote) noexcept;
 
 private:
     //==========================================================================
@@ -37,8 +37,8 @@ private:
     void initParameters();
     void initWavetable();
 
-    void updateFrequency();
-    void updatePhaseDelta();
+    void updateFrequency() noexcept;
+    void updatePhaseDelta() noexcept;
     
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;

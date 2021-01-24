@@ -1,9 +1,11 @@
 /*
   ==============================================================================
 
-    PhantomSynth.h
-    Created: 21 Jan 2021 10:45:00
+    PhantomFilter.h
+    Created: 23 Jan 2021 21:22:03
     Author:  Matthew Maxwell
+
+    ** This filter implementation was taken from 
 
   ==============================================================================
 */
@@ -12,33 +14,37 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomEnvelopeGenerator.h"
+
 //==============================================================================
 /**
 */
-class PhantomSynth : public Synthesiser
+class PhantomFilter
 {
 public:
     //==========================================================================
-    PhantomSynth(AudioProcessorValueTreeState&);
-    ~PhantomSynth() override;
+    PhantomFilter(AudioProcessorValueTreeState&, PhantomEnvelopeGenerator&, dsp::ProcessSpec&);
+    ~PhantomFilter();
 
     //==========================================================================
-    void init(float sampleRate, int samplesPerBlock, int numChannels);
-    void clear();
+    void update() noexcept;
+
+    //==========================================================================
+    float evaluate(float sample) noexcept;
 
 private:
     //==========================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomSynth)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomFilter)
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
-    dsp::ProcessSpec m_processSpec;
+    std::atomic<float>* p_cutoff;
+    std::atomic<float>* p_resonance;
 
     //==========================================================================
-    void addVoices();
-    void addSounds();
+    dsp::StateVariableTPTFilter<float>* m_filter;
+    dsp::StateVariableTPTFilterType m_type = dsp::StateVariableTPTFilterType::lowpass;
 
-    //==========================================================================
-    const int k_numVoices = 1;
+    PhantomEnvelopeGenerator* m_eg;
 };

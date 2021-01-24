@@ -36,6 +36,8 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
+    // OSCILLATOR
+
     auto oscRange = std::make_unique<AudioParameterFloat>(
         Params::_OSC_RANGE_PARAM_ID, Params::_OSC_RANGE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 3.0f, 1.0f),
@@ -49,6 +51,54 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         Params::_OSC_TUNE_DEFAULT_VAL
     );
     params.push_back(std::move(oscTune));
+
+    // FILTER EG 
+
+    auto filterEgAtk = std::make_unique<AudioParameterFloat>(
+        Params::_FLTR_EG_ATK_PARAM_ID, Params::_FLTR_EG_ATK_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
+        Params::_FLTR_EG_ATK_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterEgAtk));
+
+    auto filterEgDec = std::make_unique<AudioParameterFloat>(
+        Params::_FLTR_EG_DEC_PARAM_ID, Params::_FLTR_EG_DEC_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
+        Params::_FLTR_EG_DEC_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterEgDec));
+
+    auto filterEgSus = std::make_unique<AudioParameterFloat>(
+        Params::_FLTR_EG_SUS_PARAM_ID, Params::_FLTR_EG_SUS_PARAM_NAME,
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        Params::_FLTR_EG_SUS_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterEgSus));
+
+    auto filterEgRel = std::make_unique<AudioParameterFloat>(
+        Params::_FLTR_EG_REL_PARAM_ID, Params::_FLTR_EG_REL_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
+        Params::_FLTR_EG_REL_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterEgRel));
+
+    // FILTER
+
+    auto filterCutoff = std::make_unique<AudioParameterFloat>(
+        Params::_FLTR_CUTOFF_PARAM_ID, Params::_FLTR_CUTOFF_PARAM_NAME,
+        NormalisableRange<float>(20.0f, 20000.0f, 0.1f, getSkewFactor(20.0f, 20000.0f, 2000.0f), false),
+        Params::_FLTR_CUTOFF_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterCutoff));
+
+    auto filterReso = std::make_unique<AudioParameterFloat>(
+        Params::_FLTR_RESO_PARAM_ID, Params::_FLTR_RESO_PARAM_NAME,
+        0.7f, 5.0f,
+        Params::_FLTR_RESO_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterReso));
+
+    // AMP EG
 
     auto ampEgAtk = std::make_unique<AudioParameterFloat>(
         Params::_AMP_EG_ATK_PARAM_ID, Params::_AMP_EG_ATK_PARAM_NAME,
@@ -77,6 +127,8 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         Params::_AMP_EG_REL_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgRel));
+
+    // AMP
 
     auto level = std::make_unique<AudioParameterFloat>(
         Params::_LEVEL_PARAM_ID, Params::_LEVEL_PARAM_NAME,
@@ -155,7 +207,8 @@ void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock
 {
     ignoreUnused(samplesPerBlock);
 
-    m_phantom->setCurrentPlaybackSampleRate(sampleRate);
+    int numChannels = jmin(getMainBusNumInputChannels(), getMainBusNumOutputChannels());
+    m_phantom->init((float) sampleRate, samplesPerBlock, numChannels);
 }
 
 void PhantomAudioProcessor::releaseResources()

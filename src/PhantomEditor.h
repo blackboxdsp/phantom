@@ -42,7 +42,21 @@ private:
     std::unique_ptr<SliderAttachment> m_oscRangeSliderAttachment;
     Slider m_oscTuneSlider;
     std::unique_ptr<SliderAttachment> m_oscTuneSliderAttachment;
-    
+
+    Slider m_filterEgAtkSlider;
+    std::unique_ptr<SliderAttachment> m_filterEgAtkSliderAttachment;
+    Slider m_filterEgDecSlider;
+    std::unique_ptr<SliderAttachment> m_filterEgDecSliderAttachment;
+    Slider m_filterEgSusSlider;
+    std::unique_ptr<SliderAttachment> m_filterEgSusSliderAttachment;
+    Slider m_filterEgRelSlider;
+    std::unique_ptr<SliderAttachment> m_filterEgRelSliderAttachment;
+
+    Slider m_filterCutoffSlider;
+    std::unique_ptr<SliderAttachment> m_filterCutoffSliderAttachment;
+    Slider m_filterResoSlider;
+    std::unique_ptr<SliderAttachment> m_filterResoSliderAttachment;
+
     Slider m_ampEgAtkSlider;
     std::unique_ptr<SliderAttachment> m_ampEgAtkSliderAttachment;
     Slider m_ampEgDecSlider;

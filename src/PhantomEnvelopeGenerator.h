@@ -25,15 +25,21 @@ public:
     ~PhantomEnvelopeGenerator();
 
     //==========================================================================
-    void update();
+    void update() noexcept;
+
+    //==========================================================================
+    float evaluate() noexcept;
 
 private:
+    //==========================================================================
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomEnvelopeGenerator)
+
     //==========================================================================
     juce::ADSR::Parameters m_envelope;
 
     //==========================================================================
     void setEnvelopeType();
-    void setEnvelopeParameters();
+    void setEnvelopeParameters() noexcept;
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;

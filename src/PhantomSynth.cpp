@@ -17,8 +17,7 @@
 PhantomSynth::PhantomSynth(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
-    clear();
-    init();
+
 }
 
 PhantomSynth::~PhantomSynth()
@@ -27,8 +26,18 @@ PhantomSynth::~PhantomSynth()
 }
 
 //==============================================================================
-void PhantomSynth::init()
+void PhantomSynth::init(float sampleRate, int samplesPerBlock, int numChannels)
 {
+    clear();
+
+    setCurrentPlaybackSampleRate(sampleRate);
+
+    m_processSpec = {
+        (double) sampleRate,
+        static_cast<uint32>(samplesPerBlock),
+        static_cast<uint32>(1)
+    };
+
     addVoices();
     addSounds();
 }
@@ -44,7 +53,7 @@ void PhantomSynth::addVoices()
 {
     for(int i = 0; i < k_numVoices; i++)
     {
-        PhantomVoice* voice = new PhantomVoice(m_parameters);
+        PhantomVoice* voice = new PhantomVoice(m_parameters, m_processSpec);
         addVoice(voice);
     }
 }
