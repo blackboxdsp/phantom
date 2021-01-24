@@ -40,23 +40,15 @@ public:
     //==========================================================================
     void renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples) override;
 
-    //==========================================================================
-    float midiNoteToFrequency(float midiNote);
-
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomVoice)
 
     //==========================================================================
-    forcedinline void updateOscillator() noexcept;
-
-    //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
-    std::atomic<float>* p_oscRange;
-    std::atomic<float>* p_oscTune;
-
     //==========================================================================
+    // NOTE: 60 corresponds to middle C
     int m_midiNoteNumber = 60;
     
     PhantomOscillator* m_osc;
