@@ -33,6 +33,36 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_oscTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_OSC_TUNE_PARAM_ID, m_oscTuneSlider));
     addAndMakeVisible(&m_oscTuneSlider);
 
+    // AMP EG
+
+    m_ampEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_ampEgAtkSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_ampEgAtkSlider.setTextValueSuffix(" s");
+    m_ampEgAtkSlider.setDoubleClickReturnValue(true, Params::_AMP_EG_ATK_DEFAULT_VAL);
+    m_ampEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_AMP_EG_ATK_PARAM_ID, m_ampEgAtkSlider));
+    addAndMakeVisible(&m_ampEgAtkSlider);
+
+    m_ampEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_ampEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_ampEgDecSlider.setTextValueSuffix(" s");
+    m_ampEgDecSlider.setDoubleClickReturnValue(true, Params::_AMP_EG_DEC_DEFAULT_VAL);
+    m_ampEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_AMP_EG_DEC_PARAM_ID, m_ampEgDecSlider));
+    addAndMakeVisible(&m_ampEgDecSlider);
+
+    m_ampEgSusSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_ampEgSusSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_ampEgSusSlider.setTextValueSuffix(" dB");
+    m_ampEgSusSlider.setDoubleClickReturnValue(true, Params::_AMP_EG_SUS_DEFAULT_VAL);
+    m_ampEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_AMP_EG_SUS_PARAM_ID, m_ampEgSusSlider));
+    addAndMakeVisible(&m_ampEgSusSlider);
+
+    m_ampEgRelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_ampEgRelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_ampEgRelSlider.setTextValueSuffix(" s");
+    m_ampEgRelSlider.setDoubleClickReturnValue(true, Params::_AMP_EG_REL_DEFAULT_VAL);
+    m_ampEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_AMP_EG_REL_PARAM_ID, m_ampEgRelSlider));
+    addAndMakeVisible(&m_ampEgRelSlider);
+
     // FILTER EG
 
     m_filterEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -79,36 +109,6 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_filterResoSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_RESO_PARAM_ID, m_filterResoSlider));
     addAndMakeVisible(&m_filterResoSlider);
 
-    // AMP EG
-
-    m_ampEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_ampEgAtkSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_ampEgAtkSlider.setTextValueSuffix(" s");
-    m_ampEgAtkSlider.setDoubleClickReturnValue(true, Params::_AMP_EG_ATK_DEFAULT_VAL);
-    m_ampEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_AMP_EG_ATK_PARAM_ID, m_ampEgAtkSlider));
-    addAndMakeVisible(&m_ampEgAtkSlider);
-
-    m_ampEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_ampEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_ampEgDecSlider.setTextValueSuffix(" s");
-    m_ampEgDecSlider.setDoubleClickReturnValue(true, Params::_AMP_EG_DEC_DEFAULT_VAL);
-    m_ampEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_AMP_EG_DEC_PARAM_ID, m_ampEgDecSlider));
-    addAndMakeVisible(&m_ampEgDecSlider);
-
-    m_ampEgSusSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_ampEgSusSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_ampEgSusSlider.setTextValueSuffix(" dB");
-    m_ampEgSusSlider.setDoubleClickReturnValue(true, Params::_AMP_EG_SUS_DEFAULT_VAL);
-    m_ampEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_AMP_EG_SUS_PARAM_ID, m_ampEgSusSlider));
-    addAndMakeVisible(&m_ampEgSusSlider);
-
-    m_ampEgRelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_ampEgRelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_ampEgRelSlider.setTextValueSuffix(" s");
-    m_ampEgRelSlider.setDoubleClickReturnValue(true, Params::_AMP_EG_REL_DEFAULT_VAL);
-    m_ampEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_AMP_EG_REL_PARAM_ID, m_ampEgRelSlider));
-    addAndMakeVisible(&m_ampEgRelSlider);
-
     // AMP
 
     m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -127,6 +127,11 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_oscRangeSliderAttachment = nullptr;
     m_oscTuneSliderAttachment = nullptr;
 
+    m_ampEgAtkSliderAttachment = nullptr;
+    m_ampEgDecSliderAttachment = nullptr;
+    m_ampEgSusSliderAttachment = nullptr;
+    m_ampEgRelSliderAttachment = nullptr;
+
     m_filterEgAtkSliderAttachment = nullptr;
     m_filterEgDecSliderAttachment = nullptr;
     m_filterEgSusSliderAttachment = nullptr;
@@ -134,11 +139,6 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 
     m_filterCutoffSliderAttachment = nullptr;
     m_filterResoSliderAttachment = nullptr;
-
-    m_ampEgAtkSliderAttachment = nullptr;
-    m_ampEgDecSliderAttachment = nullptr;
-    m_ampEgSusSliderAttachment = nullptr;
-    m_ampEgRelSliderAttachment = nullptr;
 
     m_levelSliderAttachment = nullptr;
 }

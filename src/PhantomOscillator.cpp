@@ -13,8 +13,8 @@
 #include "PhantomUtils.h"
 
 //==========================================================================
-PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts)
-    : m_parameters(vts)
+PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, PhantomEnvelopeGenerator& ampEg)
+    : m_parameters(vts), m_ampEg(&ampEg)
 {
     initParameters();
     initWavetable();
@@ -25,17 +25,20 @@ PhantomOscillator::~PhantomOscillator()
     p_oscRange = nullptr;
     p_oscTune = nullptr;
 
+    m_ampEg = nullptr;
+
     m_wavetable.clear();
 }
 
 //==============================================================================
 float PhantomOscillator::evaluate() noexcept
 {
-    float value = m_wavetable[(int) m_phase];
+    float sineValue = m_wavetable[(int) m_phase];
+    float sampleValue = sineValue * m_ampEg->getNextSample();
 
     m_phase = fmod(m_phase + m_phaseDelta, k_wavetableSize);
 
-    return value;
+    return sampleValue;
 }
 
 //==============================================================================

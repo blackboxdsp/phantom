@@ -12,6 +12,8 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomEnvelopeGenerator.h"
+
 //==============================================================================
 /**
 */
@@ -19,7 +21,7 @@ class PhantomOscillator
 {
 public:
     //==========================================================================
-    PhantomOscillator(AudioProcessorValueTreeState&);
+    PhantomOscillator(AudioProcessorValueTreeState&, PhantomEnvelopeGenerator&);
     ~PhantomOscillator();
 
     //==========================================================================
@@ -56,4 +58,6 @@ private:
     int m_midiNoteNumber;
     float m_frequency;
     float m_sampleRate;
+
+    PhantomEnvelopeGenerator* m_ampEg;
 };

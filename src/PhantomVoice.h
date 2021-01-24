@@ -52,9 +52,10 @@ private:
     // NOTE: 60 corresponds to middle C
     int m_midiNoteNumber = 60;
     
-    PhantomOscillator* m_osc;
-    PhantomEnvelopeGenerator* m_filterEg;
-    PhantomFilter* m_filter;
     PhantomEnvelopeGenerator* m_ampEg;
+    PhantomEnvelopeGenerator* m_filterEg;
+    
+    PhantomOscillator* m_osc;
+    PhantomFilter* m_filter;
     PhantomAmplifier* m_amp;
 };

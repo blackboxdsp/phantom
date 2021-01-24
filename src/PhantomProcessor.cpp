@@ -52,6 +52,36 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(oscTune));
 
+    // AMP EG
+
+    auto ampEgAtk = std::make_unique<AudioParameterFloat>(
+        Params::_AMP_EG_ATK_PARAM_ID, Params::_AMP_EG_ATK_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
+        Params::_AMP_EG_ATK_DEFAULT_VAL
+    );
+    params.push_back(std::move(ampEgAtk));
+
+    auto ampEgDec = std::make_unique<AudioParameterFloat>(
+        Params::_AMP_EG_DEC_PARAM_ID, Params::_AMP_EG_DEC_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
+        Params::_AMP_EG_DEC_DEFAULT_VAL
+    );
+    params.push_back(std::move(ampEgDec));
+
+    auto ampEgSus = std::make_unique<AudioParameterFloat>(
+        Params::_AMP_EG_SUS_PARAM_ID, Params::_AMP_EG_SUS_PARAM_NAME,
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        Params::_AMP_EG_SUS_DEFAULT_VAL
+    );
+    params.push_back(std::move(ampEgSus));
+
+    auto ampEgRel = std::make_unique<AudioParameterFloat>(
+        Params::_AMP_EG_REL_PARAM_ID, Params::_AMP_EG_REL_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
+        Params::_AMP_EG_REL_DEFAULT_VAL
+    );
+    params.push_back(std::move(ampEgRel));
+
     // FILTER EG 
 
     auto filterEgAtk = std::make_unique<AudioParameterFloat>(
@@ -97,36 +127,6 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         Params::_FLTR_RESO_DEFAULT_VAL
     );
     params.push_back(std::move(filterReso));
-
-    // AMP EG
-
-    auto ampEgAtk = std::make_unique<AudioParameterFloat>(
-        Params::_AMP_EG_ATK_PARAM_ID, Params::_AMP_EG_ATK_PARAM_NAME,
-        NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
-        Params::_AMP_EG_ATK_DEFAULT_VAL
-    );
-    params.push_back(std::move(ampEgAtk));
-
-    auto ampEgDec = std::make_unique<AudioParameterFloat>(
-        Params::_AMP_EG_DEC_PARAM_ID, Params::_AMP_EG_DEC_PARAM_NAME,
-        NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
-        Params::_AMP_EG_DEC_DEFAULT_VAL
-    );
-    params.push_back(std::move(ampEgDec));
-
-    auto ampEgSus = std::make_unique<AudioParameterFloat>(
-        Params::_AMP_EG_SUS_PARAM_ID, Params::_AMP_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
-        Params::_AMP_EG_SUS_DEFAULT_VAL
-    );
-    params.push_back(std::move(ampEgSus));
-
-    auto ampEgRel = std::make_unique<AudioParameterFloat>(
-        Params::_AMP_EG_REL_PARAM_ID, Params::_AMP_EG_REL_PARAM_NAME,
-        NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
-        Params::_AMP_EG_REL_DEFAULT_VAL
-    );
-    params.push_back(std::move(ampEgRel));
 
     // AMP
 
