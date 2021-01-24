@@ -33,12 +33,16 @@ namespace Params {
 
     constexpr char* _FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
     constexpr char* _FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
+    constexpr float _FLTR_EG_ATK_DEFAULT_VAL = 0.2f;
     constexpr char* _FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
     constexpr char* _FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
+    constexpr float _FLTR_EG_DEC_DEFAULT_VAL = 0.4f;
     constexpr char* _FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
     constexpr char* _FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
+    constexpr float _FLTR_EG_SUS_DEFAULT_VAL = -24.0f;
     constexpr char* _FLTR_EG_REL_PARAM_ID = "fltrEgRel";
     constexpr char* _FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
+    constexpr float _FLTR_EG_REL_DEFAULT_VAL = 1.4f;
 
     constexpr char* _AMP_EG_ATK_PARAM_ID = "ampEgAtk";
     constexpr char* _AMP_EG_ATK_PARAM_NAME = "Amp EG Atk";

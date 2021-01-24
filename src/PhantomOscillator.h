@@ -25,7 +25,7 @@ public:
     //==========================================================================
     void update(int midiNoteNumber, float sampleRate);
 
-    float getNextSample();
+    float evaluate();
 
     float midiNoteToFrequency(float midiNote);
 

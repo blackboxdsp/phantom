@@ -34,6 +34,12 @@ void PhantomEnvelopeGenerator::update()
 }
 
 //==============================================================================
+float PhantomEnvelopeGenerator::evaluate()
+{
+    return getNextSample();
+}
+
+//==============================================================================
 void PhantomEnvelopeGenerator::setEnvelopeType()
 {
     jassert(m_type);

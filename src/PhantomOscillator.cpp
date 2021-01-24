@@ -29,7 +29,7 @@ PhantomOscillator::~PhantomOscillator()
 }
 
 //==============================================================================
-float PhantomOscillator::getNextSample()
+float PhantomOscillator::evaluate()
 {
     float value = m_wavetable[(int) m_phase];
 

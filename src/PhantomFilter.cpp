@@ -13,8 +13,8 @@
 #include "PhantomUtils.h"
 
 //==============================================================================
-PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
-    :   m_parameters(vts)
+PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, PhantomEnvelopeGenerator& eg, dsp::ProcessSpec& ps)
+    :   m_parameters(vts), m_eg(&eg)
 {
     m_filter = new dsp::StateVariableTPTFilter<float>();
     m_filter->prepare(ps);
@@ -41,5 +41,8 @@ void PhantomFilter::update()
 //==============================================================================
 float PhantomFilter::evaluate(float sample)
 {
+    float offset = 5000.0f * m_eg->getNextSample();
+    m_filter->setCutoffFrequency(*p_cutoff + offset);
+
     return m_filter->processSample(0, sample);
 }

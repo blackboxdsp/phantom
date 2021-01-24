@@ -14,6 +14,8 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomEnvelopeGenerator.h"
+
 //==============================================================================
 /**
 */
@@ -21,7 +23,7 @@ class PhantomFilter
 {
 public:
     //==========================================================================
-    PhantomFilter(AudioProcessorValueTreeState&, dsp::ProcessSpec&);
+    PhantomFilter(AudioProcessorValueTreeState&, PhantomEnvelopeGenerator&, dsp::ProcessSpec&);
     ~PhantomFilter();
 
     //==========================================================================
@@ -43,4 +45,6 @@ private:
     //==========================================================================
     dsp::StateVariableTPTFilter<float>* m_filter;
     dsp::StateVariableTPTFilterType m_type = dsp::StateVariableTPTFilterType::lowpass;
+
+    PhantomEnvelopeGenerator* m_eg;
 };

@@ -33,6 +33,36 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_oscTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_OSC_TUNE_PARAM_ID, m_oscTuneSlider));
     addAndMakeVisible(&m_oscTuneSlider);
 
+    // FILTER EG
+
+    m_filterEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterEgAtkSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterEgAtkSlider.setTextValueSuffix(" s");
+    m_filterEgAtkSlider.setDoubleClickReturnValue(true, Params::_FLTR_EG_ATK_DEFAULT_VAL);
+    m_filterEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_EG_ATK_PARAM_ID, m_filterEgAtkSlider));
+    addAndMakeVisible(&m_filterEgAtkSlider);
+
+    m_filterEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterEgDecSlider.setTextValueSuffix(" s");
+    m_filterEgDecSlider.setDoubleClickReturnValue(true, Params::_FLTR_EG_DEC_DEFAULT_VAL);
+    m_filterEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_EG_DEC_PARAM_ID, m_filterEgDecSlider));
+    addAndMakeVisible(&m_filterEgDecSlider);
+
+    m_filterEgSusSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterEgSusSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterEgSusSlider.setTextValueSuffix(" dB");
+    m_filterEgSusSlider.setDoubleClickReturnValue(true, Params::_FLTR_EG_SUS_DEFAULT_VAL);
+    m_filterEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_EG_SUS_PARAM_ID, m_filterEgSusSlider));
+    addAndMakeVisible(&m_filterEgSusSlider);
+
+    m_filterEgRelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterEgRelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterEgRelSlider.setTextValueSuffix(" s");
+    m_filterEgRelSlider.setDoubleClickReturnValue(true, Params::_FLTR_EG_REL_DEFAULT_VAL);
+    m_filterEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_EG_REL_PARAM_ID, m_filterEgRelSlider));
+    addAndMakeVisible(&m_filterEgRelSlider);
+
     // FILTER
 
     m_filterCutoffSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -97,6 +127,11 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_oscRangeSliderAttachment = nullptr;
     m_oscTuneSliderAttachment = nullptr;
 
+    m_filterEgAtkSliderAttachment = nullptr;
+    m_filterEgDecSliderAttachment = nullptr;
+    m_filterEgSusSliderAttachment = nullptr;
+    m_filterEgRelSliderAttachment = nullptr;
+
     m_filterCutoffSliderAttachment = nullptr;
     m_filterResoSliderAttachment = nullptr;
 
@@ -144,11 +179,17 @@ void PhantomAudioProcessorEditor::resized()
     m_levelSlider.setBounds(top);
 
     // BOTTOM
+    Rectangle<int> bottomTop = canvas.removeFromTop(canvas.getHeight() / 2);
 
-    Rectangle<int> bottom = canvas;
+    m_ampEgAtkSlider.setBounds(bottomTop.removeFromLeft(width / 4));
+    m_ampEgDecSlider.setBounds(bottomTop.removeFromLeft(width / 4));
+    m_ampEgSusSlider.setBounds(bottomTop.removeFromLeft(width / 4));
+    m_ampEgRelSlider.setBounds(bottomTop);
 
-    m_ampEgAtkSlider.setBounds(bottom.removeFromLeft(width / 4));
-    m_ampEgDecSlider.setBounds(bottom.removeFromLeft(width / 4));
-    m_ampEgSusSlider.setBounds(bottom.removeFromLeft(width / 4));
-    m_ampEgRelSlider.setBounds(bottom);
+    Rectangle<int> bottomBottom = canvas;
+
+    m_filterEgAtkSlider.setBounds(bottomBottom.removeFromLeft(width / 4));
+    m_filterEgDecSlider.setBounds(bottomBottom.removeFromLeft(width / 4));
+    m_filterEgSusSlider.setBounds(bottomBottom.removeFromLeft(width / 4));
+    m_filterEgRelSlider.setBounds(bottomBottom);
 }
