@@ -31,6 +31,7 @@ public:
 
     //==========================================================================
     float evaluate(float sample) noexcept;
+    float clip(float n, float lower, float upper) noexcept;
 
 private:
     //==========================================================================
@@ -41,6 +42,12 @@ private:
 
     std::atomic<float>* p_cutoff;
     std::atomic<float>* p_resonance;
+    std::atomic<float>* p_egInt;
+
+    const int k_channelNumber = 0;
+    const float k_cutoffModulationMultiplier = 3000.0f;
+    const float k_cutoffLowerBounds = 0.0f;
+    const float k_cutoffUpperCounds = 22000.0f;
 
     //==========================================================================
     dsp::StateVariableTPTFilter<float>* m_filter;

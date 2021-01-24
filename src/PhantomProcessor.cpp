@@ -36,22 +36,6 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
-    // OSCILLATOR
-
-    auto oscRange = std::make_unique<AudioParameterFloat>(
-        Params::_OSC_RANGE_PARAM_ID, Params::_OSC_RANGE_PARAM_NAME,
-        NormalisableRange<float>(0.0f, 3.0f, 1.0f),
-        Params::_OSC_RANGE_DEFAULT_VAL
-    );
-    params.push_back(std::move(oscRange));
-
-    auto oscTune = std::make_unique<AudioParameterFloat>(
-        Params::_OSC_TUNE_PARAM_ID, Params::_OSC_TUNE_PARAM_NAME,
-        NormalisableRange<float>(-12.0f, 12.0f, 0.1f),
-        Params::_OSC_TUNE_DEFAULT_VAL
-    );
-    params.push_back(std::move(oscTune));
-
     // AMP EG
 
     auto ampEgAtk = std::make_unique<AudioParameterFloat>(
@@ -112,6 +96,22 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(filterEgRel));
 
+    // OSCILLATOR
+
+    auto oscRange = std::make_unique<AudioParameterFloat>(
+        Params::_OSC_RANGE_PARAM_ID, Params::_OSC_RANGE_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 3.0f, 1.0f),
+        Params::_OSC_RANGE_DEFAULT_VAL
+    );
+    params.push_back(std::move(oscRange));
+
+    auto oscTune = std::make_unique<AudioParameterFloat>(
+        Params::_OSC_TUNE_PARAM_ID, Params::_OSC_TUNE_PARAM_NAME,
+        NormalisableRange<float>(-12.0f, 12.0f, 0.1f),
+        Params::_OSC_TUNE_DEFAULT_VAL
+    );
+    params.push_back(std::move(oscTune));
+
     // FILTER
 
     auto filterCutoff = std::make_unique<AudioParameterFloat>(
@@ -127,6 +127,13 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         Params::_FLTR_RESO_DEFAULT_VAL
     );
     params.push_back(std::move(filterReso));
+
+    auto filterEgInt = std::make_unique<AudioParameterFloat>(
+        Params::_FLTR_EG_INT_PARAM_ID, Params::_FLTR_EG_INT_PARAM_NAME,
+        NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
+        Params::_FLTR_EG_INT_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterEgInt));
 
     // AMP
 

@@ -23,26 +23,40 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, PhantomEnvelopeG
 
     p_cutoff = m_parameters.getRawParameterValue(Params::_FLTR_CUTOFF_PARAM_ID);
     p_resonance = m_parameters.getRawParameterValue(Params::_FLTR_RESO_PARAM_ID);
+    p_egInt = m_parameters.getRawParameterValue(Params::_FLTR_EG_INT_PARAM_ID);
+
     update();
 }
 
 PhantomFilter::~PhantomFilter()
 {
     m_filter = nullptr;
+    m_eg = nullptr;
+
+    p_cutoff = nullptr;
+    p_resonance = nullptr;
+    p_egInt = nullptr;
 }
 
 //==============================================================================
 void PhantomFilter::update() noexcept
 {
-    m_filter->setCutoffFrequency(*p_cutoff);
+    // NOTE: Frequency is not being set here because it is called in the update 
+    // function. Discontinuous numbers could result in artifacts.
     m_filter->setResonance(*p_resonance);
 }
 
 //==============================================================================
 float PhantomFilter::evaluate(float sample) noexcept
 {
-    float offset = 5000.0f * m_eg->getNextSample();
-    m_filter->setCutoffFrequency(*p_cutoff + offset);
+    float offset = k_cutoffModulationMultiplier * m_eg->getNextSample() * *p_egInt;
+    float frequency = clip(*p_cutoff + offset, k_cutoffLowerBounds, k_cutoffUpperCounds);
+    m_filter->setCutoffFrequency(frequency);
 
-    return m_filter->processSample(0, sample);
+    return m_filter->processSample(k_channelNumber, sample);
+}
+
+float PhantomFilter::clip(float n, float lower, float upper) noexcept
+{
+    return std::max(lower, std::min(n, upper));
 }

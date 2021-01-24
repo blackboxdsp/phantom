@@ -109,6 +109,12 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_filterResoSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_RESO_PARAM_ID, m_filterResoSlider));
     addAndMakeVisible(&m_filterResoSlider);
 
+    m_filterEgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterEgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterEgIntSlider.setDoubleClickReturnValue(true, Params::_FLTR_EG_INT_DEFAULT_VAL);
+    m_filterEgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_EG_INT_PARAM_ID, m_filterEgIntSlider));
+    addAndMakeVisible(&m_filterEgIntSlider);
+
     // AMP
 
     m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -170,11 +176,12 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> top = canvas.removeFromTop(height / 2);
 
-    m_oscRangeSlider.setBounds(top.removeFromLeft(width / 5));
-    m_oscTuneSlider.setBounds(top.removeFromLeft(width / 5));
+    m_oscRangeSlider.setBounds(top.removeFromLeft(width / 6));
+    m_oscTuneSlider.setBounds(top.removeFromLeft(width / 6));
 
-    m_filterCutoffSlider.setBounds(top.removeFromLeft(width / 5));
-    m_filterResoSlider.setBounds(top.removeFromLeft(width / 5));
+    m_filterCutoffSlider.setBounds(top.removeFromLeft(width / 6));
+    m_filterResoSlider.setBounds(top.removeFromLeft(width / 6));
+    m_filterEgIntSlider.setBounds(top.removeFromLeft(width / 6));
 
     m_levelSlider.setBounds(top);
 
