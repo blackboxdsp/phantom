@@ -14,7 +14,7 @@
 #include "PhantomUtils.h"
 
 //==============================================================================
-PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts)
+PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
     :   m_parameters(vts)
 {
     m_osc = new PhantomOscillator(m_parameters);

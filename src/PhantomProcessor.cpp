@@ -155,7 +155,8 @@ void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock
 {
     ignoreUnused(samplesPerBlock);
 
-    m_phantom->setCurrentPlaybackSampleRate(sampleRate);
+    int numChannels = jmin(getMainBusNumInputChannels(), getMainBusNumOutputChannels());
+    m_phantom->init((float) sampleRate, samplesPerBlock, numChannels);
 }
 
 void PhantomAudioProcessor::releaseResources()

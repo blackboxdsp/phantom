@@ -23,7 +23,7 @@ public:
     ~PhantomSynth() override;
 
     //==========================================================================
-    void init();
+    void init(float sampleRate, int samplesPerBlock, int numChannels);
     void clear();
 
 private:
@@ -32,6 +32,8 @@ private:
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
+
+    dsp::ProcessSpec m_processSpec;
 
     //==========================================================================
     void addVoices();

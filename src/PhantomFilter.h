@@ -1,9 +1,11 @@
 /*
   ==============================================================================
 
-    PhantomAmplifier.h
-    Created: 23 Jan 2021 18:23:35
+    PhantomFilter.h
+    Created: 23 Jan 2021 21:22:03
     Author:  Matthew Maxwell
+
+    ** This filter implementation was taken from 
 
   ==============================================================================
 */
@@ -15,23 +17,23 @@
 //==============================================================================
 /**
 */
-class PhantomAmplifier
+class PhantomFilter
 {
 public:
     //==========================================================================
-    PhantomAmplifier(AudioProcessorValueTreeState&);
-    ~PhantomAmplifier();
+    PhantomFilter(AudioProcessorValueTreeState&);
+    ~PhantomFilter();
 
     //==========================================================================
-    void apply(AudioBuffer<float>&);
+    void PhantomFilter::initFilter();
 
 private:
     //==========================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAmplifier)
-    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomFilter)
+
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
-    std::atomic<float>* p_level = nullptr;
-    float m_previousGain;
+    //==========================================================================
+    dsp::LadderFilter<float>* m_filter;
 };
