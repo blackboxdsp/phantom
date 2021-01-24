@@ -96,6 +96,36 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(filterEgRel));
 
+    // MOD EG 
+
+    auto modEgAtk = std::make_unique<AudioParameterFloat>(
+        Params::_MOD_EG_ATK_PARAM_ID, Params::_MOD_EG_ATK_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
+        Params::_MOD_EG_ATK_DEFAULT_VAL
+    );
+    params.push_back(std::move(modEgAtk));
+
+    auto modEgDec = std::make_unique<AudioParameterFloat>(
+        Params::_MOD_EG_DEC_PARAM_ID, Params::_MOD_EG_DEC_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
+        Params::_MOD_EG_DEC_DEFAULT_VAL
+    );
+    params.push_back(std::move(modEgDec));
+
+    auto modEgSus = std::make_unique<AudioParameterFloat>(
+        Params::_MOD_EG_SUS_PARAM_ID, Params::_MOD_EG_SUS_PARAM_NAME,
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        Params::_MOD_EG_SUS_DEFAULT_VAL
+    );
+    params.push_back(std::move(modEgSus));
+
+    auto modEgRel = std::make_unique<AudioParameterFloat>(
+        Params::_MOD_EG_REL_PARAM_ID, Params::_MOD_EG_REL_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
+        Params::_MOD_EG_REL_DEFAULT_VAL
+    );
+    params.push_back(std::move(modEgRel));
+
     // OSCILLATOR
 
     auto oscRange = std::make_unique<AudioParameterFloat>(
@@ -111,6 +141,13 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         Params::_OSC_TUNE_DEFAULT_VAL
     );
     params.push_back(std::move(oscTune));
+
+    auto oscModDepth = std::make_unique<AudioParameterFloat>(
+        Params::_OSC_MOD_DEPTH_PARAM_ID, Params::_OSC_MOD_DEPTH_PARAM_NAME,
+        NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
+        0.0f
+    );
+    params.push_back(std::move(oscModDepth));
 
     // FILTER
 

@@ -54,12 +54,16 @@ namespace Params {
 
     constexpr char* _MOD_EG_ATK_PARAM_ID = "modEgAtk";
     constexpr char* _MOD_EG_ATK_PARAM_NAME = "Mod EG Atk";
+    constexpr float _MOD_EG_ATK_DEFAULT_VAL = 0.01f;
     constexpr char* _MOD_EG_DEC_PARAM_ID = "modEgDec";
     constexpr char* _MOD_EG_DEC_PARAM_NAME = "Mod EG Dec";
+    constexpr float _MOD_EG_DEC_DEFAULT_VAL = 0.15f;
     constexpr char* _MOD_EG_SUS_PARAM_ID = "modEgSus";
     constexpr char* _MOD_EG_SUS_PARAM_NAME = "Mod EG Sus";
+    constexpr float _MOD_EG_SUS_DEFAULT_VAL = -60.0f;
     constexpr char* _MOD_EG_REL_PARAM_ID = "modEgRel";
     constexpr char* _MOD_EG_REL_PARAM_NAME = "Mod EG Rel";
+    constexpr float _MOD_EG_REL_DEFAULT_VAL = 0.2f;
 
     constexpr char* _OSC_RANGE_PARAM_ID = "oscRange";
     constexpr char* _OSC_RANGE_PARAM_NAME = "Osc Range";
@@ -67,6 +71,9 @@ namespace Params {
     constexpr char* _OSC_TUNE_PARAM_ID = "oscTune";
     constexpr char* _OSC_TUNE_PARAM_NAME = "Osc Tune";
     constexpr float _OSC_TUNE_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_MOD_DEPTH_PARAM_ID = "oscModDepth";
+    constexpr char* _OSC_MOD_DEPTH_PARAM_NAME = "Osc Mod Depth";
+    constexpr float _OSC_MOD_DEPTH_DEFAULT_VAL = 0.0f;
 
     constexpr char* _FLTR_CUTOFF_PARAM_ID = "filterCutoff";
     constexpr char* _FLTR_CUTOFF_PARAM_NAME = "Filter Cutoff";

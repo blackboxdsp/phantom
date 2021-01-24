@@ -13,8 +13,8 @@
 #include "PhantomUtils.h"
 
 //==========================================================================
-PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, PhantomEnvelopeGenerator& ampEg)
-    : m_parameters(vts), m_ampEg(&ampEg)
+PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, PhantomEnvelopeGenerator& ampEg, PhantomEnvelopeGenerator& modEg)
+    : m_parameters(vts), m_ampEg(&ampEg), m_modEg(&modEg)
 {
     initParameters();
     initWavetable();
@@ -24,8 +24,10 @@ PhantomOscillator::~PhantomOscillator()
 {
     p_oscRange = nullptr;
     p_oscTune = nullptr;
+    p_modDepth = nullptr;
 
     m_ampEg = nullptr;
+    m_modEg = nullptr;
 
     m_wavetable.clear();
 }
@@ -38,6 +40,9 @@ float PhantomOscillator::evaluate() noexcept
 
     m_phase = fmod(m_phase + m_phaseDelta, k_wavetableSize);
 
+    float expo = m_modEg->getNextSample() * *p_modDepth * (float) k_modExpoThreshold;
+    updatePhaseDelta(m_frequency * std::exp2f(expo));
+
     return sampleValue;
 }
 
@@ -46,6 +51,7 @@ void PhantomOscillator::initParameters()
 {
     p_oscRange = m_parameters.getRawParameterValue(Params::_OSC_RANGE_PARAM_ID);
     p_oscTune = m_parameters.getRawParameterValue(Params::_OSC_TUNE_PARAM_ID);
+    p_modDepth = m_parameters.getRawParameterValue(Params::_OSC_MOD_DEPTH_PARAM_ID);
 }
 
 void PhantomOscillator::initWavetable()
@@ -85,6 +91,11 @@ void PhantomOscillator::updateFrequency() noexcept
 
 void PhantomOscillator::updatePhaseDelta() noexcept
 {
-    float cyclesPerSample = m_frequency / m_sampleRate;
+    updatePhaseDelta(m_frequency);
+}
+
+void PhantomOscillator::updatePhaseDelta(float frequency) noexcept
+{
+    float cyclesPerSample = frequency / m_sampleRate;
     m_phaseDelta = cyclesPerSample * (float) k_wavetableSize;
 }
