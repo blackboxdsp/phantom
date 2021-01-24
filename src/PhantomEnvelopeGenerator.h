@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomEnvelopeGenerator.h
-    Created: 22 Jan 2021 10:41:40am
+    Created: 22 Jan 2021 10:41:40
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -12,6 +12,8 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomUtils.h"
+
 //==============================================================================
 /**
 */
@@ -19,21 +21,19 @@ class PhantomEnvelopeGenerator : public ADSR
 {
 public:
     //==========================================================================
-    PhantomEnvelopeGenerator(AudioProcessorValueTreeState&, char* [4]);
+    PhantomEnvelopeGenerator(AudioProcessorValueTreeState&, EnvelopeGeneratorType);
     ~PhantomEnvelopeGenerator();
-
-    //==========================================================================
-    void init();
 
     //==========================================================================
     void update();
 
 private:
     //==========================================================================
-    ADSR::Parameters m_envelope;
+    juce::ADSR::Parameters m_envelope;
 
     //==========================================================================
-    void setEnvelope();
+    void setEnvelopeType();
+    void setEnvelopeParameters();
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
@@ -43,5 +43,8 @@ private:
     std::atomic<float>* p_sustain;
     std::atomic<float>* p_release;
 
-    float previousSustain;
+    float m_previousSustain;
+
+    //==========================================================================
+    EnvelopeGeneratorType m_type;
 };

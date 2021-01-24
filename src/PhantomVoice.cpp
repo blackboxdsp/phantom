@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomVoice.cpp
-    Created: 20 Jan 2021 8:59:55pm
+    Created: 20 Jan 2021 20:59:55
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -17,26 +17,22 @@
 PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
-    p_oscRange = m_parameters.getRawParameterValue(Parameters::_OSC_RANGE_PARAM_ID);
-    p_oscTune = m_parameters.getRawParameterValue(Parameters::_OSC_TUNE_PARAM_ID);
+    p_oscRange = m_parameters.getRawParameterValue(Params::_OSC_RANGE_PARAM_ID);
+    p_oscTune = m_parameters.getRawParameterValue(Params::_OSC_TUNE_PARAM_ID);
     m_osc = new PhantomOscillator();
 
-    char* ampEgParams[] = {
-        Parameters::_AMP_EG_ATK_PARAM_ID,
-        Parameters::_AMP_EG_DEC_PARAM_ID,
-        Parameters::_AMP_EG_SUS_PARAM_ID,
-        Parameters::_AMP_EG_REL_PARAM_ID
-    };
-    m_ampEg = new PhantomEnvelopeGenerator(m_parameters, ampEgParams);
+    m_ampEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::AMP);
+    m_amp = new PhantomAmplifier(m_parameters);
 }
 
 PhantomVoice::~PhantomVoice()
 {
     m_osc = nullptr;
+    m_ampEg = nullptr;
+    m_amp = nullptr;
+
     p_oscTune = nullptr;
     p_oscRange = nullptr;
-
-    m_ampEg = nullptr;
 }
 
 //==============================================================================
@@ -77,6 +73,7 @@ void PhantomVoice::controllerMoved(int controllerNumber, int newControllerValue)
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
     updateOscillator();
+
     m_ampEg->update();
 
     for (int sample = 0; sample < numSamples; sample++)
@@ -88,6 +85,8 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
         startSample++;
     }
+
+    m_amp->apply(buffer);
 }
 
 //==============================================================================

@@ -23,16 +23,12 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                        )
 #endif
 {
-    p_level = m_parameters.getRawParameterValue(Parameters::_LEVEL_PARAM_ID);
-
     m_phantom = new PhantomSynth(m_parameters);
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
     m_phantom->clear();
-
-    p_level = nullptr;
 }
 
 //==============================================================================
@@ -41,51 +37,51 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
     auto oscRange = std::make_unique<AudioParameterFloat>(
-        Parameters::_OSC_RANGE_PARAM_ID, Parameters::_OSC_RANGE_PARAM_NAME,
+        Params::_OSC_RANGE_PARAM_ID, Params::_OSC_RANGE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 3.0f, 1.0f),
-        Parameters::_OSC_RANGE_DEFAULT_VAL
+        Params::_OSC_RANGE_DEFAULT_VAL
     );
     params.push_back(std::move(oscRange));
 
     auto oscTune = std::make_unique<AudioParameterFloat>(
-        Parameters::_OSC_TUNE_PARAM_ID, Parameters::_OSC_TUNE_PARAM_NAME,
+        Params::_OSC_TUNE_PARAM_ID, Params::_OSC_TUNE_PARAM_NAME,
         NormalisableRange<float>(-12.0f, 12.0f, 0.1f),
-        Parameters::_OSC_TUNE_DEFAULT_VAL
+        Params::_OSC_TUNE_DEFAULT_VAL
     );
     params.push_back(std::move(oscTune));
 
     auto ampEgAtk = std::make_unique<AudioParameterFloat>(
-        Parameters::_AMP_EG_ATK_PARAM_ID, Parameters::_AMP_EG_ATK_PARAM_NAME,
+        Params::_AMP_EG_ATK_PARAM_ID, Params::_AMP_EG_ATK_PARAM_NAME,
         NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
-        Parameters::_AMP_EG_ATK_DEFAULT_VAL
+        Params::_AMP_EG_ATK_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgAtk));
 
     auto ampEgDec = std::make_unique<AudioParameterFloat>(
-        Parameters::_AMP_EG_DEC_PARAM_ID, Parameters::_AMP_EG_DEC_PARAM_NAME,
+        Params::_AMP_EG_DEC_PARAM_ID, Params::_AMP_EG_DEC_PARAM_NAME,
         NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
-        Parameters::_AMP_EG_DEC_DEFAULT_VAL
+        Params::_AMP_EG_DEC_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgDec));
 
     auto ampEgSus = std::make_unique<AudioParameterFloat>(
-        Parameters::_AMP_EG_SUS_PARAM_ID, Parameters::_AMP_EG_SUS_PARAM_NAME,
+        Params::_AMP_EG_SUS_PARAM_ID, Params::_AMP_EG_SUS_PARAM_NAME,
         NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
-        Parameters::_AMP_EG_SUS_DEFAULT_VAL
+        Params::_AMP_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgSus));
 
     auto ampEgRel = std::make_unique<AudioParameterFloat>(
-        Parameters::_AMP_EG_REL_PARAM_ID, Parameters::_AMP_EG_REL_PARAM_NAME,
+        Params::_AMP_EG_REL_PARAM_ID, Params::_AMP_EG_REL_PARAM_NAME,
         NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 2.0f), false),
-        Parameters::_AMP_EG_REL_DEFAULT_VAL
+        Params::_AMP_EG_REL_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgRel));
 
     auto level = std::make_unique<AudioParameterFloat>(
-        Parameters::_LEVEL_PARAM_ID, Parameters::_LEVEL_PARAM_NAME,
+        Params::_LEVEL_PARAM_ID, Params::_LEVEL_PARAM_NAME,
         NormalisableRange<float>(-60.0f, 6.0f, 0.1f, getSkewFactor(-60.0f, 6.0f, 0.0f), false),
-        Parameters::_LEVEL_DEFAULT_VAL
+        Params::_LEVEL_DEFAULT_VAL
     );
     params.push_back(std::move(level));
 
@@ -198,21 +194,7 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
 {
     buffer.clear();
 
-    const int startSample = 0;
-    const int numSamples = buffer.getNumSamples();
-
-    m_phantom->renderNextBlock(buffer, midiMessages, startSample, numSamples);
-
-    float gain = powf(2, *p_level / 6);
-    if(gain != m_previousGain)
-    {
-        buffer.applyGainRamp(startSample, numSamples, m_previousGain, gain);
-        m_previousGain = gain;
-    }
-    else 
-    {
-        buffer.applyGain(gain);
-    }
+    m_phantom->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================

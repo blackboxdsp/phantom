@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomVoice.h
-    Created: 20 Jan 2021 8:59:55pm
+    Created: 20 Jan 2021 20:59:55
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -12,6 +12,7 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomAmplifier.h"
 #include "PhantomOscillator.h"
 #include "PhantomEnvelopeGenerator.h"
 
@@ -60,4 +61,5 @@ private:
     
     PhantomOscillator* m_osc;
     PhantomEnvelopeGenerator* m_ampEg;
+    PhantomAmplifier* m_amp;
 };

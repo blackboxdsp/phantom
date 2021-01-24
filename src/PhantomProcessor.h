@@ -65,9 +65,6 @@ private:
     AudioProcessorValueTreeState m_parameters;
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
-    std::atomic<float>* p_level = nullptr;
-    float m_previousGain;
-
     //==========================================================================
     PhantomSynth* m_phantom;
 };

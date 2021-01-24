@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomUtils.h
-    Created: 22 Jan 2021 10:22:44am
+    Created: 22 Jan 2021 10:22:44
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -13,7 +13,10 @@
 #include "JuceHeader.h"
 
 //==========================================================================
-namespace Parameters {
+#ifndef PHANTOM_PARAMS
+#define PHANTOM_PARAMS
+
+namespace Params {
     constexpr char* _OSC_RANGE_PARAM_ID = "oscRange";
     constexpr char* _OSC_RANGE_PARAM_NAME = "Osc Range";
     constexpr float _OSC_RANGE_DEFAULT_VAL = 2.0f;
@@ -34,7 +37,49 @@ namespace Parameters {
     constexpr char* _AMP_EG_REL_PARAM_NAME = "Amp EG Rel";
     constexpr float _AMP_EG_REL_DEFAULT_VAL = 1.2f;
 
+    constexpr char* _FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
+    constexpr char* _FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
+    constexpr char* _FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
+    constexpr char* _FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
+    constexpr char* _FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
+    constexpr char* _FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
+    constexpr char* _FLTR_EG_REL_PARAM_ID = "fltrEgRel";
+    constexpr char* _FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
+
+    constexpr char* _PHASE_EG_ATK_PARAM_ID = "phaseEgAtk";
+    constexpr char* _PHASE_EG_ATK_PARAM_NAME = "Phase EG Atk";
+    constexpr char* _PHASE_EG_DEC_PARAM_ID = "phaseEgDec";
+    constexpr char* _PHASE_EG_DEC_PARAM_NAME = "Phase EG Dec";
+    constexpr char* _PHASE_EG_SUS_PARAM_ID = "phaseEgSus";
+    constexpr char* _PHASE_EG_SUS_PARAM_NAME = "Phase EG Sus";
+    constexpr char* _PHASE_EG_REL_PARAM_ID = "phaseEgRel";
+    constexpr char* _PHASE_EG_REL_PARAM_NAME = "Phase EG Rel";
+
+    constexpr char* _MOD_EG_ATK_PARAM_ID = "modEgAtk";
+    constexpr char* _MOD_EG_ATK_PARAM_NAME = "Mod EG Atk";
+    constexpr char* _MOD_EG_DEC_PARAM_ID = "modEgDec";
+    constexpr char* _MOD_EG_DEC_PARAM_NAME = "Mod EG Dec";
+    constexpr char* _MOD_EG_SUS_PARAM_ID = "modEgSus";
+    constexpr char* _MOD_EG_SUS_PARAM_NAME = "Mod EG Sus";
+    constexpr char* _MOD_EG_REL_PARAM_ID = "modEgRel";
+    constexpr char* _MOD_EG_REL_PARAM_NAME = "Mod EG Rel";
+
     constexpr char* _LEVEL_PARAM_ID = "level";
     constexpr char* _LEVEL_PARAM_NAME = "Level";
     constexpr float _LEVEL_DEFAULT_VAL = 0.0f;
 }
+
+#endif
+
+//===========================================================================
+#ifndef EG_TYPE_ENUM
+#define EG_TYPE_ENUM
+
+enum EnvelopeGeneratorType {
+    AMP = 0,
+    FLTR = 1,
+    PHASE = 2,
+    MOD = 3
+};
+
+#endif

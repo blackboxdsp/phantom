@@ -2,7 +2,7 @@
   ==============================================================================
 
     PhantomEnvelopeGenerator.cpp
-    Created: 22 Jan 2021 10:41:40am
+    Created: 22 Jan 2021 10:41:40
     Author:  Matthew Maxwell
 
   ==============================================================================
@@ -11,15 +11,11 @@
 #include "PhantomEnvelopeGenerator.h"
 
 //==========================================================================
-PhantomEnvelopeGenerator::PhantomEnvelopeGenerator(AudioProcessorValueTreeState& vts, char* parameterIds[4])
-    :   m_parameters(vts)
+PhantomEnvelopeGenerator::PhantomEnvelopeGenerator(AudioProcessorValueTreeState& vts, EnvelopeGeneratorType type)
+    :   m_parameters(vts), m_type(type)
 {
-    p_attack = m_parameters.getRawParameterValue(parameterIds[0]);
-    p_decay = m_parameters.getRawParameterValue(parameterIds[1]);
-    p_sustain = m_parameters.getRawParameterValue(parameterIds[2]);
-    p_release = m_parameters.getRawParameterValue(parameterIds[3]);
-
-    setEnvelope();
+    setEnvelopeType();
+    setEnvelopeParameters();
 }
 
 PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
@@ -33,12 +29,59 @@ PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
 //==============================================================================
 void PhantomEnvelopeGenerator::update()
 {
-    setEnvelope();
+    setEnvelopeParameters();
     setParameters(m_envelope);
 }
 
 //==============================================================================
-void PhantomEnvelopeGenerator::setEnvelope()
+void PhantomEnvelopeGenerator::setEnvelopeType()
+{
+    jassert(m_type);
+
+    char* atkParamId;
+    char* decParamId;
+    char* susParamId;
+    char* relParamId;
+
+    switch(m_type)
+    {
+        default:
+        case AMP:
+            atkParamId = Params::_AMP_EG_ATK_PARAM_ID;
+            decParamId = Params::_AMP_EG_DEC_PARAM_ID;
+            susParamId = Params::_AMP_EG_SUS_PARAM_ID;
+            relParamId = Params::_AMP_EG_REL_PARAM_ID;
+            break;
+
+        case FLTR:
+            atkParamId = Params::_FLTR_EG_ATK_PARAM_ID;
+            decParamId = Params::_FLTR_EG_DEC_PARAM_ID;
+            susParamId = Params::_FLTR_EG_SUS_PARAM_ID;
+            relParamId = Params::_FLTR_EG_REL_PARAM_ID;
+            break;
+
+        case PHASE:
+            atkParamId = Params::_PHASE_EG_ATK_PARAM_ID;
+            decParamId = Params::_PHASE_EG_DEC_PARAM_ID;
+            susParamId = Params::_PHASE_EG_SUS_PARAM_ID;
+            relParamId = Params::_PHASE_EG_REL_PARAM_ID;
+            break;
+
+        case MOD:
+            atkParamId = Params::_MOD_EG_ATK_PARAM_ID;
+            decParamId = Params::_MOD_EG_DEC_PARAM_ID;
+            susParamId = Params::_MOD_EG_SUS_PARAM_ID;
+            relParamId = Params::_MOD_EG_REL_PARAM_ID;
+            break;
+    }
+
+    p_attack = m_parameters.getRawParameterValue(atkParamId);
+    p_decay = m_parameters.getRawParameterValue(decParamId);
+    p_sustain = m_parameters.getRawParameterValue(susParamId);
+    p_release = m_parameters.getRawParameterValue(relParamId);
+}
+
+void PhantomEnvelopeGenerator::setEnvelopeParameters()
 {
     m_envelope.attack = *p_attack;
     m_envelope.decay = *p_decay;
