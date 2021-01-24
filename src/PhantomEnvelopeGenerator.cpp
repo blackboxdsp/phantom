@@ -27,14 +27,14 @@ PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
 }
 
 //==============================================================================
-void PhantomEnvelopeGenerator::update()
+void PhantomEnvelopeGenerator::update() noexcept
 {
     setEnvelopeParameters();
     setParameters(m_envelope);
 }
 
 //==============================================================================
-float PhantomEnvelopeGenerator::evaluate()
+float PhantomEnvelopeGenerator::evaluate() noexcept
 {
     return getNextSample();
 }
@@ -87,7 +87,7 @@ void PhantomEnvelopeGenerator::setEnvelopeType()
     p_release = m_parameters.getRawParameterValue(relParamId);
 }
 
-void PhantomEnvelopeGenerator::setEnvelopeParameters()
+void PhantomEnvelopeGenerator::setEnvelopeParameters() noexcept
 {
     m_envelope.attack = *p_attack;
     m_envelope.decay = *p_decay;

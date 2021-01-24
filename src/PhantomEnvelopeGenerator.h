@@ -25,10 +25,10 @@ public:
     ~PhantomEnvelopeGenerator();
 
     //==========================================================================
-    void update();
+    void update() noexcept;
 
     //==========================================================================
-    float evaluate();
+    float evaluate() noexcept;
 
 private:
     //==========================================================================
@@ -39,7 +39,7 @@ private:
 
     //==========================================================================
     void setEnvelopeType();
-    void setEnvelopeParameters();
+    void setEnvelopeParameters() noexcept;
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;

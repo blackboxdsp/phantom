@@ -23,7 +23,7 @@ public:
     ~PhantomAmplifier();
 
     //==========================================================================
-    void apply(AudioBuffer<float>&);
+    void apply(AudioBuffer<float>&) noexcept;
 
 private:
     //==========================================================================

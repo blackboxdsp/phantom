@@ -29,7 +29,7 @@ PhantomOscillator::~PhantomOscillator()
 }
 
 //==============================================================================
-float PhantomOscillator::evaluate()
+float PhantomOscillator::evaluate() noexcept
 {
     float value = m_wavetable[(int) m_phase];
 
@@ -57,12 +57,12 @@ void PhantomOscillator::initWavetable()
 }
 
 //==============================================================================
-float PhantomOscillator::midiNoteToFrequency(float midiNote)
+float PhantomOscillator::midiNoteToFrequency(float midiNote) noexcept
 {
     return std::exp((midiNote - 69) * std::log(2) / 12.0) * 440.0;
 }
 
-void PhantomOscillator::update(int midiNoteNumber, float sampleRate)
+void PhantomOscillator::update(int midiNoteNumber, float sampleRate) noexcept
 {
     if(m_midiNoteNumber != midiNoteNumber)
         m_midiNoteNumber = midiNoteNumber;
@@ -73,14 +73,14 @@ void PhantomOscillator::update(int midiNoteNumber, float sampleRate)
     updatePhaseDelta();
 }
 
-void PhantomOscillator::updateFrequency()
+void PhantomOscillator::updateFrequency() noexcept
 {
     float midiNoteFrequency = midiNoteToFrequency(m_midiNoteNumber + *p_oscTune);
     float range = std::exp2f((int) *p_oscRange - 2);
     m_frequency = midiNoteFrequency * range;
 }
 
-void PhantomOscillator::updatePhaseDelta()
+void PhantomOscillator::updatePhaseDelta() noexcept
 {
     float cyclesPerSample = m_frequency / m_sampleRate;
     m_phaseDelta = cyclesPerSample * (float) k_wavetableSize;

@@ -32,14 +32,14 @@ PhantomFilter::~PhantomFilter()
 }
 
 //==============================================================================
-void PhantomFilter::update()
+void PhantomFilter::update() noexcept
 {
     m_filter->setCutoffFrequency(*p_cutoff);
     m_filter->setResonance(*p_resonance);
 }
 
 //==============================================================================
-float PhantomFilter::evaluate(float sample)
+float PhantomFilter::evaluate(float sample) noexcept
 {
     float offset = 5000.0f * m_eg->getNextSample();
     m_filter->setCutoffFrequency(*p_cutoff + offset);

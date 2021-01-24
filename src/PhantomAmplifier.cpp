@@ -25,7 +25,7 @@ PhantomAmplifier::~PhantomAmplifier()
 }
 
 //==============================================================================
-void PhantomAmplifier::apply(AudioBuffer<float>& buffer)
+void PhantomAmplifier::apply(AudioBuffer<float>& buffer) noexcept
 {
     float gain = powf(2, *p_level / 6);
     if(gain != m_previousGain)
