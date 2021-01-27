@@ -16,12 +16,16 @@
 PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts)
     : m_parameters(vts)
 {
+    m_phasor = new PhantomPhasor(m_parameters);
+
     initParameters();
     initWavetable();
 }
 
 PhantomOscillator::~PhantomOscillator()
 {
+    m_phasor = nullptr;
+
     p_oscRange = nullptr;
     p_oscTune = nullptr;
     p_modDepth = nullptr;
@@ -51,7 +55,8 @@ void PhantomOscillator::initWavetable()
 //==============================================================================
 float PhantomOscillator::evaluate(float modEnvelope) noexcept
 {
-    float sineValue = m_wavetable[(int) m_phase];
+    float phase = m_phasor->apply(m_phase);
+    float sineValue = m_wavetable[(int) phase];
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 

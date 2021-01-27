@@ -14,8 +14,6 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomEnvelopeGenerator.h"
-
 //==============================================================================
 /**
 */

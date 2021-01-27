@@ -44,14 +44,18 @@ namespace Consts {
     constexpr char* _FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
     constexpr float _FLTR_EG_REL_DEFAULT_VAL = 1.4f;
 
-    constexpr char* _PHASE_EG_ATK_PARAM_ID = "phaseEgAtk";
-    constexpr char* _PHASE_EG_ATK_PARAM_NAME = "Phase EG Atk";
-    constexpr char* _PHASE_EG_DEC_PARAM_ID = "phaseEgDec";
-    constexpr char* _PHASE_EG_DEC_PARAM_NAME = "Phase EG Dec";
-    constexpr char* _PHASE_EG_SUS_PARAM_ID = "phaseEgSus";
-    constexpr char* _PHASE_EG_SUS_PARAM_NAME = "Phase EG Sus";
-    constexpr char* _PHASE_EG_REL_PARAM_ID = "phaseEgRel";
-    constexpr char* _PHASE_EG_REL_PARAM_NAME = "Phase EG Rel";
+    constexpr char* _PHASOR_EG_ATK_PARAM_ID = "phaseEgAtk";
+    constexpr char* _PHASOR_EG_ATK_PARAM_NAME = "Phase EG Atk";
+    constexpr float _PHASOR_EG_ATK_DEFAULT_VAL = 0.1f;
+    constexpr char* _PHASOR_EG_DEC_PARAM_ID = "phaseEgDec";
+    constexpr char* _PHASOR_EG_DEC_PARAM_NAME = "Phase EG Dec";
+    constexpr float _PHASOR_EG_DEC_DEFAULT_VAL = 0.25f;
+    constexpr char* _PHASOR_EG_SUS_PARAM_ID = "phaseEgSus";
+    constexpr char* _PHASOR_EG_SUS_PARAM_NAME = "Phase EG Sus";
+    constexpr float _PHASOR_EG_SUS_DEFAULT_VAL = -30.0f;
+    constexpr char* _PHASOR_EG_REL_PARAM_ID = "phaseEgRel";
+    constexpr char* _PHASOR_EG_REL_PARAM_NAME = "Phase EG Rel";
+    constexpr float _PHASOR_EG_REL_DEFAULT_VAL = 1.2f;
 
     constexpr char* _MOD_EG_ATK_PARAM_ID = "modEgAtk";
     constexpr char* _MOD_EG_ATK_PARAM_NAME = "Mod EG Atk";
@@ -75,6 +79,16 @@ namespace Consts {
     constexpr char* _OSC_MOD_DEPTH_PARAM_ID = "oscModDepth";
     constexpr char* _OSC_MOD_DEPTH_PARAM_NAME = "Osc Mod Depth";
     constexpr float _OSC_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+
+    constexpr char* _PHASOR_SHAPE_PARAM_ID = "phasorShape";
+    constexpr char* _PHASOR_SHAPE_PARAM_NAME = "Phasor Shape";
+    constexpr float _PHASOR_SHAPE_DEFAULT_VAL = 0.0f;
+    constexpr char* _PHASOR_EG_MOD_DEPTH_PARAM_ID = "phasorEgModDepth";
+    constexpr char* _PHASOR_EG_MOD_DEPTH_PARAM_NAME = "Phasor EG Mod Depth";
+    constexpr float _PHASOR_EG_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _PHASOR_LFO_MOD_DEPTH_PARAM_ID = "phasorLfoModDepth";
+    constexpr char* _PHASOR_LFO_MOD_DEPTH_PARAM_NAME = "Phasor LFO Mod Depth";
+    constexpr float _PHASOR_LFO_MOD_DEPTH_DEFAULT_VAL = 0.0f;
 
     constexpr char* _FLTR_CUTOFF_PARAM_ID = "filterCutoff";
     constexpr char* _FLTR_CUTOFF_PARAM_NAME = "Filter Cutoff";

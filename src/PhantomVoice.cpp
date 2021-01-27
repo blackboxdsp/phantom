@@ -111,7 +111,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
         {
             float oldSample = buffer.getSample(channel, sample);
-            buffer.setSample(channel, sample, oldSample + filterValue);
+            buffer.setSample(channel, sample, oldSample + ampValue);
         }
     }
 }

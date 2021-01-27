@@ -12,7 +12,7 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomEnvelopeGenerator.h"
+#include "PhantomPhasor.h"
 
 //==============================================================================
 /**
@@ -60,4 +60,6 @@ private:
     int m_midiNoteNumber;
     float m_frequency;
     float m_sampleRate;
+
+    PhantomPhasor* m_phasor;
 };

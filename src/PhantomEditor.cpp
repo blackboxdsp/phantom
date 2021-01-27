@@ -91,6 +91,36 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_ampEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_AMP_EG_REL_PARAM_ID, m_ampEgRelSlider));
     addAndMakeVisible(&m_ampEgRelSlider);
 
+    // PHASOR EG
+
+    m_phasorEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasorEgAtkSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasorEgAtkSlider.setTextValueSuffix(" s");
+    m_phasorEgAtkSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_EG_ATK_DEFAULT_VAL);
+    m_phasorEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_ATK_PARAM_ID, m_phasorEgAtkSlider));
+    addAndMakeVisible(&m_phasorEgAtkSlider);
+
+    m_phasorEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasorEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasorEgDecSlider.setTextValueSuffix(" s");
+    m_phasorEgDecSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_EG_DEC_DEFAULT_VAL);
+    m_phasorEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_DEC_PARAM_ID, m_phasorEgDecSlider));
+    addAndMakeVisible(&m_phasorEgDecSlider);
+
+    m_phasorEgSusSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasorEgSusSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasorEgSusSlider.setTextValueSuffix(" dB");
+    m_phasorEgSusSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_EG_SUS_DEFAULT_VAL);
+    m_phasorEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_SUS_PARAM_ID, m_phasorEgSusSlider));
+    addAndMakeVisible(&m_phasorEgSusSlider);
+
+    m_phasorEgRelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasorEgRelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasorEgRelSlider.setTextValueSuffix(" s");
+    m_phasorEgRelSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_EG_REL_DEFAULT_VAL);
+    m_phasorEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_REL_PARAM_ID, m_phasorEgRelSlider));
+    addAndMakeVisible(&m_phasorEgRelSlider);
+
     // FILTER EG
 
     m_filterEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -171,6 +201,10 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_oscTuneSliderAttachment = nullptr;
     m_oscModDepthSliderAttachment = nullptr;
 
+    m_phasorShapeSliderAttachment = nullptr;
+    m_phasorEgModDepthSliderAttachment = nullptr;
+    m_phasorLfoModDepthSliderAttachment = nullptr;
+
     m_filterCutoffSliderAttachment = nullptr;
     m_filterResoSliderAttachment = nullptr;
 
@@ -179,15 +213,20 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_ampEgSusSliderAttachment = nullptr;
     m_ampEgRelSliderAttachment = nullptr;
 
-    m_filterEgAtkSliderAttachment = nullptr;
-    m_filterEgDecSliderAttachment = nullptr;
-    m_filterEgSusSliderAttachment = nullptr;
-    m_filterEgRelSliderAttachment = nullptr;
+    m_phasorEgAtkSliderAttachment = nullptr;
+    m_phasorEgDecSliderAttachment = nullptr;
+    m_phasorEgSusSliderAttachment = nullptr;
+    m_phasorEgRelSliderAttachment = nullptr;
 
     m_filterEgAtkSliderAttachment = nullptr;
     m_filterEgDecSliderAttachment = nullptr;
     m_filterEgSusSliderAttachment = nullptr;
     m_filterEgRelSliderAttachment = nullptr;
+
+    m_modEgAtkSliderAttachment = nullptr;
+    m_modEgDecSliderAttachment = nullptr;
+    m_modEgSusSliderAttachment = nullptr;
+    m_modEgRelSliderAttachment = nullptr;
 
     m_levelSliderAttachment = nullptr;
 }
@@ -215,38 +254,58 @@ void PhantomAudioProcessorEditor::resized()
     int width = canvas.getWidth();
     int height = canvas.getHeight();
 
-    // TOP
+    int knobWidth;
 
-    Rectangle<int> top = canvas.removeFromTop(height / 3);
+    //==========================================================================
+    Rectangle<int> top =  canvas.removeFromTop(height / 5);
+    knobWidth = width / 10;
 
-    m_oscRangeSlider.setBounds(top.removeFromLeft(width / 7));
-    m_oscTuneSlider.setBounds(top.removeFromLeft(width / 7));
-    m_oscModDepthSlider.setBounds(top.removeFromLeft(width / 7));
+    Rectangle<int> oscArea = top.removeFromLeft(5 * knobWidth);
+    Rectangle<int> phasorArea = top.removeFromLeft(3 * knobWidth);
+    Rectangle<int> lfoArea = top.removeFromLeft(2 * knobWidth);
 
-    m_filterCutoffSlider.setBounds(top.removeFromLeft(width / 7));
-    m_filterResoSlider.setBounds(top.removeFromLeft(width / 7));
-    m_filterModDepthSlider.setBounds(top.removeFromLeft(width / 7));
+    m_oscRangeSlider.setBounds(oscArea.removeFromLeft(knobWidth));
+    m_oscTuneSlider.setBounds(oscArea.removeFromLeft(knobWidth));
+    m_oscModDepthSlider.setBounds(oscArea.removeFromLeft(knobWidth));
 
-    m_levelSlider.setBounds(top);
+    m_phasorShapeSlider.setBounds(phasorArea.removeFromLeft(knobWidth));
 
-    // BOTTOM
-    int bottomHeight = canvas.getHeight();
+    //==========================================================================
+    Rectangle<int> middle = canvas.removeFromTop(2 * height / 5);
+    knobWidth = width / 8;
 
-    Rectangle<int> ampEgRect = canvas.removeFromTop(bottomHeight / 3);
-    m_ampEgAtkSlider.setBounds(ampEgRect.removeFromLeft(width / 4));
-    m_ampEgDecSlider.setBounds(ampEgRect.removeFromLeft(width / 4));
-    m_ampEgSusSlider.setBounds(ampEgRect.removeFromLeft(width / 4));
-    m_ampEgRelSlider.setBounds(ampEgRect);
+    Rectangle<int> filterArea = middle.removeFromLeft(3 * knobWidth);
+    Rectangle<int> utilityArea = middle.removeFromLeft(3 * knobWidth);
+    Rectangle<int> ampArea = middle.removeFromLeft(2 * knobWidth);
+    
+    Rectangle<int> filterAreaTop = filterArea.removeFromTop(height / 5);
+    m_filterCutoffSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
+    m_filterResoSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
+    m_filterModDepthSlider.setBounds(filterArea.removeFromLeft(knobWidth * 1.5));
+    
+    m_levelSlider.setBounds(ampArea);
 
-    Rectangle<int> filterEgRect = canvas.removeFromTop(bottomHeight / 3);
-    m_filterEgAtkSlider.setBounds(filterEgRect.removeFromLeft(width / 4));
-    m_filterEgDecSlider.setBounds(filterEgRect.removeFromLeft(width / 4));
-    m_filterEgSusSlider.setBounds(filterEgRect.removeFromLeft(width / 4));
-    m_filterEgRelSlider.setBounds(filterEgRect);
+    //==========================================================================
+    Rectangle<int> bottom = canvas;
+    Rectangle<int> bottomTop = bottom.removeFromTop(height / 5);
+    
+    m_ampEgAtkSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
+    m_ampEgDecSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
+    m_ampEgSusSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
+    m_ampEgRelSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
 
-    Rectangle<int> modEgRect = canvas;
-    m_modEgAtkSlider.setBounds(modEgRect.removeFromLeft(width / 4));
-    m_modEgDecSlider.setBounds(modEgRect.removeFromLeft(width / 4));
-    m_modEgSusSlider.setBounds(modEgRect.removeFromLeft(width / 4));
-    m_modEgRelSlider.setBounds(modEgRect);
+    m_phasorEgAtkSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
+    m_phasorEgDecSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
+    m_phasorEgSusSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
+    m_phasorEgRelSlider.setBounds(bottomTop);
+
+    m_filterEgAtkSlider.setBounds(bottom.removeFromLeft(knobWidth));
+    m_filterEgDecSlider.setBounds(bottom.removeFromLeft(knobWidth));
+    m_filterEgSusSlider.setBounds(bottom.removeFromLeft(knobWidth));
+    m_filterEgRelSlider.setBounds(bottom.removeFromLeft(knobWidth));
+
+    m_modEgAtkSlider.setBounds(bottom.removeFromLeft(knobWidth));
+    m_modEgDecSlider.setBounds(bottom.removeFromLeft(knobWidth));
+    m_modEgSusSlider.setBounds(bottom.removeFromLeft(knobWidth));
+    m_modEgRelSlider.setBounds(bottom);
 }

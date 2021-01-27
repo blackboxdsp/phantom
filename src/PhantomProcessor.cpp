@@ -68,6 +68,36 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(ampEgRel));
 
+    // PHASOR EG
+
+    auto phasorEgAtk = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_EG_ATK_PARAM_ID, Consts::_PHASOR_EG_ATK_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
+        Consts::_PHASOR_EG_ATK_DEFAULT_VAL
+    );
+    params.push_back(std::move(phasorEgAtk));
+
+    auto phasorEgDec = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_EG_DEC_PARAM_ID, Consts::_PHASOR_EG_DEC_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
+        Consts::_PHASOR_EG_DEC_DEFAULT_VAL
+    );
+    params.push_back(std::move(phasorEgDec));
+
+    auto phasorEgSus = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_EG_SUS_PARAM_ID, Consts::_PHASOR_EG_SUS_PARAM_NAME,
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        Consts::_PHASOR_EG_SUS_DEFAULT_VAL
+    );
+    params.push_back(std::move(phasorEgSus));
+
+    auto phasorEgRel = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_EG_REL_PARAM_ID, Consts::_PHASOR_EG_REL_PARAM_NAME,
+        NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
+        Consts::_PHASOR_EG_REL_DEFAULT_VAL
+    );
+    params.push_back(std::move(phasorEgRel));
+
     // FILTER EG 
 
     auto filterEgAtk = std::make_unique<AudioParameterFloat>(
@@ -150,6 +180,29 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         0.0f
     );
     params.push_back(std::move(oscModDepth));
+
+    // PHASOR
+
+    auto phasorShape = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_SHAPE_PARAM_ID, Consts::_PHASOR_SHAPE_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 0.0f, 1.0f),
+        0.0f
+    );
+    params.push_back(std::move(phasorShape));
+
+    auto phasorEgModDepth = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_EG_MOD_DEPTH_PARAM_ID, Consts::_PHASOR_EG_MOD_DEPTH_PARAM_NAME,
+        NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
+        0.0f
+    );
+    params.push_back(std::move(phasorEgModDepth));
+
+    auto phasorLfoModDepth = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_LFO_MOD_DEPTH_PARAM_ID, Consts::_PHASOR_LFO_MOD_DEPTH_PARAM_NAME,
+        NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
+        0.0f
+    );
+    params.push_back(std::move(phasorLfoModDepth));
 
     // FILTER
 

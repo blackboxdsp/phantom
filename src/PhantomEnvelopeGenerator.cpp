@@ -67,10 +67,10 @@ void PhantomEnvelopeGenerator::setEnvelopeType()
             break;
 
         case PHASE:
-            atkParamId = Consts::_PHASE_EG_ATK_PARAM_ID;
-            decParamId = Consts::_PHASE_EG_DEC_PARAM_ID;
-            susParamId = Consts::_PHASE_EG_SUS_PARAM_ID;
-            relParamId = Consts::_PHASE_EG_REL_PARAM_ID;
+            atkParamId = Consts::_PHASOR_EG_ATK_PARAM_ID;
+            decParamId = Consts::_PHASOR_EG_DEC_PARAM_ID;
+            susParamId = Consts::_PHASOR_EG_SUS_PARAM_ID;
+            relParamId = Consts::_PHASOR_EG_REL_PARAM_ID;
             break;
 
         case MOD:
