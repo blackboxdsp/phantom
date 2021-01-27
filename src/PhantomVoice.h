@@ -54,6 +54,7 @@ private:
     
     PhantomEnvelopeGenerator* m_ampEg;
     PhantomEnvelopeGenerator* m_filterEg;
+    PhantomEnvelopeGenerator* m_modEg;
     
     PhantomOscillator* m_osc;
     PhantomFilter* m_filter;

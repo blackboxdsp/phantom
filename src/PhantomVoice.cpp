@@ -19,8 +19,9 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
 {
     m_ampEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::AMP);
     m_filterEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::FLTR);
-    
-    m_osc = new PhantomOscillator(m_parameters, *m_ampEg);
+    m_modEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::MOD);
+
+    m_osc = new PhantomOscillator(m_parameters, *m_ampEg, *m_modEg);
     m_filter = new PhantomFilter(m_parameters, *m_filterEg, ps);
     m_amp = new PhantomAmplifier(m_parameters);
 }
@@ -29,6 +30,7 @@ PhantomVoice::~PhantomVoice()
 {
     m_ampEg = nullptr;
     m_filterEg = nullptr;
+    m_modEg = nullptr;
     
     m_osc = nullptr;
     m_filter = nullptr;
@@ -43,6 +45,9 @@ bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
 
 void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 { 
+    m_midiNoteNumber = midiNoteNumber;
+    m_osc->update(m_midiNoteNumber, getSampleRate());
+    
     m_ampEg->setSampleRate(getSampleRate());
     m_ampEg->update();
     m_ampEg->noteOn();
@@ -51,14 +56,16 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
     m_filterEg->update();
     m_filterEg->noteOn();
 
-    m_midiNoteNumber = midiNoteNumber;
-    m_osc->update(m_midiNoteNumber, getSampleRate());
+    m_modEg->setSampleRate(getSampleRate());
+    m_modEg->update();
+    m_modEg->noteOn();
 }
 
 void PhantomVoice::stopNote(float velocity, bool allowTailOff)
 {
     m_ampEg->noteOff();
     m_filterEg->noteOff();
+    m_modEg->noteOff();
 
     clearCurrentNote();
 }
@@ -79,6 +86,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 {
     m_ampEg->update();
     m_filterEg->update();
+    m_modEg->update();
 
     m_osc->update(m_midiNoteNumber, getSampleRate());
     m_filter->update();
@@ -89,7 +97,10 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float postFilter = m_filter->evaluate(postOsc);
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
-            buffer.setSample(channel, sample, postFilter);
+        {
+            float oldSample = buffer.getSample(channel, sample);
+            buffer.setSample(channel, sample, oldSample + postFilter);
+        }
     }
 
     m_amp->apply(buffer);

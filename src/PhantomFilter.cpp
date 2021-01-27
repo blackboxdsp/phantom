@@ -23,7 +23,7 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, PhantomEnvelopeG
 
     p_cutoff = m_parameters.getRawParameterValue(Params::_FLTR_CUTOFF_PARAM_ID);
     p_resonance = m_parameters.getRawParameterValue(Params::_FLTR_RESO_PARAM_ID);
-    p_egInt = m_parameters.getRawParameterValue(Params::_FLTR_EG_INT_PARAM_ID);
+    p_modDepth = m_parameters.getRawParameterValue(Params::_FLTR_MOD_DEPTH_PARAM_ID);
 
     update();
 }
@@ -35,7 +35,7 @@ PhantomFilter::~PhantomFilter()
 
     p_cutoff = nullptr;
     p_resonance = nullptr;
-    p_egInt = nullptr;
+    p_modDepth = nullptr;
 }
 
 //==============================================================================
@@ -49,7 +49,7 @@ void PhantomFilter::update() noexcept
 //==============================================================================
 float PhantomFilter::evaluate(float sample) noexcept
 {
-    float offset = k_cutoffModulationMultiplier * m_eg->getNextSample() * *p_egInt;
+    float offset = k_cutoffModulationMultiplier * m_eg->evaluate() * *p_modDepth;
     float frequency = clip(*p_cutoff + offset, k_cutoffLowerBounds, k_cutoffUpperCounds);
     m_filter->setCutoffFrequency(frequency);
 

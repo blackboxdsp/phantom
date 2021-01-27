@@ -42,7 +42,7 @@ private:
 
     std::atomic<float>* p_cutoff;
     std::atomic<float>* p_resonance;
-    std::atomic<float>* p_egInt;
+    std::atomic<float>* p_modDepth;
 
     const int k_channelNumber = 0;
     const float k_cutoffModulationMultiplier = 3000.0f;

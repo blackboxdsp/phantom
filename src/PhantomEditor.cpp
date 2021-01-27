@@ -33,6 +33,34 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_oscTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_OSC_TUNE_PARAM_ID, m_oscTuneSlider));
     addAndMakeVisible(&m_oscTuneSlider);
 
+    m_oscModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_oscModDepthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscModDepthSlider.setDoubleClickReturnValue(true, Params::_OSC_MOD_DEPTH_DEFAULT_VAL);
+    m_oscModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_OSC_MOD_DEPTH_PARAM_ID, m_oscModDepthSlider));
+    addAndMakeVisible(&m_oscModDepthSlider);
+
+    // FILTER
+
+    m_filterCutoffSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterCutoffSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterCutoffSlider.setTextValueSuffix(" Hz");
+    m_filterCutoffSlider.setDoubleClickReturnValue(true, Params::_FLTR_CUTOFF_DEFAULT_VAL);
+    m_filterCutoffSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_CUTOFF_PARAM_ID, m_filterCutoffSlider));
+    addAndMakeVisible(&m_filterCutoffSlider);
+
+    m_filterResoSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterResoSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterResoSlider.setTextValueSuffix(" Q");
+    m_filterResoSlider.setDoubleClickReturnValue(true, Params::_FLTR_RESO_DEFAULT_VAL);
+    m_filterResoSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_RESO_PARAM_ID, m_filterResoSlider));
+    addAndMakeVisible(&m_filterResoSlider);
+
+    m_filterModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterModDepthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterModDepthSlider.setDoubleClickReturnValue(true, Params::_FLTR_MOD_DEPTH_DEFAULT_VAL);
+    m_filterModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_MOD_DEPTH_PARAM_ID, m_filterModDepthSlider));
+    addAndMakeVisible(&m_filterModDepthSlider);
+    
     // AMP EG
 
     m_ampEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -93,27 +121,35 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_filterEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_EG_REL_PARAM_ID, m_filterEgRelSlider));
     addAndMakeVisible(&m_filterEgRelSlider);
 
-    // FILTER
+    // MOD EG
 
-    m_filterCutoffSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterCutoffSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_filterCutoffSlider.setTextValueSuffix(" Hz");
-    m_filterCutoffSlider.setDoubleClickReturnValue(true, Params::_FLTR_CUTOFF_DEFAULT_VAL);
-    m_filterCutoffSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_CUTOFF_PARAM_ID, m_filterCutoffSlider));
-    addAndMakeVisible(&m_filterCutoffSlider);
+    m_modEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_modEgAtkSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_modEgAtkSlider.setTextValueSuffix(" s");
+    m_modEgAtkSlider.setDoubleClickReturnValue(true, Params::_MOD_EG_ATK_DEFAULT_VAL);
+    m_modEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_MOD_EG_ATK_PARAM_ID, m_modEgAtkSlider));
+    addAndMakeVisible(&m_modEgAtkSlider);
 
-    m_filterResoSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterResoSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_filterResoSlider.setTextValueSuffix(" Q");
-    m_filterResoSlider.setDoubleClickReturnValue(true, Params::_FLTR_RESO_DEFAULT_VAL);
-    m_filterResoSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_RESO_PARAM_ID, m_filterResoSlider));
-    addAndMakeVisible(&m_filterResoSlider);
+    m_modEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_modEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_modEgDecSlider.setTextValueSuffix(" s");
+    m_modEgDecSlider.setDoubleClickReturnValue(true, Params::_MOD_EG_DEC_DEFAULT_VAL);
+    m_modEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_MOD_EG_DEC_PARAM_ID, m_modEgDecSlider));
+    addAndMakeVisible(&m_modEgDecSlider);
 
-    m_filterEgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterEgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_filterEgIntSlider.setDoubleClickReturnValue(true, Params::_FLTR_EG_INT_DEFAULT_VAL);
-    m_filterEgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_FLTR_EG_INT_PARAM_ID, m_filterEgIntSlider));
-    addAndMakeVisible(&m_filterEgIntSlider);
+    m_modEgSusSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_modEgSusSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_modEgSusSlider.setTextValueSuffix(" dB");
+    m_modEgSusSlider.setDoubleClickReturnValue(true, Params::_MOD_EG_SUS_DEFAULT_VAL);
+    m_modEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_MOD_EG_SUS_PARAM_ID, m_modEgSusSlider));
+    addAndMakeVisible(&m_modEgSusSlider);
+
+    m_modEgRelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_modEgRelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_modEgRelSlider.setTextValueSuffix(" s");
+    m_modEgRelSlider.setDoubleClickReturnValue(true, Params::_MOD_EG_REL_DEFAULT_VAL);
+    m_modEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Params::_MOD_EG_REL_PARAM_ID, m_modEgRelSlider));
+    addAndMakeVisible(&m_modEgRelSlider);
 
     // AMP
 
@@ -125,13 +161,18 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     addAndMakeVisible(&m_levelSlider);
 
     //==========================================================================
-    setSize(720, 480);
+    setResizable(true, true);
+    setSize(720, 540);
 }
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
     m_oscRangeSliderAttachment = nullptr;
     m_oscTuneSliderAttachment = nullptr;
+    m_oscModDepthSliderAttachment = nullptr;
+
+    m_filterCutoffSliderAttachment = nullptr;
+    m_filterResoSliderAttachment = nullptr;
 
     m_ampEgAtkSliderAttachment = nullptr;
     m_ampEgDecSliderAttachment = nullptr;
@@ -143,8 +184,10 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_filterEgSusSliderAttachment = nullptr;
     m_filterEgRelSliderAttachment = nullptr;
 
-    m_filterCutoffSliderAttachment = nullptr;
-    m_filterResoSliderAttachment = nullptr;
+    m_filterEgAtkSliderAttachment = nullptr;
+    m_filterEgDecSliderAttachment = nullptr;
+    m_filterEgSusSliderAttachment = nullptr;
+    m_filterEgRelSliderAttachment = nullptr;
 
     m_levelSliderAttachment = nullptr;
 }
@@ -174,29 +217,36 @@ void PhantomAudioProcessorEditor::resized()
 
     // TOP
 
-    Rectangle<int> top = canvas.removeFromTop(height / 2);
+    Rectangle<int> top = canvas.removeFromTop(height / 3);
 
-    m_oscRangeSlider.setBounds(top.removeFromLeft(width / 6));
-    m_oscTuneSlider.setBounds(top.removeFromLeft(width / 6));
+    m_oscRangeSlider.setBounds(top.removeFromLeft(width / 7));
+    m_oscTuneSlider.setBounds(top.removeFromLeft(width / 7));
+    m_oscModDepthSlider.setBounds(top.removeFromLeft(width / 7));
 
-    m_filterCutoffSlider.setBounds(top.removeFromLeft(width / 6));
-    m_filterResoSlider.setBounds(top.removeFromLeft(width / 6));
-    m_filterEgIntSlider.setBounds(top.removeFromLeft(width / 6));
+    m_filterCutoffSlider.setBounds(top.removeFromLeft(width / 7));
+    m_filterResoSlider.setBounds(top.removeFromLeft(width / 7));
+    m_filterModDepthSlider.setBounds(top.removeFromLeft(width / 7));
 
     m_levelSlider.setBounds(top);
 
     // BOTTOM
-    Rectangle<int> bottomTop = canvas.removeFromTop(canvas.getHeight() / 2);
+    int bottomHeight = canvas.getHeight();
 
-    m_ampEgAtkSlider.setBounds(bottomTop.removeFromLeft(width / 4));
-    m_ampEgDecSlider.setBounds(bottomTop.removeFromLeft(width / 4));
-    m_ampEgSusSlider.setBounds(bottomTop.removeFromLeft(width / 4));
-    m_ampEgRelSlider.setBounds(bottomTop);
+    Rectangle<int> ampEgRect = canvas.removeFromTop(bottomHeight / 3);
+    m_ampEgAtkSlider.setBounds(ampEgRect.removeFromLeft(width / 4));
+    m_ampEgDecSlider.setBounds(ampEgRect.removeFromLeft(width / 4));
+    m_ampEgSusSlider.setBounds(ampEgRect.removeFromLeft(width / 4));
+    m_ampEgRelSlider.setBounds(ampEgRect);
 
-    Rectangle<int> bottomBottom = canvas;
+    Rectangle<int> filterEgRect = canvas.removeFromTop(bottomHeight / 3);
+    m_filterEgAtkSlider.setBounds(filterEgRect.removeFromLeft(width / 4));
+    m_filterEgDecSlider.setBounds(filterEgRect.removeFromLeft(width / 4));
+    m_filterEgSusSlider.setBounds(filterEgRect.removeFromLeft(width / 4));
+    m_filterEgRelSlider.setBounds(filterEgRect);
 
-    m_filterEgAtkSlider.setBounds(bottomBottom.removeFromLeft(width / 4));
-    m_filterEgDecSlider.setBounds(bottomBottom.removeFromLeft(width / 4));
-    m_filterEgSusSlider.setBounds(bottomBottom.removeFromLeft(width / 4));
-    m_filterEgRelSlider.setBounds(bottomBottom);
+    Rectangle<int> modEgRect = canvas;
+    m_modEgAtkSlider.setBounds(modEgRect.removeFromLeft(width / 4));
+    m_modEgDecSlider.setBounds(modEgRect.removeFromLeft(width / 4));
+    m_modEgSusSlider.setBounds(modEgRect.removeFromLeft(width / 4));
+    m_modEgRelSlider.setBounds(modEgRect);
 }
