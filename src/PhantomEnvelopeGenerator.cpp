@@ -53,31 +53,31 @@ void PhantomEnvelopeGenerator::setEnvelopeType()
     {
         default:
         case AMP:
-            atkParamId = Params::_AMP_EG_ATK_PARAM_ID;
-            decParamId = Params::_AMP_EG_DEC_PARAM_ID;
-            susParamId = Params::_AMP_EG_SUS_PARAM_ID;
-            relParamId = Params::_AMP_EG_REL_PARAM_ID;
+            atkParamId = Consts::_AMP_EG_ATK_PARAM_ID;
+            decParamId = Consts::_AMP_EG_DEC_PARAM_ID;
+            susParamId = Consts::_AMP_EG_SUS_PARAM_ID;
+            relParamId = Consts::_AMP_EG_REL_PARAM_ID;
             break;
 
         case FLTR:
-            atkParamId = Params::_FLTR_EG_ATK_PARAM_ID;
-            decParamId = Params::_FLTR_EG_DEC_PARAM_ID;
-            susParamId = Params::_FLTR_EG_SUS_PARAM_ID;
-            relParamId = Params::_FLTR_EG_REL_PARAM_ID;
+            atkParamId = Consts::_FLTR_EG_ATK_PARAM_ID;
+            decParamId = Consts::_FLTR_EG_DEC_PARAM_ID;
+            susParamId = Consts::_FLTR_EG_SUS_PARAM_ID;
+            relParamId = Consts::_FLTR_EG_REL_PARAM_ID;
             break;
 
         case PHASE:
-            atkParamId = Params::_PHASE_EG_ATK_PARAM_ID;
-            decParamId = Params::_PHASE_EG_DEC_PARAM_ID;
-            susParamId = Params::_PHASE_EG_SUS_PARAM_ID;
-            relParamId = Params::_PHASE_EG_REL_PARAM_ID;
+            atkParamId = Consts::_PHASE_EG_ATK_PARAM_ID;
+            decParamId = Consts::_PHASE_EG_DEC_PARAM_ID;
+            susParamId = Consts::_PHASE_EG_SUS_PARAM_ID;
+            relParamId = Consts::_PHASE_EG_REL_PARAM_ID;
             break;
 
         case MOD:
-            atkParamId = Params::_MOD_EG_ATK_PARAM_ID;
-            decParamId = Params::_MOD_EG_DEC_PARAM_ID;
-            susParamId = Params::_MOD_EG_SUS_PARAM_ID;
-            relParamId = Params::_MOD_EG_REL_PARAM_ID;
+            atkParamId = Consts::_MOD_EG_ATK_PARAM_ID;
+            decParamId = Consts::_MOD_EG_DEC_PARAM_ID;
+            susParamId = Consts::_MOD_EG_SUS_PARAM_ID;
+            relParamId = Consts::_MOD_EG_REL_PARAM_ID;
             break;
     }
 

@@ -33,36 +33,36 @@ PhantomOscillator::~PhantomOscillator()
 }
 
 //==============================================================================
-float PhantomOscillator::evaluate() noexcept
-{
-    float sineValue = m_wavetable[(int) m_phase];
-    float sampleValue = sineValue * m_ampEg->evaluate();
-
-    m_phase = fmod(m_phase + m_phaseDelta, k_wavetableSize);
-
-    float expo = m_modEg->evaluate() * *p_modDepth * (float) k_modExpoThreshold;
-    updatePhaseDelta(m_frequency * std::exp2f(expo));
-
-    return sampleValue;
-}
-
-//==============================================================================
 void PhantomOscillator::initParameters()
 {
-    p_oscRange = m_parameters.getRawParameterValue(Params::_OSC_RANGE_PARAM_ID);
-    p_oscTune = m_parameters.getRawParameterValue(Params::_OSC_TUNE_PARAM_ID);
-    p_modDepth = m_parameters.getRawParameterValue(Params::_OSC_MOD_DEPTH_PARAM_ID);
+    p_oscRange = m_parameters.getRawParameterValue(Consts::_OSC_RANGE_PARAM_ID);
+    p_oscTune = m_parameters.getRawParameterValue(Consts::_OSC_TUNE_PARAM_ID);
+    p_modDepth = m_parameters.getRawParameterValue(Consts::_OSC_MOD_DEPTH_PARAM_ID);
 }
 
 void PhantomOscillator::initWavetable()
 {
     m_wavetable.clear();
 
-    for (int i = 0; i < k_wavetableSize; i++)
+    for (int i = 0; i < Consts::_WAVETABLE_SIZE; i++)
     {
-        float value = cosf(MathConstants<float>::twoPi * (float) i / k_wavetableSize);
+        float value = cosf(MathConstants<float>::twoPi * (float) i / Consts::_WAVETABLE_SIZE);
         m_wavetable.insert(i, value);
     }
+}
+
+//==============================================================================
+float PhantomOscillator::evaluate() noexcept
+{
+    float sineValue = m_wavetable[(int) m_phase];
+    float sampleValue = sineValue * m_ampEg->evaluate();
+
+    m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
+
+    float expo = m_modEg->evaluate() * *p_modDepth * (float) k_modExpoThreshold;
+    updatePhaseDelta(m_frequency * std::exp2f(expo));
+
+    return sampleValue;
 }
 
 //==============================================================================
@@ -97,5 +97,5 @@ void PhantomOscillator::updatePhaseDelta() noexcept
 void PhantomOscillator::updatePhaseDelta(float frequency) noexcept
 {
     float cyclesPerSample = frequency / m_sampleRate;
-    m_phaseDelta = cyclesPerSample * (float) k_wavetableSize;
+    m_phaseDelta = cyclesPerSample * (float) Consts::_WAVETABLE_SIZE;
 }

@@ -21,9 +21,9 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, PhantomEnvelopeG
     m_filter->setType(m_type);
     m_filter->snapToZero();
 
-    p_cutoff = m_parameters.getRawParameterValue(Params::_FLTR_CUTOFF_PARAM_ID);
-    p_resonance = m_parameters.getRawParameterValue(Params::_FLTR_RESO_PARAM_ID);
-    p_modDepth = m_parameters.getRawParameterValue(Params::_FLTR_MOD_DEPTH_PARAM_ID);
+    p_cutoff = m_parameters.getRawParameterValue(Consts::_FLTR_CUTOFF_PARAM_ID);
+    p_resonance = m_parameters.getRawParameterValue(Consts::_FLTR_RESO_PARAM_ID);
+    p_modDepth = m_parameters.getRawParameterValue(Consts::_FLTR_MOD_DEPTH_PARAM_ID);
 
     update();
 }

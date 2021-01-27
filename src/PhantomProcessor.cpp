@@ -39,111 +39,111 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     // AMP EG
 
     auto ampEgAtk = std::make_unique<AudioParameterFloat>(
-        Params::_AMP_EG_ATK_PARAM_ID, Params::_AMP_EG_ATK_PARAM_NAME,
+        Consts::_AMP_EG_ATK_PARAM_ID, Consts::_AMP_EG_ATK_PARAM_NAME,
         NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
-        Params::_AMP_EG_ATK_DEFAULT_VAL
+        Consts::_AMP_EG_ATK_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgAtk));
 
     auto ampEgDec = std::make_unique<AudioParameterFloat>(
-        Params::_AMP_EG_DEC_PARAM_ID, Params::_AMP_EG_DEC_PARAM_NAME,
+        Consts::_AMP_EG_DEC_PARAM_ID, Consts::_AMP_EG_DEC_PARAM_NAME,
         NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
-        Params::_AMP_EG_DEC_DEFAULT_VAL
+        Consts::_AMP_EG_DEC_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgDec));
 
     auto ampEgSus = std::make_unique<AudioParameterFloat>(
-        Params::_AMP_EG_SUS_PARAM_ID, Params::_AMP_EG_SUS_PARAM_NAME,
+        Consts::_AMP_EG_SUS_PARAM_ID, Consts::_AMP_EG_SUS_PARAM_NAME,
         NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
-        Params::_AMP_EG_SUS_DEFAULT_VAL
+        Consts::_AMP_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgSus));
 
     auto ampEgRel = std::make_unique<AudioParameterFloat>(
-        Params::_AMP_EG_REL_PARAM_ID, Params::_AMP_EG_REL_PARAM_NAME,
+        Consts::_AMP_EG_REL_PARAM_ID, Consts::_AMP_EG_REL_PARAM_NAME,
         NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
-        Params::_AMP_EG_REL_DEFAULT_VAL
+        Consts::_AMP_EG_REL_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgRel));
 
     // FILTER EG 
 
     auto filterEgAtk = std::make_unique<AudioParameterFloat>(
-        Params::_FLTR_EG_ATK_PARAM_ID, Params::_FLTR_EG_ATK_PARAM_NAME,
+        Consts::_FLTR_EG_ATK_PARAM_ID, Consts::_FLTR_EG_ATK_PARAM_NAME,
         NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
-        Params::_FLTR_EG_ATK_DEFAULT_VAL
+        Consts::_FLTR_EG_ATK_DEFAULT_VAL
     );
     params.push_back(std::move(filterEgAtk));
 
     auto filterEgDec = std::make_unique<AudioParameterFloat>(
-        Params::_FLTR_EG_DEC_PARAM_ID, Params::_FLTR_EG_DEC_PARAM_NAME,
+        Consts::_FLTR_EG_DEC_PARAM_ID, Consts::_FLTR_EG_DEC_PARAM_NAME,
         NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
-        Params::_FLTR_EG_DEC_DEFAULT_VAL
+        Consts::_FLTR_EG_DEC_DEFAULT_VAL
     );
     params.push_back(std::move(filterEgDec));
 
     auto filterEgSus = std::make_unique<AudioParameterFloat>(
-        Params::_FLTR_EG_SUS_PARAM_ID, Params::_FLTR_EG_SUS_PARAM_NAME,
+        Consts::_FLTR_EG_SUS_PARAM_ID, Consts::_FLTR_EG_SUS_PARAM_NAME,
         NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
-        Params::_FLTR_EG_SUS_DEFAULT_VAL
+        Consts::_FLTR_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(filterEgSus));
 
     auto filterEgRel = std::make_unique<AudioParameterFloat>(
-        Params::_FLTR_EG_REL_PARAM_ID, Params::_FLTR_EG_REL_PARAM_NAME,
+        Consts::_FLTR_EG_REL_PARAM_ID, Consts::_FLTR_EG_REL_PARAM_NAME,
         NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
-        Params::_FLTR_EG_REL_DEFAULT_VAL
+        Consts::_FLTR_EG_REL_DEFAULT_VAL
     );
     params.push_back(std::move(filterEgRel));
 
     // MOD EG 
 
     auto modEgAtk = std::make_unique<AudioParameterFloat>(
-        Params::_MOD_EG_ATK_PARAM_ID, Params::_MOD_EG_ATK_PARAM_NAME,
+        Consts::_MOD_EG_ATK_PARAM_ID, Consts::_MOD_EG_ATK_PARAM_NAME,
         NormalisableRange<float>(0.01f, 10.0f, 0.01f, getSkewFactor(0.01f, 10.0f, 1.0f), false),
-        Params::_MOD_EG_ATK_DEFAULT_VAL
+        Consts::_MOD_EG_ATK_DEFAULT_VAL
     );
     params.push_back(std::move(modEgAtk));
 
     auto modEgDec = std::make_unique<AudioParameterFloat>(
-        Params::_MOD_EG_DEC_PARAM_ID, Params::_MOD_EG_DEC_PARAM_NAME,
+        Consts::_MOD_EG_DEC_PARAM_ID, Consts::_MOD_EG_DEC_PARAM_NAME,
         NormalisableRange<float>(0.01f, 2.0f, 0.01f, getSkewFactor(0.01f, 2.0f, 0.5f), false),
-        Params::_MOD_EG_DEC_DEFAULT_VAL
+        Consts::_MOD_EG_DEC_DEFAULT_VAL
     );
     params.push_back(std::move(modEgDec));
 
     auto modEgSus = std::make_unique<AudioParameterFloat>(
-        Params::_MOD_EG_SUS_PARAM_ID, Params::_MOD_EG_SUS_PARAM_NAME,
+        Consts::_MOD_EG_SUS_PARAM_ID, Consts::_MOD_EG_SUS_PARAM_NAME,
         NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
-        Params::_MOD_EG_SUS_DEFAULT_VAL
+        Consts::_MOD_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(modEgSus));
 
     auto modEgRel = std::make_unique<AudioParameterFloat>(
-        Params::_MOD_EG_REL_PARAM_ID, Params::_MOD_EG_REL_PARAM_NAME,
+        Consts::_MOD_EG_REL_PARAM_ID, Consts::_MOD_EG_REL_PARAM_NAME,
         NormalisableRange<float>(0.01f, 20.0f, 0.01f, getSkewFactor(0.01f, 20.0f, 1.0f), false),
-        Params::_MOD_EG_REL_DEFAULT_VAL
+        Consts::_MOD_EG_REL_DEFAULT_VAL
     );
     params.push_back(std::move(modEgRel));
 
     // OSCILLATOR
 
     auto oscRange = std::make_unique<AudioParameterFloat>(
-        Params::_OSC_RANGE_PARAM_ID, Params::_OSC_RANGE_PARAM_NAME,
+        Consts::_OSC_RANGE_PARAM_ID, Consts::_OSC_RANGE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 3.0f, 1.0f),
-        Params::_OSC_RANGE_DEFAULT_VAL
+        Consts::_OSC_RANGE_DEFAULT_VAL
     );
     params.push_back(std::move(oscRange));
 
     auto oscTune = std::make_unique<AudioParameterFloat>(
-        Params::_OSC_TUNE_PARAM_ID, Params::_OSC_TUNE_PARAM_NAME,
+        Consts::_OSC_TUNE_PARAM_ID, Consts::_OSC_TUNE_PARAM_NAME,
         NormalisableRange<float>(-12.0f, 12.0f, 0.1f),
-        Params::_OSC_TUNE_DEFAULT_VAL
+        Consts::_OSC_TUNE_DEFAULT_VAL
     );
     params.push_back(std::move(oscTune));
 
     auto oscModDepth = std::make_unique<AudioParameterFloat>(
-        Params::_OSC_MOD_DEPTH_PARAM_ID, Params::_OSC_MOD_DEPTH_PARAM_NAME,
+        Consts::_OSC_MOD_DEPTH_PARAM_ID, Consts::_OSC_MOD_DEPTH_PARAM_NAME,
         NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
         0.0f
     );
@@ -152,32 +152,32 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     // FILTER
 
     auto filterCutoff = std::make_unique<AudioParameterFloat>(
-        Params::_FLTR_CUTOFF_PARAM_ID, Params::_FLTR_CUTOFF_PARAM_NAME,
+        Consts::_FLTR_CUTOFF_PARAM_ID, Consts::_FLTR_CUTOFF_PARAM_NAME,
         NormalisableRange<float>(20.0f, 20000.0f, 0.1f, getSkewFactor(20.0f, 20000.0f, 2000.0f), false),
-        Params::_FLTR_CUTOFF_DEFAULT_VAL
+        Consts::_FLTR_CUTOFF_DEFAULT_VAL
     );
     params.push_back(std::move(filterCutoff));
 
     auto filterReso = std::make_unique<AudioParameterFloat>(
-        Params::_FLTR_RESO_PARAM_ID, Params::_FLTR_RESO_PARAM_NAME,
+        Consts::_FLTR_RESO_PARAM_ID, Consts::_FLTR_RESO_PARAM_NAME,
         0.7f, 5.0f,
-        Params::_FLTR_RESO_DEFAULT_VAL
+        Consts::_FLTR_RESO_DEFAULT_VAL
     );
     params.push_back(std::move(filterReso));
 
     auto filterModDepth = std::make_unique<AudioParameterFloat>(
-        Params::_FLTR_MOD_DEPTH_PARAM_ID, Params::_FLTR_MOD_DEPTH_PARAM_NAME,
+        Consts::_FLTR_MOD_DEPTH_PARAM_ID, Consts::_FLTR_MOD_DEPTH_PARAM_NAME,
         NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
-        Params::_FLTR_MOD_DEPTH_DEFAULT_VAL
+        Consts::_FLTR_MOD_DEPTH_DEFAULT_VAL
     );
     params.push_back(std::move(filterModDepth));
 
     // AMP
 
     auto level = std::make_unique<AudioParameterFloat>(
-        Params::_LEVEL_PARAM_ID, Params::_LEVEL_PARAM_NAME,
+        Consts::_LEVEL_PARAM_ID, Consts::_LEVEL_PARAM_NAME,
         NormalisableRange<float>(-30.0f, 6.0f, 0.1f, getSkewFactor(-30.0f, 6.0f, 0.0f), false),
-        Params::_LEVEL_DEFAULT_VAL
+        Consts::_LEVEL_DEFAULT_VAL
     );
     params.push_back(std::move(level));
 

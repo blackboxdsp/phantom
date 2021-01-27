@@ -52,8 +52,6 @@ private:
 
     //==========================================================================
     Array<float> m_wavetable;
-    const int k_wavetableSize = 1 << 11;
-
     const int k_modExpoThreshold = 5;
 
     float m_phase = 0.0;

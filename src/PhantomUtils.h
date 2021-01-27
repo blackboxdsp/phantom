@@ -16,7 +16,8 @@
 #ifndef PHANTOM_PARAMS
 #define PHANTOM_PARAMS
 
-namespace Params {
+namespace Consts {
+    //==========================================================================
     constexpr char* _AMP_EG_ATK_PARAM_ID = "ampEgAtk";
     constexpr char* _AMP_EG_ATK_PARAM_NAME = "Amp EG Atk";
     constexpr float _AMP_EG_ATK_DEFAULT_VAL = 0.1f;
@@ -88,6 +89,9 @@ namespace Params {
     constexpr char* _LEVEL_PARAM_ID = "level";
     constexpr char* _LEVEL_PARAM_NAME = "Level";
     constexpr float _LEVEL_DEFAULT_VAL = 0.0f;
+
+    //==========================================================================
+    constexpr int _WAVETABLE_SIZE = 1 << 11;
 }
 
 #endif
