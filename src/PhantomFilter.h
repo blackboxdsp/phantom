@@ -23,14 +23,14 @@ class PhantomFilter
 {
 public:
     //==========================================================================
-    PhantomFilter(AudioProcessorValueTreeState&, PhantomEnvelopeGenerator&, dsp::ProcessSpec&);
+    PhantomFilter(AudioProcessorValueTreeState&, dsp::ProcessSpec&);
     ~PhantomFilter();
 
     //==========================================================================
     void update() noexcept;
 
     //==========================================================================
-    float evaluate(float sample) noexcept;
+    float evaluate(float sample, float envelope) noexcept;
     float clip(float n, float lower, float upper) noexcept;
 
 private:
@@ -52,6 +52,4 @@ private:
     //==========================================================================
     dsp::StateVariableTPTFilter<float>* m_filter;
     dsp::StateVariableTPTFilterType m_type = dsp::StateVariableTPTFilterType::lowpass;
-
-    PhantomEnvelopeGenerator* m_eg;
 };

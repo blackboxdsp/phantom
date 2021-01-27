@@ -21,8 +21,8 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
     m_filterEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::FLTR);
     m_modEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::MOD);
 
-    m_osc = new PhantomOscillator(m_parameters, *m_ampEg, *m_modEg);
-    m_filter = new PhantomFilter(m_parameters, *m_filterEg, ps);
+    m_osc = new PhantomOscillator(m_parameters);
+    m_filter = new PhantomFilter(m_parameters, ps);
     m_amp = new PhantomAmplifier(m_parameters);
 }
 
@@ -94,15 +94,16 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
     for (int sample = startSample; sample < numSamples; sample++)
     {
         float ampEnvelope = m_ampEg->evaluate();
+        float filterEnvelope = m_filterEg->evaluate();
         float modEnvelope = m_modEg->evaluate();
 
-        float postOsc = m_osc->evaluate(ampEnvelope, modEnvelope);
-        float postFilter = m_filter->evaluate(postOsc);
+        float oscValue = m_osc->evaluate(ampEnvelope, modEnvelope);
+        float filterValue = m_filter->evaluate(oscValue, filterEnvelope);
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
         {
             float oldSample = buffer.getSample(channel, sample);
-            buffer.setSample(channel, sample, oldSample + postFilter);
+            buffer.setSample(channel, sample, oldSample + filterValue);
         }
     }
 

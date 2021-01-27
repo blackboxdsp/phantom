@@ -13,8 +13,8 @@
 #include "PhantomUtils.h"
 
 //==============================================================================
-PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, PhantomEnvelopeGenerator& eg, dsp::ProcessSpec& ps)
-    :   m_parameters(vts), m_eg(&eg)
+PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
+    :   m_parameters(vts)
 {
     m_filter = new dsp::StateVariableTPTFilter<float>();
     m_filter->prepare(ps);
@@ -31,7 +31,6 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, PhantomEnvelopeG
 PhantomFilter::~PhantomFilter()
 {
     m_filter = nullptr;
-    m_eg = nullptr;
 
     p_cutoff = nullptr;
     p_resonance = nullptr;
@@ -47,9 +46,9 @@ void PhantomFilter::update() noexcept
 }
 
 //==============================================================================
-float PhantomFilter::evaluate(float sample) noexcept
+float PhantomFilter::evaluate(float sample, float envelope) noexcept
 {
-    float offset = k_cutoffModulationMultiplier * m_eg->evaluate() * *p_modDepth;
+    float offset = k_cutoffModulationMultiplier * envelope * *p_modDepth;
     float frequency = clip(*p_cutoff + offset, k_cutoffLowerBounds, k_cutoffUpperCounds);
     m_filter->setCutoffFrequency(frequency);
 
