@@ -13,8 +13,8 @@
 #include "PhantomUtils.h"
 
 //==========================================================================
-PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, PhantomEnvelopeGenerator& ampEg, PhantomEnvelopeGenerator& modEg)
-    : m_parameters(vts), m_ampEg(&ampEg), m_modEg(&modEg)
+PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts)
+    : m_parameters(vts)
 {
     initParameters();
     initWavetable();
@@ -25,9 +25,6 @@ PhantomOscillator::~PhantomOscillator()
     p_oscRange = nullptr;
     p_oscTune = nullptr;
     p_modDepth = nullptr;
-
-    m_ampEg = nullptr;
-    m_modEg = nullptr;
 
     m_wavetable.clear();
 }
@@ -52,14 +49,14 @@ void PhantomOscillator::initWavetable()
 }
 
 //==============================================================================
-float PhantomOscillator::evaluate() noexcept
+float PhantomOscillator::evaluate(float ampEnvelope, float modEnvelope) noexcept
 {
     float sineValue = m_wavetable[(int) m_phase];
-    float sampleValue = sineValue * m_ampEg->evaluate();
+    float sampleValue = sineValue * ampEnvelope;
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
-    float expo = m_modEg->evaluate() * *p_modDepth * (float) k_modExpoThreshold;
+    float expo = modEnvelope * *p_modDepth * (float) k_modExpoThreshold;
     updatePhaseDelta(m_frequency * std::exp2f(expo));
 
     return sampleValue;

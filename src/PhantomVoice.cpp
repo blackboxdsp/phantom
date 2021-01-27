@@ -93,7 +93,10 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
     for (int sample = startSample; sample < numSamples; sample++)
     {
-        float postOsc = m_osc->evaluate();
+        float ampEnvelope = m_ampEg->evaluate();
+        float modEnvelope = m_modEg->evaluate();
+
+        float postOsc = m_osc->evaluate(ampEnvelope, modEnvelope);
         float postFilter = m_filter->evaluate(postOsc);
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)

@@ -21,13 +21,13 @@ class PhantomOscillator
 {
 public:
     //==========================================================================
-    PhantomOscillator(AudioProcessorValueTreeState&, PhantomEnvelopeGenerator&, PhantomEnvelopeGenerator&);
+    PhantomOscillator(AudioProcessorValueTreeState&);
     ~PhantomOscillator();
 
     //==========================================================================
     void update(int midiNoteNumber, float sampleRate) noexcept;
 
-    float evaluate() noexcept;
+    float evaluate(float ampEnvelope, float modEnvelope) noexcept;
 
     float midiNoteToFrequency(float midiNote) noexcept;
 
@@ -60,7 +60,4 @@ private:
     int m_midiNoteNumber;
     float m_frequency;
     float m_sampleRate;
-
-    PhantomEnvelopeGenerator* m_ampEg;
-    PhantomEnvelopeGenerator* m_modEg;
 };
