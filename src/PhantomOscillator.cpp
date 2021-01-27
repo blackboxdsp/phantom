@@ -49,17 +49,16 @@ void PhantomOscillator::initWavetable()
 }
 
 //==============================================================================
-float PhantomOscillator::evaluate(float ampEnvelope, float modEnvelope) noexcept
+float PhantomOscillator::evaluate(float modEnvelope) noexcept
 {
     float sineValue = m_wavetable[(int) m_phase];
-    float sampleValue = sineValue * ampEnvelope;
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
     float expo = modEnvelope * *p_modDepth * (float) k_modExpoThreshold;
     updatePhaseDelta(m_frequency * std::exp2f(expo));
 
-    return sampleValue;
+    return sineValue;
 }
 
 //==============================================================================

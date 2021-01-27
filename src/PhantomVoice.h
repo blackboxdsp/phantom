@@ -53,6 +53,7 @@ private:
     int m_midiNoteNumber = 60;
     
     PhantomEnvelopeGenerator* m_ampEg;
+    PhantomEnvelopeGenerator* m_phaseEg;
     PhantomEnvelopeGenerator* m_filterEg;
     PhantomEnvelopeGenerator* m_modEg;
     
