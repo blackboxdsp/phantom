@@ -24,7 +24,6 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
 
     m_osc = new PhantomOscillator(m_parameters);
     m_filter = new PhantomFilter(m_parameters, ps);
-    m_amp = new PhantomAmplifier(m_parameters);
 }
 
 PhantomVoice::~PhantomVoice()
@@ -36,7 +35,6 @@ PhantomVoice::~PhantomVoice()
     
     m_osc = nullptr;
     m_filter = nullptr;
-    m_amp = nullptr;
 }
 
 //==============================================================================
@@ -116,6 +114,4 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
             buffer.setSample(channel, sample, oldSample + filterValue);
         }
     }
-
-    m_amp->apply(buffer);
 }

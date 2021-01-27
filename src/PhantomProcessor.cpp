@@ -23,12 +23,14 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                        )
 #endif
 {
-    m_phantom = new PhantomSynth(m_parameters);
+    m_synth = new PhantomSynth(m_parameters);
+    m_amp = new PhantomAmplifier(m_parameters);
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
-    m_phantom->clear();
+    m_synth = nullptr;
+    m_amp = nullptr;
 }
 
 //==============================================================================
@@ -252,7 +254,7 @@ void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock
     ignoreUnused(samplesPerBlock);
 
     int numChannels = jmin(getMainBusNumInputChannels(), getMainBusNumOutputChannels());
-    m_phantom->init((float) sampleRate, samplesPerBlock, numChannels);
+    m_synth->init((float) sampleRate, samplesPerBlock, numChannels);
 }
 
 void PhantomAudioProcessor::releaseResources()
@@ -291,7 +293,8 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
 {
     buffer.clear();
 
-    m_phantom->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    m_synth->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    m_amp->apply(buffer);
 }
 
 //==============================================================================

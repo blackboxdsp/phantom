@@ -12,7 +12,6 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomAmplifier.h"
 #include "PhantomEnvelopeGenerator.h"
 #include "PhantomFilter.h"
 #include "PhantomOscillator.h"
@@ -59,5 +58,4 @@ private:
     
     PhantomOscillator* m_osc;
     PhantomFilter* m_filter;
-    PhantomAmplifier* m_amp;
 };
