@@ -39,6 +39,7 @@ private:
 
     //==========================================================================
     Slider m_oscRangeSlider;
+    Label m_oscRangeLabel;
     std::unique_ptr<SliderAttachment> m_oscRangeSliderAttachment;
     Slider m_oscCoarseTuneSlider;
     std::unique_ptr<SliderAttachment> m_oscCoarseTuneSliderAttachment;

@@ -26,6 +26,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_oscRangeSlider.setDoubleClickReturnValue(true, Consts::_OSC_RANGE_DEFAULT_VAL);
     m_oscRangeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_RANGE_PARAM_ID, m_oscRangeSlider));
     addAndMakeVisible(&m_oscRangeSlider);
+    m_oscRangeLabel.setText("Range", dontSendNotification);
+    m_oscRangeLabel.setJustificationType(Justification::centred);
+    m_oscRangeLabel.attachToComponent(&m_oscRangeSlider, false);
+    addAndMakeVisible(&m_oscRangeLabel);
 
     m_oscCoarseTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_oscCoarseTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
