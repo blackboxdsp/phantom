@@ -72,7 +72,7 @@ namespace Consts {
 
     constexpr char* _LFO_RATE_PARAM_ID = "lfoRate";
     constexpr char* _LFO_RATE_PARAM_NAME = "LFO Rate";
-    constexpr float _LFO_RATE_DEFAULT_VAL = 0.0f;
+    constexpr float _LFO_RATE_DEFAULT_VAL = 20.0f;
     constexpr char* _LFO_SHAPE_PARAM_ID = "lfoShape";
     constexpr char* _LFO_SHAPE_PARAM_NAME = "LFO Shape";
     constexpr float _LFO_SHAPE_DEFAULT_VAL = 0.0f;
@@ -86,6 +86,9 @@ namespace Consts {
     constexpr char* _OSC_MOD_DEPTH_PARAM_ID = "oscModDepth";
     constexpr char* _OSC_MOD_DEPTH_PARAM_NAME = "Osc Mod Depth";
     constexpr float _OSC_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_MOD_MODE_PARAM_ID = "oscModMode";
+    constexpr char* _OSC_MOD_MODE_PARAM_NAME = "Osc Mod Mode";
+    constexpr float _OSC_MOD_MODE_DEFAULT_VAL = 0.0f;
 
     constexpr char* _PHASOR_SHAPE_PARAM_ID = "phasorShape";
     constexpr char* _PHASOR_SHAPE_PARAM_NAME = "Phasor Shape";

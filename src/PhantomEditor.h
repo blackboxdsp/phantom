@@ -44,6 +44,8 @@ private:
     std::unique_ptr<SliderAttachment> m_oscTuneSliderAttachment;
     Slider m_oscModDepthSlider;
     std::unique_ptr<SliderAttachment> m_oscModDepthSliderAttachment;
+    Slider m_oscModModeSlider;
+    std::unique_ptr<SliderAttachment> m_oscModModeSliderAttachment;
 
     Slider m_phasorShapeSlider;
     std::unique_ptr<SliderAttachment> m_phasorShapeSliderAttachment;

@@ -163,14 +163,14 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     auto lfoRate = std::make_unique<AudioParameterFloat>(
         Consts::_LFO_RATE_PARAM_ID, Consts::_LFO_RATE_PARAM_NAME,
         NormalisableRange<float>(0.1f, 100.0f, 0.01f, getSkewFactor(0.1f, 100.0f, 20.0f), false),
-        20.0f
+        Consts::_LFO_RATE_DEFAULT_VAL
     );
     params.push_back(std::move(lfoRate));
 
     auto lfoShape = std::make_unique<AudioParameterFloat>(
         Consts::_LFO_SHAPE_PARAM_ID, Consts::_LFO_SHAPE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 2.0f, 1.0f),
-        0.0f
+        Consts::_LFO_SHAPE_DEFAULT_VAL
     );
     params.push_back(std::move(lfoShape));
 
@@ -193,30 +193,37 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     auto oscModDepth = std::make_unique<AudioParameterFloat>(
         Consts::_OSC_MOD_DEPTH_PARAM_ID, Consts::_OSC_MOD_DEPTH_PARAM_NAME,
         NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
-        0.0f
+        Consts::_OSC_MOD_DEPTH_DEFAULT_VAL
     );
     params.push_back(std::move(oscModDepth));
+
+    auto oscModMode = std::make_unique<AudioParameterFloat>(
+        Consts::_OSC_MOD_MODE_PARAM_ID, Consts::_OSC_MOD_MODE_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 1.0f, 1.0f),
+        Consts::_OSC_MOD_MODE_DEFAULT_VAL
+    );
+    params.push_back(std::move(oscModMode));
 
     // PHASOR
 
     auto phasorShape = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_SHAPE_PARAM_ID, Consts::_PHASOR_SHAPE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 0.0f, 1.0f),
-        0.0f
+        Consts::_PHASOR_SHAPE_DEFAULT_VAL
     );
     params.push_back(std::move(phasorShape));
 
     auto phasorEgInt = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_EG_INT_PARAM_ID, Consts::_PHASOR_EG_INT_PARAM_NAME,
         NormalisableRange<float>(0.0f, 1.0f, 0.01f),
-        0.0f
+        Consts::_PHASOR_EG_INT_DEFAULT_VAL
     );
     params.push_back(std::move(phasorEgInt));
 
     auto phasorLfoInt = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_LFO_INT_PARAM_ID, Consts::_PHASOR_LFO_INT_PARAM_NAME,
         NormalisableRange<float>(0.0f, 1.0f, 0.01f),
-        0.0f
+        Consts::_PHASOR_LFO_INT_DEFAULT_VAL
     );
     params.push_back(std::move(phasorLfoInt));
 
@@ -231,7 +238,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto filterReso = std::make_unique<AudioParameterFloat>(
         Consts::_FLTR_RESO_PARAM_ID, Consts::_FLTR_RESO_PARAM_NAME,
-        0.7f, 5.0f,
+        0.7f, 5.6f,
         Consts::_FLTR_RESO_DEFAULT_VAL
     );
     params.push_back(std::move(filterReso));

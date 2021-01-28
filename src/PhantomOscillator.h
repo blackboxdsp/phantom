@@ -49,6 +49,7 @@ private:
     std::atomic<float>* p_oscRange;
     std::atomic<float>* p_oscTune;
     std::atomic<float>* p_modDepth;
+    std::atomic<float>* p_modMode;
 
     //==========================================================================
     Array<float> m_wavetable;

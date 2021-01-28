@@ -29,6 +29,7 @@ PhantomOscillator::~PhantomOscillator()
     p_oscRange = nullptr;
     p_oscTune = nullptr;
     p_modDepth = nullptr;
+    p_modMode = nullptr;
 
     m_wavetable.clear();
 }
@@ -39,6 +40,7 @@ void PhantomOscillator::initParameters()
     p_oscRange = m_parameters.getRawParameterValue(Consts::_OSC_RANGE_PARAM_ID);
     p_oscTune = m_parameters.getRawParameterValue(Consts::_OSC_TUNE_PARAM_ID);
     p_modDepth = m_parameters.getRawParameterValue(Consts::_OSC_MOD_DEPTH_PARAM_ID);
+    p_modMode = m_parameters.getRawParameterValue(Consts::_OSC_MOD_MODE_PARAM_ID);
 }
 
 void PhantomOscillator::initWavetable()
@@ -60,7 +62,8 @@ float PhantomOscillator::evaluate(float modEgMod, float phaseEgMod, float lfoMod
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
-    float expo = modEgMod * *p_modDepth * (float) k_modExpoThreshold;
+    float mod = (int) *p_modMode ? lfoMod : modEgMod;
+    float expo = *p_modDepth * mod * (float) k_modExpoThreshold;
     updatePhaseDelta(m_frequency * std::exp2f(expo));
 
     return sineValue;

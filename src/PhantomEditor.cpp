@@ -39,6 +39,12 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_oscModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_MOD_DEPTH_PARAM_ID, m_oscModDepthSlider));
     addAndMakeVisible(&m_oscModDepthSlider);
 
+    m_oscModModeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_oscModModeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscModModeSlider.setDoubleClickReturnValue(true, Consts::_OSC_MOD_MODE_DEFAULT_VAL);
+    m_oscModModeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_MOD_MODE_PARAM_ID, m_oscModModeSlider));
+    addAndMakeVisible(&m_oscModModeSlider);
+
     // PHASOR
 
     m_phasorShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -241,6 +247,7 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_oscRangeSliderAttachment = nullptr;
     m_oscTuneSliderAttachment = nullptr;
     m_oscModDepthSliderAttachment = nullptr;
+    m_oscModModeSliderAttachment = nullptr;
 
     m_phasorShapeSliderAttachment = nullptr;
     m_phasorEgIntSliderAttachment = nullptr;
@@ -310,6 +317,7 @@ void PhantomAudioProcessorEditor::resized()
     m_oscRangeSlider.setBounds(oscArea.removeFromLeft(knobWidth));
     m_oscTuneSlider.setBounds(oscArea.removeFromLeft(knobWidth));
     m_oscModDepthSlider.setBounds(oscArea.removeFromLeft(knobWidth));
+    m_oscModModeSlider.setBounds(oscArea.removeFromLeft(knobWidth));
 
     Rectangle<int> phasorArea = top.removeFromLeft(3 * knobWidth);
     m_phasorShapeSlider.setBounds(phasorArea.removeFromLeft(knobWidth));
