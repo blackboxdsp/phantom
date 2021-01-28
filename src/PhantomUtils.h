@@ -70,6 +70,13 @@ namespace Consts {
     constexpr char* _MOD_EG_REL_PARAM_NAME = "Mod EG Rel";
     constexpr float _MOD_EG_REL_DEFAULT_VAL = 0.2f;
 
+    constexpr char* _LFO_RATE_PARAM_ID = "lfoRate";
+    constexpr char* _LFO_RATE_PARAM_NAME = "LFO Rate";
+    constexpr float _LFO_RATE_DEFAULT_VAL = 0.0f;
+    constexpr char* _LFO_SHAPE_PARAM_ID = "lfoShape";
+    constexpr char* _LFO_SHAPE_PARAM_NAME = "LFO Shape";
+    constexpr float _LFO_SHAPE_DEFAULT_VAL = 0.0f;
+
     constexpr char* _OSC_RANGE_PARAM_ID = "oscRange";
     constexpr char* _OSC_RANGE_PARAM_NAME = "Osc Range";
     constexpr float _OSC_RANGE_DEFAULT_VAL = 2.0f;

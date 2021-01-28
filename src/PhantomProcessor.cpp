@@ -158,6 +158,22 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(modEgRel));
 
+    // LFO
+
+    auto lfoRate = std::make_unique<AudioParameterFloat>(
+        Consts::_LFO_RATE_PARAM_ID, Consts::_LFO_RATE_PARAM_NAME,
+        NormalisableRange<float>(0.1f, 100.0f, 0.01f, getSkewFactor(0.1f, 100.0f, 20.0f), false),
+        20.0f
+    );
+    params.push_back(std::move(lfoRate));
+
+    auto lfoShape = std::make_unique<AudioParameterFloat>(
+        Consts::_LFO_SHAPE_PARAM_ID, Consts::_LFO_SHAPE_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 2.0f, 1.0f),
+        0.0f
+    );
+    params.push_back(std::move(lfoShape));
+
     // OSCILLATOR
 
     auto oscRange = std::make_unique<AudioParameterFloat>(

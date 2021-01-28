@@ -14,6 +14,7 @@
 
 #include "PhantomEnvelopeGenerator.h"
 #include "PhantomFilter.h"
+#include "PhantomLFO.h"
 #include "PhantomOscillator.h"
 
 //==============================================================================
@@ -55,6 +56,8 @@ private:
     PhantomEnvelopeGenerator* m_phaseEg;
     PhantomEnvelopeGenerator* m_filterEg;
     PhantomEnvelopeGenerator* m_modEg;
+
+    PhantomLFO* m_lfo;
     
     PhantomOscillator* m_osc;
     PhantomFilter* m_filter;
