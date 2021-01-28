@@ -51,6 +51,10 @@ float PhantomPhasor::evaluate(float phase) noexcept
         case 0:
             return sawtooth(phase);
             break;
+
+        case 1:
+            return 1.0f - sawtooth(phase);
+            break;
     }
 }
 

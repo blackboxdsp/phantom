@@ -27,7 +27,8 @@ PhantomOscillator::~PhantomOscillator()
     m_phasor = nullptr;
 
     p_oscRange = nullptr;
-    p_oscTune = nullptr;
+    p_oscCoarseTune = nullptr;
+    p_oscFineTune = nullptr;
     p_modDepth = nullptr;
     p_modMode = nullptr;
 
@@ -38,7 +39,8 @@ PhantomOscillator::~PhantomOscillator()
 void PhantomOscillator::initParameters()
 {
     p_oscRange = m_parameters.getRawParameterValue(Consts::_OSC_RANGE_PARAM_ID);
-    p_oscTune = m_parameters.getRawParameterValue(Consts::_OSC_TUNE_PARAM_ID);
+    p_oscCoarseTune = m_parameters.getRawParameterValue(Consts::_OSC_COARSE_TUNE_PARAM_ID);
+    p_oscFineTune = m_parameters.getRawParameterValue(Consts::_OSC_FINE_TUNE_PARAM_ID);
     p_modDepth = m_parameters.getRawParameterValue(Consts::_OSC_MOD_DEPTH_PARAM_ID);
     p_modMode = m_parameters.getRawParameterValue(Consts::_OSC_MOD_MODE_PARAM_ID);
 }
@@ -88,7 +90,7 @@ void PhantomOscillator::update(int midiNoteNumber, float sampleRate) noexcept
 
 void PhantomOscillator::updateFrequency() noexcept
 {
-    float midiNoteFrequency = midiNoteToFrequency(m_midiNoteNumber + *p_oscTune);
+    float midiNoteFrequency = midiNoteToFrequency(m_midiNoteNumber + *p_oscCoarseTune + (*p_oscFineTune / 100.0f));
     float range = std::exp2f((int) *p_oscRange - 2);
     m_frequency = midiNoteFrequency * range;
 }

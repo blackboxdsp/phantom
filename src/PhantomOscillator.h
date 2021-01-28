@@ -47,7 +47,8 @@ private:
     AudioProcessorValueTreeState& m_parameters;
 
     std::atomic<float>* p_oscRange;
-    std::atomic<float>* p_oscTune;
+    std::atomic<float>* p_oscCoarseTune;
+    std::atomic<float>* p_oscFineTune;
     std::atomic<float>* p_modDepth;
     std::atomic<float>* p_modMode;
 

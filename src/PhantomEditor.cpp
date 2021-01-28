@@ -27,11 +27,17 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_oscRangeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_RANGE_PARAM_ID, m_oscRangeSlider));
     addAndMakeVisible(&m_oscRangeSlider);
 
-    m_oscTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_oscTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_oscTuneSlider.setDoubleClickReturnValue(true, Consts::_OSC_TUNE_DEFAULT_VAL);
-    m_oscTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_TUNE_PARAM_ID, m_oscTuneSlider));
-    addAndMakeVisible(&m_oscTuneSlider);
+    m_oscCoarseTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_oscCoarseTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscCoarseTuneSlider.setDoubleClickReturnValue(true, Consts::_OSC_COARSE_TUNE_DEFAULT_VAL);
+    m_oscCoarseTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_COARSE_TUNE_PARAM_ID, m_oscCoarseTuneSlider));
+    addAndMakeVisible(&m_oscCoarseTuneSlider);
+
+    m_oscFineTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_oscFineTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscFineTuneSlider.setDoubleClickReturnValue(true, Consts::_OSC_FINE_TUNE_DEFAULT_VAL);
+    m_oscFineTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_FINE_TUNE_PARAM_ID, m_oscFineTuneSlider));
+    addAndMakeVisible(&m_oscFineTuneSlider);
 
     m_oscModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_oscModDepthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -245,7 +251,8 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
     m_oscRangeSliderAttachment = nullptr;
-    m_oscTuneSliderAttachment = nullptr;
+    m_oscCoarseTuneSliderAttachment = nullptr;
+    m_oscFineTuneSliderAttachment = nullptr;
     m_oscModDepthSliderAttachment = nullptr;
     m_oscModModeSliderAttachment = nullptr;
 
@@ -315,9 +322,10 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> oscArea = top.removeFromLeft(5 * knobWidth);
     m_oscRangeSlider.setBounds(oscArea.removeFromLeft(knobWidth));
-    m_oscTuneSlider.setBounds(oscArea.removeFromLeft(knobWidth));
+    m_oscCoarseTuneSlider.setBounds(oscArea.removeFromLeft(knobWidth));
+    m_oscFineTuneSlider.setBounds(oscArea.removeFromLeft(knobWidth));
     m_oscModDepthSlider.setBounds(oscArea.removeFromLeft(knobWidth));
-    m_oscModModeSlider.setBounds(oscArea.removeFromLeft(knobWidth));
+    m_oscModModeSlider.setBounds(oscArea);
 
     Rectangle<int> phasorArea = top.removeFromLeft(3 * knobWidth);
     m_phasorShapeSlider.setBounds(phasorArea.removeFromLeft(knobWidth));

@@ -183,12 +183,19 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(oscRange));
 
-    auto oscTune = std::make_unique<AudioParameterFloat>(
-        Consts::_OSC_TUNE_PARAM_ID, Consts::_OSC_TUNE_PARAM_NAME,
+    auto oscCoarseTune = std::make_unique<AudioParameterFloat>(
+        Consts::_OSC_COARSE_TUNE_PARAM_ID, Consts::_OSC_COARSE_TUNE_PARAM_NAME,
         NormalisableRange<float>(-12.0f, 12.0f, 0.1f),
-        Consts::_OSC_TUNE_DEFAULT_VAL
+        Consts::_OSC_COARSE_TUNE_DEFAULT_VAL
     );
-    params.push_back(std::move(oscTune));
+    params.push_back(std::move(oscCoarseTune));
+
+    auto oscFineTune = std::make_unique<AudioParameterFloat>(
+        Consts::_OSC_FINE_TUNE_PARAM_ID, Consts::_OSC_FINE_TUNE_PARAM_NAME,
+        NormalisableRange<float>(-100.0f, 100.0f, 0.1f),
+        Consts::_OSC_FINE_TUNE_DEFAULT_VAL
+    );
+    params.push_back(std::move(oscFineTune));
 
     auto oscModDepth = std::make_unique<AudioParameterFloat>(
         Consts::_OSC_MOD_DEPTH_PARAM_ID, Consts::_OSC_MOD_DEPTH_PARAM_NAME,
@@ -208,7 +215,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto phasorShape = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_SHAPE_PARAM_ID, Consts::_PHASOR_SHAPE_PARAM_NAME,
-        NormalisableRange<float>(0.0f, 0.0f, 1.0f),
+        NormalisableRange<float>(0.0f, 1.0f, 1.0f),
         Consts::_PHASOR_SHAPE_DEFAULT_VAL
     );
     params.push_back(std::move(phasorShape));
