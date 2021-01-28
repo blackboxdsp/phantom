@@ -12,7 +12,7 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomEnvelopeGenerator.h"
+#include "PhantomPhasor.h"
 
 //==============================================================================
 /**
@@ -21,13 +21,13 @@ class PhantomOscillator
 {
 public:
     //==========================================================================
-    PhantomOscillator(AudioProcessorValueTreeState&, PhantomEnvelopeGenerator&, PhantomEnvelopeGenerator&);
+    PhantomOscillator(AudioProcessorValueTreeState&);
     ~PhantomOscillator();
 
     //==========================================================================
     void update(int midiNoteNumber, float sampleRate) noexcept;
 
-    float evaluate() noexcept;
+    float evaluate(float modEnvelope, float phaseEnvelope) noexcept;
 
     float midiNoteToFrequency(float midiNote) noexcept;
 
@@ -52,8 +52,6 @@ private:
 
     //==========================================================================
     Array<float> m_wavetable;
-    const int k_wavetableSize = 1 << 11;
-
     const int k_modExpoThreshold = 5;
 
     float m_phase = 0.0;
@@ -63,6 +61,5 @@ private:
     float m_frequency;
     float m_sampleRate;
 
-    PhantomEnvelopeGenerator* m_ampEg;
-    PhantomEnvelopeGenerator* m_modEg;
+    PhantomPhasor* m_phasor;
 };

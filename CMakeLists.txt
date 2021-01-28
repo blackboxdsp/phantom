@@ -32,7 +32,8 @@ target_sources(Phantom PRIVATE
         src/PhantomOscillator.cpp
         src/PhantomEnvelopeGenerator.cpp
         src/PhantomAmplifier.cpp
-        src/PhantomFilter.cpp)
+        src/PhantomFilter.cpp
+        src/PhantomPhasor.cpp)
 
 # Preprocessor definitions for our target
 target_compile_definitions(Phantom PUBLIC

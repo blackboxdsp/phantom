@@ -12,7 +12,6 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomAmplifier.h"
 #include "PhantomEnvelopeGenerator.h"
 #include "PhantomFilter.h"
 #include "PhantomOscillator.h"
@@ -53,10 +52,10 @@ private:
     int m_midiNoteNumber = 60;
     
     PhantomEnvelopeGenerator* m_ampEg;
+    PhantomEnvelopeGenerator* m_phaseEg;
     PhantomEnvelopeGenerator* m_filterEg;
     PhantomEnvelopeGenerator* m_modEg;
     
     PhantomOscillator* m_osc;
     PhantomFilter* m_filter;
-    PhantomAmplifier* m_amp;
 };

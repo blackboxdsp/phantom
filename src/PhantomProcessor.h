@@ -9,6 +9,7 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomAmplifier.h"
 #include "PhantomSynth.h"
 
 //==============================================================================
@@ -66,5 +67,7 @@ private:
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
     //==========================================================================
-    PhantomSynth* m_phantom;
+    PhantomSynth* m_synth;
+
+    PhantomAmplifier* m_amp;
 };
