@@ -191,14 +191,14 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     params.push_back(std::move(phasorShape));
 
     auto phasorEgModDepth = std::make_unique<AudioParameterFloat>(
-        Consts::_PHASOR_EG_MOD_DEPTH_PARAM_ID, Consts::_PHASOR_EG_MOD_DEPTH_PARAM_NAME,
+        Consts::_PHASOR_EG_INT_PARAM_ID, Consts::_PHASOR_EG_INT_PARAM_NAME,
         NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
         0.0f
     );
     params.push_back(std::move(phasorEgModDepth));
 
     auto phasorLfoModDepth = std::make_unique<AudioParameterFloat>(
-        Consts::_PHASOR_LFO_MOD_DEPTH_PARAM_ID, Consts::_PHASOR_LFO_MOD_DEPTH_PARAM_NAME,
+        Consts::_PHASOR_LFO_INT_PARAM_ID, Consts::_PHASOR_LFO_INT_PARAM_NAME,
         NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
         0.0f
     );

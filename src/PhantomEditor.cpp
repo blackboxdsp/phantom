@@ -39,6 +39,20 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_oscModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_MOD_DEPTH_PARAM_ID, m_oscModDepthSlider));
     addAndMakeVisible(&m_oscModDepthSlider);
 
+    // PHASOR
+
+    m_phasorShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasorShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasorShapeSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_SHAPE_DEFAULT_VAL);
+    m_phasorShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_SHAPE_PARAM_ID, m_phasorShapeSlider));
+    addAndMakeVisible(&m_phasorShapeSlider);
+
+    m_phasorEgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasorEgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasorEgIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_EG_INT_DEFAULT_VAL);
+    m_phasorEgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_INT_PARAM_ID, m_phasorEgIntSlider));
+    addAndMakeVisible(&m_phasorEgIntSlider);
+
     // FILTER
 
     m_filterCutoffSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -202,8 +216,8 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_oscModDepthSliderAttachment = nullptr;
 
     m_phasorShapeSliderAttachment = nullptr;
-    m_phasorEgModDepthSliderAttachment = nullptr;
-    m_phasorLfoModDepthSliderAttachment = nullptr;
+    m_phasorEgIntSliderAttachment = nullptr;
+    m_phasorLfoIntSliderAttachment = nullptr;
 
     m_filterCutoffSliderAttachment = nullptr;
     m_filterResoSliderAttachment = nullptr;
@@ -269,6 +283,7 @@ void PhantomAudioProcessorEditor::resized()
     m_oscModDepthSlider.setBounds(oscArea.removeFromLeft(knobWidth));
 
     m_phasorShapeSlider.setBounds(phasorArea.removeFromLeft(knobWidth));
+    m_phasorEgIntSlider.setBounds(phasorArea.removeFromLeft(knobWidth));
 
     //==========================================================================
     Rectangle<int> middle = canvas.removeFromTop(2 * height / 5);
@@ -283,6 +298,8 @@ void PhantomAudioProcessorEditor::resized()
     m_filterResoSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterModDepthSlider.setBounds(filterArea.removeFromLeft(knobWidth * 1.5));
     
+    ampArea.removeFromLeft(knobWidth / 2);
+    ampArea.removeFromRight(knobWidth / 2);
     m_levelSlider.setBounds(ampArea);
 
     //==========================================================================

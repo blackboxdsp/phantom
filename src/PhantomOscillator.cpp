@@ -53,9 +53,9 @@ void PhantomOscillator::initWavetable()
 }
 
 //==============================================================================
-float PhantomOscillator::evaluate(float modEnvelope) noexcept
+float PhantomOscillator::evaluate(float modEnvelope, float phaseEnvelope) noexcept
 {
-    float phase = m_phasor->apply(m_phase);
+    float phase = m_phasor->apply(m_phase, phaseEnvelope);
     float sineValue = m_wavetable[(int) phase];
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);

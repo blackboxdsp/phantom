@@ -27,7 +27,7 @@ public:
     //==========================================================================
     void update(int midiNoteNumber, float sampleRate) noexcept;
 
-    float evaluate(float modEnvelope) noexcept;
+    float evaluate(float modEnvelope, float phaseEnvelope) noexcept;
 
     float midiNoteToFrequency(float midiNote) noexcept;
 

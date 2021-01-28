@@ -83,12 +83,12 @@ namespace Consts {
     constexpr char* _PHASOR_SHAPE_PARAM_ID = "phasorShape";
     constexpr char* _PHASOR_SHAPE_PARAM_NAME = "Phasor Shape";
     constexpr float _PHASOR_SHAPE_DEFAULT_VAL = 0.0f;
-    constexpr char* _PHASOR_EG_MOD_DEPTH_PARAM_ID = "phasorEgModDepth";
-    constexpr char* _PHASOR_EG_MOD_DEPTH_PARAM_NAME = "Phasor EG Mod Depth";
-    constexpr float _PHASOR_EG_MOD_DEPTH_DEFAULT_VAL = 0.0f;
-    constexpr char* _PHASOR_LFO_MOD_DEPTH_PARAM_ID = "phasorLfoModDepth";
-    constexpr char* _PHASOR_LFO_MOD_DEPTH_PARAM_NAME = "Phasor LFO Mod Depth";
-    constexpr float _PHASOR_LFO_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _PHASOR_EG_INT_PARAM_ID = "phasorEgInt";
+    constexpr char* _PHASOR_EG_INT_PARAM_NAME = "Phasor EG Int";
+    constexpr float _PHASOR_EG_INT_DEFAULT_VAL = 0.0f;
+    constexpr char* _PHASOR_LFO_INT_PARAM_ID = "phasorLfoInt";
+    constexpr char* _PHASOR_LFO_INT_PARAM_NAME = "Phasor LFO Int";
+    constexpr float _PHASOR_LFO_INT_DEFAULT_VAL = 0.0f;
 
     constexpr char* _FLTR_CUTOFF_PARAM_ID = "filterCutoff";
     constexpr char* _FLTR_CUTOFF_PARAM_NAME = "Filter Cutoff";
@@ -96,8 +96,8 @@ namespace Consts {
     constexpr char* _FLTR_RESO_PARAM_ID = "filterReso";
     constexpr char* _FLTR_RESO_PARAM_NAME = "Filter Resonance";
     constexpr float _FLTR_RESO_DEFAULT_VAL = 0.70710678;
-    constexpr char* _FLTR_MOD_DEPTH_PARAM_ID = "filterEgInt";
-    constexpr char* _FLTR_MOD_DEPTH_PARAM_NAME = "Filter EG Int";
+    constexpr char* _FLTR_MOD_DEPTH_PARAM_ID = "filterEgModDepth";
+    constexpr char* _FLTR_MOD_DEPTH_PARAM_NAME = "Filter EG Mod Depth";
     constexpr float _FLTR_MOD_DEPTH_DEFAULT_VAL = 0.0f;
 
     constexpr char* _LEVEL_PARAM_ID = "level";

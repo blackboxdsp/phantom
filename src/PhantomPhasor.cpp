@@ -16,43 +16,42 @@ PhantomPhasor::PhantomPhasor(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
     p_shape = m_parameters.getRawParameterValue(Consts::_PHASOR_SHAPE_PARAM_ID);
-    p_egModDepth = m_parameters.getRawParameterValue(Consts::_PHASOR_EG_MOD_DEPTH_PARAM_ID);
-    p_lfoModDepth = m_parameters.getRawParameterValue(Consts::_PHASOR_LFO_MOD_DEPTH_PARAM_ID);
+    p_egInt = m_parameters.getRawParameterValue(Consts::_PHASOR_EG_INT_PARAM_ID);
+    p_lfoInt = m_parameters.getRawParameterValue(Consts::_PHASOR_LFO_INT_PARAM_ID);
 }
 
 PhantomPhasor::~PhantomPhasor()
 {
     p_shape = nullptr;
-    p_egModDepth = nullptr;
-    p_lfoModDepth = nullptr;
+    p_egInt = nullptr;
+    p_lfoInt = nullptr;
 }
 
 //==========================================================================
-float PhantomPhasor::apply(float oldPhase) noexcept
+float PhantomPhasor::apply(float oldPhase, float phaseEnvelope) noexcept
 {
     oldPhase /= (float) Consts::_WAVETABLE_SIZE;
 
-    float phase = evaluate(oldPhase);
+    float phasor = evaluate(oldPhase);
+    float envelope = *p_egInt * phaseEnvelope;
+
+    float phase = (phasor * envelope) + (oldPhase * (1.0f - envelope));
 
     return phase * (float) Consts::_WAVETABLE_SIZE;
 }
 
+//==============================================================================
 float PhantomPhasor::evaluate(float phase) noexcept
 {
-    float value;
-
     switch((int) *p_shape)
     {
         default:
         case 0:
-            value = sawtooth(phase);
+            return sawtooth(phase);
             break;
     }
-
-    return value;
 }
 
-//==============================================================================
 float PhantomPhasor::sawtooth(float phase) noexcept
 {
     float slope;

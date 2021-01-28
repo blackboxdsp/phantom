@@ -23,20 +23,21 @@ public:
     ~PhantomPhasor();
 
     //==========================================================================
-    float apply(float oldPhase) noexcept;
-    float evaluate(float oldPhase) noexcept;
+    float apply(float oldPhase, float phaseEnvelope) noexcept;
 
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomPhasor)
 
     //==========================================================================
+    float evaluate(float oldPhase) noexcept;
+
     float sawtooth(float phase) noexcept;
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
     std::atomic<float>* p_shape;
-    std::atomic<float>* p_egModDepth;
-    std::atomic<float>* p_lfoModDepth;
+    std::atomic<float>* p_egInt;
+    std::atomic<float>* p_lfoInt;
 };

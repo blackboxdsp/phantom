@@ -47,10 +47,10 @@ private:
 
     Slider m_phasorShapeSlider;
     std::unique_ptr<SliderAttachment> m_phasorShapeSliderAttachment;
-    Slider m_phasorEgModDepthSlider;
-    std::unique_ptr<SliderAttachment> m_phasorEgModDepthSliderAttachment;
-    Slider m_phasorLfoModDepthSlider;
-    std::unique_ptr<SliderAttachment> m_phasorLfoModDepthSliderAttachment;
+    Slider m_phasorEgIntSlider;
+    std::unique_ptr<SliderAttachment> m_phasorEgIntSliderAttachment;
+    Slider m_phasorLfoIntSlider;
+    std::unique_ptr<SliderAttachment> m_phasorLfoIntSliderAttachment;
 
     Slider m_filterCutoffSlider;
     std::unique_ptr<SliderAttachment> m_filterCutoffSliderAttachment;

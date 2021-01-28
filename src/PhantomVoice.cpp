@@ -104,7 +104,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float filterEnvelope = m_filterEg->evaluate();
         float modEnvelope = m_modEg->evaluate();
 
-        float oscValue = m_osc->evaluate(modEnvelope);
+        float oscValue = m_osc->evaluate(modEnvelope, phaseEnvelope);
         float filterValue = m_filter->evaluate(oscValue, filterEnvelope);
         float ampValue = filterValue * ampEnvelope;
 
