@@ -95,6 +95,11 @@ private:
     Slider m_modEgRelSlider;
     std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
 
+    Slider m_lfoRateSlider;
+    std::unique_ptr<SliderAttachment> m_lfoRateSliderAttachment;
+    Slider m_lfoShapeSlider;
+    std::unique_ptr<SliderAttachment> m_lfoShapeSliderAttachment;
+
     Slider m_levelSlider;
     std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
 };

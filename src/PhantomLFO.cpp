@@ -51,8 +51,7 @@ void PhantomLFO::resetWavetable() noexcept
                 break;
 
             case 1:
-                float saw = position * 2.0f - 1.0f; 
-                value = 2.0f * abs(saw) - 1.0f;
+                value = 2.0f * abs(position * 2.0f - 1.0f) - 1.0f;
                 break;
 
             case 2:
@@ -77,6 +76,7 @@ void PhantomLFO::update(float sampleRate) noexcept
     }
 }
 
+// CAUTION: Remember that the output of this function is in a bipolar numeric format!
 float PhantomLFO::evaluate() noexcept
 {
     float value = m_wavetable[(int) m_phase];

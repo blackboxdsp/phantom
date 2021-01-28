@@ -23,7 +23,7 @@ public:
     ~PhantomPhasor();
 
     //==========================================================================
-    float apply(float oldPhase, float phaseEnvelope) noexcept;
+    float apply(float oldPhase, float egMod, float lfoMod) noexcept;
 
 private:
     //==========================================================================

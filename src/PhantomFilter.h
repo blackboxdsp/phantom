@@ -28,7 +28,7 @@ public:
     void update() noexcept;
 
     //==========================================================================
-    float evaluate(float sample, float envelope, float lfo) noexcept;
+    float evaluate(float sample, float envelope) noexcept;
     float clip(float n, float lower, float upper) noexcept;
 
 private:

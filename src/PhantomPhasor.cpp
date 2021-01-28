@@ -28,14 +28,16 @@ PhantomPhasor::~PhantomPhasor()
 }
 
 //==========================================================================
-float PhantomPhasor::apply(float oldPhase, float phaseEnvelope) noexcept
+float PhantomPhasor::apply(float oldPhase, float egMod, float lfoMod) noexcept
 {
+    float envelope = *p_egInt * (egMod * 2.0f - 1.0f);
+    float lfo = *p_lfoInt * lfoMod;
+    float mod = (envelope + lfo) * 0.5f + 0.5f;
+
     oldPhase /= (float) Consts::_WAVETABLE_SIZE;
 
     float phasor = evaluate(oldPhase);
-    float envelope = *p_egInt * phaseEnvelope;
-
-    float phase = (phasor * envelope) + (oldPhase * (1.0f - envelope));
+    float phase = (phasor * mod) + (oldPhase * (1.0f - mod));
 
     return phase * (float) Consts::_WAVETABLE_SIZE;
 }

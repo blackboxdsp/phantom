@@ -53,6 +53,12 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_phasorEgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_INT_PARAM_ID, m_phasorEgIntSlider));
     addAndMakeVisible(&m_phasorEgIntSlider);
 
+    m_phasorLfoIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasorLfoIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasorLfoIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_LFO_INT_DEFAULT_VAL);
+    m_phasorLfoIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_LFO_INT_PARAM_ID, m_phasorLfoIntSlider));
+    addAndMakeVisible(&m_phasorLfoIntSlider);
+
     // FILTER
 
     m_filterCutoffSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -195,6 +201,21 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_modEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_REL_PARAM_ID, m_modEgRelSlider));
     addAndMakeVisible(&m_modEgRelSlider);
 
+    // LFO
+
+    m_lfoRateSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_lfoRateSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_lfoRateSlider.setTextValueSuffix(" Hz");
+    m_lfoRateSlider.setDoubleClickReturnValue(true, Consts::_LFO_RATE_DEFAULT_VAL);
+    m_lfoRateSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_RATE_PARAM_ID, m_lfoRateSlider));
+    addAndMakeVisible(&m_lfoRateSlider);
+
+    m_lfoShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_lfoShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_lfoShapeSlider.setDoubleClickReturnValue(true, Consts::_LFO_SHAPE_DEFAULT_VAL);
+    m_lfoShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_SHAPE_PARAM_ID, m_lfoShapeSlider));
+    addAndMakeVisible(&m_lfoShapeSlider);
+
     // AMP
 
     m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -242,6 +263,9 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_modEgSusSliderAttachment = nullptr;
     m_modEgRelSliderAttachment = nullptr;
 
+    m_lfoRateSliderAttachment = nullptr;
+    m_lfoShapeSliderAttachment = nullptr;
+
     m_levelSliderAttachment = nullptr;
 }
 
@@ -275,29 +299,32 @@ void PhantomAudioProcessorEditor::resized()
     knobWidth = width / 10;
 
     Rectangle<int> oscArea = top.removeFromLeft(5 * knobWidth);
-    Rectangle<int> phasorArea = top.removeFromLeft(3 * knobWidth);
-    Rectangle<int> lfoArea = top.removeFromLeft(2 * knobWidth);
-
     m_oscRangeSlider.setBounds(oscArea.removeFromLeft(knobWidth));
     m_oscTuneSlider.setBounds(oscArea.removeFromLeft(knobWidth));
     m_oscModDepthSlider.setBounds(oscArea.removeFromLeft(knobWidth));
 
+    Rectangle<int> phasorArea = top.removeFromLeft(3 * knobWidth);
     m_phasorShapeSlider.setBounds(phasorArea.removeFromLeft(knobWidth));
     m_phasorEgIntSlider.setBounds(phasorArea.removeFromLeft(knobWidth));
+    m_phasorLfoIntSlider.setBounds(phasorArea);
+
+    Rectangle<int> lfoArea = top.removeFromLeft(2 * knobWidth);
+    m_lfoRateSlider.setBounds(lfoArea.removeFromLeft(knobWidth));
+    m_lfoShapeSlider.setBounds(lfoArea);
 
     //==========================================================================
     Rectangle<int> middle = canvas.removeFromTop(2 * height / 5);
     knobWidth = width / 8;
-
-    Rectangle<int> filterArea = middle.removeFromLeft(3 * knobWidth);
-    Rectangle<int> utilityArea = middle.removeFromLeft(3 * knobWidth);
-    Rectangle<int> ampArea = middle.removeFromLeft(2 * knobWidth);
     
+    Rectangle<int> filterArea = middle.removeFromLeft(3 * knobWidth);
     Rectangle<int> filterAreaTop = filterArea.removeFromTop(height / 5);
     m_filterCutoffSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterResoSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterModDepthSlider.setBounds(filterArea.removeFromLeft(knobWidth * 1.5));
     
+    Rectangle<int> utilityArea = middle.removeFromLeft(3 * knobWidth);
+
+    Rectangle<int> ampArea = middle.removeFromLeft(2 * knobWidth);
     ampArea.removeFromLeft(knobWidth / 2);
     ampArea.removeFromRight(knobWidth / 2);
     m_levelSlider.setBounds(ampArea);

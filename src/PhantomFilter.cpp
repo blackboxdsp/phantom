@@ -46,10 +46,9 @@ void PhantomFilter::update() noexcept
 }
 
 //==============================================================================
-float PhantomFilter::evaluate(float sample, float envelope, float lfo) noexcept
+float PhantomFilter::evaluate(float sample, float envelope) noexcept
 {
-    float egOffset = k_cutoffModulationMultiplier * envelope * *p_modDepth;
-    float offset = k_cutoffModulationMultiplier * envelope * *p_modDepth * lfo;
+    float offset = k_cutoffModulationMultiplier * envelope * *p_modDepth;
     float frequency = clip(*p_cutoff + offset, k_cutoffLowerBounds, k_cutoffUpperCounds);
     m_filter->setCutoffFrequency(frequency);
 
