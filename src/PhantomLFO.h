@@ -1,66 +1,52 @@
 /*
   ==============================================================================
 
-    PhantomOscillator.h
-    Created: 20 Jan 2021 21:17:28
+    PhantomLFO.h
+    Created: 27 Jan 2021 18:51:41
     Author:  Matthew Maxwell
 
   ==============================================================================
 */
 
-#pragma once
-
 #include "JuceHeader.h"
 
-#include "PhantomPhasor.h"
-
-//==============================================================================
-/**
-*/
-class PhantomOscillator 
+class PhantomLFO 
 {
 public:
     //==========================================================================
-    PhantomOscillator(AudioProcessorValueTreeState&);
-    ~PhantomOscillator();
+    PhantomLFO(AudioProcessorValueTreeState&);
+    ~PhantomLFO();
 
     //==========================================================================
-    void update(int midiNoteNumber, float sampleRate) noexcept;
+    void update(float sampleRate) noexcept;
 
-    float evaluate(float modEgMod, float phaseEgMod, float lfoMod) noexcept;
-
-    float midiNoteToFrequency(float midiNote) noexcept;
+    //==========================================================================
+    float evaluate() noexcept;
 
 private:
     //==========================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscillator)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomLFO)
 
     //==========================================================================
     void initParameters();
-    void initWavetable();
+    void resetWavetable() noexcept;
 
-    void updateFrequency() noexcept;
     void updatePhaseDelta() noexcept;
-    void updatePhaseDelta(float frequency) noexcept;
-    
+
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
-    std::atomic<float>* p_oscRange;
-    std::atomic<float>* p_oscTune;
-    std::atomic<float>* p_modDepth;
-    std::atomic<float>* p_modMode;
+    std::atomic<float>* p_rate;
+    std::atomic<float>* p_shape;
 
+    float m_previousShape;
     //==========================================================================
     Array<float> m_wavetable;
-    const int k_modExpoThreshold = 5;
 
     float m_phase = 0.0f;
     float m_phaseDelta = 0.0f;
 
-    int m_midiNoteNumber;
-    float m_frequency;
     float m_sampleRate;
 
-    PhantomPhasor* m_phasor;
+    int m_evalCount = 0;
 };

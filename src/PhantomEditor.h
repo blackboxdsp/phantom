@@ -44,6 +44,8 @@ private:
     std::unique_ptr<SliderAttachment> m_oscTuneSliderAttachment;
     Slider m_oscModDepthSlider;
     std::unique_ptr<SliderAttachment> m_oscModDepthSliderAttachment;
+    Slider m_oscModModeSlider;
+    std::unique_ptr<SliderAttachment> m_oscModModeSliderAttachment;
 
     Slider m_phasorShapeSlider;
     std::unique_ptr<SliderAttachment> m_phasorShapeSliderAttachment;
@@ -56,8 +58,10 @@ private:
     std::unique_ptr<SliderAttachment> m_filterCutoffSliderAttachment;
     Slider m_filterResoSlider;
     std::unique_ptr<SliderAttachment> m_filterResoSliderAttachment;
-    Slider m_filterModDepthSlider;
-    std::unique_ptr<SliderAttachment> m_filterModDepthSliderAttachment;
+    Slider m_filterEgModDepthSlider;
+    std::unique_ptr<SliderAttachment> m_filterEgModDepthSliderAttachment;
+    Slider m_filterLfoModDepthSlider;
+    std::unique_ptr<SliderAttachment> m_filterLfoModDepthSliderAttachment;
 
     Slider m_ampEgAtkSlider;
     std::unique_ptr<SliderAttachment> m_ampEgAtkSliderAttachment;
@@ -94,6 +98,11 @@ private:
     std::unique_ptr<SliderAttachment> m_modEgSusSliderAttachment;
     Slider m_modEgRelSlider;
     std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
+
+    Slider m_lfoRateSlider;
+    std::unique_ptr<SliderAttachment> m_lfoRateSliderAttachment;
+    Slider m_lfoShapeSlider;
+    std::unique_ptr<SliderAttachment> m_lfoShapeSliderAttachment;
 
     Slider m_levelSlider;
     std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 

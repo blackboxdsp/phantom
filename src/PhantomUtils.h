@@ -70,6 +70,13 @@ namespace Consts {
     constexpr char* _MOD_EG_REL_PARAM_NAME = "Mod EG Rel";
     constexpr float _MOD_EG_REL_DEFAULT_VAL = 0.2f;
 
+    constexpr char* _LFO_RATE_PARAM_ID = "lfoRate";
+    constexpr char* _LFO_RATE_PARAM_NAME = "LFO Rate";
+    constexpr float _LFO_RATE_DEFAULT_VAL = 20.0f;
+    constexpr char* _LFO_SHAPE_PARAM_ID = "lfoShape";
+    constexpr char* _LFO_SHAPE_PARAM_NAME = "LFO Shape";
+    constexpr float _LFO_SHAPE_DEFAULT_VAL = 0.0f;
+
     constexpr char* _OSC_RANGE_PARAM_ID = "oscRange";
     constexpr char* _OSC_RANGE_PARAM_NAME = "Osc Range";
     constexpr float _OSC_RANGE_DEFAULT_VAL = 2.0f;
@@ -79,6 +86,9 @@ namespace Consts {
     constexpr char* _OSC_MOD_DEPTH_PARAM_ID = "oscModDepth";
     constexpr char* _OSC_MOD_DEPTH_PARAM_NAME = "Osc Mod Depth";
     constexpr float _OSC_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_MOD_MODE_PARAM_ID = "oscModMode";
+    constexpr char* _OSC_MOD_MODE_PARAM_NAME = "Osc Mod Mode";
+    constexpr float _OSC_MOD_MODE_DEFAULT_VAL = 0.0f;
 
     constexpr char* _PHASOR_SHAPE_PARAM_ID = "phasorShape";
     constexpr char* _PHASOR_SHAPE_PARAM_NAME = "Phasor Shape";
@@ -96,9 +106,12 @@ namespace Consts {
     constexpr char* _FLTR_RESO_PARAM_ID = "filterReso";
     constexpr char* _FLTR_RESO_PARAM_NAME = "Filter Resonance";
     constexpr float _FLTR_RESO_DEFAULT_VAL = 0.70710678;
-    constexpr char* _FLTR_MOD_DEPTH_PARAM_ID = "filterEgModDepth";
-    constexpr char* _FLTR_MOD_DEPTH_PARAM_NAME = "Filter EG Mod Depth";
-    constexpr float _FLTR_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _FLTR_EG_MOD_DEPTH_PARAM_ID = "filterEgModDepth";
+    constexpr char* _FLTR_EG_MOD_DEPTH_PARAM_NAME = "Filter EG Mod Depth";
+    constexpr float _FLTR_EG_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _FLTR_LFO_MOD_DEPTH_PARAM_ID = "filterLfoModDepth";
+    constexpr char* _FLTR_LFO_MOD_DEPTH_PARAM_NAME = "Filter LFO Mod Depth";
+    constexpr float _FLTR_LFO_MOD_DEPTH_DEFAULT_VAL = 0.0f;
 
     constexpr char* _LEVEL_PARAM_ID = "level";
     constexpr char* _LEVEL_PARAM_NAME = "Level";
