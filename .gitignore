@@ -8,6 +8,7 @@ juce/
 
 # Binaries and executables
 bin/
+out/
 
 # Miscellaneous project stuff
 design/
