@@ -80,9 +80,12 @@ namespace Consts {
     constexpr char* _OSC_RANGE_PARAM_ID = "oscRange";
     constexpr char* _OSC_RANGE_PARAM_NAME = "Osc Range";
     constexpr float _OSC_RANGE_DEFAULT_VAL = 2.0f;
-    constexpr char* _OSC_TUNE_PARAM_ID = "oscTune";
-    constexpr char* _OSC_TUNE_PARAM_NAME = "Osc Tune";
-    constexpr float _OSC_TUNE_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_COARSE_TUNE_PARAM_ID = "oscCoarseTune";
+    constexpr char* _OSC_COARSE_TUNE_PARAM_NAME = "Osc Coarse Tune";
+    constexpr float _OSC_COARSE_TUNE_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_FINE_TUNE_PARAM_ID = "oscFineTune";
+    constexpr char* _OSC_FINE_TUNE_PARAM_NAME = "Osc Fine Tune";
+    constexpr float _OSC_FINE_TUNE_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_MOD_DEPTH_PARAM_ID = "oscModDepth";
     constexpr char* _OSC_MOD_DEPTH_PARAM_NAME = "Osc Mod Depth";
     constexpr float _OSC_MOD_DEPTH_DEFAULT_VAL = 0.0f;
@@ -95,7 +98,7 @@ namespace Consts {
     constexpr float _PHASOR_SHAPE_DEFAULT_VAL = 0.0f;
     constexpr char* _PHASOR_EG_INT_PARAM_ID = "phasorEgInt";
     constexpr char* _PHASOR_EG_INT_PARAM_NAME = "Phasor EG Int";
-    constexpr float _PHASOR_EG_INT_DEFAULT_VAL = 0.0f;
+    constexpr float _PHASOR_EG_INT_DEFAULT_VAL = 1.0f;
     constexpr char* _PHASOR_LFO_INT_PARAM_ID = "phasorLfoInt";
     constexpr char* _PHASOR_LFO_INT_PARAM_NAME = "Phasor LFO Int";
     constexpr float _PHASOR_LFO_INT_DEFAULT_VAL = 0.0f;

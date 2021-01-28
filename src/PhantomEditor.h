@@ -40,8 +40,10 @@ private:
     //==========================================================================
     Slider m_oscRangeSlider;
     std::unique_ptr<SliderAttachment> m_oscRangeSliderAttachment;
-    Slider m_oscTuneSlider;
-    std::unique_ptr<SliderAttachment> m_oscTuneSliderAttachment;
+    Slider m_oscCoarseTuneSlider;
+    std::unique_ptr<SliderAttachment> m_oscCoarseTuneSliderAttachment;
+    Slider m_oscFineTuneSlider;
+    std::unique_ptr<SliderAttachment> m_oscFineTuneSliderAttachment;
     Slider m_oscModDepthSlider;
     std::unique_ptr<SliderAttachment> m_oscModDepthSliderAttachment;
     Slider m_oscModModeSlider;
