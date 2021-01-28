@@ -215,7 +215,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto phasorShape = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_SHAPE_PARAM_ID, Consts::_PHASOR_SHAPE_PARAM_NAME,
-        NormalisableRange<float>(0.0f, 0.0f, 1.0f),
+        NormalisableRange<float>(0.0f, 1.0f, 1.0f),
         Consts::_PHASOR_SHAPE_DEFAULT_VAL
     );
     params.push_back(std::move(phasorShape));
