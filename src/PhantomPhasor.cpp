@@ -55,8 +55,17 @@ float PhantomPhasor::evaluate(float phase) noexcept
 //==============================================================================
 float PhantomPhasor::sawtooth(float phase) noexcept
 {
-    if(phase <= 0.05f)
-        return 10.0f * phase;
+    float slope;
+
+    float breakpoint = 0.01f;
+    if(phase <= breakpoint)
+    {
+        slope = 0.5f / breakpoint;
+        return slope * phase;
+    }
     else
-        return 0.52631579f * phase + 0.47368421f;
+    {
+        slope = 0.5f / (1.0f - breakpoint);
+        return slope * (phase - breakpoint) + 0.5f;
+    }
 }
