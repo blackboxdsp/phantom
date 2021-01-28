@@ -50,10 +50,15 @@ void PhantomFilter::update() noexcept
 //==============================================================================
 float PhantomFilter::evaluate(float sample, float egMod, float lfoMod) noexcept
 {
-    egMod = egMod * 2.0f - 1.0f;
-    egMod *= *p_egModDepth;
-    lfoMod *= *p_lfoModDepth;
-    float mod = (egMod + lfoMod) * 0.5f + 0.5f;
+    // egMod = egMod * 2.0f - 1.0f;
+    // egMod *= *p_egModDepth;
+    // lfoMod *= *p_lfoModDepth;
+    // float mod = (egMod + lfoMod) * 0.5f + 0.5f;
+    // float offset = k_cutoffModulationMultiplier * mod;
+
+    float envelope = *p_egModDepth * egMod * (abs(*p_lfoModDepth) * -0.5f + 1.0f);
+    float lfo = *p_lfoModDepth * (lfoMod * 0.5f + 0.5f) * (abs(*p_egModDepth) * -0.5f + 1.0f);
+    float mod = envelope + lfo;
     float offset = k_cutoffModulationMultiplier * mod;
 
     float frequency = clip(*p_cutoff + offset, k_cutoffLowerBounds, k_cutoffUpperCounds);
