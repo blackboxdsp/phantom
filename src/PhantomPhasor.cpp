@@ -30,9 +30,9 @@ PhantomPhasor::~PhantomPhasor()
 //==========================================================================
 float PhantomPhasor::apply(float oldPhase, float egMod, float lfoMod) noexcept
 {
-    float envelope = *p_egInt * (egMod * 2.0f - 1.0f);
-    float lfo = *p_lfoInt * lfoMod;
-    float mod = (envelope + lfo) * 0.5f + 0.5f;
+    float envelope = *p_egInt * egMod * (*p_lfoInt * -0.5f + 1.0f);
+    float lfo = *p_lfoInt * (lfoMod * 0.5f + 0.5f) * (*p_egInt * -0.5f + 1.0f);
+    float mod = envelope + lfo;
 
     oldPhase /= (float) Consts::_WAVETABLE_SIZE;
 

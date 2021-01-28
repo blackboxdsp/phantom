@@ -23,7 +23,8 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec
 
     p_cutoff = m_parameters.getRawParameterValue(Consts::_FLTR_CUTOFF_PARAM_ID);
     p_resonance = m_parameters.getRawParameterValue(Consts::_FLTR_RESO_PARAM_ID);
-    p_modDepth = m_parameters.getRawParameterValue(Consts::_FLTR_MOD_DEPTH_PARAM_ID);
+    p_egModDepth = m_parameters.getRawParameterValue(Consts::_FLTR_EG_MOD_DEPTH_PARAM_ID);
+    p_lfoModDepth = m_parameters.getRawParameterValue(Consts::_FLTR_LFO_MOD_DEPTH_PARAM_ID);
 
     update();
 }
@@ -34,7 +35,8 @@ PhantomFilter::~PhantomFilter()
 
     p_cutoff = nullptr;
     p_resonance = nullptr;
-    p_modDepth = nullptr;
+    p_egModDepth = nullptr;
+    p_lfoModDepth = nullptr;
 }
 
 //==============================================================================
@@ -46,9 +48,14 @@ void PhantomFilter::update() noexcept
 }
 
 //==============================================================================
-float PhantomFilter::evaluate(float sample, float envelope) noexcept
+float PhantomFilter::evaluate(float sample, float egMod, float lfoMod) noexcept
 {
-    float offset = k_cutoffModulationMultiplier * envelope * *p_modDepth;
+    egMod = egMod * 2.0f - 1.0f;
+    egMod *= *p_egModDepth;
+    lfoMod *= *p_lfoModDepth;
+    float mod = (egMod + lfoMod) * 0.5f + 0.5f;
+    float offset = k_cutoffModulationMultiplier * mod;
+
     float frequency = clip(*p_cutoff + offset, k_cutoffLowerBounds, k_cutoffUpperCounds);
     m_filter->setCutoffFrequency(frequency);
 

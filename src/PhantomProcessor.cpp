@@ -206,19 +206,19 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(phasorShape));
 
-    auto phasorEgModDepth = std::make_unique<AudioParameterFloat>(
+    auto phasorEgInt = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_EG_INT_PARAM_ID, Consts::_PHASOR_EG_INT_PARAM_NAME,
-        NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
+        NormalisableRange<float>(0.0f, 1.0f, 0.01f),
         0.0f
     );
-    params.push_back(std::move(phasorEgModDepth));
+    params.push_back(std::move(phasorEgInt));
 
-    auto phasorLfoModDepth = std::make_unique<AudioParameterFloat>(
+    auto phasorLfoInt = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_LFO_INT_PARAM_ID, Consts::_PHASOR_LFO_INT_PARAM_NAME,
-        NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
+        NormalisableRange<float>(0.0f, 1.0f, 0.01f),
         0.0f
     );
-    params.push_back(std::move(phasorLfoModDepth));
+    params.push_back(std::move(phasorLfoInt));
 
     // FILTER
 
@@ -236,12 +236,19 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(filterReso));
 
-    auto filterModDepth = std::make_unique<AudioParameterFloat>(
-        Consts::_FLTR_MOD_DEPTH_PARAM_ID, Consts::_FLTR_MOD_DEPTH_PARAM_NAME,
+    auto filterEgModDepth = std::make_unique<AudioParameterFloat>(
+        Consts::_FLTR_EG_MOD_DEPTH_PARAM_ID, Consts::_FLTR_EG_MOD_DEPTH_PARAM_NAME,
         NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
-        Consts::_FLTR_MOD_DEPTH_DEFAULT_VAL
+        Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL
     );
-    params.push_back(std::move(filterModDepth));
+    params.push_back(std::move(filterEgModDepth));
+
+    auto filterLfoModDepth = std::make_unique<AudioParameterFloat>(
+        Consts::_FLTR_LFO_MOD_DEPTH_PARAM_ID, Consts::_FLTR_LFO_MOD_DEPTH_PARAM_NAME,
+        NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
+        Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterLfoModDepth));
 
     // AMP
 

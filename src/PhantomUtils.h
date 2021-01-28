@@ -103,9 +103,12 @@ namespace Consts {
     constexpr char* _FLTR_RESO_PARAM_ID = "filterReso";
     constexpr char* _FLTR_RESO_PARAM_NAME = "Filter Resonance";
     constexpr float _FLTR_RESO_DEFAULT_VAL = 0.70710678;
-    constexpr char* _FLTR_MOD_DEPTH_PARAM_ID = "filterEgModDepth";
-    constexpr char* _FLTR_MOD_DEPTH_PARAM_NAME = "Filter EG Mod Depth";
-    constexpr float _FLTR_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _FLTR_EG_MOD_DEPTH_PARAM_ID = "filterEgModDepth";
+    constexpr char* _FLTR_EG_MOD_DEPTH_PARAM_NAME = "Filter EG Mod Depth";
+    constexpr float _FLTR_EG_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _FLTR_LFO_MOD_DEPTH_PARAM_ID = "filterLfoModDepth";
+    constexpr char* _FLTR_LFO_MOD_DEPTH_PARAM_NAME = "Filter LFO Mod Depth";
+    constexpr float _FLTR_LFO_MOD_DEPTH_DEFAULT_VAL = 0.0f;
 
     constexpr char* _LEVEL_PARAM_ID = "level";
     constexpr char* _LEVEL_PARAM_NAME = "Level";
