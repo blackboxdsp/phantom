@@ -124,7 +124,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     addAndMakeVisible(&m_filterResoSlider);
     m_filterResoLabel.setText("Resonance", dontSendNotification);
     m_filterResoLabel.setJustificationType(Justification::centred);
-    m_filterResoLabel.attachToComponent(&m_filterResoLabel, false);
+    m_filterResoLabel.attachToComponent(&m_filterResoSlider, false);
     addAndMakeVisible(&m_filterResoLabel);
 
     m_filterEgModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -438,10 +438,13 @@ void PhantomAudioProcessorEditor::resized()
     int width = canvas.getWidth();
     int height = canvas.getHeight();
 
+    // NOTE: The gap uses the extra 6th of vertical space and divides it among the rows
+    int gap = height / 24; 
+
     int knobWidth;
 
     //==========================================================================
-    Rectangle<int> top =  canvas.removeFromTop(height / 5);
+    Rectangle<int> top =  canvas.removeFromTop(height / 6);
     knobWidth = width / 10;
 
     Rectangle<int> oscArea = top.removeFromLeft(5 * knobWidth);
@@ -460,11 +463,14 @@ void PhantomAudioProcessorEditor::resized()
     m_lfoRateSlider.setBounds(lfoArea.removeFromLeft(knobWidth));
     m_lfoShapeSlider.setBounds(lfoArea);
 
+    canvas.removeFromTop(gap);
+
     //==========================================================================
-    Rectangle<int> middle = canvas.removeFromTop(2 * height / 5);
+    Rectangle<int> middle = canvas.removeFromTop(2 * height / 6);
     knobWidth = width / 8;
     
     Rectangle<int> filterArea = middle.removeFromLeft(3 * knobWidth);
+    filterArea.removeFromTop(gap);
     Rectangle<int> filterAreaTop = filterArea.removeFromTop(height / 5);
     m_filterCutoffSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterResoSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
@@ -480,7 +486,8 @@ void PhantomAudioProcessorEditor::resized()
 
     //==========================================================================
     Rectangle<int> bottom = canvas;
-    Rectangle<int> bottomTop = bottom.removeFromTop(height / 5);
+    bottom.removeFromTop(gap);
+    Rectangle<int> bottomTop = bottom.removeFromTop(height / 6);
     
     m_ampEgAtkSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
     m_ampEgDecSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
