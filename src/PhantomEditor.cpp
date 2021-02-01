@@ -90,7 +90,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     addAndMakeVisible(&m_phasorEgIntSlider);
     m_phasorShapeLabel.setText("EG Int", dontSendNotification);
     m_phasorShapeLabel.setJustificationType(Justification::centred);
-    m_phasorShapeLabel.attachToComponent(&m_phasorShapeSlider, false);
+    m_phasorShapeLabel.attachToComponent(&m_phasorEgIntSlider, false);
     addAndMakeVisible(&m_phasorShapeLabel);
 
     m_phasorLfoIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -369,7 +369,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
     //==========================================================================
     setResizable(true, true);
-    setSize(720, 540);
+    setSize(1280, 720);
 }
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
@@ -466,12 +466,13 @@ void PhantomAudioProcessorEditor::resized()
     canvas.removeFromTop(gap);
 
     //==========================================================================
-    Rectangle<int> middle = canvas.removeFromTop(2 * height / 6);
+    Rectangle<int> middle = canvas.removeFromTop(2.5 * height / 6);
+    middle.removeFromTop(gap);
+    middle.removeFromBottom(gap);
     knobWidth = width / 8;
     
     Rectangle<int> filterArea = middle.removeFromLeft(3 * knobWidth);
-    filterArea.removeFromTop(gap);
-    Rectangle<int> filterAreaTop = filterArea.removeFromTop(height / 5);
+    Rectangle<int> filterAreaTop = filterArea.removeFromTop(filterArea.getHeight() / 2);
     m_filterCutoffSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterResoSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterEgModDepthSlider.setBounds(filterArea.removeFromLeft(knobWidth * 1.5));
@@ -480,15 +481,17 @@ void PhantomAudioProcessorEditor::resized()
     Rectangle<int> utilityArea = middle.removeFromLeft(3 * knobWidth);
 
     Rectangle<int> ampArea = middle.removeFromLeft(2 * knobWidth);
+    ampArea.removeFromBottom(gap);
     ampArea.removeFromLeft(knobWidth / 2);
     ampArea.removeFromRight(knobWidth / 2);
     m_levelSlider.setBounds(ampArea);
 
     //==========================================================================
     Rectangle<int> bottom = canvas;
-    bottom.removeFromTop(gap);
-    Rectangle<int> bottomTop = bottom.removeFromTop(height / 6);
-    
+    Rectangle<int> bottomTop = bottom.removeFromTop(bottom.getHeight() / 2);
+    bottomTop.removeFromTop(gap / 1.4);
+    bottom.removeFromTop(gap / 1.4);
+
     m_ampEgAtkSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
     m_ampEgDecSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
     m_ampEgSusSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
