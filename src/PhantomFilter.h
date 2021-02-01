@@ -40,6 +40,7 @@ private:
 
     std::atomic<float>* p_cutoff;
     std::atomic<float>* p_resonance;
+    std::atomic<float>* p_drive;
     std::atomic<float>* p_egModDepth;
     std::atomic<float>* p_lfoModDepth;
 
@@ -49,6 +50,5 @@ private:
     const float k_cutoffUpperCounds = 11000.0f;
 
     //==========================================================================
-    dsp::StateVariableTPTFilter<float>* m_filter;
-    dsp::StateVariableTPTFilterType m_type = dsp::StateVariableTPTFilterType::lowpass;
+    dsp::LadderFilter<float>* m_filter;
 };

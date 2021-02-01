@@ -250,6 +250,13 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(filterReso));
 
+    auto filterDrive = std::make_unique<AudioParameterFloat>(
+        Consts::_FLTR_DRIVE_PARAM_ID, Consts::_FLTR_DRIVE_PARAM_NAME,
+        NormalisableRange<float>(1.0f, 10.0f, 0.1f),
+        Consts::_FLTR_DRIVE_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterDrive));
+
     auto filterEgModDepth = std::make_unique<AudioParameterFloat>(
         Consts::_FLTR_EG_MOD_DEPTH_PARAM_ID, Consts::_FLTR_EG_MOD_DEPTH_PARAM_NAME,
         NormalisableRange<float>(-1.0f, 1.0f, 0.01f),
