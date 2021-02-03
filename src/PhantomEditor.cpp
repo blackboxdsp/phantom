@@ -127,6 +127,16 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_filterResoLabel.attachToComponent(&m_filterResoSlider, false);
     addAndMakeVisible(&m_filterResoLabel);
 
+    m_filterDriveSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterDriveSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterDriveSlider.setDoubleClickReturnValue(true, Consts::_FLTR_DRIVE_DEFAULT_VAL);
+    m_filterDriveSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_DRIVE_PARAM_ID, m_filterDriveSlider));
+    addAndMakeVisible(&m_filterDriveSlider);
+    m_filterDriveLabel.setText("Drive", dontSendNotification);
+    m_filterDriveLabel.setJustificationType(Justification::centred);
+    m_filterDriveLabel.attachToComponent(&m_filterDriveSlider, false);
+    addAndMakeVisible(&m_filterDriveLabel);
+
     m_filterEgModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterEgModDepthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
     m_filterEgModDepthSlider.setDoubleClickReturnValue(true, Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL);
@@ -386,6 +396,7 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 
     m_filterCutoffSliderAttachment = nullptr;
     m_filterResoSliderAttachment = nullptr;
+    m_filterDriveSliderAttachment = nullptr;
     m_filterEgModDepthSliderAttachment = nullptr;
     m_filterLfoModDepthSliderAttachment = nullptr;
 
@@ -475,6 +486,7 @@ void PhantomAudioProcessorEditor::resized()
     Rectangle<int> filterAreaTop = filterArea.removeFromTop(filterArea.getHeight() / 2);
     m_filterCutoffSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterResoSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
+    m_filterDriveSlider.setBounds(filterAreaTop);
     m_filterEgModDepthSlider.setBounds(filterArea.removeFromLeft(knobWidth * 1.5));
     m_filterLfoModDepthSlider.setBounds(filterArea);
     
