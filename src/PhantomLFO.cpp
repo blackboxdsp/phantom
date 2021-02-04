@@ -81,7 +81,7 @@ void PhantomLFO::update(float sampleRate) noexcept
     }
 }
 
-// CAUTION: Remember that the output of this function is in a bipolar numeric format!
+// CAUTION: The output of this function MUST BE in bipolar [-1.0f, 1.0f]
 float PhantomLFO::evaluate() noexcept
 {
     if((int) *p_shape != 4)
