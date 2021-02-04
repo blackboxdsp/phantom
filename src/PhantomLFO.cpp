@@ -47,6 +47,7 @@ void PhantomLFO::resetWavetable() noexcept
         {
             default:
             case 0:
+            case 4:
                 value = sinf(MathConstants<float>::twoPi * position);
                 break;
 
@@ -56,6 +57,10 @@ void PhantomLFO::resetWavetable() noexcept
 
             case 2:
                 value = position * 2.0f - 1.0f;
+                break;
+
+            case 3:
+                value = position <= 0.5f ? 1.0f : -1.0f;
                 break;
         }
 
