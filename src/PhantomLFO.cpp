@@ -84,11 +84,15 @@ void PhantomLFO::update(float sampleRate) noexcept
 // CAUTION: Remember that the output of this function is in a bipolar numeric format!
 float PhantomLFO::evaluate() noexcept
 {
-    float value = m_wavetable[(int) m_phase];
+    if((int) *p_shape != 4)
+        m_sampleValue = m_wavetable[(int) m_phase];
+    else
+        if((int) m_phase <= 1)
+            m_sampleValue = Random::getSystemRandom().nextFloat() * 2.0f - 1.0f;
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
-    return value;
+    return m_sampleValue;
 }
 
 //==============================================================================

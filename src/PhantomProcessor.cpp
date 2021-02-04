@@ -169,7 +169,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto lfoShape = std::make_unique<AudioParameterFloat>(
         Consts::_LFO_SHAPE_PARAM_ID, Consts::_LFO_SHAPE_PARAM_NAME,
-        NormalisableRange<float>(0.0f, 3.0f, 1.0f),
+        NormalisableRange<float>(0.0f, 4.0f, 1.0f),
         Consts::_LFO_SHAPE_DEFAULT_VAL
     );
     params.push_back(std::move(lfoShape));

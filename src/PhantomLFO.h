@@ -47,6 +47,5 @@ private:
     float m_phaseDelta = 0.0f;
 
     float m_sampleRate;
-
-    int m_evalCount = 0;
+    float m_sampleValue = 0.0f;
 };
