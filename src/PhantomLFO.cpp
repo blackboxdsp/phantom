@@ -47,6 +47,7 @@ void PhantomLFO::resetWavetable() noexcept
         {
             default:
             case 0:
+            case 4:
                 value = sinf(MathConstants<float>::twoPi * position);
                 break;
 
@@ -56,6 +57,10 @@ void PhantomLFO::resetWavetable() noexcept
 
             case 2:
                 value = position * 2.0f - 1.0f;
+                break;
+
+            case 3:
+                value = position <= 0.5f ? 1.0f : -1.0f;
                 break;
         }
 
@@ -76,14 +81,18 @@ void PhantomLFO::update(float sampleRate) noexcept
     }
 }
 
-// CAUTION: Remember that the output of this function is in a bipolar numeric format!
+// CAUTION: The output of this function MUST BE in bipolar [-1.0f, 1.0f]
 float PhantomLFO::evaluate() noexcept
 {
-    float value = m_wavetable[(int) m_phase];
+    if((int) *p_shape != 4)
+        m_sampleValue = m_wavetable[(int) m_phase];
+    else
+        if((int) m_phase <= 1)
+            m_sampleValue = Random::getSystemRandom().nextFloat() * 2.0f - 1.0f;
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
-    return value;
+    return m_sampleValue;
 }
 
 //==============================================================================

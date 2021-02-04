@@ -75,7 +75,7 @@ float PhantomFilter::clip(float n, float lower, float upper) noexcept
 //==============================================================================
 float PhantomFilter::htan(float x) noexcept
 {
-    return std::tanhf((*p_drive * 9.0f + 1.0f) * x);
+    return std::tanhf((*p_drive * 17.0f + 1.0f) * x);
 }
 
 float PhantomFilter::fexp2(float x) noexcept
