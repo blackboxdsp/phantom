@@ -18,6 +18,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
     //==========================================================================
 
+    m_initButton.setButtonText("Init");
+    m_initButton.onClick = [&]{ reset(); };
+    addAndMakeVisible(&m_initButton);
+
     // OSCILLATOR
 
     m_oscRangeSlider.setSliderStyle(Slider::LinearVertical);
@@ -459,7 +463,9 @@ void PhantomAudioProcessorEditor::resized()
     knobWidth = width / 10;
 
     Rectangle<int> oscArea = top.removeFromLeft(5 * knobWidth);
-    m_oscRangeSlider.setBounds(oscArea.removeFromLeft(knobWidth));
+    m_initButton.setBounds(oscArea.removeFromLeft(knobWidth / 4));
+    oscArea.removeFromLeft(knobWidth / 4);
+    m_oscRangeSlider.setBounds(oscArea.removeFromLeft(2 * knobWidth / 4));
     m_oscCoarseTuneSlider.setBounds(oscArea.removeFromLeft(knobWidth));
     m_oscFineTuneSlider.setBounds(oscArea.removeFromLeft(knobWidth));
     m_oscModDepthSlider.setBounds(oscArea.removeFromLeft(knobWidth));
@@ -523,4 +529,48 @@ void PhantomAudioProcessorEditor::resized()
     m_modEgDecSlider.setBounds(bottom.removeFromLeft(knobWidth));
     m_modEgSusSlider.setBounds(bottom.removeFromLeft(knobWidth));
     m_modEgRelSlider.setBounds(bottom);
+}
+
+void PhantomAudioProcessorEditor::reset()
+{
+    m_oscRangeSlider.setValue(Consts::_OSC_RANGE_DEFAULT_VAL);
+    m_oscCoarseTuneSlider.setValue(Consts::_OSC_COARSE_TUNE_DEFAULT_VAL);
+    m_oscFineTuneSlider.setValue(Consts::_OSC_FINE_TUNE_DEFAULT_VAL);
+    m_oscModDepthSlider.setValue(Consts::_OSC_MOD_DEPTH_DEFAULT_VAL);
+    m_oscModModeSlider.setValue(Consts::_OSC_MOD_MODE_DEFAULT_VAL);
+
+    m_phasorShapeSlider.setValue(Consts::_PHASOR_SHAPE_DEFAULT_VAL);
+    m_phasorEgIntSlider.setValue(Consts::_PHASOR_EG_INT_DEFAULT_VAL);
+    m_phasorLfoIntSlider.setValue(Consts::_PHASOR_LFO_INT_DEFAULT_VAL);
+
+    m_filterCutoffSlider.setValue(Consts::_FLTR_CUTOFF_DEFAULT_VAL);
+    m_filterResoSlider.setValue(Consts::_FLTR_RESO_DEFAULT_VAL);
+    m_filterDriveSlider.setValue(Consts::_FLTR_DRIVE_DEFAULT_VAL);
+    m_filterEgModDepthSlider.setValue(Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL);
+    m_filterLfoModDepthSlider.setValue(Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL);
+
+    m_ampEgAtkSlider.setValue(Consts::_AMP_EG_ATK_DEFAULT_VAL);
+    m_ampEgDecSlider.setValue(Consts::_AMP_EG_DEC_DEFAULT_VAL);
+    m_ampEgSusSlider.setValue(Consts::_AMP_EG_SUS_DEFAULT_VAL);
+    m_ampEgRelSlider.setValue(Consts::_AMP_EG_REL_DEFAULT_VAL);
+
+    m_filterEgAtkSlider.setValue(Consts::_FLTR_EG_ATK_DEFAULT_VAL);
+    m_filterEgDecSlider.setValue(Consts::_FLTR_EG_DEC_DEFAULT_VAL);
+    m_filterEgSusSlider.setValue(Consts::_FLTR_EG_SUS_DEFAULT_VAL);
+    m_filterEgRelSlider.setValue(Consts::_FLTR_EG_REL_DEFAULT_VAL);
+
+    m_phasorEgAtkSlider.setValue(Consts::_PHASOR_EG_ATK_DEFAULT_VAL);
+    m_phasorEgDecSlider.setValue(Consts::_PHASOR_EG_DEC_DEFAULT_VAL);
+    m_phasorEgSusSlider.setValue(Consts::_PHASOR_EG_SUS_DEFAULT_VAL);
+    m_phasorEgRelSlider.setValue(Consts::_PHASOR_EG_REL_DEFAULT_VAL);
+
+    m_modEgAtkSlider.setValue(Consts::_MOD_EG_ATK_DEFAULT_VAL);
+    m_modEgDecSlider.setValue(Consts::_MOD_EG_DEC_DEFAULT_VAL);
+    m_modEgSusSlider.setValue(Consts::_MOD_EG_SUS_DEFAULT_VAL);
+    m_modEgRelSlider.setValue(Consts::_MOD_EG_REL_DEFAULT_VAL);
+
+    m_lfoRateSlider.setValue(Consts::_LFO_RATE_DEFAULT_VAL);
+    m_lfoShapeSlider.setValue(Consts::_LFO_SHAPE_DEFAULT_VAL);
+
+    m_levelSlider.setValue(Consts::_LEVEL_DEFAULT_VAL);
 }

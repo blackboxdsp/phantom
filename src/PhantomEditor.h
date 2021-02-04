@@ -29,6 +29,9 @@ public:
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
+
+    //==========================================================================
+    void reset();
     
     //==========================================================================
     // This reference is provided as a quick way for your editor to
@@ -38,6 +41,8 @@ private:
     AudioProcessorValueTreeState& m_parameters;
 
     //==========================================================================
+    TextButton m_initButton;
+
     Slider m_oscRangeSlider;
     Label m_oscRangeLabel;
     std::unique_ptr<SliderAttachment> m_oscRangeSliderAttachment;
