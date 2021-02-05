@@ -78,11 +78,11 @@ fi
 if [ "$COPY_BUILD_STEP" = true ]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         rm -rf /Library/Audio/Plug-Ins/VST3/Phantom.vst3
-        cp -r ./bin/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3 /Library/Audio/Plug-Ins/VST3/Phantom.vst3
+        cp -r ./bin/Phantom_artefacts/VST3/Phantom.vst3 /Library/Audio/Plug-Ins/VST3/Phantom.vst3
         echo -e "SUCCESS: Copied VST3 bundle to plugins directory\n"
 
         rm -rf /Library/Audio/Plug-Ins/Components/Phantom.component
-        cp -r ./bin/Phantom_artefacts/${BUILD_TYPE}/AU/Phantom.component /Library/Audio/Plug-Ins/Components/Phantom.component
+        cp -r ./bin/Phantom_artefacts/AU/Phantom.component /Library/Audio/Plug-Ins/Components/Phantom.component
         echo -e "SUCCESS: Copied AU bundle to plugins directory\n"
     else
         rm -f /c/Program\ Files/Common\ Files/VST3/Phantom.vst3

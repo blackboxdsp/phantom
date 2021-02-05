@@ -3,6 +3,9 @@
 .vscode/
 .idea/
 
+# MacOS-related
+**/.DS_Store
+
 # JUCE
 juce/
 
