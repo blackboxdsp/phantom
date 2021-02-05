@@ -1,4 +1,4 @@
-# Phantom [WIP]
+# Phantom (v.1.0.0-alpha)
 
 [![phantom](https://github.com/maxwellmattryan/phantom/workflows/phantom/badge.svg)](https://github.com/maxwellmattryan/phantom/actions?query=workflow%3Aphantom)
 [![JUCE](https://img.shields.io/badge/JUCE-v6.0.7-ff69b4)](https://juce.com/)
@@ -10,7 +10,7 @@
     <img src="./screenshot.png" alt="Phantom screenshot" title="Phantom running in Ableton Live 10" height="840"/>
 </div>
 
-Phantom is a phase distortion synthesizer plugin targeting VST3 and AU for OS X and Windows platforms. [... MORE TEXT ...]. It is compiled using the [JUCE](https://juce.com/) framework for C++.
+Phantom is a phase distortion synthesizer plugin targeting VST3 and AU for OS X and Windows platforms. It uses the unique method of *phase distortion synthesis* to create sound and is capable of some truly bizarre sound design, which is really what makes it fun to use.
 
 ## Dependencies
 
@@ -21,19 +21,13 @@ Phantom is a phase distortion synthesizer plugin targeting VST3 and AU for OS X 
 
 Phantom is capable of running with any plugin host as long as it supports VST3 or AU. Please refer to your DAW's manual to see compatible plugin formats.
 
-### Parameters 
-
-- ...
-
 ## Contributing
 
 Should you discover any bugs or undesirable behavior, please feel free to open an issue or submit a pull request. I am happy to accept them as long as they don't alter product direction, otherwise I am completely open to discuss any ideas that you may have regarding Phantom.
 
 ### Building
 
-Phantom is built using the JUCE framework, which graciously provides project files for various IDEs.
-
-For Windows users, simply navigate to `Builds/VisualStudio2019/Phantom.sln` then build either of the two available configurations. Similarly, OS X users may navigate to `Builds/MACOSX/Phantom.xcodeproj` and build using XCode.
+Phantom is built using the JUCE framework, which graciously provides project files for various IDEs. To compile the source code into usable plugin binaries, please download [CMake](https://cmake.org/) and run the `build.sh` script located at the root-directory of the repository.
 
 If you have any issues building the plugin, please contact me or file an issue.
 
