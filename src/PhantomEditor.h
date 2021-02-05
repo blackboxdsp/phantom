@@ -42,6 +42,7 @@ private:
 
     //==========================================================================
     TextButton m_initButton;
+    Label m_initLabel;
 
     Slider m_oscRangeSlider;
     Label m_oscRangeLabel;
@@ -85,6 +86,7 @@ private:
     Label m_filterLfoModDepthLabel;
     std::unique_ptr<SliderAttachment> m_filterLfoModDepthSliderAttachment;
 
+    Label m_ampEgLabel;
     Slider m_ampEgAtkSlider;
     Label m_ampEgAtkLabel;
     std::unique_ptr<SliderAttachment> m_ampEgAtkSliderAttachment;
@@ -98,6 +100,7 @@ private:
     Label m_ampEgRelLabel;
     std::unique_ptr<SliderAttachment> m_ampEgRelSliderAttachment;
 
+    Label m_phasorEgLabel;
     Slider m_phasorEgAtkSlider;
     Label m_phasorEgAtkLabel;
     std::unique_ptr<SliderAttachment> m_phasorEgAtkSliderAttachment;
@@ -111,6 +114,7 @@ private:
     Label m_phasorEgRelLabel;
     std::unique_ptr<SliderAttachment> m_phasorEgRelSliderAttachment;
 
+    Label m_filterEgLabel;
     Slider m_filterEgAtkSlider;
     Label m_filterEgAtkLabel;
     std::unique_ptr<SliderAttachment> m_filterEgAtkSliderAttachment;
@@ -124,6 +128,7 @@ private:
     Label m_filterEgRelLabel;
     std::unique_ptr<SliderAttachment> m_filterEgRelSliderAttachment;
 
+    Label m_modEgLabel;
     Slider m_modEgAtkSlider;
     Label m_modEgAtkLabel;
     std::unique_ptr<SliderAttachment> m_modEgAtkSliderAttachment;

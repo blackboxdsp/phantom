@@ -18,9 +18,13 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
     //==========================================================================
 
-    m_initButton.setButtonText("Init");
+    m_initButton.setButtonText("...");
     m_initButton.onClick = [&]{ reset(); };
     addAndMakeVisible(&m_initButton);
+    m_initLabel.setText("Init", dontSendNotification);
+    m_initLabel.setJustificationType(Justification::centred);
+    m_initLabel.attachToComponent(&m_initButton, false);
+    addAndMakeVisible(&m_initLabel);
 
     // OSCILLATOR
 
@@ -173,6 +177,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_ampEgAtkLabel.setJustificationType(Justification::centred);
     m_ampEgAtkLabel.attachToComponent(&m_ampEgAtkSlider, false);
     addAndMakeVisible(&m_ampEgAtkLabel);
+    m_ampEgLabel.setText("AMP", dontSendNotification);
+    m_ampEgLabel.setJustificationType(Justification::centred);
+    m_ampEgLabel.attachToComponent(&m_ampEgAtkSlider, true);
+    addAndMakeVisible(&m_ampEgLabel);
 
     m_ampEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_ampEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -219,6 +227,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_phasorEgAtkLabel.setJustificationType(Justification::centred);
     m_phasorEgAtkLabel.attachToComponent(&m_phasorEgAtkSlider, false);
     addAndMakeVisible(&m_phasorEgAtkLabel);
+    m_phasorEgLabel.setText("PHA", dontSendNotification);
+    m_phasorEgLabel.setJustificationType(Justification::centred);
+    m_phasorEgLabel.attachToComponent(&m_phasorEgAtkSlider, true);
+    addAndMakeVisible(&m_phasorEgLabel);
 
     m_phasorEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasorEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -265,6 +277,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_filterEgAtkLabel.setJustificationType(Justification::centred);
     m_filterEgAtkLabel.attachToComponent(&m_filterEgAtkSlider, false);
     addAndMakeVisible(&m_filterEgAtkLabel);
+    m_filterEgLabel.setText("FLTR", dontSendNotification);
+    m_filterEgLabel.setJustificationType(Justification::centred);
+    m_filterEgLabel.attachToComponent(&m_filterEgAtkSlider, true);
+    addAndMakeVisible(&m_filterEgLabel);
 
     m_filterEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -311,6 +327,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_modEgAtkLabel.setJustificationType(Justification::centred);
     m_modEgAtkLabel.attachToComponent(&m_modEgAtkSlider, false);
     addAndMakeVisible(&m_modEgAtkLabel);
+    m_modEgLabel.setText("MOD", dontSendNotification);
+    m_modEgLabel.setJustificationType(Justification::centred);
+    m_modEgLabel.attachToComponent(&m_modEgAtkSlider, true);
+    addAndMakeVisible(&m_modEgLabel);
 
     m_modEgDecSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_modEgDecSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -490,6 +510,8 @@ void PhantomAudioProcessorEditor::resized()
     
     Rectangle<int> filterArea = middle.removeFromLeft(3 * knobWidth);
     Rectangle<int> filterAreaTop = filterArea.removeFromTop(filterArea.getHeight() / 2);
+    filterArea.removeFromTop(gap / 2);
+    filterAreaTop.removeFromBottom(gap / 2);
     m_filterCutoffSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterResoSlider.setBounds(filterAreaTop.removeFromLeft(knobWidth));
     m_filterDriveSlider.setBounds(filterAreaTop);
@@ -509,6 +531,9 @@ void PhantomAudioProcessorEditor::resized()
     Rectangle<int> bottomTop = bottom.removeFromTop(bottom.getHeight() / 2);
     bottomTop.removeFromTop(gap / 1.4);
     bottom.removeFromTop(gap / 1.4);
+
+    bottom.removeFromTop(gap / 3);
+    bottomTop.removeFromBottom(gap / 3);
 
     m_ampEgAtkSlider.setBounds(bottomTop.removeFromLeft(knobWidth));
     m_ampEgDecSlider.setBounds(bottomTop.removeFromLeft(knobWidth));

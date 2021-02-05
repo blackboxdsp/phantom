@@ -90,6 +90,13 @@ float PhantomLFO::evaluate() noexcept
         if((int) m_phase <= 1)
             m_sampleValue = Random::getSystemRandom().nextFloat() * 2.0f - 1.0f;
 
+    if(m_count == 100000)
+    {
+        DBG(m_phaseDelta);
+        m_count = 0;
+    }
+    m_count++;
+
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
     return m_sampleValue;
