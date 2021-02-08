@@ -30,9 +30,12 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomPhasor)
 
     //==========================================================================
-    float evaluate(float oldPhase) noexcept;
+    float evaluate(float phase) noexcept;
 
-    float sawtooth(float phase) noexcept;
+    float sawtooth(float x) noexcept;
+    float square(float x) noexcept;
+
+    int count = 0;
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;

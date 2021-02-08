@@ -53,24 +53,60 @@ float PhantomPhasor::evaluate(float phase) noexcept
             break;
 
         case 1:
-            return 1.0f - sawtooth(phase);
+        case 2:
+            return square(phase);
             break;
     }
 }
 
-float PhantomPhasor::sawtooth(float phase) noexcept
+float PhantomPhasor::sawtooth(float x) noexcept
 {
-    float slope;
-
-    float breakpoint = 0.01f;
-    if(phase <= breakpoint)
+    float m;
+    float xb = 0.01f;
+    
+    if(x <= xb)
     {
-        slope = 0.5f / breakpoint;
-        return slope * phase;
+        m = 0.5f / xb;
+        return m * x;
     }
     else
     {
-        slope = 0.5f / (1.0f - breakpoint);
-        return slope * (phase - breakpoint) + 0.5f;
+        m = 0.5f / (1.0f - xb);
+        return m * (x - xb) + 0.5f;
     }
+}
+
+float PhantomPhasor::square(float x) noexcept
+{
+    // slope
+    float m;
+
+    // x-breakpoints
+    float xb1 = 0.49f;
+    float xb2 = 0.51f;
+    
+    // y-intercepts
+    float b1 = 0.01f;
+    float b2 = 0.97959183f;
+
+    // y-value
+    float y;
+
+    if(x < xb1)
+    {
+        m = 0.01f / xb1;
+        y = m * x;
+    }
+    else if(x <= xb2)
+    {
+        float mx = 0.98f * (x - xb1) / (xb2 - xb1);
+        y = mx + b1;
+    }
+    else
+    {
+        m = 0.01f / (1.0f - xb2);
+        y = m * x + b2;
+    }
+
+    return y / 2.0f;
 }

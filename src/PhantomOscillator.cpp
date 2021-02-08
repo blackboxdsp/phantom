@@ -68,6 +68,8 @@ float PhantomOscillator::evaluate(float modEgMod, float phaseEgMod, float lfoMod
     float expo = *p_modDepth * mod * (float) k_modExpoThreshold;
     updatePhaseDelta(m_frequency * std::exp2f(expo));
 
+    // TODO: Apply shape mod here
+
     return sineValue;
 }
 
