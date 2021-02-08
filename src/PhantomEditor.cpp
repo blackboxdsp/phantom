@@ -38,6 +38,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_oscRangeLabel.setJustificationType(Justification::centred);
     m_oscRangeLabel.attachToComponent(&m_oscRangeSlider, false);
     addAndMakeVisible(&m_oscRangeLabel);
+    m_oscLabel.setText("Osc", dontSendNotification);
+    m_oscLabel.setJustificationType(Justification::topLeft);
+    m_oscLabel.attachToComponent(&m_oscRangeSlider, false);
+    addAndMakeVisible(&m_oscLabel);
 
     m_oscCoarseTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_oscCoarseTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -90,6 +94,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_phasorShapeLabel.setJustificationType(Justification::centred);
     m_phasorShapeLabel.attachToComponent(&m_phasorShapeSlider, false);
     addAndMakeVisible(&m_phasorShapeLabel);
+    m_phasorLabel.setText("Phasor", dontSendNotification);
+    m_phasorLabel.setJustificationType(Justification::topLeft);
+    m_phasorLabel.attachToComponent(&m_phasorShapeSlider, false);
+    addAndMakeVisible(&m_phasorLabel);
 
     m_phasorEgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasorEgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -123,6 +131,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_filterCutoffLabel.setJustificationType(Justification::centred);
     m_filterCutoffLabel.attachToComponent(&m_filterCutoffSlider, false);
     addAndMakeVisible(&m_filterCutoffLabel);
+    m_filterLabel.setText("Filter", dontSendNotification);
+    m_filterLabel.setJustificationType(Justification::topLeft);
+    m_filterLabel.attachToComponent(&m_filterCutoffSlider, false);
+    addAndMakeVisible(&m_filterLabel);
 
     m_filterResoSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterResoSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -178,7 +190,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_ampEgAtkLabel.attachToComponent(&m_ampEgAtkSlider, false);
     addAndMakeVisible(&m_ampEgAtkLabel);
     m_ampEgLabel.setText("AMP", dontSendNotification);
-    m_ampEgLabel.setJustificationType(Justification::centred);
+    m_ampEgLabel.setJustificationType(Justification::topRight);
     m_ampEgLabel.attachToComponent(&m_ampEgAtkSlider, true);
     addAndMakeVisible(&m_ampEgLabel);
 
@@ -228,7 +240,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_phasorEgAtkLabel.attachToComponent(&m_phasorEgAtkSlider, false);
     addAndMakeVisible(&m_phasorEgAtkLabel);
     m_phasorEgLabel.setText("PHA", dontSendNotification);
-    m_phasorEgLabel.setJustificationType(Justification::centred);
+    m_phasorEgLabel.setJustificationType(Justification::topLeft);
     m_phasorEgLabel.attachToComponent(&m_phasorEgAtkSlider, true);
     addAndMakeVisible(&m_phasorEgLabel);
 
@@ -278,7 +290,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_filterEgAtkLabel.attachToComponent(&m_filterEgAtkSlider, false);
     addAndMakeVisible(&m_filterEgAtkLabel);
     m_filterEgLabel.setText("FLTR", dontSendNotification);
-    m_filterEgLabel.setJustificationType(Justification::centred);
+    m_filterEgLabel.setJustificationType(Justification::topLeft);
     m_filterEgLabel.attachToComponent(&m_filterEgAtkSlider, true);
     addAndMakeVisible(&m_filterEgLabel);
 
@@ -328,7 +340,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_modEgAtkLabel.attachToComponent(&m_modEgAtkSlider, false);
     addAndMakeVisible(&m_modEgAtkLabel);
     m_modEgLabel.setText("MOD", dontSendNotification);
-    m_modEgLabel.setJustificationType(Justification::centred);
+    m_modEgLabel.setJustificationType(Justification::topLeft);
     m_modEgLabel.attachToComponent(&m_modEgAtkSlider, true);
     addAndMakeVisible(&m_modEgLabel);
 
@@ -377,6 +389,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_lfoRateLabel.setJustificationType(Justification::centred);
     m_lfoRateLabel.attachToComponent(&m_lfoRateSlider, false);
     addAndMakeVisible(&m_lfoRateLabel);
+    m_lfoLabel.setText("LFO", dontSendNotification);
+    m_lfoLabel.setJustificationType(Justification::topLeft);
+    m_lfoLabel.attachToComponent(&m_lfoRateSlider, false);
+    addAndMakeVisible(&m_lfoLabel);
 
     m_lfoShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_lfoShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -400,6 +416,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_levelLabel.setJustificationType(Justification::centred);
     m_levelLabel.attachToComponent(&m_levelSlider, false);
     addAndMakeVisible(&m_levelLabel);
+    m_ampLabel.setText("Amp", dontSendNotification);
+    m_ampLabel.setJustificationType(Justification::topLeft);
+    m_ampLabel.attachToComponent(&m_levelSlider, false);
+    addAndMakeVisible(&m_ampLabel);
 
     //==========================================================================
     setResizable(true, true);

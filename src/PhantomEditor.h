@@ -44,6 +44,7 @@ private:
     TextButton m_initButton;
     Label m_initLabel;
 
+    Label m_oscLabel;
     Slider m_oscRangeSlider;
     Label m_oscRangeLabel;
     std::unique_ptr<SliderAttachment> m_oscRangeSliderAttachment;
@@ -60,6 +61,7 @@ private:
     Label m_oscModModeLabel;
     std::unique_ptr<SliderAttachment> m_oscModModeSliderAttachment;
 
+    Label m_phasorLabel;
     Slider m_phasorShapeSlider;
     Label m_phasorShapeLabel;
     std::unique_ptr<SliderAttachment> m_phasorShapeSliderAttachment;
@@ -70,6 +72,7 @@ private:
     Label m_phasorLfoIntLabel;
     std::unique_ptr<SliderAttachment> m_phasorLfoIntSliderAttachment;
 
+    Label m_filterLabel;
     Slider m_filterCutoffSlider;
     Label m_filterCutoffLabel;
     std::unique_ptr<SliderAttachment> m_filterCutoffSliderAttachment;
@@ -142,6 +145,7 @@ private:
     Label m_modEgRelLabel;
     std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
 
+    Label m_lfoLabel;
     Slider m_lfoRateSlider;
     Label m_lfoRateLabel;
     std::unique_ptr<SliderAttachment> m_lfoRateSliderAttachment;
@@ -149,6 +153,7 @@ private:
     Label m_lfoShapeLabel;
     std::unique_ptr<SliderAttachment> m_lfoShapeSliderAttachment;
 
+    Label m_ampLabel;
     Slider m_levelSlider;
     Label m_levelLabel;
     std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
