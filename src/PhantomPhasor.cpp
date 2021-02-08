@@ -62,6 +62,7 @@ float PhantomPhasor::evaluate(float phase) noexcept
 float PhantomPhasor::sawtooth(float x) noexcept
 {
     float m;
+    
     float xb = 0.01f;
     
     if(x <= xb)
@@ -78,18 +79,14 @@ float PhantomPhasor::sawtooth(float x) noexcept
 
 float PhantomPhasor::square(float x) noexcept
 {
-    // slope
     float m;
 
-    // x-breakpoints
     float xb1 = 0.49f;
     float xb2 = 0.51f;
     
-    // y-intercepts
     float b1 = 0.01f;
     float b2 = 0.97959183f;
 
-    // y-value
     float y;
 
     if(x < xb1)
