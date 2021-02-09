@@ -10,4 +10,15 @@
 
 #include "PhantomWaveshaper.h"
 
+//==============================================================================
+PhantomWaveshaper::PhantomWaveshaper()
+{
 
+}
+
+PhantomWaveshaper::~PhantomWaveshaper()
+{
+
+}
+
+//==============================================================================
