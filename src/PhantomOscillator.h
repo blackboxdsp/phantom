@@ -13,6 +13,7 @@
 #include "JuceHeader.h"
 
 #include "PhantomPhasor.h"
+#include "PhantomWaveshaper.h"
 
 //==============================================================================
 /**
@@ -51,6 +52,7 @@ private:
     std::atomic<float>* p_oscFineTune;
     std::atomic<float>* p_modDepth;
     std::atomic<float>* p_modMode;
+    std::atomic<float>* p_shapeInt;
 
     //==========================================================================
     Array<float> m_wavetable;
@@ -64,4 +66,5 @@ private:
     float m_sampleRate;
 
     PhantomPhasor* m_phasor;
+    PhantomWaveshaper* m_waveshaper;
 };

@@ -24,17 +24,18 @@ juce_generate_juce_header(Phantom)
 
 # Declare necessary source files to include into the target
 target_sources(Phantom PRIVATE
+        src/PhantomAmplifier.cpp
         src/PhantomEditor.cpp
+        src/PhantomEnvelopeGenerator.cpp
+        src/PhantomFilter.cpp
+        src/PhantomLFO.cpp
+        src/PhantomOscillator.cpp
+        src/PhantomPhasor.cpp
         src/PhantomProcessor.cpp
+        src/PhantomSound.cpp
         src/PhantomSynth.cpp
         src/PhantomVoice.cpp
-        src/PhantomSound.cpp
-        src/PhantomOscillator.cpp
-        src/PhantomEnvelopeGenerator.cpp
-        src/PhantomAmplifier.cpp
-        src/PhantomFilter.cpp
-        src/PhantomPhasor.cpp
-        src/PhantomLFO.cpp)
+        src/PhantomWaveshaper.cpp)
 
 # Preprocessor definitions for our target
 target_compile_definitions(Phantom PUBLIC
