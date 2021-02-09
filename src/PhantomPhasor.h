@@ -34,6 +34,9 @@ private:
 
     float sawtooth(float x) noexcept;
     float square(float x) noexcept;
+    float triangle(float x) noexcept;
+
+    float idk(float x) noexcept;
 
     int count = 0;
 

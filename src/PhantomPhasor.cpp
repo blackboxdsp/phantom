@@ -53,8 +53,11 @@ float PhantomPhasor::evaluate(float phase) noexcept
             break;
 
         case 1:
-        case 2:
             return square(phase);
+            break;
+
+        case 2:
+            return triangle(phase);
             break;
     }
 }
@@ -62,7 +65,7 @@ float PhantomPhasor::evaluate(float phase) noexcept
 float PhantomPhasor::sawtooth(float x) noexcept
 {
     float m;
-    
+
     float xb = 0.01f;
     
     if(x <= xb)
@@ -105,5 +108,47 @@ float PhantomPhasor::square(float x) noexcept
         y = m * x + b2;
     }
 
-    return y / 2.0f;
+    return y * 0.5f;
+}
+
+float PhantomPhasor::triangle(float x) noexcept
+{
+    return 1.0f - (std::cosf(x * MathConstants<float>::twoPi) * 0.5f + 0.5f);
+}
+
+float PhantomPhasor::idk(float x) noexcept
+{
+    float m;
+
+    float xb1 = 0.4f;
+    float xb2 = 0.5f;
+    float xb3 = 0.6f;
+
+    float b1 = 0.01f;
+    float b2 = 0.99f;
+
+    float y;
+
+    if(x < xb1)
+    {
+        m = 0.01f / xb1;
+        return m * x;
+    }
+    else if (x <= xb2)
+    {
+        float mx = 0.49f * (x - xb1) / (xb2 - xb1);
+        y = mx + b1;
+    }
+    else if(x < xb3)
+    {
+        float mx = 0.49f * (x - xb3) / (xb3 - xb2);
+        y = mx + b2;
+    }
+    else
+    {
+        float mx = 0.49f * (x - xb3) / (1.0f - xb3);
+        y = mx + b2;
+    }
+
+    return y;
 }
