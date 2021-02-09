@@ -92,6 +92,9 @@ namespace Consts {
     constexpr char* _OSC_MOD_MODE_PARAM_ID = "oscModMode";
     constexpr char* _OSC_MOD_MODE_PARAM_NAME = "Osc Mod Mode";
     constexpr float _OSC_MOD_MODE_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_SHAPE_INT_PARAM_ID = "oscShapeInt";
+    constexpr char* _OSC_SHAPE_INT_PARAM_NAME = "Osc Shape Int";
+    constexpr float _OSC_SHAPE_INT_DEFAULT_VAL = 0.0f;
 
     constexpr char* _PHASOR_SHAPE_PARAM_ID = "phasorShape";
     constexpr char* _PHASOR_SHAPE_PARAM_NAME = "Phasor Shape";

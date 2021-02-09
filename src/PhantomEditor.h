@@ -60,6 +60,9 @@ private:
     Slider m_oscModModeSlider;
     Label m_oscModModeLabel;
     std::unique_ptr<SliderAttachment> m_oscModModeSliderAttachment;
+    Slider m_oscShapeIntSlider;
+    Label m_oscShapeIntLabel;
+    std::unique_ptr<SliderAttachment> m_oscShapeIntSliderAttachment;
 
     Label m_phasorLabel;
     Slider m_phasorShapeSlider;

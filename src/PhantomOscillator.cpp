@@ -17,6 +17,7 @@ PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts)
     : m_parameters(vts)
 {
     m_phasor = new PhantomPhasor(m_parameters);
+    m_waveshaper = new PhantomWaveshaper();
 
     initParameters();
     initWavetable();
@@ -25,12 +26,14 @@ PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts)
 PhantomOscillator::~PhantomOscillator()
 {
     m_phasor = nullptr;
+    m_waveshaper = nullptr;
 
     p_oscRange = nullptr;
     p_oscCoarseTune = nullptr;
     p_oscFineTune = nullptr;
     p_modDepth = nullptr;
     p_modMode = nullptr;
+    p_shapeInt = nullptr;
 
     m_wavetable.clear();
 }
@@ -43,6 +46,7 @@ void PhantomOscillator::initParameters()
     p_oscFineTune = m_parameters.getRawParameterValue(Consts::_OSC_FINE_TUNE_PARAM_ID);
     p_modDepth = m_parameters.getRawParameterValue(Consts::_OSC_MOD_DEPTH_PARAM_ID);
     p_modMode = m_parameters.getRawParameterValue(Consts::_OSC_MOD_MODE_PARAM_ID);
+    p_shapeInt = m_parameters.getRawParameterValue(Consts::_OSC_SHAPE_INT_PARAM_ID);
 }
 
 void PhantomOscillator::initWavetable()
@@ -60,7 +64,7 @@ void PhantomOscillator::initWavetable()
 float PhantomOscillator::evaluate(float modEgMod, float phaseEgMod, float lfoMod) noexcept
 {
     float phase = m_phasor->apply(m_phase, phaseEgMod, lfoMod);
-    float sineValue = m_wavetable[(int) phase];
+    float value = m_wavetable[(int) phase];
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
@@ -68,7 +72,10 @@ float PhantomOscillator::evaluate(float modEgMod, float phaseEgMod, float lfoMod
     float expo = *p_modDepth * mod * (float) k_modExpoThreshold;
     updatePhaseDelta(m_frequency * std::exp2f(expo));
 
-    return sineValue;
+    float shape = m_waveshaper->atsr(value);
+    value = (*p_shapeInt * shape) + ((1.0f - *p_shapeInt) * value);
+
+    return value;
 }
 
 //==============================================================================

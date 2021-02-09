@@ -211,6 +211,13 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(oscModMode));
 
+    auto oscShapeInt = std::make_unique<AudioParameterFloat>(
+        Consts::_OSC_SHAPE_INT_PARAM_ID, Consts::_OSC_SHAPE_INT_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 1.0f, 0.01f),
+        Consts::_OSC_SHAPE_INT_DEFAULT_VAL
+    );
+    params.push_back(std::move(oscShapeInt));
+
     // PHASOR
 
     auto phasorShape = std::make_unique<AudioParameterFloat>(

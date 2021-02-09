@@ -14,6 +14,8 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomWaveshaper.h"
+
 //==============================================================================
 /**
 */
@@ -29,24 +31,10 @@ public:
 
     //==========================================================================
     float evaluate(float sample, float egMod, float lfoMod) noexcept;
-    float clip(float n, float lower, float upper) noexcept;
 
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomFilter)
-
-    //==========================================================================
-    // NOTE: These functions are non-linear processing functions to give the 
-    // filter a nice drive feature. They are in order of increasing intensity.
-    // The function with an asterisk in the comment is currently being used.
-
-    float fexp2(float x) noexcept;      // Fuzz Exponential 2
-    float atsr(float x) noexcept;       // Arctangent Square Root
-    float cube(float x) noexcept;       // Cube
-    float htan(float x) noexcept;       // Hyperbolic Tangent*
-    float hclip(float x) noexcept;      // Hard Clip
-
-    float sign(float x) noexcept;
 
     //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
@@ -66,4 +54,6 @@ private:
 
     //==========================================================================
     dsp::StateVariableTPTFilter<float>* m_filter;
+
+    PhantomWaveshaper* m_waveshaper;
 };
