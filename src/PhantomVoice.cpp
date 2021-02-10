@@ -26,7 +26,7 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
 
     m_osc01 = new PhantomOscillator(m_parameters, 1);
     m_osc02 = new PhantomOscillator(m_parameters, 2);
-    
+
     m_filter = new PhantomFilter(m_parameters, ps);
 }
 
@@ -57,6 +57,7 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 
     m_midiNoteNumber = midiNoteNumber;
     m_osc01->update(m_midiNoteNumber, getSampleRate());
+    m_osc02->update(m_midiNoteNumber, getSampleRate());
     
     m_ampEg->setSampleRate(getSampleRate());
     m_ampEg->update();
@@ -107,6 +108,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
     m_lfo->update(getSampleRate());
 
     m_osc01->update(m_midiNoteNumber, getSampleRate());
+    m_osc02->update(m_midiNoteNumber, getSampleRate());
     m_filter->update();
 
     for (int sample = startSample; sample < numSamples; sample++)
@@ -119,7 +121,10 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float lfoMod = m_lfo->evaluate();
 
         float osc01Value = m_osc01->evaluate(modEgMod, phaseEgMod, lfoMod);
-        float filterValue = m_filter->evaluate(osc01Value, filterEgMod, lfoMod);
+        float osc02Value = m_osc02->evaluate(modEgMod, phaseEgMod, lfoMod);
+        float oscValue = (osc01Value + osc02Value) / 2.0f;
+
+        float filterValue = m_filter->evaluate(oscValue, filterEgMod, lfoMod);
         float ampValue = filterValue * ampEgMod;
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
