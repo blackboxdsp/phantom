@@ -64,6 +64,20 @@ private:
     Label m_osc01ShapeIntLabel;
     std::unique_ptr<SliderAttachment> m_osc01ShapeIntSliderAttachment;
 
+    Label m_osc02Label;
+    Slider m_osc02RangeSlider;
+    std::unique_ptr<SliderAttachment> m_osc02RangeSliderAttachment;
+    Slider m_osc02CoarseTuneSlider;
+    std::unique_ptr<SliderAttachment> m_osc02CoarseTuneSliderAttachment;
+    Slider m_osc02FineTuneSlider;
+    std::unique_ptr<SliderAttachment> m_osc02FineTuneSliderAttachment;
+    Slider m_osc02ModDepthSlider;
+    std::unique_ptr<SliderAttachment> m_osc02ModDepthSliderAttachment;
+    Slider m_osc02ModModeSlider;
+    std::unique_ptr<SliderAttachment> m_osc02ModModeSliderAttachment;
+    Slider m_osc02ShapeIntSlider;
+    std::unique_ptr<SliderAttachment> m_osc02ShapeIntSliderAttachment;
+
     Label m_phasorLabel;
     Slider m_phasorShapeSlider;
     Label m_phasorShapeLabel;

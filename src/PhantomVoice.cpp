@@ -25,6 +25,8 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
     m_lfo = new PhantomLFO(m_parameters);
 
     m_osc01 = new PhantomOscillator(m_parameters, 1);
+    m_osc02 = new PhantomOscillator(m_parameters, 2);
+    
     m_filter = new PhantomFilter(m_parameters, ps);
 }
 
@@ -38,6 +40,8 @@ PhantomVoice::~PhantomVoice()
     m_lfo = nullptr;
     
     m_osc01 = nullptr;
+    m_osc02 = nullptr;
+
     m_filter = nullptr;
 }
 

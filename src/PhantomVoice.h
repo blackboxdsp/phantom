@@ -60,5 +60,7 @@ private:
     PhantomLFO* m_lfo;
     
     PhantomOscillator* m_osc01;
+    PhantomOscillator* m_osc02;
+    
     PhantomFilter* m_filter;
 };
