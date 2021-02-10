@@ -22,7 +22,7 @@ class PhantomOscillator
 {
 public:
     //==========================================================================
-    PhantomOscillator(AudioProcessorValueTreeState&);
+    PhantomOscillator(AudioProcessorValueTreeState&, int oscNumber);
     ~PhantomOscillator();
 
     //==========================================================================
@@ -64,6 +64,8 @@ private:
     int m_midiNoteNumber;
     float m_frequency;
     float m_sampleRate;
+
+    int m_oscNumber;
 
     PhantomPhasor* m_phasor;
     PhantomWaveshaper* m_waveshaper;
