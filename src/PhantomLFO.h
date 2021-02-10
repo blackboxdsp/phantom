@@ -48,6 +48,4 @@ private:
 
     float m_sampleRate;
     float m_sampleValue = 0.0f;
-
-    int m_count = 0;
 };
