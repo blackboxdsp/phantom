@@ -138,41 +138,67 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_osc02ShapeIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_SHAPE_INT_PARAM_ID, m_osc02ShapeIntSlider));
     addAndMakeVisible(&m_osc02ShapeIntSlider);
 
-    // PHASOR
+    // PHASORs
 
-    m_phasorShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_phasorShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_phasorShapeSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_SHAPE_DEFAULT_VAL);
-    m_phasorShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_SHAPE_PARAM_ID, m_phasorShapeSlider));
-    addAndMakeVisible(&m_phasorShapeSlider);
-    m_phasorShapeLabel.setText("Shape", dontSendNotification);
-    m_phasorShapeLabel.setJustificationType(Justification::centred);
-    m_phasorShapeLabel.attachToComponent(&m_phasorShapeSlider, false);
-    addAndMakeVisible(&m_phasorShapeLabel);
-    m_phasorLabel.setText("Phasor", dontSendNotification);
-    m_phasorLabel.setJustificationType(Justification::topLeft);
-    m_phasorLabel.attachToComponent(&m_phasorShapeSlider, false);
-    addAndMakeVisible(&m_phasorLabel);
+    // PHASOR 01
 
-    m_phasorEgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_phasorEgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_phasorEgIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_EG_INT_DEFAULT_VAL);
-    m_phasorEgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_INT_PARAM_ID, m_phasorEgIntSlider));
-    addAndMakeVisible(&m_phasorEgIntSlider);
-    m_phasorShapeLabel.setText("EG Int", dontSendNotification);
-    m_phasorShapeLabel.setJustificationType(Justification::centred);
-    m_phasorShapeLabel.attachToComponent(&m_phasorEgIntSlider, false);
-    addAndMakeVisible(&m_phasorShapeLabel);
+    m_phasor01ShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasor01ShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasor01ShapeSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_01_SHAPE_DEFAULT_VAL);
+    m_phasor01ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_01_SHAPE_PARAM_ID, m_phasor01ShapeSlider));
+    addAndMakeVisible(&m_phasor01ShapeSlider);
+    m_phasor01ShapeLabel.setText("Shape", dontSendNotification);
+    m_phasor01ShapeLabel.setJustificationType(Justification::centred);
+    m_phasor01ShapeLabel.attachToComponent(&m_phasor01ShapeSlider, false);
+    addAndMakeVisible(&m_phasor01ShapeLabel);
+    m_phasor01Label.setText("Phasor 1", dontSendNotification);
+    m_phasor01Label.setJustificationType(Justification::topLeft);
+    m_phasor01Label.attachToComponent(&m_phasor01ShapeSlider, false);
+    addAndMakeVisible(&m_phasor01Label);
 
-    m_phasorLfoIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_phasorLfoIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_phasorLfoIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_LFO_INT_DEFAULT_VAL);
-    m_phasorLfoIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_LFO_INT_PARAM_ID, m_phasorLfoIntSlider));
-    addAndMakeVisible(&m_phasorLfoIntSlider);
-    m_phasorLfoIntLabel.setText("LFO Int", dontSendNotification);
-    m_phasorLfoIntLabel.setJustificationType(Justification::centred);
-    m_phasorLfoIntLabel.attachToComponent(&m_phasorLfoIntSlider, false);
-    addAndMakeVisible(&m_phasorLfoIntLabel);
+    m_phasor01EgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasor01EgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasor01EgIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_01_EG_INT_DEFAULT_VAL);
+    m_phasor01EgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_01_EG_INT_PARAM_ID, m_phasor01EgIntSlider));
+    addAndMakeVisible(&m_phasor01EgIntSlider);
+    m_phasor01ShapeLabel.setText("EG Int", dontSendNotification);
+    m_phasor01ShapeLabel.setJustificationType(Justification::centred);
+    m_phasor01ShapeLabel.attachToComponent(&m_phasor01EgIntSlider, false);
+    addAndMakeVisible(&m_phasor01ShapeLabel);
+
+    m_phasor01LfoIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasor01LfoIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasor01LfoIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_01_LFO_INT_DEFAULT_VAL);
+    m_phasor01LfoIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_01_LFO_INT_PARAM_ID, m_phasor01LfoIntSlider));
+    addAndMakeVisible(&m_phasor01LfoIntSlider);
+    m_phasor01LfoIntLabel.setText("LFO Int", dontSendNotification);
+    m_phasor01LfoIntLabel.setJustificationType(Justification::centred);
+    m_phasor01LfoIntLabel.attachToComponent(&m_phasor01LfoIntSlider, false);
+    addAndMakeVisible(&m_phasor01LfoIntLabel);
+
+    // PHASOR 01
+
+    m_phasor02ShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasor02ShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasor02ShapeSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_02_SHAPE_DEFAULT_VAL);
+    m_phasor02ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_02_SHAPE_PARAM_ID, m_phasor02ShapeSlider));
+    addAndMakeVisible(&m_phasor02ShapeSlider);
+    m_phasor02Label.setText("Phasor 2", dontSendNotification);
+    m_phasor02Label.setJustificationType(Justification::topLeft);
+    m_phasor02Label.attachToComponent(&m_phasor02ShapeSlider, false);
+    addAndMakeVisible(&m_phasor02Label);
+
+    m_phasor02EgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasor02EgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasor02EgIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_02_EG_INT_DEFAULT_VAL);
+    m_phasor02EgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_02_EG_INT_PARAM_ID, m_phasor02EgIntSlider));
+    addAndMakeVisible(&m_phasor02EgIntSlider);
+
+    m_phasor02LfoIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_phasor02LfoIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_phasor02LfoIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_02_LFO_INT_DEFAULT_VAL);
+    m_phasor02LfoIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_02_LFO_INT_PARAM_ID, m_phasor02LfoIntSlider));
+    addAndMakeVisible(&m_phasor02LfoIntSlider);
 
     // FILTER
 
@@ -497,9 +523,13 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_osc02ModModeSliderAttachment = nullptr;
     m_osc02ShapeIntSliderAttachment = nullptr;
 
-    m_phasorShapeSliderAttachment = nullptr;
-    m_phasorEgIntSliderAttachment = nullptr;
-    m_phasorLfoIntSliderAttachment = nullptr;
+    m_phasor01ShapeSliderAttachment = nullptr;
+    m_phasor01EgIntSliderAttachment = nullptr;
+    m_phasor01LfoIntSliderAttachment = nullptr;
+
+    m_phasor02ShapeSliderAttachment = nullptr;
+    m_phasor02EgIntSliderAttachment = nullptr;
+    m_phasor02LfoIntSliderAttachment = nullptr;
 
     m_filterCutoffSliderAttachment = nullptr;
     m_filterResoSliderAttachment = nullptr;
@@ -588,9 +618,16 @@ void PhantomAudioProcessorEditor::resized()
     m_osc02ShapeIntSlider.setBounds(osc02Area);
 
     Rectangle<int> phasorArea = top.removeFromLeft(3 * knobWidth);
-    m_phasorShapeSlider.setBounds(phasorArea.removeFromLeft(knobWidth));
-    m_phasorEgIntSlider.setBounds(phasorArea.removeFromLeft(knobWidth));
-    m_phasorLfoIntSlider.setBounds(phasorArea);
+    Rectangle<int> phasor01Area = phasorArea.removeFromTop(phasorArea.getHeight() / 2);
+    Rectangle<int> phasor02Area = phasorArea;
+
+    m_phasor01ShapeSlider.setBounds(phasor01Area.removeFromLeft(knobWidth));
+    m_phasor01EgIntSlider.setBounds(phasor01Area.removeFromLeft(knobWidth));
+    m_phasor01LfoIntSlider.setBounds(phasor01Area);
+
+    m_phasor02ShapeSlider.setBounds(phasor02Area.removeFromLeft(knobWidth));
+    m_phasor02EgIntSlider.setBounds(phasor02Area.removeFromLeft(knobWidth));
+    m_phasor02LfoIntSlider.setBounds(phasor02Area);
 
     Rectangle<int> lfoArea = top.removeFromLeft(2 * knobWidth);
     m_lfoRateSlider.setBounds(lfoArea.removeFromLeft(knobWidth));
@@ -668,9 +705,13 @@ void PhantomAudioProcessorEditor::reset()
     m_osc02ModModeSlider.setValue(Consts::_OSC_02_MOD_MODE_DEFAULT_VAL);
     m_osc02ShapeIntSlider.setValue(Consts::_OSC_02_SHAPE_INT_DEFAULT_VAL);
 
-    m_phasorShapeSlider.setValue(Consts::_PHASOR_SHAPE_DEFAULT_VAL);
-    m_phasorEgIntSlider.setValue(Consts::_PHASOR_EG_INT_DEFAULT_VAL);
-    m_phasorLfoIntSlider.setValue(Consts::_PHASOR_LFO_INT_DEFAULT_VAL);
+    m_phasor01ShapeSlider.setValue(Consts::_PHASOR_01_SHAPE_DEFAULT_VAL);
+    m_phasor01EgIntSlider.setValue(Consts::_PHASOR_01_EG_INT_DEFAULT_VAL);
+    m_phasor01LfoIntSlider.setValue(Consts::_PHASOR_01_LFO_INT_DEFAULT_VAL);
+
+    m_phasor02ShapeSlider.setValue(Consts::_PHASOR_02_SHAPE_DEFAULT_VAL);
+    m_phasor02EgIntSlider.setValue(Consts::_PHASOR_02_EG_INT_DEFAULT_VAL);
+    m_phasor02LfoIntSlider.setValue(Consts::_PHASOR_02_LFO_INT_DEFAULT_VAL);
 
     m_filterCutoffSlider.setValue(Consts::_FLTR_CUTOFF_DEFAULT_VAL);
     m_filterResoSlider.setValue(Consts::_FLTR_RESO_DEFAULT_VAL);

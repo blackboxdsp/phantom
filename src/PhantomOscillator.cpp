@@ -16,7 +16,7 @@
 PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscNumber)
     : m_parameters(vts), m_oscNumber(oscNumber)
 {
-    m_phasor = new PhantomPhasor(m_parameters);
+    m_phasor = new PhantomPhasor(m_parameters, m_oscNumber);
     m_waveshaper = new PhantomWaveshaper();
 
     initParameters();

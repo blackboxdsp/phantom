@@ -22,7 +22,7 @@ class PhantomOscillator
 {
 public:
     //==========================================================================
-    PhantomOscillator(AudioProcessorValueTreeState&, int oscNumber);
+    PhantomOscillator(AudioProcessorValueTreeState&, int);
     ~PhantomOscillator();
 
     //==========================================================================

@@ -19,7 +19,7 @@ class PhantomPhasor
 {
 public:
     //==========================================================================
-    PhantomPhasor(AudioProcessorValueTreeState&);
+    PhantomPhasor(AudioProcessorValueTreeState&, int);
     ~PhantomPhasor();
 
     //==========================================================================
@@ -28,6 +28,9 @@ public:
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomPhasor)
+
+    //==========================================================================
+    void initParameters();
 
     //==========================================================================
     float evaluate(float oldPhase) noexcept;
@@ -40,4 +43,6 @@ private:
     std::atomic<float>* p_shape;
     std::atomic<float>* p_egInt;
     std::atomic<float>* p_lfoInt;
+
+    int m_phasorNumber;
 };

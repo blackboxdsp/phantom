@@ -109,6 +109,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
     m_osc01->update(m_midiNoteNumber, getSampleRate());
     m_osc02->update(m_midiNoteNumber, getSampleRate());
+    
     m_filter->update();
 
     for (int sample = startSample; sample < numSamples; sample++)

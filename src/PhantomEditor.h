@@ -78,16 +78,24 @@ private:
     Slider m_osc02ShapeIntSlider;
     std::unique_ptr<SliderAttachment> m_osc02ShapeIntSliderAttachment;
 
-    Label m_phasorLabel;
-    Slider m_phasorShapeSlider;
-    Label m_phasorShapeLabel;
-    std::unique_ptr<SliderAttachment> m_phasorShapeSliderAttachment;
-    Slider m_phasorEgIntSlider;
-    Label m_phasorEgIntLabel;
-    std::unique_ptr<SliderAttachment> m_phasorEgIntSliderAttachment;
-    Slider m_phasorLfoIntSlider;
-    Label m_phasorLfoIntLabel;
-    std::unique_ptr<SliderAttachment> m_phasorLfoIntSliderAttachment;
+    Label m_phasor01Label;
+    Slider m_phasor01ShapeSlider;
+    Label m_phasor01ShapeLabel;
+    std::unique_ptr<SliderAttachment> m_phasor01ShapeSliderAttachment;
+    Slider m_phasor01EgIntSlider;
+    Label m_phasor01EgIntLabel;
+    std::unique_ptr<SliderAttachment> m_phasor01EgIntSliderAttachment;
+    Slider m_phasor01LfoIntSlider;
+    Label m_phasor01LfoIntLabel;
+    std::unique_ptr<SliderAttachment> m_phasor01LfoIntSliderAttachment;
+
+    Label m_phasor02Label;
+    Slider m_phasor02ShapeSlider;
+    std::unique_ptr<SliderAttachment> m_phasor02ShapeSliderAttachment;
+    Slider m_phasor02EgIntSlider;
+    std::unique_ptr<SliderAttachment> m_phasor02EgIntSliderAttachment;
+    Slider m_phasor02LfoIntSlider;
+    std::unique_ptr<SliderAttachment> m_phasor02LfoIntSliderAttachment;
 
     Label m_filterLabel;
     Slider m_filterCutoffSlider;

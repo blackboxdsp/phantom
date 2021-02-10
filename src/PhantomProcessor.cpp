@@ -38,6 +38,8 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
+    // EGs
+
     // AMP EG
 
     auto ampEgAtk = std::make_unique<AudioParameterFloat>(
@@ -158,7 +160,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(modEgRel));
 
-    // LFO
+    // LFOs
 
     auto lfoRate = std::make_unique<AudioParameterFloat>(
         Consts::_LFO_RATE_PARAM_ID, Consts::_LFO_RATE_PARAM_NAME,
@@ -174,7 +176,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(lfoShape));
 
-    // OSCILLATORS
+    // OSCILLATORs
 
     // OSC 01
 
@@ -264,28 +266,53 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(osc02ShapeInt));
 
-    // PHASOR
+    // PHASORs
 
-    auto phasorShape = std::make_unique<AudioParameterFloat>(
-        Consts::_PHASOR_SHAPE_PARAM_ID, Consts::_PHASOR_SHAPE_PARAM_NAME,
+    // PHASOR 01
+
+    auto phasor01Shape = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_01_SHAPE_PARAM_ID, Consts::_PHASOR_01_SHAPE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 1.0f, 1.0f),
-        Consts::_PHASOR_SHAPE_DEFAULT_VAL
+        Consts::_PHASOR_01_SHAPE_DEFAULT_VAL
     );
-    params.push_back(std::move(phasorShape));
+    params.push_back(std::move(phasor01Shape));
 
-    auto phasorEgInt = std::make_unique<AudioParameterFloat>(
-        Consts::_PHASOR_EG_INT_PARAM_ID, Consts::_PHASOR_EG_INT_PARAM_NAME,
+    auto phasor01EgInt = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_01_EG_INT_PARAM_ID, Consts::_PHASOR_01_EG_INT_PARAM_NAME,
         NormalisableRange<float>(0.0f, 1.0f, 0.01f),
-        Consts::_PHASOR_EG_INT_DEFAULT_VAL
+        Consts::_PHASOR_01_EG_INT_DEFAULT_VAL
     );
-    params.push_back(std::move(phasorEgInt));
+    params.push_back(std::move(phasor01EgInt));
 
-    auto phasorLfoInt = std::make_unique<AudioParameterFloat>(
-        Consts::_PHASOR_LFO_INT_PARAM_ID, Consts::_PHASOR_LFO_INT_PARAM_NAME,
+    auto phasor01LfoInt = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_01_LFO_INT_PARAM_ID, Consts::_PHASOR_01_LFO_INT_PARAM_NAME,
         NormalisableRange<float>(0.0f, 1.0f, 0.01f),
-        Consts::_PHASOR_LFO_INT_DEFAULT_VAL
+        Consts::_PHASOR_01_LFO_INT_DEFAULT_VAL
     );
-    params.push_back(std::move(phasorLfoInt));
+    params.push_back(std::move(phasor01LfoInt));
+
+    // PHASOR 02
+
+    auto phasor02Shape = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_02_SHAPE_PARAM_ID, Consts::_PHASOR_02_SHAPE_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 1.0f, 1.0f),
+        Consts::_PHASOR_02_SHAPE_DEFAULT_VAL
+    );
+    params.push_back(std::move(phasor02Shape));
+
+    auto phasor02EgInt = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_02_EG_INT_PARAM_ID, Consts::_PHASOR_02_EG_INT_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 1.0f, 0.01f),
+        Consts::_PHASOR_02_EG_INT_DEFAULT_VAL
+    );
+    params.push_back(std::move(phasor02EgInt));
+
+    auto phasor02LfoInt = std::make_unique<AudioParameterFloat>(
+        Consts::_PHASOR_02_LFO_INT_PARAM_ID, Consts::_PHASOR_02_LFO_INT_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 1.0f, 0.01f),
+        Consts::_PHASOR_02_LFO_INT_DEFAULT_VAL
+    );
+    params.push_back(std::move(phasor02LfoInt));
 
     // FILTER
 
