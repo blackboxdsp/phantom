@@ -46,7 +46,7 @@ float PhantomWaveshaper::cube(float x) noexcept
 
 float PhantomWaveshaper::htan(float k, float x) noexcept
 {
-    return std::tanhf((k * 17.0f + 1.0f) * x);
+    return std::tanhf(k * x);
 }
 
 float PhantomWaveshaper::hclip(float x) noexcept
