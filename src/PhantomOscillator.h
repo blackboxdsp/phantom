@@ -22,11 +22,14 @@ class PhantomOscillator
 {
 public:
     //==========================================================================
-    PhantomOscillator(AudioProcessorValueTreeState&);
+    PhantomOscillator(AudioProcessorValueTreeState&, int);
     ~PhantomOscillator();
 
     //==========================================================================
     void update(int midiNoteNumber, float sampleRate) noexcept;
+    void updatePhase(float phase) noexcept;
+
+    float readPhase() noexcept;
 
     float evaluate(float modEgMod, float phaseEgMod, float lfoMod) noexcept;
 
@@ -65,6 +68,8 @@ private:
     float m_frequency;
     float m_sampleRate;
 
-    PhantomPhasor* m_phasor;
-    PhantomWaveshaper* m_waveshaper;
+    int m_oscNumber;
+
+    std::unique_ptr<PhantomPhasor> m_phasor;
+    std::unique_ptr<PhantomWaveshaper> m_waveshaper;
 };

@@ -46,6 +46,9 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomVoice)
 
     //==========================================================================
+    void handleOscSync(float valueToRead) noexcept;
+
+    //==========================================================================
     AudioProcessorValueTreeState& m_parameters;
 
     //==========================================================================
@@ -59,6 +62,12 @@ private:
 
     PhantomLFO* m_lfo;
     
-    PhantomOscillator* m_osc;
+    std::unique_ptr<PhantomOscillator> m_primaryOsc;
+    std::unique_ptr<PhantomOscillator> m_secondaryOsc;
+    std::atomic<float>* p_oscSync;
+    
     PhantomFilter* m_filter;
+
+    bool m_oscSyncToggle = false;
+    const float k_oscSyncPhaseThreshold = 0.000001f;
 };

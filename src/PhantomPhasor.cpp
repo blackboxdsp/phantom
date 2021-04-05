@@ -12,12 +12,10 @@
 
 #include "PhantomUtils.h"
 
-PhantomPhasor::PhantomPhasor(AudioProcessorValueTreeState& vts)
-    :   m_parameters(vts)
+PhantomPhasor::PhantomPhasor(AudioProcessorValueTreeState& vts, int phasorNumber)
+    :   m_parameters(vts), m_phasorNumber(phasorNumber)
 {
-    p_shape = m_parameters.getRawParameterValue(Consts::_PHASOR_SHAPE_PARAM_ID);
-    p_egInt = m_parameters.getRawParameterValue(Consts::_PHASOR_EG_INT_PARAM_ID);
-    p_lfoInt = m_parameters.getRawParameterValue(Consts::_PHASOR_LFO_INT_PARAM_ID);
+    initParameters();
 }
 
 PhantomPhasor::~PhantomPhasor()
@@ -27,7 +25,27 @@ PhantomPhasor::~PhantomPhasor()
     p_lfoInt = nullptr;
 }
 
-//==========================================================================
+//==============================================================================
+void PhantomPhasor::initParameters()
+{
+    switch(m_phasorNumber)
+    {
+        default:
+        case 1:
+            p_shape = m_parameters.getRawParameterValue(Consts::_PHASOR_01_SHAPE_PARAM_ID);
+            p_egInt = m_parameters.getRawParameterValue(Consts::_PHASOR_01_EG_INT_PARAM_ID);
+            p_lfoInt = m_parameters.getRawParameterValue(Consts::_PHASOR_01_LFO_INT_PARAM_ID);
+            break;
+
+        case 2:
+            p_shape = m_parameters.getRawParameterValue(Consts::_PHASOR_02_SHAPE_PARAM_ID);
+            p_egInt = m_parameters.getRawParameterValue(Consts::_PHASOR_02_EG_INT_PARAM_ID);
+            p_lfoInt = m_parameters.getRawParameterValue(Consts::_PHASOR_02_LFO_INT_PARAM_ID);
+            break;
+    }
+}
+
+//==============================================================================
 float PhantomPhasor::apply(float oldPhase, float egMod, float lfoMod) noexcept
 {
     float envelope = *p_egInt * egMod * (*p_lfoInt * -0.5f + 1.0f);

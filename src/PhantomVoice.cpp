@@ -24,7 +24,10 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
 
     m_lfo = new PhantomLFO(m_parameters);
 
-    m_osc = new PhantomOscillator(m_parameters);
+    m_primaryOsc.reset(new PhantomOscillator(m_parameters, 1));
+    m_secondaryOsc.reset(new PhantomOscillator(m_parameters, 2));
+    p_oscSync = m_parameters.getRawParameterValue(Consts::_OSC_SYNC_PARAM_ID);
+
     m_filter = new PhantomFilter(m_parameters, ps);
 }
 
@@ -37,7 +40,10 @@ PhantomVoice::~PhantomVoice()
 
     m_lfo = nullptr;
     
-    m_osc = nullptr;
+    m_primaryOsc.release();
+    m_secondaryOsc.release();
+    p_oscSync = nullptr;
+
     m_filter = nullptr;
 }
 
@@ -48,9 +54,12 @@ bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
 }
 
 void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
-{ 
+{
+    stopNote(velocity, true);
+
     m_midiNoteNumber = midiNoteNumber;
-    m_osc->update(m_midiNoteNumber, getSampleRate());
+    m_primaryOsc->update(m_midiNoteNumber, getSampleRate());
+    m_secondaryOsc->update(m_midiNoteNumber, getSampleRate());
     
     m_ampEg->setSampleRate(getSampleRate());
     m_ampEg->update();
@@ -100,7 +109,9 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
     m_lfo->update(getSampleRate());
 
-    m_osc->update(m_midiNoteNumber, getSampleRate());
+    m_primaryOsc->update(m_midiNoteNumber, getSampleRate());
+    m_secondaryOsc->update(m_midiNoteNumber, getSampleRate());
+    
     m_filter->update();
 
     for (int sample = startSample; sample < numSamples; sample++)
@@ -112,14 +123,30 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
         float lfoMod = m_lfo->evaluate();
 
-        float oscValue = m_osc->evaluate(modEgMod, phaseEgMod, lfoMod);
-        float filterValue = m_filter->evaluate(oscValue, filterEgMod, lfoMod);
-        float ampValue = filterValue * ampEgMod;
+        float primaryOscVal = m_primaryOsc->evaluate(modEgMod, phaseEgMod, lfoMod);
+        float secondaryOscVal = m_secondaryOsc->evaluate(modEgMod, phaseEgMod, lfoMod);
+        float oscVal = (primaryOscVal + secondaryOscVal) / 2.0f;
+
+        if(*p_oscSync)
+            handleOscSync(primaryOscVal);
+
+        float filterVal = m_filter->evaluate(oscVal, filterEgMod, lfoMod);
+        float ampVal = filterVal * ampEgMod;
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)
         {
             float oldSample = buffer.getSample(channel, sample);
-            buffer.setSample(channel, sample, oldSample + ampValue);
+            buffer.setSample(channel, sample, oldSample + ampVal);
         }
+    }
+}
+
+void PhantomVoice::handleOscSync(float valueToRead) noexcept
+{
+    if(std::abs(valueToRead) <= k_oscSyncPhaseThreshold) {
+        if(m_oscSyncToggle)
+            m_secondaryOsc->updatePhase(valueToRead);
+
+        m_oscSyncToggle = !m_oscSyncToggle;
     }
 }
