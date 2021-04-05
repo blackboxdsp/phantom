@@ -39,8 +39,8 @@ PhantomVoice::~PhantomVoice()
 
     m_lfo = nullptr;
     
-    m_osc01.release();
-    m_osc02.release();
+    m_primaryOsc.release();
+    m_secondaryOsc.release();
 
     m_filter = nullptr;
 }
@@ -125,6 +125,8 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float secondaryOscVal = m_secondaryOsc->evaluate(modEgMod, phaseEgMod, lfoMod);
         float oscVal = (primaryOscVal + secondaryOscVal) / 2.0f;
 
+        handleOscSync(primaryOscVal);
+
         float filterVal = m_filter->evaluate(oscVal, filterEgMod, lfoMod);
         float ampVal = filterVal * ampEgMod;
 
@@ -133,5 +135,16 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
             float oldSample = buffer.getSample(channel, sample);
             buffer.setSample(channel, sample, oldSample + ampVal);
         }
+    }
+}
+
+void PhantomVoice::handleOscSync(float valueToRead) noexcept
+{
+    if(valueToRead >= 0.0f + std::numeric_limits<float>::min()) {
+        if(m_oscSyncToggle) {
+            m_secondaryOsc->updatePhase(valueToRead);
+        }
+
+        m_oscSyncToggle = !m_oscSyncToggle;
     }
 }

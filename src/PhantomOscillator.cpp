@@ -110,6 +110,16 @@ void PhantomOscillator::update(int midiNoteNumber, float sampleRate) noexcept
     updatePhaseDelta();
 }
 
+void PhantomOscillator::updatePhase(float phase) noexcept
+{
+    m_phase = phase;
+}
+
+float PhantomOscillator::getPhase() noexcept
+{
+    return m_phase;
+}
+
 void PhantomOscillator::updateFrequency() noexcept
 {
     float midiNoteFrequency = midiNoteToFrequency(m_midiNoteNumber + *p_oscCoarseTune + (*p_oscFineTune / 100.0f));
