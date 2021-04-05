@@ -67,6 +67,6 @@ private:
 
     int m_oscNumber;
 
-    PhantomPhasor* m_phasor;
-    PhantomWaveshaper* m_waveshaper;
+    std::unique_ptr<PhantomPhasor> m_phasor;
+    std::unique_ptr<PhantomWaveshaper> m_waveshaper;
 };

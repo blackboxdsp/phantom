@@ -59,8 +59,8 @@ private:
 
     PhantomLFO* m_lfo;
     
-    PhantomOscillator* m_osc01;
-    PhantomOscillator* m_osc02;
+    std::unique_ptr<PhantomOscillator> m_primaryOsc;
+    std::unique_ptr<PhantomOscillator> m_secondaryOsc;
     
     PhantomFilter* m_filter;
 };

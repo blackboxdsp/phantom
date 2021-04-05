@@ -16,8 +16,8 @@
 PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscNumber)
     : m_parameters(vts), m_oscNumber(oscNumber)
 {
-    m_phasor = new PhantomPhasor(m_parameters, m_oscNumber);
-    m_waveshaper = new PhantomWaveshaper();
+    m_phasor.reset(new PhantomPhasor(m_parameters, m_oscNumber));
+    m_waveshaper.reset(new PhantomWaveshaper());
 
     initParameters();
     initWavetable();
@@ -25,8 +25,8 @@ PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscN
 
 PhantomOscillator::~PhantomOscillator()
 {
-    m_phasor = nullptr;
-    m_waveshaper = nullptr;
+    m_phasor.release();
+    m_waveshaper.release();
 
     p_oscRange = nullptr;
     p_oscCoarseTune = nullptr;
