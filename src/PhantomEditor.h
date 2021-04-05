@@ -44,6 +44,10 @@ private:
     TextButton m_initButton;
     Label m_initLabel;
 
+    Slider m_oscSyncSlider;
+    Label m_oscSyncLabel;
+    std::unique_ptr<SliderAttachment> m_oscSyncSliderAttachment;
+
     Label m_osc01Label;
     Slider m_osc01RangeSlider;
     Label m_osc01RangeLabel;

@@ -28,6 +28,16 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
     // OSCILLATOR
 
+    m_oscSyncSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_oscSyncSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_oscSyncSlider.setDoubleClickReturnValue(true, Consts::_OSC_SYNC_DEFAULT_VAL);
+    m_oscSyncSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_SYNC_PARAM_ID, m_oscSyncSlider));
+    addAndMakeVisible(&m_oscSyncSlider);
+    m_oscSyncLabel.setText("Sync", dontSendNotification);
+    m_oscSyncLabel.setJustificationType(Justification::centred);
+    m_oscSyncLabel.attachToComponent(&m_oscSyncSlider, false);
+    addAndMakeVisible(&m_oscSyncLabel);
+
     // OSC 01
 
     m_osc01RangeSlider.setSliderStyle(Slider::LinearVertical);
@@ -509,6 +519,8 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
+    m_oscSyncSliderAttachment = nullptr;
+
     m_osc01RangeSliderAttachment = nullptr;
     m_osc01CoarseTuneSliderAttachment = nullptr;
     m_osc01FineTuneSliderAttachment = nullptr;
@@ -593,11 +605,13 @@ void PhantomAudioProcessorEditor::resized()
 
     //==========================================================================
     Rectangle<int> top =  canvas.removeFromTop(height / 6);
-    knobWidth = width / 11;
+    knobWidth = width / 12;
 
     Rectangle<int> oscArea = top.removeFromLeft(6 * knobWidth);
     
     m_initButton.setBounds(oscArea.removeFromLeft(knobWidth / 4));
+    m_oscSyncSlider.setBounds(oscArea.removeFromLeft(knobWidth / 4));
+
     oscArea.removeFromLeft(knobWidth / 4);
 
     Rectangle<int> osc01Area = oscArea.removeFromTop(oscArea.getHeight() / 2);
@@ -691,6 +705,8 @@ void PhantomAudioProcessorEditor::resized()
 
 void PhantomAudioProcessorEditor::reset()
 {
+    m_oscSyncSlider.setValue(Consts::_OSC_SYNC_DEFAULT_VAL);
+    
     m_osc01RangeSlider.setValue(Consts::_OSC_01_RANGE_DEFAULT_VAL);
     m_osc01CoarseTuneSlider.setValue(Consts::_OSC_01_COARSE_TUNE_DEFAULT_VAL);
     m_osc01FineTuneSlider.setValue(Consts::_OSC_01_FINE_TUNE_DEFAULT_VAL);

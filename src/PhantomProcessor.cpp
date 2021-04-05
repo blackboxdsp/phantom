@@ -178,6 +178,13 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     // OSCILLATORs
 
+    auto oscSync = std::make_unique<AudioParameterFloat>(
+        Consts::_OSC_SYNC_PARAM_ID, Consts::_OSC_SYNC_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 1.0f, 1.0f),
+        Consts::_OSC_SYNC_DEFAULT_VAL
+    );
+    params.push_back(std::move(oscSync));
+
     // OSC 01
 
     auto osc01Range = std::make_unique<AudioParameterFloat>(

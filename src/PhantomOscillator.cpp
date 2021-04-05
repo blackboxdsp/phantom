@@ -115,7 +115,7 @@ void PhantomOscillator::updatePhase(float phase) noexcept
     m_phase = phase;
 }
 
-float PhantomOscillator::getPhase() noexcept
+float PhantomOscillator::readPhase() noexcept
 {
     return m_phase;
 }

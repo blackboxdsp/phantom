@@ -84,6 +84,10 @@ namespace Consts {
     
     // OSCILLATORs
 
+    constexpr char* _OSC_SYNC_PARAM_ID = "oscSync";
+    constexpr char* _OSC_SYNC_PARAM_NAME = "Osc Sync";
+    constexpr float _OSC_SYNC_DEFAULT_VAL = 0.0f;
+
     constexpr char* _OSC_01_RANGE_PARAM_ID = "osc01Range";
     constexpr char* _OSC_01_RANGE_PARAM_NAME = "Osc 01 Range";
     constexpr float _OSC_01_RANGE_DEFAULT_VAL = 2.0f;

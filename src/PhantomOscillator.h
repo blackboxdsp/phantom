@@ -29,7 +29,7 @@ public:
     void update(int midiNoteNumber, float sampleRate) noexcept;
     void updatePhase(float phase) noexcept;
 
-    float getPhase() noexcept;
+    float readPhase() noexcept;
 
     float evaluate(float modEgMod, float phaseEgMod, float lfoMod) noexcept;
 
