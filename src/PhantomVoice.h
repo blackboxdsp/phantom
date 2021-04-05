@@ -15,6 +15,7 @@
 #include "PhantomEnvelopeGenerator.h"
 #include "PhantomFilter.h"
 #include "PhantomLFO.h"
+#include "PhantomMixer.h"
 #include "PhantomOscillator.h"
 
 //==============================================================================
@@ -65,6 +66,7 @@ private:
     std::unique_ptr<PhantomOscillator> m_primaryOsc;
     std::unique_ptr<PhantomOscillator> m_secondaryOsc;
     std::atomic<float>* p_oscSync;
+    std::unique_ptr<PhantomMixer> m_mixer;
     
     PhantomFilter* m_filter;
 

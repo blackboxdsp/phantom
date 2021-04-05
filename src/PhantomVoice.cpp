@@ -27,6 +27,7 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
     m_primaryOsc.reset(new PhantomOscillator(m_parameters, 1));
     m_secondaryOsc.reset(new PhantomOscillator(m_parameters, 2));
     p_oscSync = m_parameters.getRawParameterValue(Consts::_OSC_SYNC_PARAM_ID);
+    m_mixer.reset(new PhantomMixer(m_parameters));
 
     m_filter = new PhantomFilter(m_parameters, ps);
 }
@@ -43,6 +44,7 @@ PhantomVoice::~PhantomVoice()
     m_primaryOsc.release();
     m_secondaryOsc.release();
     p_oscSync = nullptr;
+    m_mixer.release();
 
     m_filter = nullptr;
 }
