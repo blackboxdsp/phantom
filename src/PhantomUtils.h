@@ -148,6 +148,18 @@ namespace Consts {
     constexpr char* _PHASOR_02_LFO_INT_PARAM_NAME = "Phasor 02 LFO Int";
     constexpr float _PHASOR_02_LFO_INT_DEFAULT_VAL = 0.0f;
 
+    // MIXER
+
+    constexpr char* _MIXER_OSC_BAL_PARAM_ID = "mixerOscBalance";
+    constexpr char* _MIXER_OSC_BAL_PARAM_NAME = "Mixer Osc Balance";
+    constexpr float _MIXER_OSC_BAL_DEFAULT_VAL = 0.0f;
+    constexpr char* _MIXER_RING_MOD_PARAM_ID = "mixerRngMod";
+    constexpr char* _MIXER_RING_MOD_PARAM_NAME = "Mixer Rng Mod";
+    constexpr float _MIXER_RING_MOD_DEFAULT_VAL = 0.0;
+    constexpr char* _MIXER_NOISE_PARAM_ID = "mixerNoise";
+    constexpr char* _MIXER_NOISE_PARAM_NAME = "Mixer Noise";
+    constexpr float _MIXER_NOISE_DEFAULT_VAL = 0.0;
+
     // FILTERs
 
     constexpr char* _FLTR_CUTOFF_PARAM_ID = "filterCutoff";

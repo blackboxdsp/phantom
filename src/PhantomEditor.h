@@ -44,6 +44,11 @@ private:
     TextButton m_initButton;
     Label m_initLabel;
 
+    Label m_ampLabel;
+    Slider m_levelSlider;
+    Label m_levelLabel;
+    std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
+
     Slider m_oscSyncSlider;
     Label m_oscSyncLabel;
     std::unique_ptr<SliderAttachment> m_oscSyncSliderAttachment;
@@ -61,9 +66,9 @@ private:
     Slider m_osc01ModDepthSlider;
     Label m_osc01ModDepthLabel;
     std::unique_ptr<SliderAttachment> m_osc01ModDepthSliderAttachment;
-    Slider m_osc01ModModeSlider;
-    Label m_osc01ModModeLabel;
-    std::unique_ptr<SliderAttachment> m_osc01ModModeSliderAttachment;
+    Slider m_osc01ModSourceSlider;
+    Label m_osc01ModSourceLabel;
+    std::unique_ptr<SliderAttachment> m_osc01ModSourceSliderAttachment;
     Slider m_osc01ShapeIntSlider;
     Label m_osc01ShapeIntLabel;
     std::unique_ptr<SliderAttachment> m_osc01ShapeIntSliderAttachment;
@@ -78,7 +83,7 @@ private:
     Slider m_osc02ModDepthSlider;
     std::unique_ptr<SliderAttachment> m_osc02ModDepthSliderAttachment;
     Slider m_osc02ModModeSlider;
-    std::unique_ptr<SliderAttachment> m_osc02ModModeSliderAttachment;
+    std::unique_ptr<SliderAttachment> m_osc02ModSourceSliderAttachment;
     Slider m_osc02ShapeIntSlider;
     std::unique_ptr<SliderAttachment> m_osc02ShapeIntSliderAttachment;
 
@@ -182,8 +187,5 @@ private:
     Label m_lfoShapeLabel;
     std::unique_ptr<SliderAttachment> m_lfoShapeSliderAttachment;
 
-    Label m_ampLabel;
-    Slider m_levelSlider;
-    Label m_levelLabel;
-    std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
+    
 };
