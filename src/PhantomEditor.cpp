@@ -9,14 +9,11 @@
 #include "PhantomProcessor.h"
 #include "PhantomUtils.h"
 
-//==============================================================================
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts)
     : AudioProcessorEditor(&p), m_audioProcessor(p), m_parameters(vts)
 {
     const int textBoxWidth = 80;
     const int textBoxHeight = 20;
-
-    //==========================================================================
 
     m_initButton.setButtonText("...");
     m_initButton.onClick = [&]{ reset(); };
@@ -26,7 +23,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_initLabel.attachToComponent(&m_initButton, false);
     addAndMakeVisible(&m_initLabel);
 
-    // OSCILLATOR
+    // OSCILLATORS
 
     m_oscSyncSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_oscSyncSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -148,7 +145,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_osc02ShapeIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_SHAPE_INT_PARAM_ID, m_osc02ShapeIntSlider));
     addAndMakeVisible(&m_osc02ShapeIntSlider);
 
-    // PHASORs
+    // PHASORS
 
     // PHASOR 01
 
@@ -512,7 +509,6 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_ampLabel.attachToComponent(&m_levelSlider, false);
     addAndMakeVisible(&m_ampLabel);
 
-    //==========================================================================
     setResizable(true, true);
     setSize(1280, 720);
 }
@@ -575,7 +571,6 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_levelSliderAttachment = nullptr;
 }
 
-//==============================================================================
 void PhantomAudioProcessorEditor::paint(Graphics& g)
 {
     // Our component is opaque, so we must completely fill the background with a solid colour
@@ -603,7 +598,8 @@ void PhantomAudioProcessorEditor::resized()
 
     int knobWidth;
 
-    //==========================================================================
+    // TOP
+
     Rectangle<int> top =  canvas.removeFromTop(height / 6);
     knobWidth = width / 12;
 
@@ -649,7 +645,8 @@ void PhantomAudioProcessorEditor::resized()
 
     canvas.removeFromTop(gap);
 
-    //==========================================================================
+    // MIDDLE
+
     Rectangle<int> middle = canvas.removeFromTop(2.5 * height / 6);
     middle.removeFromTop(gap);
     middle.removeFromBottom(gap);
@@ -673,7 +670,8 @@ void PhantomAudioProcessorEditor::resized()
     ampArea.removeFromRight(knobWidth / 2);
     m_levelSlider.setBounds(ampArea);
 
-    //==========================================================================
+    // BOTTOM
+
     Rectangle<int> bottom = canvas;
     Rectangle<int> bottomTop = bottom.removeFromTop(bottom.getHeight() / 2);
     bottomTop.removeFromTop(gap / 1.4);

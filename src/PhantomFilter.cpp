@@ -9,10 +9,8 @@
 */
 
 #include "PhantomFilter.h"
-
 #include "PhantomUtils.h"
 
-//==============================================================================
 PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
     :   m_parameters(vts)
 {
@@ -44,16 +42,16 @@ PhantomFilter::~PhantomFilter()
     p_lfoModDepth = nullptr;
 }
 
-//==============================================================================
 void PhantomFilter::update() noexcept
 {
-    // NOTE: Frequency is not being set here because it is called in the update 
-    // function. Discontinuous numbers could result in artifacts.
+    /**
+     * NOTE: Frequency is not being set here because it is called in the update 
+     * function. Discontinuous numbers could result in artifacts.
+    */
 
     m_filter->setResonance(*p_resonance);
 }
 
-//==============================================================================
 float PhantomFilter::evaluate(float sample, float egMod, float lfoMod) noexcept
 {
     float envelope = *p_egModDepth * egMod * (abs(*p_lfoModDepth) * -0.5f + 1.0f);

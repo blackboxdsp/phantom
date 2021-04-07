@@ -79,7 +79,7 @@ private:
 
     /**
      * Integer value for the current note MIDI pitch value. 
-     * NOTE: 60 corresponds to middle C (C4)
+     * NOTE: 60 corresponds to middle C (C4).
      */
     int m_midiNoteNumber = 60;
     
@@ -93,12 +93,30 @@ private:
      */
     const float k_oscSyncPhaseThreshold = 0.000001f;
 
-    PhantomEnvelopeGenerator* m_ampEg;
-    PhantomEnvelopeGenerator* m_phaseEg;
-    PhantomEnvelopeGenerator* m_filterEg;
-    PhantomEnvelopeGenerator* m_modEg;
+    /**
+     * The unique pointer for the amplifier envelope generator.
+     */
+    std::unique_ptr<PhantomEnvelopeGenerator> m_ampEg;
 
-    PhantomLFO* m_lfo;
+    /**
+     * The unique pointer for the phasor envelope generator.
+     */
+    std::unique_ptr<PhantomEnvelopeGenerator> m_phaseEg;
+
+    /**
+     * The unique pointer for the filter envelope generator.
+     */
+    std::unique_ptr<PhantomEnvelopeGenerator> m_filterEg;
+
+    /**
+     * The unique pointer for the mod envelope generator.
+     */
+    std::unique_ptr<PhantomEnvelopeGenerator> m_modEg;
+
+    /**
+     * The unique pointer for the LFO.
+     */
+    std::unique_ptr<PhantomLFO> m_lfo;
     
     /**
      * The unique pointer for the primary oscillator, which is used to sync 
@@ -117,6 +135,9 @@ private:
      * outputs.
      */
     std::unique_ptr<PhantomMixer> m_mixer;
-    
-    PhantomFilter* m_filter;
+
+    /**
+     * The unique pointer for the filter.
+     */
+    std::unique_ptr<PhantomFilter> m_filter;
 };

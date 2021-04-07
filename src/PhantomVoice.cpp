@@ -17,18 +17,18 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
 {
     p_oscSync = m_parameters.getRawParameterValue(Consts::_OSC_SYNC_PARAM_ID);
     
-    m_ampEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::AMP);
-    m_phaseEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::PHASE);
-    m_filterEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::FLTR);
-    m_modEg = new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::MOD);
+    m_ampEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::AMP));
+    m_phaseEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::PHASE));
+    m_filterEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::FLTR));
+    m_modEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::MOD));
 
-    m_lfo = new PhantomLFO(m_parameters);
+    m_lfo.reset(new PhantomLFO(m_parameters));
 
     m_primaryOsc.reset(new PhantomOscillator(m_parameters, 1));
     m_secondaryOsc.reset(new PhantomOscillator(m_parameters, 2));
     m_mixer.reset(new PhantomMixer(m_parameters));
 
-    m_filter = new PhantomFilter(m_parameters, ps);
+    m_filter.reset(new PhantomFilter(m_parameters, ps));
 }
 
 PhantomVoice::~PhantomVoice()
@@ -127,7 +127,6 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         }
     }
 }
-
 
 float PhantomVoice::handleOscSync(const float valueToRead) noexcept
 {

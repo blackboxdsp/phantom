@@ -12,13 +12,14 @@
 
 #include "JuceHeader.h"
 
-//==========================================================================
 #ifndef PHANTOM_PARAMS
 #define PHANTOM_PARAMS
 
+/**
+ * The global constants to use in Phantom, largely used for 
+ * `AudioProcessorValueTreeState` parameters.
+ */
 namespace Consts {
-    //==========================================================================
-
     // EGs
 
     constexpr char* _AMP_EG_ATK_PARAM_ID = "ampEgAtk";
@@ -184,16 +185,17 @@ namespace Consts {
     constexpr char* _LEVEL_PARAM_NAME = "Level";
     constexpr float _LEVEL_DEFAULT_VAL = 0.0f;
 
-    //==========================================================================
     constexpr int _WAVETABLE_SIZE = 1 << 11;
 }
 
 #endif
 
-//===========================================================================
 #ifndef EG_TYPE_ENUM
 #define EG_TYPE_ENUM
 
+/**
+ * The enum specifying different envelope generator types.
+ */
 enum EnvelopeGeneratorType {
     AMP = 0,
     FLTR = 1,

@@ -10,7 +10,6 @@
 
 #include "PhantomEnvelopeGenerator.h"
 
-//==========================================================================
 PhantomEnvelopeGenerator::PhantomEnvelopeGenerator(AudioProcessorValueTreeState& vts, EnvelopeGeneratorType type)
     :   m_parameters(vts), m_type(type)
 {
@@ -26,20 +25,17 @@ PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
     p_release = nullptr;
 }
 
-//==============================================================================
 void PhantomEnvelopeGenerator::update() noexcept
 {
     setEnvelopeParameters();
     setParameters(m_envelope);
 }
 
-//==============================================================================
 float PhantomEnvelopeGenerator::evaluate() noexcept
 {
     return getNextSample();
 }
 
-//==============================================================================
 void PhantomEnvelopeGenerator::setEnvelopeType()
 {
     jassert(m_type);
