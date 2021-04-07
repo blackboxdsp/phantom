@@ -9,7 +9,6 @@
 */
 
 #include "PhantomPhasor.h"
-
 #include "PhantomUtils.h"
 
 PhantomPhasor::PhantomPhasor(AudioProcessorValueTreeState& vts, int phasorNumber)
@@ -25,7 +24,6 @@ PhantomPhasor::~PhantomPhasor()
     p_lfoInt = nullptr;
 }
 
-//==============================================================================
 void PhantomPhasor::initParameters()
 {
     switch(m_phasorNumber)
@@ -45,22 +43,20 @@ void PhantomPhasor::initParameters()
     }
 }
 
-//==============================================================================
-float PhantomPhasor::apply(float oldPhase, float egMod, float lfoMod) noexcept
+float PhantomPhasor::apply(float phase, float egMod, float lfoMod) noexcept
 {
     float envelope = *p_egInt * egMod * (*p_lfoInt * -0.5f + 1.0f);
     float lfo = *p_lfoInt * (lfoMod * 0.5f + 0.5f) * (*p_egInt * -0.5f + 1.0f);
     float mod = envelope + lfo;
 
-    oldPhase /= (float) Consts::_WAVETABLE_SIZE;
+    phase /= (float) Consts::_WAVETABLE_SIZE;
 
-    float phasor = evaluate(oldPhase);
-    float phase = (phasor * mod) + (oldPhase * (1.0f - mod));
+    float phasor = evaluate(phase);
+    phase = (phasor * mod) + (phase * (1.0f - mod));
 
     return phase * (float) Consts::_WAVETABLE_SIZE;
 }
 
-//==============================================================================
 float PhantomPhasor::evaluate(float phase) noexcept
 {
     switch((int) *p_shape)

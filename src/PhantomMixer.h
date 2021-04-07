@@ -32,6 +32,11 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomMixer)
 
+    /**
+     * The unique pointer to a `Random` object, which generates random values for the noise.
+     */
+    std::unique_ptr<Random> m_rng;
+
     AudioProcessorValueTreeState& m_parameters;
 
     /**
@@ -51,9 +56,4 @@ private:
      * will be added to the output.
      */
     std::atomic<float>* p_noise;
-
-    /**
-     * The unique pointer to a `Random` object, which generates random values for the noise.
-     */
-    std::unique_ptr<Random> m_rng;
 };

@@ -9,10 +9,8 @@
 */
 
 #include "PhantomFilter.h"
-
 #include "PhantomUtils.h"
 
-//==============================================================================
 PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
     :   m_parameters(vts)
 {
@@ -21,7 +19,7 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec
     m_filter->setType(dsp::StateVariableTPTFilterType::lowpass);
     m_filter->snapToZero();
 
-    m_waveshaper = new PhantomWaveshaper();
+    m_waveshaper.reset(new PhantomWaveshaper());
 
     p_cutoff = m_parameters.getRawParameterValue(Consts::_FLTR_CUTOFF_PARAM_ID);
     p_resonance = m_parameters.getRawParameterValue(Consts::_FLTR_RESO_PARAM_ID);
@@ -44,16 +42,16 @@ PhantomFilter::~PhantomFilter()
     p_lfoModDepth = nullptr;
 }
 
-//==============================================================================
 void PhantomFilter::update() noexcept
 {
-    // NOTE: Frequency is not being set here because it is called in the update 
-    // function. Discontinuous numbers could result in artifacts.
+    /**
+     * NOTE: Frequency is not being set here because it is called in the update 
+     * function. Discontinuous numbers could result in artifacts.
+    */
 
     m_filter->setResonance(*p_resonance);
 }
 
-//==============================================================================
 float PhantomFilter::evaluate(float sample, float egMod, float lfoMod) noexcept
 {
     float envelope = *p_egModDepth * egMod * (abs(*p_lfoModDepth) * -0.5f + 1.0f);

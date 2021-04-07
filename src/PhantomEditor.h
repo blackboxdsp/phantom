@@ -13,34 +13,48 @@
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
-//==============================================================================
 /**
-*/
+ * The editor component holding most of the code responsible for the
+ * GUI (sliders, buttons, text, etc.).
+ */
 class PhantomAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
     PhantomAudioProcessorEditor(PhantomAudioProcessor&, AudioProcessorValueTreeState&);
     ~PhantomAudioProcessorEditor() override;
 
-    //==========================================================================
+    /**
+     * Determines the appearance of the main plugin component.
+     */
     void paint(Graphics&) override;
+
+    /**
+     * Determines the layout of the various GUI components for new 
+     * window size.
+     */
     void resized() override;
 
 private:
-    //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
 
-    //==========================================================================
+    /**
+     * Resets all of the sliders to their default values, useful for 
+     * initializing new synth patches.
+     */
     void reset();
     
-    //==========================================================================
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
+    /**
+     * This reference is provided as a quick way for your editor to
+     * access the processor object that created it.
+     */
     PhantomAudioProcessor& m_audioProcessor;
 
     AudioProcessorValueTreeState& m_parameters;
 
-    //==========================================================================
+    //================
+    // GUI COMPONENTS
+    //================
+
     TextButton m_initButton;
     Label m_initLabel;
 
@@ -186,6 +200,4 @@ private:
     Slider m_lfoShapeSlider;
     Label m_lfoShapeLabel;
     std::unique_ptr<SliderAttachment> m_lfoShapeSliderAttachment;
-
-    
 };

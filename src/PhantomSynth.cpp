@@ -9,11 +9,9 @@
 */
 
 #include "PhantomSynth.h"
-
 #include "PhantomSound.h"
 #include "PhantomVoice.h"
 
-//==========================================================================
 PhantomSynth::PhantomSynth(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
@@ -25,7 +23,6 @@ PhantomSynth::~PhantomSynth()
     clear();
 }
 
-//==============================================================================
 void PhantomSynth::init(float sampleRate, int samplesPerBlock, int numChannels)
 {
     clear();
@@ -48,7 +45,6 @@ void PhantomSynth::clear()
     clearVoices();
 }
 
-//==============================================================================
 void PhantomSynth::addVoices()
 {
     for(int i = 0; i < k_numVoices; i++)

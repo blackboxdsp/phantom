@@ -9,7 +9,6 @@
 #include "PhantomProcessor.h"
 #include "PhantomUtils.h"
 
-//==============================================================================
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      :  m_parameters(*this, nullptr, Identifier("Phantom"), createParameterLayout()),
@@ -23,8 +22,8 @@ PhantomAudioProcessor::PhantomAudioProcessor()
                        )
 #endif
 {
-    m_synth = new PhantomSynth(m_parameters);
-    m_amp = new PhantomAmplifier(m_parameters);
+    m_synth.reset(new PhantomSynth(m_parameters));
+    m_amp.reset(new PhantomAmplifier(m_parameters));
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
@@ -33,7 +32,6 @@ PhantomAudioProcessor::~PhantomAudioProcessor()
     m_amp = nullptr;
 }
 
-//==============================================================================
 AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParameterLayout()
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
@@ -393,7 +391,6 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     return { params.begin(), params.end() };
 }
 
-//==============================================================================
 const String PhantomAudioProcessor::getName() const
 {
     return JucePlugin_Name;
@@ -455,7 +452,6 @@ void PhantomAudioProcessor::changeProgramName(int index, const String& newName)
 {
 }
 
-//==============================================================================
 void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     ignoreUnused(samplesPerBlock);
@@ -504,7 +500,6 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
     m_amp->apply(buffer);
 }
 
-//==============================================================================
 bool PhantomAudioProcessor::hasEditor() const
 {
     return true; //(change this to false if you choose to not supply an editor)
@@ -515,7 +510,6 @@ AudioProcessorEditor* PhantomAudioProcessor::createEditor()
     return new PhantomAudioProcessorEditor(*this, m_parameters);
 }
 
-//==============================================================================
 void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
@@ -534,14 +528,11 @@ void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInByte
     }
 }
 
-//==============================================================================
 float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)
 {
     return std::log((0.5f)) / std::log((center - start) / (end - start));
 }
 
-//==============================================================================
-// This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new PhantomAudioProcessor();

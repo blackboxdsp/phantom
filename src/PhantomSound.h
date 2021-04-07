@@ -12,13 +12,19 @@
 
 #include "JuceHeader.h"
 
-//==============================================================================
 /**
-*/
+ * The sound class used in the `PhantomSynthesizer` class.
+ */
 class PhantomSound : public SynthesiserSound
 {
 public:
-    //==========================================================================
+    /**
+     * Overridden JUCE method for MIDI note number.
+     */
     bool appliesToNote(int midiNoteNumber) override;
+
+    /**
+     * Overridden JUCE method for MIDI channel.
+     */
     bool appliesToChannel(int midiChannelNumber) override;
 };

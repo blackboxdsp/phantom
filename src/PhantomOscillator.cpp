@@ -9,10 +9,8 @@
 */
 
 #include "PhantomOscillator.h"
-
 #include "PhantomUtils.h"
 
-//==========================================================================
 PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscNumber)
     : m_parameters(vts), m_oscNumber(oscNumber)
 {
@@ -25,20 +23,19 @@ PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscN
 
 PhantomOscillator::~PhantomOscillator()
 {
-    m_phasor.release();
-    m_waveshaper.release();
+    m_phasor = nullptr;
+    m_waveshaper = nullptr;
 
     p_oscRange = nullptr;
     p_oscCoarseTune = nullptr;
     p_oscFineTune = nullptr;
     p_modDepth = nullptr;
-    p_modMode = nullptr;
+    p_modSource = nullptr;
     p_shapeInt = nullptr;
 
     m_wavetable.clear();
 }
 
-//==============================================================================
 void PhantomOscillator::initParameters()
 {
     switch(m_oscNumber)
@@ -49,7 +46,7 @@ void PhantomOscillator::initParameters()
             p_oscCoarseTune = m_parameters.getRawParameterValue(Consts::_OSC_01_COARSE_TUNE_PARAM_ID);
             p_oscFineTune = m_parameters.getRawParameterValue(Consts::_OSC_01_FINE_TUNE_PARAM_ID);
             p_modDepth = m_parameters.getRawParameterValue(Consts::_OSC_01_MOD_DEPTH_PARAM_ID);
-            p_modMode = m_parameters.getRawParameterValue(Consts::_OSC_01_MOD_MODE_PARAM_ID);
+            p_modSource = m_parameters.getRawParameterValue(Consts::_OSC_01_MOD_MODE_PARAM_ID);
             p_shapeInt = m_parameters.getRawParameterValue(Consts::_OSC_01_SHAPE_INT_PARAM_ID);
             break;
 
@@ -58,7 +55,7 @@ void PhantomOscillator::initParameters()
             p_oscCoarseTune = m_parameters.getRawParameterValue(Consts::_OSC_02_COARSE_TUNE_PARAM_ID);
             p_oscFineTune = m_parameters.getRawParameterValue(Consts::_OSC_02_FINE_TUNE_PARAM_ID);
             p_modDepth = m_parameters.getRawParameterValue(Consts::_OSC_02_MOD_DEPTH_PARAM_ID);
-            p_modMode = m_parameters.getRawParameterValue(Consts::_OSC_02_MOD_MODE_PARAM_ID);
+            p_modSource = m_parameters.getRawParameterValue(Consts::_OSC_02_MOD_MODE_PARAM_ID);
             p_shapeInt = m_parameters.getRawParameterValue(Consts::_OSC_02_SHAPE_INT_PARAM_ID);
             break;
     }
@@ -75,7 +72,6 @@ void PhantomOscillator::initWavetable()
     }
 }
 
-//==============================================================================
 float PhantomOscillator::evaluate(float modEgMod, float phaseEgMod, float lfoMod) noexcept
 {
     float phase = m_phasor->apply(m_phase, phaseEgMod, lfoMod);
@@ -83,7 +79,7 @@ float PhantomOscillator::evaluate(float modEgMod, float phaseEgMod, float lfoMod
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
-    float mod = (int) *p_modMode ? lfoMod : modEgMod;
+    float mod = (int) *p_modSource ? lfoMod : modEgMod;
     float expo = *p_modDepth * mod * (float) k_modExpoThreshold;
     updatePhaseDelta(m_frequency * std::exp2f(expo));
 
@@ -93,7 +89,6 @@ float PhantomOscillator::evaluate(float modEgMod, float phaseEgMod, float lfoMod
     return value;
 }
 
-//==============================================================================
 float PhantomOscillator::midiNoteToFrequency(float midiNote) noexcept
 {
     return std::exp((midiNote - 69) * std::log(2) / 12.0f) * 440.0f;

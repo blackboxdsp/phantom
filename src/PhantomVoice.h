@@ -30,6 +30,19 @@ public:
     ~PhantomVoice();
 
     /**
+     * Called to let the voice know that the pitch wheel has been moved.
+     * @param pitchWheelPos The new pitch wheel position value.
+     */
+    void pitchWheelMoved(int pitchWheelPos) { }
+
+    /**
+     * Called to let the voice know that a MIDI controller has been moved.
+     * @param controllerNum The new controller number.
+     * @param controllerValue The new controller value.
+     */
+    void controllerMoved(int controllerNumber, int controllerValue) { }
+
+    /**
      * Checks for a `null_ptr`
      * @param sound A raw `SynthesiserSound` pointer to check.
      * @returns A boolean value that's `true` if the pointer isn't null.
@@ -70,35 +83,30 @@ private:
      */
     float handleOscSync(float valueToRead) noexcept;
 
-    AudioProcessorValueTreeState& m_parameters;
+    /**
+     * The unique pointer for the amplifier envelope generator.
+     */
+    std::unique_ptr<PhantomEnvelopeGenerator> m_ampEg;
 
     /**
-     * The atomic parameter pointer for oscillator sync.
+     * The unique pointer for the phasor envelope generator.
      */
-    std::atomic<float>* p_oscSync;
+    std::unique_ptr<PhantomEnvelopeGenerator> m_phaseEg;
 
     /**
-     * Integer value for the current note MIDI pitch value. 
-     * NOTE: 60 corresponds to middle C (C4)
+     * The unique pointer for the filter envelope generator.
      */
-    int m_midiNoteNumber = 60;
-    
-    /**
-     * Boolean value for if the oscillator sync is turned on (true) or off (false).
-     */
-    bool m_oscSyncToggle = false;
+    std::unique_ptr<PhantomEnvelopeGenerator> m_filterEg;
 
     /**
-     * Constant float value for checking zero-crossings in phase.
+     * The unique pointer for the mod envelope generator.
      */
-    const float k_oscSyncPhaseThreshold = 0.000001f;
+    std::unique_ptr<PhantomEnvelopeGenerator> m_modEg;
 
-    PhantomEnvelopeGenerator* m_ampEg;
-    PhantomEnvelopeGenerator* m_phaseEg;
-    PhantomEnvelopeGenerator* m_filterEg;
-    PhantomEnvelopeGenerator* m_modEg;
-
-    PhantomLFO* m_lfo;
+    /**
+     * The unique pointer for the LFO.
+     */
+    std::unique_ptr<PhantomLFO> m_lfo;
     
     /**
      * The unique pointer for the primary oscillator, which is used to sync 
@@ -117,6 +125,32 @@ private:
      * outputs.
      */
     std::unique_ptr<PhantomMixer> m_mixer;
+
+    /**
+     * The unique pointer for the filter.
+     */
+    std::unique_ptr<PhantomFilter> m_filter;
+
+    AudioProcessorValueTreeState& m_parameters;
+
+    /**
+     * The atomic parameter pointer for oscillator sync.
+     */
+    std::atomic<float>* p_oscSync;
+
+    /**
+     * Integer value for the current note MIDI pitch value. 
+     * NOTE: 60 corresponds to middle C (C4).
+     */
+    int m_midiNoteNumber = 60;
     
-    PhantomFilter* m_filter;
+    /**
+     * Boolean value for if the oscillator sync is turned on (true) or off (false).
+     */
+    bool m_oscSyncToggle = false;
+
+    /**
+     * Constant float value for checking zero-crossings in phase.
+     */
+    const float k_oscSyncPhaseThreshold = 0.000001f;
 };

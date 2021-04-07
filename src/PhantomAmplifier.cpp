@@ -9,10 +9,8 @@
 */
 
 #include "PhantomAmplifier.h"
-
 #include "PhantomUtils.h"
 
-//==============================================================================
 PhantomAmplifier::PhantomAmplifier(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
@@ -24,7 +22,6 @@ PhantomAmplifier::~PhantomAmplifier()
     p_level = nullptr;
 }
 
-//==============================================================================
 void PhantomAmplifier::apply(AudioBuffer<float>& buffer) noexcept
 {
     float gain = powf(2, *p_level / 6);
