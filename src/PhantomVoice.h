@@ -70,29 +70,6 @@ private:
      */
     float handleOscSync(float valueToRead) noexcept;
 
-    AudioProcessorValueTreeState& m_parameters;
-
-    /**
-     * The atomic parameter pointer for oscillator sync.
-     */
-    std::atomic<float>* p_oscSync;
-
-    /**
-     * Integer value for the current note MIDI pitch value. 
-     * NOTE: 60 corresponds to middle C (C4).
-     */
-    int m_midiNoteNumber = 60;
-    
-    /**
-     * Boolean value for if the oscillator sync is turned on (true) or off (false).
-     */
-    bool m_oscSyncToggle = false;
-
-    /**
-     * Constant float value for checking zero-crossings in phase.
-     */
-    const float k_oscSyncPhaseThreshold = 0.000001f;
-
     /**
      * The unique pointer for the amplifier envelope generator.
      */
@@ -140,4 +117,27 @@ private:
      * The unique pointer for the filter.
      */
     std::unique_ptr<PhantomFilter> m_filter;
+
+    AudioProcessorValueTreeState& m_parameters;
+
+    /**
+     * The atomic parameter pointer for oscillator sync.
+     */
+    std::atomic<float>* p_oscSync;
+
+    /**
+     * Integer value for the current note MIDI pitch value. 
+     * NOTE: 60 corresponds to middle C (C4).
+     */
+    int m_midiNoteNumber = 60;
+    
+    /**
+     * Boolean value for if the oscillator sync is turned on (true) or off (false).
+     */
+    bool m_oscSyncToggle = false;
+
+    /**
+     * Constant float value for checking zero-crossings in phase.
+     */
+    const float k_oscSyncPhaseThreshold = 0.000001f;
 };

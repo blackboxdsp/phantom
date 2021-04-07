@@ -97,12 +97,12 @@ private:
     Array<float> m_wavetable;
 
     /**
-     * The pointer to the oscillator's phasor, for applying phase distortion.
+     * The unique pointer to the oscillator's phasor, for applying phase distortion.
      */
     std::unique_ptr<PhantomPhasor> m_phasor;
 
     /**
-     * The pointer to the oscillator's waveshaper, for applying slight
+     * The unique pointer to the oscillator's waveshaper, for applying slight
      * waveshaping (mostly distortion).
      */
     std::unique_ptr<PhantomWaveshaper> m_waveshaper;

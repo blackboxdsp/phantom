@@ -48,10 +48,9 @@ private:
     dsp::StateVariableTPTFilter<float>* m_filter;
 
     /**
-     * The waveshaper used for a drive parameter in the 
-     * filter.
+     * The unique pointer for the waveshaper, useful in driving a filtered signal.
      */
-    PhantomWaveshaper* m_waveshaper;
+    std::unique_ptr<PhantomWaveshaper> m_waveshaper;
 
     AudioProcessorValueTreeState& m_parameters;
 

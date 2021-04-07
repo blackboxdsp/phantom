@@ -19,7 +19,7 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec
     m_filter->setType(dsp::StateVariableTPTFilterType::lowpass);
     m_filter->snapToZero();
 
-    m_waveshaper = new PhantomWaveshaper();
+    m_waveshaper.reset(new PhantomWaveshaper());
 
     p_cutoff = m_parameters.getRawParameterValue(Consts::_FLTR_CUTOFF_PARAM_ID);
     p_resonance = m_parameters.getRawParameterValue(Consts::_FLTR_RESO_PARAM_ID);

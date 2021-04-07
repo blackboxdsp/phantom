@@ -42,10 +42,10 @@ PhantomVoice::~PhantomVoice()
 
     m_lfo = nullptr;
     
-    m_primaryOsc.release();
-    m_secondaryOsc.release();
+    m_primaryOsc = nullptr;
+    m_secondaryOsc = nullptr;
     
-    m_mixer.release();
+    m_mixer = nullptr;
 
     m_filter = nullptr;
 }

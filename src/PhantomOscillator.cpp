@@ -23,8 +23,8 @@ PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscN
 
 PhantomOscillator::~PhantomOscillator()
 {
-    m_phasor.release();
-    m_waveshaper.release();
+    m_phasor = nullptr;
+    m_waveshaper = nullptr;
 
     p_oscRange = nullptr;
     p_oscCoarseTune = nullptr;
