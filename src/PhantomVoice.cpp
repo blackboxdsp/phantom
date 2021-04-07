@@ -130,7 +130,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
 float PhantomVoice::handleOscSync(const float valueToRead) noexcept
 {
-    if(!*p_oscSync) return;
+    if(!*p_oscSync) return valueToRead;
 
     if(std::abs(valueToRead) <= k_oscSyncPhaseThreshold) {
         if(m_oscSyncToggle)

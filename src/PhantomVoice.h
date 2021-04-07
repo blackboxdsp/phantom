@@ -30,6 +30,19 @@ public:
     ~PhantomVoice();
 
     /**
+     * Called to let the voice know that the pitch wheel has been moved.
+     * @param pitchWheelPos The new pitch wheel position value.
+     */
+    void pitchWheelMoved(int pitchWheelPos) { }
+
+    /**
+     * Called to let the voice know that a MIDI controller has been moved.
+     * @param controllerNum The new controller number.
+     * @param controllerValue The new controller value.
+     */
+    void controllerMoved(int controllerNumber, int controllerValue) { }
+
+    /**
      * Checks for a `null_ptr`
      * @param sound A raw `SynthesiserSound` pointer to check.
      * @returns A boolean value that's `true` if the pointer isn't null.
