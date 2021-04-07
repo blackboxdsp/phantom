@@ -14,15 +14,17 @@
 PhantomMixer::PhantomMixer(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
+    m_rng.reset(&Random::Random());
+
     p_oscBalance = m_parameters.getRawParameterValue(Consts::_MIXER_OSC_BAL_PARAM_ID);
     p_ringMod = m_parameters.getRawParameterValue(Consts::_MIXER_RING_MOD_PARAM_ID);
     p_noise = m_parameters.getRawParameterValue(Consts::_MIXER_NOISE_PARAM_ID);
-
-    m_rng.reset(&Random::Random());
 }
 
 PhantomMixer::~PhantomMixer()
 {
+    m_rng = nullptr;
+
     p_oscBalance = nullptr;
     p_ringMod = nullptr;
     p_noise = nullptr;

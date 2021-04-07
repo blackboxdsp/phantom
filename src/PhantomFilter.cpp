@@ -14,7 +14,7 @@
 PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
     :   m_parameters(vts)
 {
-    m_filter = new dsp::StateVariableTPTFilter<float>();
+    m_filter.reset(new dsp::StateVariableTPTFilter<float>());
     m_filter->prepare(ps);
     m_filter->setType(dsp::StateVariableTPTFilterType::lowpass);
     m_filter->snapToZero();

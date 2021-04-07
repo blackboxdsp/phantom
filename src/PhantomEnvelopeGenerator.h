@@ -57,7 +57,7 @@ private:
     /**
      * The envelope generator type (enum value)
      */
-    EnvelopeGeneratorType m_type;
+    EnvelopeGeneratorType m_type = (EnvelopeGeneratorType) -1;
 
     AudioProcessorValueTreeState& m_parameters;
 

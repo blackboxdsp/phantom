@@ -43,9 +43,9 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomFilter)
 
     /**
-     * The JUCE filter used for Phantom's implementation.
+     * The unique pointer for the JUCE filter used in Phantom's implementation.
      */
-    dsp::StateVariableTPTFilter<float>* m_filter;
+    std::unique_ptr<dsp::StateVariableTPTFilter<float>> m_filter;
 
     /**
      * The unique pointer for the waveshaper, useful in driving a filtered signal.
