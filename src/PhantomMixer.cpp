@@ -14,7 +14,7 @@
 PhantomMixer::PhantomMixer(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
-    m_rng.reset(&Random::Random());
+    m_rng.reset(new Random());
 
     p_oscBalance = m_parameters.getRawParameterValue(Consts::_MIXER_OSC_BAL_PARAM_ID);
     p_ringMod = m_parameters.getRawParameterValue(Consts::_MIXER_RING_MOD_PARAM_ID);
