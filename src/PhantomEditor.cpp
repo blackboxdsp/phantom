@@ -23,6 +23,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     initEgGui();
 
     initAnalyzer();
+    initOscilloscope();
 
     setResizable(true, true);
     setSize(1280, 720);
@@ -30,6 +31,7 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
+    m_oscilloscope = nullptr;
     m_analyzer = nullptr;
 
     m_levelSliderAttachment = nullptr;
@@ -628,6 +630,13 @@ void PhantomAudioProcessorEditor::initEgGui()
     addAndMakeVisible(&m_modEgRelLabel);
 }
 
+void PhantomAudioProcessorEditor::initOscilloscope()
+{
+    m_oscilloscope = std::make_unique<PhantomOscilloscope>();
+
+    addAndMakeVisible(m_oscilloscope.get());
+}
+
 void PhantomAudioProcessorEditor::initAnalyzer() 
 {
     m_analyzer = std::make_unique<PhantomAnalyzer>();
@@ -703,7 +712,7 @@ void PhantomAudioProcessorEditor::reset()
 
 void PhantomAudioProcessorEditor::paint(Graphics& g)
 {
-    g.fillAll(Colour::fromRGBA(11, 54, 46, 255));
+    g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
     g.setColour(Colours::white);
     g.setFont(12.0f);
 }
@@ -775,6 +784,7 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> oscilloscopeArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
     middleTopArea.removeFromLeft(margin);
+    m_oscilloscope->setBounds(oscilloscopeArea);
 
     Rectangle<int> mixerArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
     Rectangle<int> mixerOscBalanceArea = mixerArea.removeFromLeft(middleTopKnobWidth);
