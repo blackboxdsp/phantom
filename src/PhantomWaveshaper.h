@@ -12,37 +12,63 @@
 
 #include "JuceHeader.h"
 
-//==============================================================================
 /**
-*/
+ * The audio component for waveshaping real-time signals.
+ */
 class PhantomWaveshaper
 {
 public:
-    //==========================================================================
     PhantomWaveshaper();
     ~PhantomWaveshaper();
-
-    //==========================================================================
     
-    /* Fuzz Exponential 2 */
+    /**
+     * NOTE: The following waveshaper functions are (roughly)
+     * listed in order of increasing intensity. Each functions returns a 
+     * waveshaped value in between the range [-1.0f, 1.0f]. 
+     */
+
+    /**
+     * Fuzz Exponential 2
+     */
     float fexp2(float x) noexcept;
-    /* Arctangent Square Root */
+
+    /**
+     * Arctangent Square Root
+     */
     float atsr(float x) noexcept;
-    /* Cube */
+
+    /**
+     * Cube
+     */
     float cube(float x) noexcept;
-    /* Hyberbolic Tangent */
+
+    /**
+     * Hyberbolic Tangent
+     */
     float htan(float k, float x) noexcept;
-    /* Hard Clip */
+
+    /**
+     * Hard Clip
+     */
     float hclip(float x) noexcept;
 
-    //==========================================================================
-    
-    /* Return value restricted to range from lower to upper */
+    /**
+     * Clips a value between a lower and upper bound.
+     * @param x The value to clip.
+     * @param lower The lower bound to use.
+     * @param upper The upper bound to use.
+     * @returns The clipped value between the lower and upper bounds.
+     */
     float clip(float x, float lower, float upper) noexcept;
-    /* Returns the sign of a value (-1.0f, +1.0f) */
+
+
+    /**
+     * Determines the sign of a value.
+     * @param x The value to use in determining polarity.
+     * @returns The sign of a value (-1.0f if below zero, else 1.0f).
+     */
     float sign(float x) noexcept;
 
 private:
-    //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomWaveshaper)
 };

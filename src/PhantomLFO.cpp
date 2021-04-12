@@ -9,10 +9,8 @@
 */
 
 #include "PhantomLFO.h"
-
 #include "PhantomUtils.h"
 
-//==============================================================================
 PhantomLFO::PhantomLFO(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)
 {
@@ -26,7 +24,6 @@ PhantomLFO::~PhantomLFO()
     p_shape = nullptr;
 }
 
-//==============================================================================
 void PhantomLFO::initParameters()
 {
     p_rate = m_parameters.getRawParameterValue(Consts::_LFO_RATE_PARAM_ID);
@@ -68,7 +65,6 @@ void PhantomLFO::resetWavetable() noexcept
     }
 }
 
-//==============================================================================
 void PhantomLFO::update(float sampleRate) noexcept
 {
     m_sampleRate = sampleRate;
@@ -81,7 +77,6 @@ void PhantomLFO::update(float sampleRate) noexcept
     }
 }
 
-// CAUTION: The output of this function MUST BE in bipolar [-1.0f, 1.0f]
 float PhantomLFO::evaluate() noexcept
 {
     if((int) *p_shape != 4)
@@ -90,19 +85,11 @@ float PhantomLFO::evaluate() noexcept
         if((int) m_phase <= 1)
             m_sampleValue = Random::getSystemRandom().nextFloat() * 2.0f - 1.0f;
 
-    if(m_count == 100000)
-    {
-        DBG(m_phaseDelta);
-        m_count = 0;
-    }
-    m_count++;
-
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
     return m_sampleValue;
 }
 
-//==============================================================================
 void PhantomLFO::updatePhaseDelta() noexcept
 {
     float cyclesPerSample = *p_rate / m_sampleRate;

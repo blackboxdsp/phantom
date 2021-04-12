@@ -10,7 +10,6 @@
 
 #include "PhantomSound.h"
 
-//==========================================================================
 bool PhantomSound::appliesToNote(int midiNoteNumber) 
 {
     return true;

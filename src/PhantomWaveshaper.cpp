@@ -10,7 +10,6 @@
 
 #include "PhantomWaveshaper.h"
 
-//==============================================================================
 PhantomWaveshaper::PhantomWaveshaper()
 {
 
@@ -21,7 +20,6 @@ PhantomWaveshaper::~PhantomWaveshaper()
 
 }
 
-//==============================================================================
 float PhantomWaveshaper::fexp2(float x) noexcept
 {
     float s = sign(-x);
@@ -54,7 +52,6 @@ float PhantomWaveshaper::hclip(float x) noexcept
     return std::abs(x) > 0.5f ? 0.5f * sign(x) : x;
 }
 
-//==============================================================================
 float PhantomWaveshaper::clip(float x, float lower, float upper) noexcept
 {
     return std::max(lower, std::min(x, upper));

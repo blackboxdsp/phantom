@@ -13,36 +13,105 @@
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
-//==============================================================================
 /**
-*/
+ * The editor component holding most of the code responsible for the
+ * GUI (sliders, buttons, text, etc.).
+ */
 class PhantomAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
     PhantomAudioProcessorEditor(PhantomAudioProcessor&, AudioProcessorValueTreeState&);
     ~PhantomAudioProcessorEditor() override;
 
-    //==========================================================================
+    /**
+     * Determines the appearance of the main plugin component.
+     */
     void paint(Graphics&) override;
+
+    /**
+     * Determines the layout of the various GUI components for new 
+     * window size.
+     */
     void resized() override;
 
 private:
-    //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
 
-    //==========================================================================
+    /**
+     * Initializes the variables for the GUI's layout.
+     */
+    void initLayoutVariables();
+
+    /**
+     * Initializes the GUI for the amplifier.
+     */
+    void initAmpGui();
+
+    /**
+     * Initializes the GUI for the oscillators.
+     */
+    void initOscillatorGui();
+
+    /**
+     * Initializes the GUI for the phasors.
+     */
+    void initPhasorGui();
+
+    /**
+     * Initializes the GUI for the mixer.
+     */
+    void initMixerGui();
+
+    /**
+     * Initializes the GUI for the filter.
+     */
+    void initFilterGui();
+
+    /**
+     * Initializes the GUI for the LFO.
+     */
+    void initLfoGui();
+
+    /**
+     * Initializes the GUI for the envelope generators.
+     */
+    void initEgGui();
+
+    /**
+     * Resets all of the sliders to their default values, useful for 
+     * initializing new synth patches.
+     */
     void reset();
     
-    //==========================================================================
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
+    /**
+     * This reference is provided as a quick way for your editor to
+     * access the processor object that created it.
+     */
     PhantomAudioProcessor& m_audioProcessor;
 
     AudioProcessorValueTreeState& m_parameters;
 
-    //==========================================================================
+    /**
+     * The width for a text box.
+     */
+    int textBoxWidth;
+
+    /**
+     * The height for a text box;
+     */
+    int textBoxHeight;
+
+    //================
+    // GUI COMPONENTS
+    //================
+
     TextButton m_initButton;
     Label m_initLabel;
+
+    Label m_ampLabel;
+    Slider m_levelSlider;
+    Label m_levelLabel;
+    std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
 
     Slider m_oscSyncSlider;
     Label m_oscSyncLabel;
@@ -58,29 +127,29 @@ private:
     Slider m_osc01FineTuneSlider;
     Label m_osc01FineTuneLabel;
     std::unique_ptr<SliderAttachment> m_osc01FineTuneSliderAttachment;
-    Slider m_osc01ModDepthSlider;
-    Label m_osc01ModDepthLabel;
-    std::unique_ptr<SliderAttachment> m_osc01ModDepthSliderAttachment;
-    Slider m_osc01ModModeSlider;
-    Label m_osc01ModModeLabel;
-    std::unique_ptr<SliderAttachment> m_osc01ModModeSliderAttachment;
     Slider m_osc01ShapeIntSlider;
     Label m_osc01ShapeIntLabel;
     std::unique_ptr<SliderAttachment> m_osc01ShapeIntSliderAttachment;
+    Slider m_osc01ModDepthSlider;
+    Label m_osc01ModDepthLabel;
+    std::unique_ptr<SliderAttachment> m_osc01ModDepthSliderAttachment;
+    Slider m_osc01ModSourceSlider;
+    Label m_osc01ModSourceLabel;
+    std::unique_ptr<SliderAttachment> m_osc01ModSourceSliderAttachment;
 
     Label m_osc02Label;
     Slider m_osc02RangeSlider;
     std::unique_ptr<SliderAttachment> m_osc02RangeSliderAttachment;
     Slider m_osc02CoarseTuneSlider;
+    std::unique_ptr<SliderAttachment> m_osc02ModSourceSliderAttachment;
+    Slider m_osc02ShapeIntSlider;
+    std::unique_ptr<SliderAttachment> m_osc02ShapeIntSliderAttachment;
     std::unique_ptr<SliderAttachment> m_osc02CoarseTuneSliderAttachment;
     Slider m_osc02FineTuneSlider;
     std::unique_ptr<SliderAttachment> m_osc02FineTuneSliderAttachment;
     Slider m_osc02ModDepthSlider;
     std::unique_ptr<SliderAttachment> m_osc02ModDepthSliderAttachment;
-    Slider m_osc02ModModeSlider;
-    std::unique_ptr<SliderAttachment> m_osc02ModModeSliderAttachment;
-    Slider m_osc02ShapeIntSlider;
-    std::unique_ptr<SliderAttachment> m_osc02ShapeIntSliderAttachment;
+    Slider m_osc02ModSourceSlider;
 
     Label m_phasor01Label;
     Slider m_phasor01ShapeSlider;
@@ -101,6 +170,17 @@ private:
     Slider m_phasor02LfoIntSlider;
     std::unique_ptr<SliderAttachment> m_phasor02LfoIntSliderAttachment;
 
+    Label m_mixerLabel;
+    Slider m_mixerOscBalanceSlider;
+    Label m_mixerOscBalanceLabel;
+    std::unique_ptr<SliderAttachment> m_mixerOscBalanceSliderAttachment;
+    Slider m_mixerRingModSlider;
+    Label m_mixerRingModLabel;
+    std::unique_ptr<SliderAttachment> m_mixerRingModSliderAttachment;
+    Slider m_mixerNoiseSlider;
+    Label m_mixerNoiseLabel;
+    std::unique_ptr<SliderAttachment> m_mixerNoiseSliderAttachment;
+
     Label m_filterLabel;
     Slider m_filterCutoffSlider;
     Label m_filterCutoffLabel;
@@ -117,6 +197,14 @@ private:
     Slider m_filterLfoModDepthSlider;
     Label m_filterLfoModDepthLabel;
     std::unique_ptr<SliderAttachment> m_filterLfoModDepthSliderAttachment;
+
+    Label m_lfoLabel;
+    Slider m_lfoRateSlider;
+    Label m_lfoRateLabel;
+    std::unique_ptr<SliderAttachment> m_lfoRateSliderAttachment;
+    Slider m_lfoShapeSlider;
+    Label m_lfoShapeLabel;
+    std::unique_ptr<SliderAttachment> m_lfoShapeSliderAttachment;
 
     Label m_ampEgLabel;
     Slider m_ampEgAtkSlider;
@@ -173,17 +261,4 @@ private:
     Slider m_modEgRelSlider;
     Label m_modEgRelLabel;
     std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
-
-    Label m_lfoLabel;
-    Slider m_lfoRateSlider;
-    Label m_lfoRateLabel;
-    std::unique_ptr<SliderAttachment> m_lfoRateSliderAttachment;
-    Slider m_lfoShapeSlider;
-    Label m_lfoShapeLabel;
-    std::unique_ptr<SliderAttachment> m_lfoShapeSliderAttachment;
-
-    Label m_ampLabel;
-    Slider m_levelSlider;
-    Label m_levelLabel;
-    std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
 };

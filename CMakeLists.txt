@@ -35,7 +35,8 @@ target_sources(Phantom PRIVATE
         src/PhantomSound.cpp
         src/PhantomSynth.cpp
         src/PhantomVoice.cpp
-        src/PhantomWaveshaper.cpp)
+        src/PhantomWaveshaper.cpp
+        src/PhantomMixer.cpp)
 
 # Preprocessor definitions for our target
 target_compile_definitions(Phantom PUBLIC
