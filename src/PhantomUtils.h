@@ -124,12 +124,19 @@ namespace Consts {
 
     // LFOs
 
-    constexpr char* _LFO_RATE_PARAM_ID = "lfoRate";
-    constexpr char* _LFO_RATE_PARAM_NAME = "LFO Rate";
-    constexpr float _LFO_RATE_DEFAULT_VAL = 20.0f;
-    constexpr char* _LFO_SHAPE_PARAM_ID = "lfoShape";
-    constexpr char* _LFO_SHAPE_PARAM_NAME = "LFO Shape";
-    constexpr float _LFO_SHAPE_DEFAULT_VAL = 0.0f;
+    constexpr char* _LFO_01_RATE_PARAM_ID = "lfo01Rate";
+    constexpr char* _LFO_01_RATE_PARAM_NAME = "LFO 01 Rate";
+    constexpr float _LFO_01_RATE_DEFAULT_VAL = 20.0f;
+    constexpr char* _LFO_01_SHAPE_PARAM_ID = "lfo01Shape";
+    constexpr char* _LFO_01_SHAPE_PARAM_NAME = "LFO 01 Shape";
+    constexpr float _LFO_01_SHAPE_DEFAULT_VAL = 0.0f;
+
+    constexpr char* _LFO_02_RATE_PARAM_ID = "lfo02Rate";
+    constexpr char* _LFO_02_RATE_PARAM_NAME = "LFO 02 Rate";
+    constexpr float _LFO_02_RATE_DEFAULT_VAL = 20.0f;
+    constexpr char* _LFO_02_SHAPE_PARAM_ID = "lfo02Shape";
+    constexpr char* _LFO_02_SHAPE_PARAM_NAME = "LFO 02 Shape";
+    constexpr float _LFO_02_SHAPE_DEFAULT_VAL = 0.0f;
 
     // EGs
 

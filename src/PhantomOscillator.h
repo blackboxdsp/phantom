@@ -48,12 +48,13 @@ public:
 
     /**
      * Computes the next sample value for the oscillator.
-     * @param modEgMod The MOD envelope generator modulation value.
-     * @param phaseEgMod The PHA envelope generator modulation value.
-     * @param lfoMod The LFO modulation value.
+     * @param oscEgMod The MOD envelope generator modulation value for the oscillator.
+     * @param oscLfoMod The LFO modulation value for the oscillator.
+     * @param phaseEgMod The envelope generator modulation value for the phasor.
+     * @param phaseLfoMod The LFO modulation value for the phasor.
      * @returns The next sample value for the oscillator with modulation applied.
      */
-    float evaluate(float modEgMod, float phaseEgMod, float lfoMod) noexcept;
+    float evaluate(float oscEgMod, float oscLfoMod, float phaseEgMod, float phaseLfoMod) noexcept;
 
     /**
      * Converts the pitch value from a note's MIDI data to frequency (Hz).
@@ -140,7 +141,7 @@ private:
     std::atomic<float>* p_shapeInt;
 
     /**
-     * The oscillator identifier, useful to assigning the correct `AudioProcessorValueTreeState` 
+     * The oscillator identifier, useful in assigning the correct `AudioProcessorValueTreeState` 
      * parameters.
      */
     int m_oscNumber;

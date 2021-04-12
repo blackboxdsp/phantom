@@ -72,14 +72,14 @@ void PhantomOscillator::initWavetable()
     }
 }
 
-float PhantomOscillator::evaluate(float modEgMod, float phaseEgMod, float lfoMod) noexcept
+float PhantomOscillator::evaluate(float oscEgMod, float oscLfoMod, float phaseEgMod, float phaseLfoMod) noexcept
 {
-    float phase = m_phasor->apply(m_phase, phaseEgMod, lfoMod);
+    float phase = m_phasor->apply(m_phase, phaseEgMod, phaseLfoMod);
     float value = m_wavetable[(int) phase];
 
     m_phase = fmod(m_phase + m_phaseDelta, Consts::_WAVETABLE_SIZE);
 
-    float mod = (int) *p_modSource ? lfoMod : modEgMod;
+    float mod = (int) *p_modSource ? oscLfoMod : oscEgMod;
     float expo = *p_modDepth * mod * (float) k_modExpoThreshold;
     updatePhaseDelta(m_frequency * std::exp2f(expo));
 

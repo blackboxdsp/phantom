@@ -11,8 +11,8 @@
 #include "PhantomLFO.h"
 #include "PhantomUtils.h"
 
-PhantomLFO::PhantomLFO(AudioProcessorValueTreeState& vts)
-    :   m_parameters(vts)
+PhantomLFO::PhantomLFO(AudioProcessorValueTreeState& vts, int lfoNumber)
+    :   m_parameters(vts), m_lfoNumber(lfoNumber)
 {
     initParameters();
     resetWavetable();
@@ -26,8 +26,20 @@ PhantomLFO::~PhantomLFO()
 
 void PhantomLFO::initParameters()
 {
-    p_rate = m_parameters.getRawParameterValue(Consts::_LFO_RATE_PARAM_ID);
-    p_shape = m_parameters.getRawParameterValue(Consts::_LFO_SHAPE_PARAM_ID);
+    switch(m_lfoNumber)
+    {
+        default:
+        case 1:
+            p_rate = m_parameters.getRawParameterValue(Consts::_LFO_01_RATE_PARAM_ID);
+            p_shape = m_parameters.getRawParameterValue(Consts::_LFO_01_SHAPE_PARAM_ID);
+            break;
+        
+        case 2:
+            p_rate = m_parameters.getRawParameterValue(Consts::_LFO_02_RATE_PARAM_ID);
+            p_shape = m_parameters.getRawParameterValue(Consts::_LFO_02_SHAPE_PARAM_ID);
+            break;
+    }
+    
     m_previousShape = *p_shape;
 }
 
