@@ -10,6 +10,7 @@
 #include "JuceHeader.h"
 
 #include "PhantomAnalyzer.h"
+#include "PhantomOscilloscope.h"
 #include "PhantomProcessor.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
@@ -36,9 +37,14 @@ public:
     void resized() override;
 
     /**
-     * The unique pointer to the analyzer, used in the processor.
+     * The unique pointer to the analyzer, used by the processor.
      */
     std::unique_ptr<PhantomAnalyzer> m_analyzer;
+
+    /**
+     * The unique pointer to the oscilloscope, used by the processor.
+     */
+    std::unique_ptr<PhantomOscilloscope> m_oscilloscope;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
@@ -82,6 +88,11 @@ private:
      * Initializes the GUI for the envelope generators.
      */
     void initEgGui();
+
+    /**
+     * Initializes the oscilloscope GUI component.
+     */
+    void initOscilloscope();
 
     /**
      * Initializes the analyzer GUI component.
