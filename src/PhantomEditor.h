@@ -202,7 +202,6 @@ private:
     Slider m_lfo01ShapeSlider;
     Label m_lfo01ShapeLabel;
     std::unique_ptr<SliderAttachment> m_lfo01ShapeSliderAttachment;
-
     Slider m_lfo02RateSlider;
     std::unique_ptr<SliderAttachment> m_lfo02RateSliderAttachment;
     Slider m_lfo02ShapeSlider;

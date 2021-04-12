@@ -54,8 +54,6 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
     );
     params.push_back(std::move(oscSync));
 
-    // OSC 01
-
     auto osc01Range = std::make_unique<AudioParameterFloat>(
         Consts::_OSC_01_RANGE_PARAM_ID, Consts::_OSC_01_RANGE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 3.0f, 1.0f),
@@ -97,8 +95,6 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         Consts::_OSC_01_MOD_SOURCE_DEFAULT_VAL
     );
     params.push_back(std::move(osc01ModSource));
-
-    // OSC 02
 
     auto osc02Range = std::make_unique<AudioParameterFloat>(
         Consts::_OSC_02_RANGE_PARAM_ID, Consts::_OSC_02_RANGE_PARAM_NAME,
@@ -144,8 +140,6 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     // PHASORs
 
-    // PHASOR 01
-
     auto phasor01Shape = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_01_SHAPE_PARAM_ID, Consts::_PHASOR_01_SHAPE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 1.0f, 1.0f),
@@ -166,8 +160,6 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         Consts::_PHASOR_01_LFO_INT_DEFAULT_VAL
     );
     params.push_back(std::move(phasor01LfoInt));
-
-    // PHASOR 02
 
     auto phasor02Shape = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_02_SHAPE_PARAM_ID, Consts::_PHASOR_02_SHAPE_PARAM_NAME,
@@ -252,19 +244,33 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     // LFOs
 
-    auto lfoRate = std::make_unique<AudioParameterFloat>(
-        Consts::_LFO_RATE_PARAM_ID, Consts::_LFO_RATE_PARAM_NAME,
+    auto lfo01Rate = std::make_unique<AudioParameterFloat>(
+        Consts::_LFO_01_RATE_PARAM_ID, Consts::_LFO_01_RATE_PARAM_NAME,
         NormalisableRange<float>(0.1f, 100.0f, 0.01f, getSkewFactor(0.1f, 100.0f, 20.0f), false),
-        Consts::_LFO_RATE_DEFAULT_VAL
+        Consts::_LFO_01_RATE_DEFAULT_VAL
     );
-    params.push_back(std::move(lfoRate));
+    params.push_back(std::move(lfo01Rate));
 
-    auto lfoShape = std::make_unique<AudioParameterFloat>(
-        Consts::_LFO_SHAPE_PARAM_ID, Consts::_LFO_SHAPE_PARAM_NAME,
+    auto lfo01Shape = std::make_unique<AudioParameterFloat>(
+        Consts::_LFO_01_SHAPE_PARAM_ID, Consts::_LFO_01_SHAPE_PARAM_NAME,
         NormalisableRange<float>(0.0f, 4.0f, 1.0f),
-        Consts::_LFO_SHAPE_DEFAULT_VAL
+        Consts::_LFO_01_SHAPE_DEFAULT_VAL
     );
-    params.push_back(std::move(lfoShape));
+    params.push_back(std::move(lfo01Shape));
+
+    auto lfo02Rate = std::make_unique<AudioParameterFloat>(
+        Consts::_LFO_02_RATE_PARAM_ID, Consts::_LFO_02_RATE_PARAM_NAME,
+        NormalisableRange<float>(0.1f, 100.0f, 0.01f, getSkewFactor(0.1f, 100.0f, 20.0f), false),
+        Consts::_LFO_02_RATE_DEFAULT_VAL
+    );
+    params.push_back(std::move(lfo02Rate));
+
+    auto lfo02Shape = std::make_unique<AudioParameterFloat>(
+        Consts::_LFO_02_SHAPE_PARAM_ID, Consts::_LFO_02_SHAPE_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 4.0f, 1.0f),
+        Consts::_LFO_02_SHAPE_DEFAULT_VAL
+    );
+    params.push_back(std::move(lfo02Shape));
 
     // EGs
 

@@ -31,14 +31,12 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_levelSliderAttachment = nullptr;
 
     m_oscSyncSliderAttachment = nullptr;
-
     m_osc01RangeSliderAttachment = nullptr;
     m_osc01CoarseTuneSliderAttachment = nullptr;
     m_osc01FineTuneSliderAttachment = nullptr;
     m_osc01ModDepthSliderAttachment = nullptr;
     m_osc01ModSourceSliderAttachment = nullptr;
     m_osc01ShapeIntSliderAttachment = nullptr;
-
     m_osc02RangeSliderAttachment = nullptr;
     m_osc02CoarseTuneSliderAttachment = nullptr;
     m_osc02FineTuneSliderAttachment = nullptr;
@@ -49,7 +47,6 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_phasor01ShapeSliderAttachment = nullptr;
     m_phasor01EgIntSliderAttachment = nullptr;
     m_phasor01LfoIntSliderAttachment = nullptr;
-
     m_phasor02ShapeSliderAttachment = nullptr;
     m_phasor02EgIntSliderAttachment = nullptr;
     m_phasor02LfoIntSliderAttachment = nullptr;
@@ -64,8 +61,10 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_filterEgModDepthSliderAttachment = nullptr;
     m_filterLfoModDepthSliderAttachment = nullptr;
 
-    m_lfoRateSliderAttachment = nullptr;
-    m_lfoShapeSliderAttachment = nullptr;
+    m_lfo01RateSliderAttachment = nullptr;
+    m_lfo01ShapeSliderAttachment = nullptr;
+    m_lfo02RateSliderAttachment = nullptr;
+    m_lfo02ShapeSliderAttachment = nullptr;
 
     m_ampEgAtkSliderAttachment = nullptr;
     m_ampEgDecSliderAttachment = nullptr;
@@ -269,7 +268,7 @@ void PhantomAudioProcessorEditor::initPhasorGui()
     m_phasor01LfoIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_01_LFO_INT_DEFAULT_VAL);
     m_phasor01LfoIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_01_LFO_INT_PARAM_ID, m_phasor01LfoIntSlider));
     addAndMakeVisible(&m_phasor01LfoIntSlider);
-    m_phasor01LfoIntLabel.setText("LFO Int", dontSendNotification);
+    m_phasor01LfoIntLabel.setText("LFO 2 Int", dontSendNotification);
     m_phasor01LfoIntLabel.setJustificationType(Justification::centred);
     m_phasor01LfoIntLabel.attachToComponent(&m_phasor01LfoIntSlider, false);
     addAndMakeVisible(&m_phasor01LfoIntLabel);
@@ -383,7 +382,7 @@ void PhantomAudioProcessorEditor::initFilterGui()
     m_filterLfoModDepthSlider.setDoubleClickReturnValue(true, Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL);
     m_filterLfoModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_LFO_MOD_DEPTH_PARAM_ID, m_filterLfoModDepthSlider));
     addAndMakeVisible(&m_filterLfoModDepthSlider);
-    m_filterLfoModDepthLabel.setText("LFO Depth", dontSendNotification);
+    m_filterLfoModDepthLabel.setText("LFO 1 Depth", dontSendNotification);
     m_filterLfoModDepthLabel.setJustificationType(Justification::centred);
     m_filterLfoModDepthLabel.attachToComponent(&m_filterLfoModDepthSlider, false);
     addAndMakeVisible(&m_filterLfoModDepthLabel);
@@ -799,7 +798,7 @@ void PhantomAudioProcessorEditor::resized()
     m_lfo01RateSlider.setBounds(lfoTopArea.removeFromLeft(middleBottomKnobWidth));
     m_lfo01ShapeSlider.setBounds(lfoTopArea);
 
-    Rectangle<int> lfoBottomArea = lfoBottomArea;
+    Rectangle<int> lfoBottomArea = lfoArea;
     m_lfo02RateSlider.setBounds(lfoBottomArea.removeFromLeft(middleBottomKnobWidth));
     m_lfo02ShapeSlider.setBounds(lfoBottomArea);
 
@@ -807,7 +806,6 @@ void PhantomAudioProcessorEditor::resized()
     Rectangle<int> bottomArea = canvas;
 
     Rectangle<int> bottomTopArea = bottomArea.removeFromTop(bottomArea.getHeight() / 2);
-    bottomArea.removeFromTop(margin);
     Rectangle<int> ampEgArea = bottomTopArea.removeFromLeft(bottomKnobWidth * 4);
     bottomTopArea.removeFromLeft(margin);
     m_ampEgAtkSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
