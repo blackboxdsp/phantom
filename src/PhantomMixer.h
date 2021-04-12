@@ -56,4 +56,9 @@ private:
      * will be added to the output.
      */
     std::atomic<float>* p_noise;
+
+    /**
+     * The previous value for the noise, to help discontinuities.
+     */
+    float m_previousNoise;
 };

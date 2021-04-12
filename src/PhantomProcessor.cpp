@@ -201,14 +201,14 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto mixerRingMod = std::make_unique<AudioParameterFloat>(
         Consts::_MIXER_RING_MOD_PARAM_ID, Consts::_MIXER_RING_MOD_PARAM_NAME,
-        NormalisableRange<float>(0.0f, 1.0f, 1.0f),
+        NormalisableRange<float>(0.0f, 1.0f, 0.01f),
         Consts::_MIXER_RING_MOD_DEFAULT_VAL
     );
     params.push_back(std::move(mixerRingMod));
 
     auto mixerNoise = std::make_unique<AudioParameterFloat>(
         Consts::_MIXER_NOISE_PARAM_ID, Consts::_MIXER_NOISE_PARAM_NAME,
-        NormalisableRange<float>(0.0f, 1.0f, 1.0f),
+        NormalisableRange<float>(0.0f, 1.0f, 0.01f),
         Consts::_MIXER_NOISE_DEFAULT_VAL
     );
     params.push_back(std::move(mixerNoise));

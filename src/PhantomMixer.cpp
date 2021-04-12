@@ -32,10 +32,13 @@ PhantomMixer::~PhantomMixer()
 
 float PhantomMixer::evaluate(float osc01Val, float osc02Val) noexcept
 {
+    float mixed = osc01Val * (1.0f - *p_oscBalance) + osc02Val * *p_oscBalance;
+
     float ringMod = osc01Val * osc02Val * *p_ringMod;
 
-    float random = m_rng->nextFloat() * 2.0f - 1.0f;
-    float noise = random * *p_noise;
+    float random = (m_rng->nextFloat() + m_previousNoise) / 2.0f;
+    float noise = (random * 2.0f - 1.0f) * *p_noise;
+    m_previousNoise = random;
 
-    return (osc01Val + osc02Val) * 0.5f;
+    return (mixed + mixed + ringMod + noise) / std::sqrtf(3.0f);
 }
