@@ -18,7 +18,7 @@
 class PhantomLFO 
 {
 public:
-    PhantomLFO(AudioProcessorValueTreeState&);
+    PhantomLFO(AudioProcessorValueTreeState&, int);
     ~PhantomLFO();
 
     /**
@@ -70,6 +70,12 @@ private:
      * The atomic parameter pointer for the LFO's shape.
      */
     std::atomic<float>* p_shape;
+
+    /**
+     * The LFO identifier, useful in assigning the correct 
+     * `AudioProcessorValueTreeState` paramteres.
+     */
+    int m_lfoNumber;
 
     /**
      * The previous shape value, which helps to reduce the

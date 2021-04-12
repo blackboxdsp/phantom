@@ -31,65 +31,62 @@ namespace Consts {
     constexpr char* _OSC_SYNC_PARAM_ID = "oscSync";
     constexpr char* _OSC_SYNC_PARAM_NAME = "Osc Sync";
     constexpr float _OSC_SYNC_DEFAULT_VAL = 0.0f;
-
     constexpr char* _OSC_01_RANGE_PARAM_ID = "osc01Range";
-    constexpr char* _OSC_01_RANGE_PARAM_NAME = "Osc 01 Range";
+    constexpr char* _OSC_01_RANGE_PARAM_NAME = "Osc 1 Range";
     constexpr float _OSC_01_RANGE_DEFAULT_VAL = 2.0f;
     constexpr char* _OSC_01_COARSE_TUNE_PARAM_ID = "osc01CoarseTune";
-    constexpr char* _OSC_01_COARSE_TUNE_PARAM_NAME = "Osc 01 Coarse Tune";
+    constexpr char* _OSC_01_COARSE_TUNE_PARAM_NAME = "Osc 1 Coarse Tune";
     constexpr float _OSC_01_COARSE_TUNE_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_01_FINE_TUNE_PARAM_ID = "osc01FineTune";
-    constexpr char* _OSC_01_FINE_TUNE_PARAM_NAME = "Osc 01 Fine Tune";
+    constexpr char* _OSC_01_FINE_TUNE_PARAM_NAME = "Osc 1 Fine Tune";
     constexpr float _OSC_01_FINE_TUNE_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_01_SHAPE_INT_PARAM_ID = "osc01ShapeInt";
-    constexpr char* _OSC_01_SHAPE_INT_PARAM_NAME = "Osc 01 Shape Int";
+    constexpr char* _OSC_01_SHAPE_INT_PARAM_NAME = "Osc 1 Shape Int";
     constexpr float _OSC_01_SHAPE_INT_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_01_MOD_DEPTH_PARAM_ID = "osc01ModDepth";
-    constexpr char* _OSC_01_MOD_DEPTH_PARAM_NAME = "Osc 01 Mod Depth";
+    constexpr char* _OSC_01_MOD_DEPTH_PARAM_NAME = "Osc 1 Mod Depth";
     constexpr float _OSC_01_MOD_DEPTH_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_01_MOD_SOURCE_PARAM_ID = "osc01ModSource";
-    constexpr char* _OSC_01_MOD_SOURCE_PARAM_NAME = "Osc 01 Mod Source";
+    constexpr char* _OSC_01_MOD_SOURCE_PARAM_NAME = "Osc 1 Mod Source";
     constexpr float _OSC_01_MOD_SOURCE_DEFAULT_VAL = 0.0f;
-
     constexpr char* _OSC_02_RANGE_PARAM_ID = "osc02Range";
-    constexpr char* _OSC_02_RANGE_PARAM_NAME = "Osc 02 Range";
+    constexpr char* _OSC_02_RANGE_PARAM_NAME = "Osc 2 Range";
     constexpr float _OSC_02_RANGE_DEFAULT_VAL = 2.0f;
     constexpr char* _OSC_02_COARSE_TUNE_PARAM_ID = "osc02CoarseTune";
-    constexpr char* _OSC_02_COARSE_TUNE_PARAM_NAME = "Osc 02 Coarse Tune";
+    constexpr char* _OSC_02_COARSE_TUNE_PARAM_NAME = "Osc 2 Coarse Tune";
     constexpr float _OSC_02_COARSE_TUNE_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_02_FINE_TUNE_PARAM_ID = "osc02FineTune";
-    constexpr char* _OSC_02_FINE_TUNE_PARAM_NAME = "Osc 02 Fine Tune";
+    constexpr char* _OSC_02_FINE_TUNE_PARAM_NAME = "Osc 2 Fine Tune";
     constexpr float _OSC_02_FINE_TUNE_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_02_SHAPE_INT_PARAM_ID = "osc02ShapeInt";
-    constexpr char* _OSC_02_SHAPE_INT_PARAM_NAME = "Osc 02 Shape Int";
+    constexpr char* _OSC_02_SHAPE_INT_PARAM_NAME = "Osc 2 Shape Int";
     constexpr float _OSC_02_SHAPE_INT_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_02_MOD_DEPTH_PARAM_ID = "osc02ModDepth";
-    constexpr char* _OSC_02_MOD_DEPTH_PARAM_NAME = "Osc 02 Mod Depth";
+    constexpr char* _OSC_02_MOD_DEPTH_PARAM_NAME = "Osc 2 Mod Depth";
     constexpr float _OSC_02_MOD_DEPTH_DEFAULT_VAL = 0.0f;
     constexpr char* _OSC_02_MOD_SOURCE_PARAM_ID = "osc02ModSource";
-    constexpr char* _OSC_02_MOD_SOURCE_PARAM_NAME = "Osc 02 Mod Source";
+    constexpr char* _OSC_02_MOD_SOURCE_PARAM_NAME = "Osc 2 Mod Source";
     constexpr float _OSC_02_MOD_SOURCE_DEFAULT_VAL = 0.0f;
 
     // PHASORs
 
     constexpr char* _PHASOR_01_SHAPE_PARAM_ID = "phasor01Shape";
-    constexpr char* _PHASOR_01_SHAPE_PARAM_NAME = "Phasor 01 Shape";
+    constexpr char* _PHASOR_01_SHAPE_PARAM_NAME = "Phasor 1 Shape";
     constexpr float _PHASOR_01_SHAPE_DEFAULT_VAL = 0.0f;
     constexpr char* _PHASOR_01_EG_INT_PARAM_ID = "phasor01EgInt";
-    constexpr char* _PHASOR_01_EG_INT_PARAM_NAME = "Phasor 01 EG Int";
+    constexpr char* _PHASOR_01_EG_INT_PARAM_NAME = "Phasor 1 EG Int";
     constexpr float _PHASOR_01_EG_INT_DEFAULT_VAL = 1.0f;
     constexpr char* _PHASOR_01_LFO_INT_PARAM_ID = "phasor01LfoInt";
-    constexpr char* _PHASOR_01_LFO_INT_PARAM_NAME = "Phasor 01 LFO Int";
+    constexpr char* _PHASOR_01_LFO_INT_PARAM_NAME = "Phasor 1 LFO Int";
     constexpr float _PHASOR_01_LFO_INT_DEFAULT_VAL = 0.0f;
-
     constexpr char* _PHASOR_02_SHAPE_PARAM_ID = "phasor02Shape";
-    constexpr char* _PHASOR_02_SHAPE_PARAM_NAME = "Phasor 02 Shape";
+    constexpr char* _PHASOR_02_SHAPE_PARAM_NAME = "Phasor 2 Shape";
     constexpr float _PHASOR_02_SHAPE_DEFAULT_VAL = 0.0f;
     constexpr char* _PHASOR_02_EG_INT_PARAM_ID = "phasor02EgInt";
-    constexpr char* _PHASOR_02_EG_INT_PARAM_NAME = "Phasor 02 EG Int";
+    constexpr char* _PHASOR_02_EG_INT_PARAM_NAME = "Phasor 2 EG Int";
     constexpr float _PHASOR_02_EG_INT_DEFAULT_VAL = 1.0f;
     constexpr char* _PHASOR_02_LFO_INT_PARAM_ID = "phasor02LfoInt";
-    constexpr char* _PHASOR_02_LFO_INT_PARAM_NAME = "Phasor 02 LFO Int";
+    constexpr char* _PHASOR_02_LFO_INT_PARAM_NAME = "Phasor 2 LFO Int";
     constexpr float _PHASOR_02_LFO_INT_DEFAULT_VAL = 0.0f;
 
     // MIXER
@@ -124,12 +121,18 @@ namespace Consts {
 
     // LFOs
 
-    constexpr char* _LFO_RATE_PARAM_ID = "lfoRate";
-    constexpr char* _LFO_RATE_PARAM_NAME = "LFO Rate";
-    constexpr float _LFO_RATE_DEFAULT_VAL = 20.0f;
-    constexpr char* _LFO_SHAPE_PARAM_ID = "lfoShape";
-    constexpr char* _LFO_SHAPE_PARAM_NAME = "LFO Shape";
-    constexpr float _LFO_SHAPE_DEFAULT_VAL = 0.0f;
+    constexpr char* _LFO_01_RATE_PARAM_ID = "lfo01Rate";
+    constexpr char* _LFO_01_RATE_PARAM_NAME = "LFO 1 Rate";
+    constexpr float _LFO_01_RATE_DEFAULT_VAL = 20.0f;
+    constexpr char* _LFO_01_SHAPE_PARAM_ID = "lfo01Shape";
+    constexpr char* _LFO_01_SHAPE_PARAM_NAME = "LFO 1 Shape";
+    constexpr float _LFO_01_SHAPE_DEFAULT_VAL = 0.0f;
+    constexpr char* _LFO_02_RATE_PARAM_ID = "lfo02Rate";
+    constexpr char* _LFO_02_RATE_PARAM_NAME = "LFO 2 Rate";
+    constexpr float _LFO_02_RATE_DEFAULT_VAL = 20.0f;
+    constexpr char* _LFO_02_SHAPE_PARAM_ID = "lfo02Shape";
+    constexpr char* _LFO_02_SHAPE_PARAM_NAME = "LFO 2 Shape";
+    constexpr float _LFO_02_SHAPE_DEFAULT_VAL = 0.0f;
 
     // EGs
 

@@ -22,7 +22,8 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
     m_filterEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::FLTR));
     m_modEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::MOD));
 
-    m_lfo.reset(new PhantomLFO(m_parameters));
+    m_lfo01.reset(new PhantomLFO(m_parameters, 1));
+    m_lfo02.reset(new PhantomLFO(m_parameters, 2));
 
     m_primaryOsc.reset(new PhantomOscillator(m_parameters, 1));
     m_secondaryOsc.reset(new PhantomOscillator(m_parameters, 2));
@@ -40,7 +41,8 @@ PhantomVoice::~PhantomVoice()
     m_filterEg = nullptr;
     m_modEg = nullptr;
 
-    m_lfo = nullptr;
+    m_lfo01 = nullptr;
+    m_lfo02 = nullptr;
     
     m_primaryOsc = nullptr;
     m_secondaryOsc = nullptr;
@@ -97,7 +99,8 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
     m_filterEg->update();
     m_modEg->update();
 
-    m_lfo->update(getSampleRate());
+    m_lfo01->update(getSampleRate());
+    m_lfo02->update(getSampleRate());
 
     m_primaryOsc->update(m_midiNoteNumber, getSampleRate());
     m_secondaryOsc->update(m_midiNoteNumber, getSampleRate());
@@ -111,13 +114,14 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float filterEgMod = m_filterEg->evaluate();
         float modEgMod = m_modEg->evaluate();
 
-        float lfoMod = m_lfo->evaluate();
+        float lfo01Mod = m_lfo01->evaluate();
+        float lfo02Mod = m_lfo02->evaluate();
 
-        float primaryOscVal = handleOscSync(m_primaryOsc->evaluate(modEgMod, phaseEgMod, lfoMod));
-        float secondaryOscVal = m_secondaryOsc->evaluate(modEgMod, phaseEgMod, lfoMod);
+        float primaryOscVal = handleOscSync(m_primaryOsc->evaluate(modEgMod, lfo02Mod, phaseEgMod, lfo02Mod));
+        float secondaryOscVal = m_secondaryOsc->evaluate(modEgMod, lfo02Mod, phaseEgMod, lfo02Mod);
         float oscVal = m_mixer->evaluate(primaryOscVal, secondaryOscVal);
 
-        float filterVal = m_filter->evaluate(oscVal, filterEgMod, lfoMod);
+        float filterVal = m_filter->evaluate(oscVal, filterEgMod, lfo01Mod);
         float ampVal = filterVal * ampEgMod;
 
         for (int channel = 0; channel < buffer.getNumChannels(); channel++)

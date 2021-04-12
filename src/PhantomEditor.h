@@ -116,7 +116,6 @@ private:
     Slider m_oscSyncSlider;
     Label m_oscSyncLabel;
     std::unique_ptr<SliderAttachment> m_oscSyncSliderAttachment;
-
     Label m_osc01Label;
     Slider m_osc01RangeSlider;
     Label m_osc01RangeLabel;
@@ -136,7 +135,6 @@ private:
     Slider m_osc01ModSourceSlider;
     Label m_osc01ModSourceLabel;
     std::unique_ptr<SliderAttachment> m_osc01ModSourceSliderAttachment;
-
     Label m_osc02Label;
     Slider m_osc02RangeSlider;
     std::unique_ptr<SliderAttachment> m_osc02RangeSliderAttachment;
@@ -161,7 +159,6 @@ private:
     Slider m_phasor01LfoIntSlider;
     Label m_phasor01LfoIntLabel;
     std::unique_ptr<SliderAttachment> m_phasor01LfoIntSliderAttachment;
-
     Label m_phasor02Label;
     Slider m_phasor02ShapeSlider;
     std::unique_ptr<SliderAttachment> m_phasor02ShapeSliderAttachment;
@@ -199,12 +196,16 @@ private:
     std::unique_ptr<SliderAttachment> m_filterLfoModDepthSliderAttachment;
 
     Label m_lfoLabel;
-    Slider m_lfoRateSlider;
-    Label m_lfoRateLabel;
-    std::unique_ptr<SliderAttachment> m_lfoRateSliderAttachment;
-    Slider m_lfoShapeSlider;
-    Label m_lfoShapeLabel;
-    std::unique_ptr<SliderAttachment> m_lfoShapeSliderAttachment;
+    Slider m_lfo01RateSlider;
+    Label m_lfo01RateLabel;
+    std::unique_ptr<SliderAttachment> m_lfo01RateSliderAttachment;
+    Slider m_lfo01ShapeSlider;
+    Label m_lfo01ShapeLabel;
+    std::unique_ptr<SliderAttachment> m_lfo01ShapeSliderAttachment;
+    Slider m_lfo02RateSlider;
+    std::unique_ptr<SliderAttachment> m_lfo02RateSliderAttachment;
+    Slider m_lfo02ShapeSlider;
+    std::unique_ptr<SliderAttachment> m_lfo02ShapeSliderAttachment;
 
     Label m_ampEgLabel;
     Slider m_ampEgAtkSlider;

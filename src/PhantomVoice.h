@@ -104,10 +104,15 @@ private:
     std::unique_ptr<PhantomEnvelopeGenerator> m_modEg;
 
     /**
-     * The unique pointer for the LFO.
+     * The unique pointer for the first LFO.
      */
-    std::unique_ptr<PhantomLFO> m_lfo;
-    
+    std::unique_ptr<PhantomLFO> m_lfo01;
+
+    /**
+     * The unique pointer for the second LFO.
+     */
+    std::unique_ptr<PhantomLFO> m_lfo02;
+
     /**
      * The unique pointer for the primary oscillator, which is used to sync 
      * the secondary oscillator (if sync is ON).

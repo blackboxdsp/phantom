@@ -31,14 +31,12 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_levelSliderAttachment = nullptr;
 
     m_oscSyncSliderAttachment = nullptr;
-
     m_osc01RangeSliderAttachment = nullptr;
     m_osc01CoarseTuneSliderAttachment = nullptr;
     m_osc01FineTuneSliderAttachment = nullptr;
     m_osc01ModDepthSliderAttachment = nullptr;
     m_osc01ModSourceSliderAttachment = nullptr;
     m_osc01ShapeIntSliderAttachment = nullptr;
-
     m_osc02RangeSliderAttachment = nullptr;
     m_osc02CoarseTuneSliderAttachment = nullptr;
     m_osc02FineTuneSliderAttachment = nullptr;
@@ -49,7 +47,6 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_phasor01ShapeSliderAttachment = nullptr;
     m_phasor01EgIntSliderAttachment = nullptr;
     m_phasor01LfoIntSliderAttachment = nullptr;
-
     m_phasor02ShapeSliderAttachment = nullptr;
     m_phasor02EgIntSliderAttachment = nullptr;
     m_phasor02LfoIntSliderAttachment = nullptr;
@@ -64,8 +61,10 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_filterEgModDepthSliderAttachment = nullptr;
     m_filterLfoModDepthSliderAttachment = nullptr;
 
-    m_lfoRateSliderAttachment = nullptr;
-    m_lfoShapeSliderAttachment = nullptr;
+    m_lfo01RateSliderAttachment = nullptr;
+    m_lfo01ShapeSliderAttachment = nullptr;
+    m_lfo02RateSliderAttachment = nullptr;
+    m_lfo02ShapeSliderAttachment = nullptr;
 
     m_ampEgAtkSliderAttachment = nullptr;
     m_ampEgDecSliderAttachment = nullptr;
@@ -269,7 +268,7 @@ void PhantomAudioProcessorEditor::initPhasorGui()
     m_phasor01LfoIntSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_01_LFO_INT_DEFAULT_VAL);
     m_phasor01LfoIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_01_LFO_INT_PARAM_ID, m_phasor01LfoIntSlider));
     addAndMakeVisible(&m_phasor01LfoIntSlider);
-    m_phasor01LfoIntLabel.setText("LFO Int", dontSendNotification);
+    m_phasor01LfoIntLabel.setText("LFO 2 Int", dontSendNotification);
     m_phasor01LfoIntLabel.setJustificationType(Justification::centred);
     m_phasor01LfoIntLabel.attachToComponent(&m_phasor01LfoIntSlider, false);
     addAndMakeVisible(&m_phasor01LfoIntLabel);
@@ -383,7 +382,7 @@ void PhantomAudioProcessorEditor::initFilterGui()
     m_filterLfoModDepthSlider.setDoubleClickReturnValue(true, Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL);
     m_filterLfoModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_LFO_MOD_DEPTH_PARAM_ID, m_filterLfoModDepthSlider));
     addAndMakeVisible(&m_filterLfoModDepthSlider);
-    m_filterLfoModDepthLabel.setText("LFO Depth", dontSendNotification);
+    m_filterLfoModDepthLabel.setText("LFO 1 Depth", dontSendNotification);
     m_filterLfoModDepthLabel.setJustificationType(Justification::centred);
     m_filterLfoModDepthLabel.attachToComponent(&m_filterLfoModDepthSlider, false);
     addAndMakeVisible(&m_filterLfoModDepthLabel);
@@ -391,30 +390,43 @@ void PhantomAudioProcessorEditor::initFilterGui()
 
 void PhantomAudioProcessorEditor::initLfoGui()
 {
-    m_lfoRateSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_lfoRateSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_lfoRateSlider.setTextValueSuffix(" Hz");
-    m_lfoRateSlider.setDoubleClickReturnValue(true, Consts::_LFO_RATE_DEFAULT_VAL);
-    m_lfoRateSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_RATE_PARAM_ID, m_lfoRateSlider));
-    addAndMakeVisible(&m_lfoRateSlider);
-    m_lfoRateLabel.setText("Rate", dontSendNotification);
-    m_lfoRateLabel.setJustificationType(Justification::centred);
-    m_lfoRateLabel.attachToComponent(&m_lfoRateSlider, false);
-    addAndMakeVisible(&m_lfoRateLabel);
-    m_lfoLabel.setText("LFO", dontSendNotification);
+    m_lfo01RateSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_lfo01RateSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_lfo01RateSlider.setTextValueSuffix(" Hz");
+    m_lfo01RateSlider.setDoubleClickReturnValue(true, Consts::_LFO_01_RATE_DEFAULT_VAL);
+    m_lfo01RateSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_01_RATE_PARAM_ID, m_lfo01RateSlider));
+    addAndMakeVisible(&m_lfo01RateSlider);
+    m_lfo01RateLabel.setText("Rate", dontSendNotification);
+    m_lfo01RateLabel.setJustificationType(Justification::centred);
+    m_lfo01RateLabel.attachToComponent(&m_lfo01RateSlider, false);
+    addAndMakeVisible(&m_lfo01RateLabel);
+    m_lfoLabel.setText("LFOs", dontSendNotification);
     m_lfoLabel.setJustificationType(Justification::topLeft);
-    m_lfoLabel.attachToComponent(&m_lfoRateSlider, false);
+    m_lfoLabel.attachToComponent(&m_lfo01RateSlider, false);
     addAndMakeVisible(&m_lfoLabel);
 
-    m_lfoShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_lfoShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    m_lfoShapeSlider.setDoubleClickReturnValue(true, Consts::_LFO_SHAPE_DEFAULT_VAL);
-    m_lfoShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_SHAPE_PARAM_ID, m_lfoShapeSlider));
-    addAndMakeVisible(&m_lfoShapeSlider);
-    m_lfoShapeLabel.setText("Shape", dontSendNotification);
-    m_lfoShapeLabel.setJustificationType(Justification::centred);
-    m_lfoShapeLabel.attachToComponent(&m_lfoShapeSlider, false);
-    addAndMakeVisible(&m_lfoShapeLabel);
+    m_lfo01ShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_lfo01ShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_lfo01ShapeSlider.setDoubleClickReturnValue(true, Consts::_LFO_01_SHAPE_DEFAULT_VAL);
+    m_lfo01ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_01_SHAPE_PARAM_ID, m_lfo01ShapeSlider));
+    addAndMakeVisible(&m_lfo01ShapeSlider);
+    m_lfo01ShapeLabel.setText("Shape", dontSendNotification);
+    m_lfo01ShapeLabel.setJustificationType(Justification::centred);
+    m_lfo01ShapeLabel.attachToComponent(&m_lfo01ShapeSlider, false);
+    addAndMakeVisible(&m_lfo01ShapeLabel);
+
+    m_lfo02RateSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_lfo02RateSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_lfo02RateSlider.setTextValueSuffix(" Hz");
+    m_lfo02RateSlider.setDoubleClickReturnValue(true, Consts::_LFO_01_RATE_DEFAULT_VAL);
+    m_lfo02RateSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_02_RATE_PARAM_ID, m_lfo02RateSlider));
+    addAndMakeVisible(&m_lfo02RateSlider);
+
+    m_lfo02ShapeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_lfo02ShapeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_lfo02ShapeSlider.setDoubleClickReturnValue(true, Consts::_LFO_01_SHAPE_DEFAULT_VAL);
+    m_lfo02ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_02_SHAPE_PARAM_ID, m_lfo02ShapeSlider));
+    addAndMakeVisible(&m_lfo02ShapeSlider);
 }
 
 void PhantomAudioProcessorEditor::initEgGui() 
@@ -617,14 +629,12 @@ void PhantomAudioProcessorEditor::reset()
     m_levelSlider.setValue(Consts::_LEVEL_DEFAULT_VAL);
 
     m_oscSyncSlider.setValue(Consts::_OSC_SYNC_DEFAULT_VAL);
-    
     m_osc01RangeSlider.setValue(Consts::_OSC_01_RANGE_DEFAULT_VAL);
     m_osc01CoarseTuneSlider.setValue(Consts::_OSC_01_COARSE_TUNE_DEFAULT_VAL);
     m_osc01FineTuneSlider.setValue(Consts::_OSC_01_FINE_TUNE_DEFAULT_VAL);
     m_osc01ShapeIntSlider.setValue(Consts::_OSC_01_SHAPE_INT_DEFAULT_VAL);
     m_osc01ModDepthSlider.setValue(Consts::_OSC_01_MOD_DEPTH_DEFAULT_VAL);
     m_osc01ModSourceSlider.setValue(Consts::_OSC_01_MOD_SOURCE_DEFAULT_VAL);
-
     m_osc02RangeSlider.setValue(Consts::_OSC_02_RANGE_DEFAULT_VAL);
     m_osc02CoarseTuneSlider.setValue(Consts::_OSC_02_COARSE_TUNE_DEFAULT_VAL);
     m_osc02FineTuneSlider.setValue(Consts::_OSC_02_FINE_TUNE_DEFAULT_VAL);
@@ -635,7 +645,6 @@ void PhantomAudioProcessorEditor::reset()
     m_phasor01ShapeSlider.setValue(Consts::_PHASOR_01_SHAPE_DEFAULT_VAL);
     m_phasor01EgIntSlider.setValue(Consts::_PHASOR_01_EG_INT_DEFAULT_VAL);
     m_phasor01LfoIntSlider.setValue(Consts::_PHASOR_01_LFO_INT_DEFAULT_VAL);
-
     m_phasor02ShapeSlider.setValue(Consts::_PHASOR_02_SHAPE_DEFAULT_VAL);
     m_phasor02EgIntSlider.setValue(Consts::_PHASOR_02_EG_INT_DEFAULT_VAL);
     m_phasor02LfoIntSlider.setValue(Consts::_PHASOR_02_LFO_INT_DEFAULT_VAL);
@@ -650,8 +659,10 @@ void PhantomAudioProcessorEditor::reset()
     m_filterEgModDepthSlider.setValue(Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL);
     m_filterLfoModDepthSlider.setValue(Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL);
 
-    m_lfoRateSlider.setValue(Consts::_LFO_RATE_DEFAULT_VAL);
-    m_lfoShapeSlider.setValue(Consts::_LFO_SHAPE_DEFAULT_VAL);
+    m_lfo01RateSlider.setValue(Consts::_LFO_01_RATE_DEFAULT_VAL);
+    m_lfo01ShapeSlider.setValue(Consts::_LFO_01_SHAPE_DEFAULT_VAL);
+    m_lfo02RateSlider.setValue(Consts::_LFO_02_RATE_DEFAULT_VAL);
+    m_lfo02ShapeSlider.setValue(Consts::_LFO_02_SHAPE_DEFAULT_VAL);
 
     m_ampEgAtkSlider.setValue(Consts::_AMP_EG_ATK_DEFAULT_VAL);
     m_ampEgDecSlider.setValue(Consts::_AMP_EG_DEC_DEFAULT_VAL);
@@ -783,14 +794,18 @@ void PhantomAudioProcessorEditor::resized()
     middleBottomArea.removeFromLeft(margin);
 
     Rectangle<int> lfoArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 2);
-    m_lfoRateSlider.setBounds(lfoArea.removeFromLeft(middleBottomKnobWidth));
-    m_lfoShapeSlider.setBounds(lfoArea);
+    Rectangle<int> lfoTopArea = lfoArea.removeFromTop(lfoArea.getHeight() / 2);
+    m_lfo01RateSlider.setBounds(lfoTopArea.removeFromLeft(middleBottomKnobWidth));
+    m_lfo01ShapeSlider.setBounds(lfoTopArea);
+
+    Rectangle<int> lfoBottomArea = lfoArea;
+    m_lfo02RateSlider.setBounds(lfoBottomArea.removeFromLeft(middleBottomKnobWidth));
+    m_lfo02ShapeSlider.setBounds(lfoBottomArea);
 
     const int bottomKnobWidth = (width - (margin * 2)) / 8;
     Rectangle<int> bottomArea = canvas;
 
     Rectangle<int> bottomTopArea = bottomArea.removeFromTop(bottomArea.getHeight() / 2);
-    bottomArea.removeFromTop(margin);
     Rectangle<int> ampEgArea = bottomTopArea.removeFromLeft(bottomKnobWidth * 4);
     bottomTopArea.removeFromLeft(margin);
     m_ampEgAtkSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
