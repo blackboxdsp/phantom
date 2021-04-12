@@ -46,7 +46,7 @@ void PhantomOscillator::initParameters()
             p_oscCoarseTune = m_parameters.getRawParameterValue(Consts::_OSC_01_COARSE_TUNE_PARAM_ID);
             p_oscFineTune = m_parameters.getRawParameterValue(Consts::_OSC_01_FINE_TUNE_PARAM_ID);
             p_modDepth = m_parameters.getRawParameterValue(Consts::_OSC_01_MOD_DEPTH_PARAM_ID);
-            p_modSource = m_parameters.getRawParameterValue(Consts::_OSC_01_MOD_MODE_PARAM_ID);
+            p_modSource = m_parameters.getRawParameterValue(Consts::_OSC_01_MOD_SOURCE_PARAM_ID);
             p_shapeInt = m_parameters.getRawParameterValue(Consts::_OSC_01_SHAPE_INT_PARAM_ID);
             break;
 
@@ -55,7 +55,7 @@ void PhantomOscillator::initParameters()
             p_oscCoarseTune = m_parameters.getRawParameterValue(Consts::_OSC_02_COARSE_TUNE_PARAM_ID);
             p_oscFineTune = m_parameters.getRawParameterValue(Consts::_OSC_02_FINE_TUNE_PARAM_ID);
             p_modDepth = m_parameters.getRawParameterValue(Consts::_OSC_02_MOD_DEPTH_PARAM_ID);
-            p_modSource = m_parameters.getRawParameterValue(Consts::_OSC_02_MOD_MODE_PARAM_ID);
+            p_modSource = m_parameters.getRawParameterValue(Consts::_OSC_02_MOD_SOURCE_PARAM_ID);
             p_shapeInt = m_parameters.getRawParameterValue(Consts::_OSC_02_SHAPE_INT_PARAM_ID);
             break;
     }

@@ -20,6 +20,117 @@
  * `AudioProcessorValueTreeState` parameters.
  */
 namespace Consts {
+    // AMP
+
+    constexpr char* _LEVEL_PARAM_ID = "level";
+    constexpr char* _LEVEL_PARAM_NAME = "Level";
+    constexpr float _LEVEL_DEFAULT_VAL = 0.0f;
+    
+    // OSCILLATORs
+
+    constexpr char* _OSC_SYNC_PARAM_ID = "oscSync";
+    constexpr char* _OSC_SYNC_PARAM_NAME = "Osc Sync";
+    constexpr float _OSC_SYNC_DEFAULT_VAL = 0.0f;
+
+    constexpr char* _OSC_01_RANGE_PARAM_ID = "osc01Range";
+    constexpr char* _OSC_01_RANGE_PARAM_NAME = "Osc 01 Range";
+    constexpr float _OSC_01_RANGE_DEFAULT_VAL = 2.0f;
+    constexpr char* _OSC_01_COARSE_TUNE_PARAM_ID = "osc01CoarseTune";
+    constexpr char* _OSC_01_COARSE_TUNE_PARAM_NAME = "Osc 01 Coarse Tune";
+    constexpr float _OSC_01_COARSE_TUNE_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_01_FINE_TUNE_PARAM_ID = "osc01FineTune";
+    constexpr char* _OSC_01_FINE_TUNE_PARAM_NAME = "Osc 01 Fine Tune";
+    constexpr float _OSC_01_FINE_TUNE_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_01_SHAPE_INT_PARAM_ID = "osc01ShapeInt";
+    constexpr char* _OSC_01_SHAPE_INT_PARAM_NAME = "Osc 01 Shape Int";
+    constexpr float _OSC_01_SHAPE_INT_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_01_MOD_DEPTH_PARAM_ID = "osc01ModDepth";
+    constexpr char* _OSC_01_MOD_DEPTH_PARAM_NAME = "Osc 01 Mod Depth";
+    constexpr float _OSC_01_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_01_MOD_SOURCE_PARAM_ID = "osc01ModSource";
+    constexpr char* _OSC_01_MOD_SOURCE_PARAM_NAME = "Osc 01 Mod Source";
+    constexpr float _OSC_01_MOD_SOURCE_DEFAULT_VAL = 0.0f;
+
+    constexpr char* _OSC_02_RANGE_PARAM_ID = "osc02Range";
+    constexpr char* _OSC_02_RANGE_PARAM_NAME = "Osc 02 Range";
+    constexpr float _OSC_02_RANGE_DEFAULT_VAL = 2.0f;
+    constexpr char* _OSC_02_COARSE_TUNE_PARAM_ID = "osc02CoarseTune";
+    constexpr char* _OSC_02_COARSE_TUNE_PARAM_NAME = "Osc 02 Coarse Tune";
+    constexpr float _OSC_02_COARSE_TUNE_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_02_FINE_TUNE_PARAM_ID = "osc02FineTune";
+    constexpr char* _OSC_02_FINE_TUNE_PARAM_NAME = "Osc 02 Fine Tune";
+    constexpr float _OSC_02_FINE_TUNE_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_02_SHAPE_INT_PARAM_ID = "osc02ShapeInt";
+    constexpr char* _OSC_02_SHAPE_INT_PARAM_NAME = "Osc 02 Shape Int";
+    constexpr float _OSC_02_SHAPE_INT_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_02_MOD_DEPTH_PARAM_ID = "osc02ModDepth";
+    constexpr char* _OSC_02_MOD_DEPTH_PARAM_NAME = "Osc 02 Mod Depth";
+    constexpr float _OSC_02_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _OSC_02_MOD_SOURCE_PARAM_ID = "osc02ModSource";
+    constexpr char* _OSC_02_MOD_SOURCE_PARAM_NAME = "Osc 02 Mod Source";
+    constexpr float _OSC_02_MOD_SOURCE_DEFAULT_VAL = 0.0f;
+
+    // PHASORs
+
+    constexpr char* _PHASOR_01_SHAPE_PARAM_ID = "phasor01Shape";
+    constexpr char* _PHASOR_01_SHAPE_PARAM_NAME = "Phasor 01 Shape";
+    constexpr float _PHASOR_01_SHAPE_DEFAULT_VAL = 0.0f;
+    constexpr char* _PHASOR_01_EG_INT_PARAM_ID = "phasor01EgInt";
+    constexpr char* _PHASOR_01_EG_INT_PARAM_NAME = "Phasor 01 EG Int";
+    constexpr float _PHASOR_01_EG_INT_DEFAULT_VAL = 1.0f;
+    constexpr char* _PHASOR_01_LFO_INT_PARAM_ID = "phasor01LfoInt";
+    constexpr char* _PHASOR_01_LFO_INT_PARAM_NAME = "Phasor 01 LFO Int";
+    constexpr float _PHASOR_01_LFO_INT_DEFAULT_VAL = 0.0f;
+
+    constexpr char* _PHASOR_02_SHAPE_PARAM_ID = "phasor02Shape";
+    constexpr char* _PHASOR_02_SHAPE_PARAM_NAME = "Phasor 02 Shape";
+    constexpr float _PHASOR_02_SHAPE_DEFAULT_VAL = 0.0f;
+    constexpr char* _PHASOR_02_EG_INT_PARAM_ID = "phasor02EgInt";
+    constexpr char* _PHASOR_02_EG_INT_PARAM_NAME = "Phasor 02 EG Int";
+    constexpr float _PHASOR_02_EG_INT_DEFAULT_VAL = 1.0f;
+    constexpr char* _PHASOR_02_LFO_INT_PARAM_ID = "phasor02LfoInt";
+    constexpr char* _PHASOR_02_LFO_INT_PARAM_NAME = "Phasor 02 LFO Int";
+    constexpr float _PHASOR_02_LFO_INT_DEFAULT_VAL = 0.0f;
+
+    // MIXER
+
+    constexpr char* _MIXER_OSC_BAL_PARAM_ID = "mixerOscBalance";
+    constexpr char* _MIXER_OSC_BAL_PARAM_NAME = "Mixer Osc Balance";
+    constexpr float _MIXER_OSC_BAL_DEFAULT_VAL = 0.5f;
+    constexpr char* _MIXER_RING_MOD_PARAM_ID = "mixerRngMod";
+    constexpr char* _MIXER_RING_MOD_PARAM_NAME = "Mixer Rng Mod";
+    constexpr float _MIXER_RING_MOD_DEFAULT_VAL = 0.0;
+    constexpr char* _MIXER_NOISE_PARAM_ID = "mixerNoise";
+    constexpr char* _MIXER_NOISE_PARAM_NAME = "Mixer Noise";
+    constexpr float _MIXER_NOISE_DEFAULT_VAL = 0.0;
+
+    // FILTERs
+
+    constexpr char* _FLTR_CUTOFF_PARAM_ID = "filterCutoff";
+    constexpr char* _FLTR_CUTOFF_PARAM_NAME = "Filter Cutoff";
+    constexpr float _FLTR_CUTOFF_DEFAULT_VAL = 1000.0f;
+    constexpr char* _FLTR_RESO_PARAM_ID = "filterReso";
+    constexpr char* _FLTR_RESO_PARAM_NAME = "Filter Resonance";
+    constexpr float _FLTR_RESO_DEFAULT_VAL = 0.70710678;
+    constexpr char* _FLTR_DRIVE_PARAM_ID = "filterDrive";
+    constexpr char* _FLTR_DRIVE_PARAM_NAME = "Filter Drive";
+    constexpr float _FLTR_DRIVE_DEFAULT_VAL = 0.0f;
+    constexpr char* _FLTR_EG_MOD_DEPTH_PARAM_ID = "filterEgModDepth";
+    constexpr char* _FLTR_EG_MOD_DEPTH_PARAM_NAME = "Filter EG Mod Depth";
+    constexpr float _FLTR_EG_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+    constexpr char* _FLTR_LFO_MOD_DEPTH_PARAM_ID = "filterLfoModDepth";
+    constexpr char* _FLTR_LFO_MOD_DEPTH_PARAM_NAME = "Filter LFO Mod Depth";
+    constexpr float _FLTR_LFO_MOD_DEPTH_DEFAULT_VAL = 0.0f;
+
+    // LFOs
+
+    constexpr char* _LFO_RATE_PARAM_ID = "lfoRate";
+    constexpr char* _LFO_RATE_PARAM_NAME = "LFO Rate";
+    constexpr float _LFO_RATE_DEFAULT_VAL = 20.0f;
+    constexpr char* _LFO_SHAPE_PARAM_ID = "lfoShape";
+    constexpr char* _LFO_SHAPE_PARAM_NAME = "LFO Shape";
+    constexpr float _LFO_SHAPE_DEFAULT_VAL = 0.0f;
+
     // EGs
 
     constexpr char* _AMP_EG_ATK_PARAM_ID = "ampEgAtk";
@@ -73,117 +184,6 @@ namespace Consts {
     constexpr char* _MOD_EG_REL_PARAM_ID = "modEgRel";
     constexpr char* _MOD_EG_REL_PARAM_NAME = "Mod EG Rel";
     constexpr float _MOD_EG_REL_DEFAULT_VAL = 0.2f;
-
-    // LFOs
-
-    constexpr char* _LFO_RATE_PARAM_ID = "lfoRate";
-    constexpr char* _LFO_RATE_PARAM_NAME = "LFO Rate";
-    constexpr float _LFO_RATE_DEFAULT_VAL = 20.0f;
-    constexpr char* _LFO_SHAPE_PARAM_ID = "lfoShape";
-    constexpr char* _LFO_SHAPE_PARAM_NAME = "LFO Shape";
-    constexpr float _LFO_SHAPE_DEFAULT_VAL = 0.0f;
-    
-    // OSCILLATORs
-
-    constexpr char* _OSC_SYNC_PARAM_ID = "oscSync";
-    constexpr char* _OSC_SYNC_PARAM_NAME = "Osc Sync";
-    constexpr float _OSC_SYNC_DEFAULT_VAL = 0.0f;
-
-    constexpr char* _OSC_01_RANGE_PARAM_ID = "osc01Range";
-    constexpr char* _OSC_01_RANGE_PARAM_NAME = "Osc 01 Range";
-    constexpr float _OSC_01_RANGE_DEFAULT_VAL = 2.0f;
-    constexpr char* _OSC_01_COARSE_TUNE_PARAM_ID = "osc01CoarseTune";
-    constexpr char* _OSC_01_COARSE_TUNE_PARAM_NAME = "Osc 01 Coarse Tune";
-    constexpr float _OSC_01_COARSE_TUNE_DEFAULT_VAL = 0.0f;
-    constexpr char* _OSC_01_FINE_TUNE_PARAM_ID = "osc01FineTune";
-    constexpr char* _OSC_01_FINE_TUNE_PARAM_NAME = "Osc 01 Fine Tune";
-    constexpr float _OSC_01_FINE_TUNE_DEFAULT_VAL = 0.0f;
-    constexpr char* _OSC_01_MOD_DEPTH_PARAM_ID = "osc01ModDepth";
-    constexpr char* _OSC_01_MOD_DEPTH_PARAM_NAME = "Osc 01 Mod Depth";
-    constexpr float _OSC_01_MOD_DEPTH_DEFAULT_VAL = 0.0f;
-    constexpr char* _OSC_01_MOD_MODE_PARAM_ID = "osc01ModMode";
-    constexpr char* _OSC_01_MOD_MODE_PARAM_NAME = "Osc 01 Mod Mode";
-    constexpr float _OSC_01_MOD_MODE_DEFAULT_VAL = 0.0f;
-    constexpr char* _OSC_01_SHAPE_INT_PARAM_ID = "osc01ShapeInt";
-    constexpr char* _OSC_01_SHAPE_INT_PARAM_NAME = "Osc 01 Shape Int";
-    constexpr float _OSC_01_SHAPE_INT_DEFAULT_VAL = 0.0f;
-
-    constexpr char* _OSC_02_RANGE_PARAM_ID = "osc02Range";
-    constexpr char* _OSC_02_RANGE_PARAM_NAME = "Osc 02 Range";
-    constexpr float _OSC_02_RANGE_DEFAULT_VAL = 2.0f;
-    constexpr char* _OSC_02_COARSE_TUNE_PARAM_ID = "osc02CoarseTune";
-    constexpr char* _OSC_02_COARSE_TUNE_PARAM_NAME = "Osc 02 Coarse Tune";
-    constexpr float _OSC_02_COARSE_TUNE_DEFAULT_VAL = 0.0f;
-    constexpr char* _OSC_02_FINE_TUNE_PARAM_ID = "osc02FineTune";
-    constexpr char* _OSC_02_FINE_TUNE_PARAM_NAME = "Osc 02 Fine Tune";
-    constexpr float _OSC_02_FINE_TUNE_DEFAULT_VAL = 0.0f;
-    constexpr char* _OSC_02_MOD_DEPTH_PARAM_ID = "osc02ModDepth";
-    constexpr char* _OSC_02_MOD_DEPTH_PARAM_NAME = "Osc 02 Mod Depth";
-    constexpr float _OSC_02_MOD_DEPTH_DEFAULT_VAL = 0.0f;
-    constexpr char* _OSC_02_MOD_MODE_PARAM_ID = "osc02ModMode";
-    constexpr char* _OSC_02_MOD_MODE_PARAM_NAME = "Osc 02 Mod Mode";
-    constexpr float _OSC_02_MOD_MODE_DEFAULT_VAL = 0.0f;
-    constexpr char* _OSC_02_SHAPE_INT_PARAM_ID = "osc02ShapeInt";
-    constexpr char* _OSC_02_SHAPE_INT_PARAM_NAME = "Osc 02 Shape Int";
-    constexpr float _OSC_02_SHAPE_INT_DEFAULT_VAL = 0.0f;
-
-    // PHASORs
-
-    constexpr char* _PHASOR_01_SHAPE_PARAM_ID = "phasor01Shape";
-    constexpr char* _PHASOR_01_SHAPE_PARAM_NAME = "Phasor 01 Shape";
-    constexpr float _PHASOR_01_SHAPE_DEFAULT_VAL = 0.0f;
-    constexpr char* _PHASOR_01_EG_INT_PARAM_ID = "phasor01EgInt";
-    constexpr char* _PHASOR_01_EG_INT_PARAM_NAME = "Phasor 01 EG Int";
-    constexpr float _PHASOR_01_EG_INT_DEFAULT_VAL = 1.0f;
-    constexpr char* _PHASOR_01_LFO_INT_PARAM_ID = "phasor01LfoInt";
-    constexpr char* _PHASOR_01_LFO_INT_PARAM_NAME = "Phasor 01 LFO Int";
-    constexpr float _PHASOR_01_LFO_INT_DEFAULT_VAL = 0.0f;
-
-    constexpr char* _PHASOR_02_SHAPE_PARAM_ID = "phasor02Shape";
-    constexpr char* _PHASOR_02_SHAPE_PARAM_NAME = "Phasor 02 Shape";
-    constexpr float _PHASOR_02_SHAPE_DEFAULT_VAL = 0.0f;
-    constexpr char* _PHASOR_02_EG_INT_PARAM_ID = "phasor02EgInt";
-    constexpr char* _PHASOR_02_EG_INT_PARAM_NAME = "Phasor 02 EG Int";
-    constexpr float _PHASOR_02_EG_INT_DEFAULT_VAL = 1.0f;
-    constexpr char* _PHASOR_02_LFO_INT_PARAM_ID = "phasor02LfoInt";
-    constexpr char* _PHASOR_02_LFO_INT_PARAM_NAME = "Phasor 02 LFO Int";
-    constexpr float _PHASOR_02_LFO_INT_DEFAULT_VAL = 0.0f;
-
-    // MIXER
-
-    constexpr char* _MIXER_OSC_BAL_PARAM_ID = "mixerOscBalance";
-    constexpr char* _MIXER_OSC_BAL_PARAM_NAME = "Mixer Osc Balance";
-    constexpr float _MIXER_OSC_BAL_DEFAULT_VAL = 0.0f;
-    constexpr char* _MIXER_RING_MOD_PARAM_ID = "mixerRngMod";
-    constexpr char* _MIXER_RING_MOD_PARAM_NAME = "Mixer Rng Mod";
-    constexpr float _MIXER_RING_MOD_DEFAULT_VAL = 0.0;
-    constexpr char* _MIXER_NOISE_PARAM_ID = "mixerNoise";
-    constexpr char* _MIXER_NOISE_PARAM_NAME = "Mixer Noise";
-    constexpr float _MIXER_NOISE_DEFAULT_VAL = 0.0;
-
-    // FILTERs
-
-    constexpr char* _FLTR_CUTOFF_PARAM_ID = "filterCutoff";
-    constexpr char* _FLTR_CUTOFF_PARAM_NAME = "Filter Cutoff";
-    constexpr float _FLTR_CUTOFF_DEFAULT_VAL = 1000.0f;
-    constexpr char* _FLTR_RESO_PARAM_ID = "filterReso";
-    constexpr char* _FLTR_RESO_PARAM_NAME = "Filter Resonance";
-    constexpr float _FLTR_RESO_DEFAULT_VAL = 0.70710678;
-    constexpr char* _FLTR_DRIVE_PARAM_ID = "filterDrive";
-    constexpr char* _FLTR_DRIVE_PARAM_NAME = "Filter Drive";
-    constexpr float _FLTR_DRIVE_DEFAULT_VAL = 0.0f;
-    constexpr char* _FLTR_EG_MOD_DEPTH_PARAM_ID = "filterEgModDepth";
-    constexpr char* _FLTR_EG_MOD_DEPTH_PARAM_NAME = "Filter EG Mod Depth";
-    constexpr float _FLTR_EG_MOD_DEPTH_DEFAULT_VAL = 0.0f;
-    constexpr char* _FLTR_LFO_MOD_DEPTH_PARAM_ID = "filterLfoModDepth";
-    constexpr char* _FLTR_LFO_MOD_DEPTH_PARAM_NAME = "Filter LFO Mod Depth";
-    constexpr float _FLTR_LFO_MOD_DEPTH_DEFAULT_VAL = 0.0f;
-
-    // AMP
-
-    constexpr char* _LEVEL_PARAM_ID = "level";
-    constexpr char* _LEVEL_PARAM_NAME = "Level";
-    constexpr float _LEVEL_DEFAULT_VAL = 0.0f;
 
     constexpr int _WAVETABLE_SIZE = 1 << 11;
 }
