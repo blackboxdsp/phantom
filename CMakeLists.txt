@@ -32,6 +32,7 @@ target_sources(Phantom PRIVATE
         src/PhantomLFO.cpp
         src/PhantomMixer.cpp
         src/PhantomOscillator.cpp
+        src/PhantomOscilloscope.cpp
         src/PhantomPhasor.cpp
         src/PhantomProcessor.cpp
         src/PhantomSound.cpp
