@@ -504,6 +504,12 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
 
     m_synth->renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
     m_amp->apply(buffer);
+
+    PhantomAudioProcessorEditor* editor = static_cast<PhantomAudioProcessorEditor*>(getActiveEditor());
+    if(editor)
+    {
+        editor->m_analyzer->pushBuffer(buffer);
+    }
 }
 
 bool PhantomAudioProcessor::hasEditor() const

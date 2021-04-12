@@ -9,6 +9,7 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomAnalyzer.h"
 #include "PhantomProcessor.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
@@ -33,6 +34,11 @@ public:
      * window size.
      */
     void resized() override;
+
+    /**
+     * The unique pointer to the analyzer, used in the processor.
+     */
+    std::unique_ptr<PhantomAnalyzer> m_analyzer;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
@@ -76,6 +82,11 @@ private:
      * Initializes the GUI for the envelope generators.
      */
     void initEgGui();
+
+    /**
+     * Initializes the analyzer GUI component.
+     */
+    void initAnalyzer();
 
     /**
      * Resets all of the sliders to their default values, useful for 
