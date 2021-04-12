@@ -22,12 +22,16 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     initLfoGui();
     initEgGui();
 
+    initAnalyzer();
+
     setResizable(true, true);
     setSize(1280, 720);
 }
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
+    m_analyzer = nullptr;
+
     m_levelSliderAttachment = nullptr;
 
     m_oscSyncSliderAttachment = nullptr;
@@ -624,6 +628,18 @@ void PhantomAudioProcessorEditor::initEgGui()
     addAndMakeVisible(&m_modEgRelLabel);
 }
 
+void PhantomAudioProcessorEditor::initAnalyzer() 
+{
+    m_analyzer = std::make_unique<PhantomAnalyzer>();
+    m_analyzer->setColours(
+        Colour::fromRGBA(105, 250, 233, 255),
+        Colour::fromRGBA(42, 209, 190, 176),
+        Colour::fromRGBA(77, 227, 207, 176)
+    );
+
+    addAndMakeVisible(m_analyzer.get());
+}
+
 void PhantomAudioProcessorEditor::reset()
 {
     m_levelSlider.setValue(Consts::_LEVEL_DEFAULT_VAL);
@@ -687,11 +703,9 @@ void PhantomAudioProcessorEditor::reset()
 
 void PhantomAudioProcessorEditor::paint(Graphics& g)
 {
-    // Our component is opaque, so we must completely fill the background with a solid colour
-    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
-
+    g.fillAll(Colour::fromRGBA(11, 54, 46, 255));
     g.setColour(Colours::white);
-    g.setFont(15.0f);
+    g.setFont(12.0f);
 }
 
 void PhantomAudioProcessorEditor::resized()
@@ -792,6 +806,7 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> analyzerArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
     middleBottomArea.removeFromLeft(margin);
+    m_analyzer->setBounds(analyzerArea);
 
     Rectangle<int> lfoArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 2);
     Rectangle<int> lfoTopArea = lfoArea.removeFromTop(lfoArea.getHeight() / 2);
