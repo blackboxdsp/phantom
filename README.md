@@ -7,7 +7,12 @@
 > Modern phase distortion synthesis
 
 <div style="text-align: center">
-    <img src="./screenshot.png" alt="Phantom screenshot" title="Phantom running in Ableton Live 10" height="840"/>
+    <img 
+        src="https://storage.googleapis.com/mattmaxwell-assets/portfolio/projects/phantom.png" 
+        alt="Phantom screenshot" 
+        title="Phantom running in Ableton Live 10"
+        width="720"
+    />
 </div>
 
 Phantom is a phase distortion synthesizer plugin targeting VST3 and AU for OS X and Windows platforms. It uses the unique method of *phase distortion synthesis* to create sound and is capable of some truly bizarre sound design, which is really what makes it fun to use.
