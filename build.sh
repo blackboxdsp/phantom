@@ -2,10 +2,10 @@
 
 start_time=$(date +%s)
 
-BUILD_TYPE=Debug
 COPY_BUILD_STEP=false
 DAW_TO_OPEN=""
 REMOVE_PREV_BUILD=false
+BUILD_TYPE=Debug
 
 COMPANY_NAME="Maxwell Audio"
 
@@ -23,7 +23,7 @@ for i in "$@"; do
         REMOVE_PREV_BUILD=true
         shift
         ;;
-    -t=*|--type=*)
+    -b=*|--build-type=*)
         BUILD_TYPE="${i#*=}"
         shift
         ;;

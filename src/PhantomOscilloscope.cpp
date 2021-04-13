@@ -9,6 +9,7 @@
 */
 
 #include "PhantomOscilloscope.h"
+#include "PhantomUtils.h"
 
 PhantomOscilloscope::PhantomOscilloscope()
 {
@@ -45,8 +46,8 @@ void PhantomOscilloscope::paint(Graphics& graphics)
             samplePath.lineTo(x , y);
     }
 
-    graphics.setColour(strokeColour);
-    graphics.strokePath(samplePath, PathStrokeType(strokeWidth));
+    graphics.setColour(Consts::_FILL_START_COLOUR);
+    graphics.strokePath(samplePath, PathStrokeType(m_strokeWidth));
 }
 
 void PhantomOscilloscope::resized()

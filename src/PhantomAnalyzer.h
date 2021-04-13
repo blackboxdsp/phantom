@@ -32,14 +32,6 @@ public:
     void resized() override;
 
     /**
-     * Sets the colors of the analyzer's bars.
-     * @param stroke The `Colour` of the stroke (i.e. bar color).
-     * @param fillStart The starting `Colour` of the fill.
-     * @param fillEnd The ending `Colour` of the the fill.
-     */
-    void setColours(Colour stroke, Colour fillStart, Colour fillEnd);
-
-    /**
      * Called when the timer hits zero and is reset.
      */
     void timerCallback() override;
@@ -108,19 +100,4 @@ private:
      * Determines if the next audio block is ready to be processed.
      */
     bool m_isNextFFTBlockReady = false;
-
-    /**
-     * The `Colour` for the start of the fill.
-     */
-    Colour m_fillStartColour = Colours::white.withAlpha(0.2f);
-
-    /**
-     * The `Colour` for the end of the fill.
-     */
-    Colour m_fillEndColour = Colours::white.withAlpha(0.8f);
-
-    /**
-     * The `Colour` of the stroke.
-     */
-    Colour m_strokeColour = Colours::white;
 };

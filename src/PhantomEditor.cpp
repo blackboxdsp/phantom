@@ -640,11 +640,6 @@ void PhantomAudioProcessorEditor::initOscilloscope()
 void PhantomAudioProcessorEditor::initAnalyzer() 
 {
     m_analyzer = std::make_unique<PhantomAnalyzer>();
-    m_analyzer->setColours(
-        Colour::fromRGBA(105, 250, 233, 255),
-        Colour::fromRGBA(42, 209, 190, 176),
-        Colour::fromRGBA(77, 227, 207, 176)
-    );
 
     addAndMakeVisible(m_analyzer.get());
 }

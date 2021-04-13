@@ -69,12 +69,7 @@ private:
     int m_bufferIndex = 0;
 
     /**
-     * The `Colour` of the stroke path.
-     */
-    const Colour strokeColour = Colour::fromRGBA(42, 209, 190, 255);
-
-    /**
      * The width of the stroke path.
      */
-    const float strokeWidth = 3.0f; 
+    const float m_strokeWidth = 3.0f; 
 };

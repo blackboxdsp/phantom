@@ -9,6 +9,7 @@
 */
 
 #include "PhantomAnalyzer.h"
+#include "PhantomUtils.h"
 
 PhantomAnalyzer::PhantomAnalyzer()
     :   m_forwardFFT(FFT_ORDER),
@@ -35,7 +36,7 @@ void PhantomAnalyzer::paint(Graphics& graphics)
     Range<float> maxRange = FloatVectorOperations::findMinAndMax(m_outputData, OUTPUT_SIZE);
     const float scale = 1.0f / jmax((float) FFT_SIZE, maxRange.getEnd());
 
-    graphics.setColour(m_fillStartColour);
+    graphics.setColour(Consts::_FILL_END_COLOUR);
     for(int i = 0; i < OUTPUT_SIZE; i++) 
     {
         float x = std::log10f(1.0f + 39.0f * ((i + 1.0f) / OUTPUT_SIZE)) / std::log10f(40.0f) * width;
@@ -51,13 +52,6 @@ void PhantomAnalyzer::paint(Graphics& graphics)
 void PhantomAnalyzer::resized()
 {
 
-}
-
-void PhantomAnalyzer::setColours(Colour stroke, Colour start, Colour end)
-{
-    m_strokeColour = stroke;
-    m_fillStartColour = start;
-    m_fillEndColour = end;
 }
 
 void PhantomAnalyzer::timerCallback()
