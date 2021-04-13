@@ -15,7 +15,7 @@
     />
 </div>
 
-Phantom is a phase distortion synthesizer plugin targeting VST3 and AU for OS X and Windows platforms. It uses the unique method of *phase distortion synthesis* to create sound and is capable of some truly bizarre sound design, which is really what makes it fun to use.
+Phantom is a phase distortion synthesizer plugin targeting VST3 and AU for MacOS and Windows platforms. It uses the unique method of *phase distortion synthesis* to create sound and is capable of some truly bizarre sound design, which is really what makes it fun to use. Checkout a [sample](https://soundcloud.com/apellum/sample-phantom-phase-distortion-synthesizer)!
 
 ## Dependencies
 
