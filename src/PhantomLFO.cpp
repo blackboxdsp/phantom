@@ -24,6 +24,11 @@ PhantomLFO::~PhantomLFO()
     p_shape = nullptr;
 }
 
+void PhantomLFO::hiResTimerCallback()
+{
+    
+}
+
 void PhantomLFO::initParameters()
 {
     switch(m_lfoNumber)

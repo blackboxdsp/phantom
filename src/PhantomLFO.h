@@ -15,11 +15,16 @@
  * other areas in the synthesizer, namely filters, oscillators, phasors, 
  * etc.
  */
-class PhantomLFO 
+class PhantomLFO : public HighResolutionTimer
 {
 public:
     PhantomLFO(AudioProcessorValueTreeState&, int);
     ~PhantomLFO();
+
+    /**
+     * Called when the high-resolution timer hits zero.
+     */
+    void hiResTimerCallback() override;
 
     /**
      * Updates the LFO's parameters, namely rate and shape.
