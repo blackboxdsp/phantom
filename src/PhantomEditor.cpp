@@ -100,13 +100,10 @@ void PhantomAudioProcessorEditor::initLayoutVariables()
 }
 
 void PhantomAudioProcessorEditor::initAmpGui() {
-    m_initButton.setButtonText("...");
+    m_initButton.setButtonText("INIT");
+    m_initButton.setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
     m_initButton.onClick = [&]{ reset(); };
     addAndMakeVisible(&m_initButton);
-    m_initLabel.setText("Init", dontSendNotification);
-    m_initLabel.setJustificationType(Justification::centred);
-    m_initLabel.attachToComponent(&m_initButton, false);
-    addAndMakeVisible(&m_initLabel);
 
     m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_levelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -118,10 +115,6 @@ void PhantomAudioProcessorEditor::initAmpGui() {
     m_levelLabel.setJustificationType(Justification::centred);
     m_levelLabel.attachToComponent(&m_levelSlider, false);
     addAndMakeVisible(&m_levelLabel);
-    m_ampLabel.setText("Amp", dontSendNotification);
-    m_ampLabel.setJustificationType(Justification::topLeft);
-    m_ampLabel.attachToComponent(&m_levelSlider, false);
-    addAndMakeVisible(&m_ampLabel);
 }
 
 void PhantomAudioProcessorEditor::initOscillatorGui() 
@@ -132,7 +125,7 @@ void PhantomAudioProcessorEditor::initOscillatorGui()
     m_oscSyncSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_SYNC_PARAM_ID, m_oscSyncSlider));
     addAndMakeVisible(&m_oscSyncSlider);
     m_oscSyncLabel.setText("Sync", dontSendNotification);
-    m_oscSyncLabel.setJustificationType(Justification::centred);
+    m_oscSyncLabel.setJustificationType(Justification::bottomLeft);
     m_oscSyncLabel.attachToComponent(&m_oscSyncSlider, false);
     addAndMakeVisible(&m_oscSyncLabel);
 
@@ -146,10 +139,10 @@ void PhantomAudioProcessorEditor::initOscillatorGui()
     m_osc01RangeLabel.setJustificationType(Justification::centred);
     m_osc01RangeLabel.attachToComponent(&m_osc01RangeSlider, false);
     addAndMakeVisible(&m_osc01RangeLabel);
-    m_osc01Label.setText("Osc 1", dontSendNotification);
-    m_osc01Label.setJustificationType(Justification::topLeft);
-    m_osc01Label.attachToComponent(&m_osc01RangeSlider, false);
-    addAndMakeVisible(&m_osc01Label);
+    m_oscLabel.setText("Oscillators", dontSendNotification);
+    m_oscLabel.setJustificationType(Justification::topLeft);
+    m_oscLabel.attachToComponent(&m_osc01RangeSlider, false);
+    addAndMakeVisible(&m_oscLabel);
 
     m_osc01CoarseTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_osc01CoarseTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -207,10 +200,6 @@ void PhantomAudioProcessorEditor::initOscillatorGui()
     m_osc02RangeSlider.setDoubleClickReturnValue(true, Consts::_OSC_02_RANGE_DEFAULT_VAL);
     m_osc02RangeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_RANGE_PARAM_ID, m_osc02RangeSlider));
     addAndMakeVisible(&m_osc02RangeSlider);
-    m_osc02Label.setText("Osc 2", dontSendNotification);
-    m_osc02Label.setJustificationType(Justification::topLeft);
-    m_osc02Label.attachToComponent(&m_osc02RangeSlider, false);
-    addAndMakeVisible(&m_osc02Label);
 
     m_osc02CoarseTuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_osc02CoarseTuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -254,10 +243,10 @@ void PhantomAudioProcessorEditor::initPhasorGui()
     m_phasor01ShapeLabel.setJustificationType(Justification::centred);
     m_phasor01ShapeLabel.attachToComponent(&m_phasor01ShapeSlider, false);
     addAndMakeVisible(&m_phasor01ShapeLabel);
-    m_phasor01Label.setText("Phasor 1", dontSendNotification);
-    m_phasor01Label.setJustificationType(Justification::topLeft);
-    m_phasor01Label.attachToComponent(&m_phasor01ShapeSlider, false);
-    addAndMakeVisible(&m_phasor01Label);
+    m_phasorLabel.setText("Phasors", dontSendNotification);
+    m_phasorLabel.setJustificationType(Justification::topLeft);
+    m_phasorLabel.attachToComponent(&m_phasor01ShapeSlider, false);
+    addAndMakeVisible(&m_phasorLabel);
 
     m_phasor01EgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasor01EgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -284,10 +273,6 @@ void PhantomAudioProcessorEditor::initPhasorGui()
     m_phasor02ShapeSlider.setDoubleClickReturnValue(true, Consts::_PHASOR_02_SHAPE_DEFAULT_VAL);
     m_phasor02ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_02_SHAPE_PARAM_ID, m_phasor02ShapeSlider));
     addAndMakeVisible(&m_phasor02ShapeSlider);
-    m_phasor02Label.setText("Phasor 2", dontSendNotification);
-    m_phasor02Label.setJustificationType(Justification::topLeft);
-    m_phasor02Label.attachToComponent(&m_phasor02ShapeSlider, false);
-    addAndMakeVisible(&m_phasor02Label);
 
     m_phasor02EgIntSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasor02EgIntSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -313,6 +298,10 @@ void PhantomAudioProcessorEditor::initMixerGui()
     m_mixerOscBalanceLabel.setJustificationType(Justification::centred);
     m_mixerOscBalanceLabel.attachToComponent(&m_mixerOscBalanceSlider, false);
     addAndMakeVisible(&m_mixerOscBalanceLabel);
+    m_mixerLabel.setText("Mixer", dontSendNotification);
+    m_mixerLabel.setJustificationType(Justification::topLeft);
+    m_mixerLabel.attachToComponent(&m_mixerOscBalanceSlider, false);
+    addAndMakeVisible(&m_mixerLabel);
 
     m_mixerRingModSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_mixerRingModSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -330,7 +319,7 @@ void PhantomAudioProcessorEditor::initMixerGui()
     m_mixerNoiseSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_NOISE_PARAM_ID, m_mixerNoiseSlider));
     addAndMakeVisible(&m_mixerNoiseSlider);
     m_mixerNoiseLabel.setText("Noise", dontSendNotification);
-    m_mixerNoiseLabel.setJustificationType(Justification::centred);
+    m_mixerNoiseLabel.setJustificationType(Justification::bottomLeft);
     m_mixerNoiseLabel.attachToComponent(&m_mixerNoiseSlider, false);
     addAndMakeVisible(&m_mixerNoiseLabel);
 }
@@ -379,7 +368,7 @@ void PhantomAudioProcessorEditor::initFilterGui()
     m_filterEgModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_MOD_DEPTH_PARAM_ID, m_filterEgModDepthSlider));
     addAndMakeVisible(&m_filterEgModDepthSlider);
     m_filterEgModDepthLabel.setText("EG Depth", dontSendNotification);
-    m_filterEgModDepthLabel.setJustificationType(Justification::centred);
+    m_filterEgModDepthLabel.setJustificationType(Justification::bottomLeft);
     m_filterEgModDepthLabel.attachToComponent(&m_filterEgModDepthSlider, false);
     addAndMakeVisible(&m_filterEgModDepthLabel);
 
@@ -389,7 +378,7 @@ void PhantomAudioProcessorEditor::initFilterGui()
     m_filterLfoModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_LFO_MOD_DEPTH_PARAM_ID, m_filterLfoModDepthSlider));
     addAndMakeVisible(&m_filterLfoModDepthSlider);
     m_filterLfoModDepthLabel.setText("LFO 1 Depth", dontSendNotification);
-    m_filterLfoModDepthLabel.setJustificationType(Justification::centred);
+    m_filterLfoModDepthLabel.setJustificationType(Justification::bottomLeft);
     m_filterLfoModDepthLabel.attachToComponent(&m_filterLfoModDepthSlider, false);
     addAndMakeVisible(&m_filterLfoModDepthLabel);
 }
@@ -448,7 +437,7 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_ampEgAtkLabel.attachToComponent(&m_ampEgAtkSlider, false);
     addAndMakeVisible(&m_ampEgAtkLabel);
     m_ampEgLabel.setText("AMP", dontSendNotification);
-    m_ampEgLabel.setJustificationType(Justification::topRight);
+    m_ampEgLabel.setJustificationType(Justification::right);
     m_ampEgLabel.attachToComponent(&m_ampEgAtkSlider, true);
     addAndMakeVisible(&m_ampEgLabel);
 
@@ -496,7 +485,7 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_phasorEgAtkLabel.attachToComponent(&m_phasorEgAtkSlider, false);
     addAndMakeVisible(&m_phasorEgAtkLabel);
     m_phasorEgLabel.setText("PHA", dontSendNotification);
-    m_phasorEgLabel.setJustificationType(Justification::topLeft);
+    m_phasorEgLabel.setJustificationType(Justification::right);
     m_phasorEgLabel.attachToComponent(&m_phasorEgAtkSlider, true);
     addAndMakeVisible(&m_phasorEgLabel);
 
@@ -539,12 +528,8 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_filterEgAtkSlider.setDoubleClickReturnValue(true, Consts::_FLTR_EG_ATK_DEFAULT_VAL);
     m_filterEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_ATK_PARAM_ID, m_filterEgAtkSlider));
     addAndMakeVisible(&m_filterEgAtkSlider);
-    m_filterEgAtkLabel.setText("Atk", dontSendNotification);
-    m_filterEgAtkLabel.setJustificationType(Justification::centred);
-    m_filterEgAtkLabel.attachToComponent(&m_filterEgAtkSlider, false);
-    addAndMakeVisible(&m_filterEgAtkLabel);
     m_filterEgLabel.setText("FLTR", dontSendNotification);
-    m_filterEgLabel.setJustificationType(Justification::topLeft);
+    m_filterEgLabel.setJustificationType(Justification::right);
     m_filterEgLabel.attachToComponent(&m_filterEgAtkSlider, true);
     addAndMakeVisible(&m_filterEgLabel);
 
@@ -554,10 +539,6 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_filterEgDecSlider.setDoubleClickReturnValue(true, Consts::_FLTR_EG_DEC_DEFAULT_VAL);
     m_filterEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_DEC_PARAM_ID, m_filterEgDecSlider));
     addAndMakeVisible(&m_filterEgDecSlider);
-    m_filterEgDecLabel.setText("Dec", dontSendNotification);
-    m_filterEgDecLabel.setJustificationType(Justification::centred);
-    m_filterEgDecLabel.attachToComponent(&m_filterEgDecSlider, false);
-    addAndMakeVisible(&m_filterEgDecLabel);
 
     m_filterEgSusSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterEgSusSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -565,10 +546,6 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_filterEgSusSlider.setDoubleClickReturnValue(true, Consts::_FLTR_EG_SUS_DEFAULT_VAL);
     m_filterEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_SUS_PARAM_ID, m_filterEgSusSlider));
     addAndMakeVisible(&m_filterEgSusSlider);
-    m_filterEgSusLabel.setText("Sus", dontSendNotification);
-    m_filterEgSusLabel.setJustificationType(Justification::centred);
-    m_filterEgSusLabel.attachToComponent(&m_filterEgSusSlider, false);
-    addAndMakeVisible(&m_filterEgSusLabel);
 
     m_filterEgRelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterEgRelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -576,10 +553,6 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_filterEgRelSlider.setDoubleClickReturnValue(true, Consts::_FLTR_EG_REL_DEFAULT_VAL);
     m_filterEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_REL_PARAM_ID, m_filterEgRelSlider));
     addAndMakeVisible(&m_filterEgRelSlider);
-    m_filterEgRelLabel.setText("Rel", dontSendNotification);
-    m_filterEgRelLabel.setJustificationType(Justification::centred);
-    m_filterEgRelLabel.attachToComponent(&m_filterEgRelSlider, false);
-    addAndMakeVisible(&m_filterEgRelLabel);
 
     m_modEgAtkSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_modEgAtkSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -587,12 +560,8 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_modEgAtkSlider.setDoubleClickReturnValue(true, Consts::_MOD_EG_ATK_DEFAULT_VAL);
     m_modEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_ATK_PARAM_ID, m_modEgAtkSlider));
     addAndMakeVisible(&m_modEgAtkSlider);
-    m_modEgAtkLabel.setText("Atk", dontSendNotification);
-    m_modEgAtkLabel.setJustificationType(Justification::centred);
-    m_modEgAtkLabel.attachToComponent(&m_modEgAtkSlider, false);
-    addAndMakeVisible(&m_modEgAtkLabel);
     m_modEgLabel.setText("MOD", dontSendNotification);
-    m_modEgLabel.setJustificationType(Justification::topLeft);
+    m_modEgLabel.setJustificationType(Justification::right);
     m_modEgLabel.attachToComponent(&m_modEgAtkSlider, true);
     addAndMakeVisible(&m_modEgLabel);
 
@@ -602,10 +571,6 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_modEgDecSlider.setDoubleClickReturnValue(true, Consts::_MOD_EG_DEC_DEFAULT_VAL);
     m_modEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_DEC_PARAM_ID, m_modEgDecSlider));
     addAndMakeVisible(&m_modEgDecSlider);
-    m_modEgDecLabel.setText("Dec", dontSendNotification);
-    m_modEgDecLabel.setJustificationType(Justification::centred);
-    m_modEgDecLabel.attachToComponent(&m_modEgDecSlider, false);
-    addAndMakeVisible(&m_modEgDecLabel);
 
     m_modEgSusSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_modEgSusSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -613,10 +578,6 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_modEgSusSlider.setDoubleClickReturnValue(true, Consts::_MOD_EG_SUS_DEFAULT_VAL);
     m_modEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_SUS_PARAM_ID, m_modEgSusSlider));
     addAndMakeVisible(&m_modEgSusSlider);
-    m_modEgSusLabel.setText("Sus", dontSendNotification);
-    m_modEgSusLabel.setJustificationType(Justification::centred);
-    m_modEgSusLabel.attachToComponent(&m_modEgSusSlider, false);
-    addAndMakeVisible(&m_modEgSusLabel);
 
     m_modEgRelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_modEgRelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -624,10 +585,6 @@ void PhantomAudioProcessorEditor::initEgGui()
     m_modEgRelSlider.setDoubleClickReturnValue(true, Consts::_MOD_EG_REL_DEFAULT_VAL);
     m_modEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_REL_PARAM_ID, m_modEgRelSlider));
     addAndMakeVisible(&m_modEgRelSlider);
-    m_modEgRelLabel.setText("Rel", dontSendNotification);
-    m_modEgRelLabel.setJustificationType(Justification::centred);
-    m_modEgRelLabel.attachToComponent(&m_modEgRelSlider, false);
-    addAndMakeVisible(&m_modEgRelLabel);
 }
 
 void PhantomAudioProcessorEditor::initOscilloscope()
@@ -732,11 +689,14 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> ampArea = topArea.removeFromLeft(topKnobWidth);
     topArea.removeFromLeft(margin);
-    ampArea.removeFromLeft(margin * 2);
-    ampArea.removeFromRight(margin * 2);
+    ampArea.removeFromLeft(margin * 3);
+    ampArea.removeFromRight(margin * 3);
 
-    m_initButton.setBounds(ampArea.removeFromTop(ampArea.getHeight() / 2));
-    m_levelSlider.setBounds(ampArea);
+    m_levelSlider.setBounds(ampArea.removeFromBottom(ampArea.getHeight() / 2));
+
+    ampArea.removeFromBottom(margin * 1.5);
+
+    m_initButton.setBounds(ampArea);
 
     Rectangle<int> oscillatorArea = topArea;
 

@@ -50,7 +50,7 @@ void PhantomLFO::initParameters()
 
 void PhantomLFO::resetWavetable() noexcept
 {
-    m_wavetable.clear();
+    m_wavetable.clearQuick();
 
     for (int i = 0; i < Consts::_WAVETABLE_SIZE; i++)
     {

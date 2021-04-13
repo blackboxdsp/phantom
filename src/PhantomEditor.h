@@ -128,17 +128,15 @@ private:
     //================
 
     TextButton m_initButton;
-    Label m_initLabel;
 
-    Label m_ampLabel;
     Slider m_levelSlider;
     Label m_levelLabel;
     std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
 
+    Label m_oscLabel;
     Slider m_oscSyncSlider;
     Label m_oscSyncLabel;
     std::unique_ptr<SliderAttachment> m_oscSyncSliderAttachment;
-    Label m_osc01Label;
     Slider m_osc01RangeSlider;
     Label m_osc01RangeLabel;
     std::unique_ptr<SliderAttachment> m_osc01RangeSliderAttachment;
@@ -157,7 +155,6 @@ private:
     Slider m_osc01ModSourceSlider;
     Label m_osc01ModSourceLabel;
     std::unique_ptr<SliderAttachment> m_osc01ModSourceSliderAttachment;
-    Label m_osc02Label;
     Slider m_osc02RangeSlider;
     std::unique_ptr<SliderAttachment> m_osc02RangeSliderAttachment;
     Slider m_osc02CoarseTuneSlider;
@@ -171,7 +168,7 @@ private:
     std::unique_ptr<SliderAttachment> m_osc02ModDepthSliderAttachment;
     Slider m_osc02ModSourceSlider;
 
-    Label m_phasor01Label;
+    Label m_phasorLabel;
     Slider m_phasor01ShapeSlider;
     Label m_phasor01ShapeLabel;
     std::unique_ptr<SliderAttachment> m_phasor01ShapeSliderAttachment;
@@ -181,7 +178,6 @@ private:
     Slider m_phasor01LfoIntSlider;
     Label m_phasor01LfoIntLabel;
     std::unique_ptr<SliderAttachment> m_phasor01LfoIntSliderAttachment;
-    Label m_phasor02Label;
     Slider m_phasor02ShapeSlider;
     std::unique_ptr<SliderAttachment> m_phasor02ShapeSliderAttachment;
     Slider m_phasor02EgIntSlider;
@@ -259,29 +255,21 @@ private:
 
     Label m_filterEgLabel;
     Slider m_filterEgAtkSlider;
-    Label m_filterEgAtkLabel;
     std::unique_ptr<SliderAttachment> m_filterEgAtkSliderAttachment;
     Slider m_filterEgDecSlider;
-    Label m_filterEgDecLabel;
     std::unique_ptr<SliderAttachment> m_filterEgDecSliderAttachment;
     Slider m_filterEgSusSlider;
-    Label m_filterEgSusLabel;
     std::unique_ptr<SliderAttachment> m_filterEgSusSliderAttachment;
     Slider m_filterEgRelSlider;
-    Label m_filterEgRelLabel;
     std::unique_ptr<SliderAttachment> m_filterEgRelSliderAttachment;
 
     Label m_modEgLabel;
     Slider m_modEgAtkSlider;
-    Label m_modEgAtkLabel;
     std::unique_ptr<SliderAttachment> m_modEgAtkSliderAttachment;
     Slider m_modEgDecSlider;
-    Label m_modEgDecLabel;
     std::unique_ptr<SliderAttachment> m_modEgDecSliderAttachment;
     Slider m_modEgSusSlider;
-    Label m_modEgSusLabel;
     std::unique_ptr<SliderAttachment> m_modEgSusSliderAttachment;
     Slider m_modEgRelSlider;
-    Label m_modEgRelLabel;
     std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
 };

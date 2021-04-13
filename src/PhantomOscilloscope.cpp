@@ -63,7 +63,7 @@ void PhantomOscilloscope::timerCallback()
 void PhantomOscilloscope::pushBuffer(AudioSampleBuffer& buffer)
 {
     if(m_bufferIndex == 0)
-        m_buffer.clear();
+        m_buffer.clearQuick();
 
     for(int i = 0; i < buffer.getNumSamples(); i++)
     {
