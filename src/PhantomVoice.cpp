@@ -12,7 +12,7 @@
 #include "PhantomSound.h"
 #include "PhantomUtils.h"
 
-PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
+PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps, AudioPlayHead* aph)
     :   m_parameters(vts)
 {
     p_oscSync = m_parameters.getRawParameterValue(Consts::_OSC_SYNC_PARAM_ID);
@@ -22,8 +22,8 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
     m_filterEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::FLTR));
     m_modEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::MOD));
 
-    m_lfo01.reset(new PhantomLFO(m_parameters, 1));
-    m_lfo02.reset(new PhantomLFO(m_parameters, 2));
+    m_lfo01.reset(new PhantomLFO(m_parameters, 1, aph));
+    m_lfo02.reset(new PhantomLFO(m_parameters, 2, aph));
 
     m_primaryOsc.reset(new PhantomOscillator(m_parameters, 1));
     m_secondaryOsc.reset(new PhantomOscillator(m_parameters, 2));

@@ -11,17 +11,27 @@
 #include "PhantomLFO.h"
 #include "PhantomUtils.h"
 
-PhantomLFO::PhantomLFO(AudioProcessorValueTreeState& vts, int lfoNumber)
-    :   m_parameters(vts), m_lfoNumber(lfoNumber)
+PhantomLFO::PhantomLFO(AudioProcessorValueTreeState& vts, int lfoNumber, AudioPlayHead* aph)
+    :   m_parameters(vts), m_lfoNumber(lfoNumber), m_playHead(aph)
 {
     initParameters();
     resetWavetable();
+
+    updateBPM();
 }
 
 PhantomLFO::~PhantomLFO()
 {
     p_rate = nullptr;
     p_shape = nullptr;
+
+    m_playHead.release();
+}
+
+void PhantomLFO::prepareToPlay(int samplesPerBlock, float sampleRate)
+{
+    m_sampleRate = sampleRate;
+    m_samplesPerInterval = 60.0f / m_bpm * m_sampleRate;
 }
 
 void PhantomLFO::hiResTimerCallback()
@@ -111,4 +121,11 @@ void PhantomLFO::updatePhaseDelta() noexcept
 {
     float cyclesPerSample = *p_rate / m_sampleRate;
     m_phaseDelta = cyclesPerSample * (float) Consts::_WAVETABLE_SIZE;
+}
+
+void PhantomLFO::updateBPM() noexcept
+{
+    m_playHead->getCurrentPosition(m_playHeadPositionInfo);
+    m_bpm = (float) m_playHeadPositionInfo.bpm;
+    DBG(m_bpm << m_playHeadPositionInfo.bpm);
 }

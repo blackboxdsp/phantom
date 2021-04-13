@@ -20,8 +20,15 @@
 class PhantomLFO : public HighResolutionTimer
 {
 public:
-    PhantomLFO(AudioProcessorValueTreeState&, int);
+    PhantomLFO(AudioProcessorValueTreeState&, int, AudioPlayHead*);
     ~PhantomLFO();
+
+    /**
+     * Prepares the LFO, which is helpful for syncing it with the host's tempo.
+     * @param samplesPerBlock The number of samples in a block (audio buffer).
+     * @param sampleRate The sample rate to use in setting phase deltas / frequencies.
+     */
+    void prepareToPlay(int samplesPerBlock, float sampleRate);
 
     /**
      * Called when the high-resolution timer hits zero.
@@ -62,6 +69,11 @@ private:
     void updatePhaseDelta() noexcept;
 
     /**
+     * Updates the BPM value according to the information from the `AudioPlayHead`.
+     */
+    void updateBPM() noexcept;
+
+    /**
      * The wavetable, which is an array of float values.
      */
     Array<float> m_wavetable;
@@ -77,6 +89,18 @@ private:
      * The atomic parameter pointer for the LFO's shape.
      */
     std::atomic<float>* p_shape;
+
+    /**
+     * The `AudioPlayHead` to use in gathering tempo information for the relevant 
+     * audio components (i.e. LFO).
+     */
+    std::unique_ptr<AudioPlayHead> m_playHead;
+
+    /**
+     * The position information for the `AudioPlayHead`, which is helping in providing
+     * the actual BPM data.
+     */
+    AudioPlayHead::CurrentPositionInfo m_playHeadPositionInfo;
 
     /**
      * The LFO identifier, useful in assigning the correct 
@@ -106,7 +130,25 @@ private:
      * The sample rate, useful in computing the correct phase delta 
      * value for a given frequency.
      */
-    float m_sampleRate;
+    float m_sampleRate = 44100.0f;
+
+    /**
+     * The beats per minute (BPM), useful for when the LFO needs to be 
+     * rhythmically synced.
+     */
+    float m_bpm = 120.0f;
+
+    /**
+     * The total number of samples that have been output by the LFO,
+     * intended to be reset according rhythmic rate.
+     */
+    int m_totalSamples = 0;
+
+    /**
+     * The number of samples to use for beat interval, which corresponds
+     * to the rate of the synced LFO.
+     */
+    int m_samplesPerInterval = 0;
 
     /**
      * The last read sample value.

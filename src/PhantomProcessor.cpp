@@ -447,6 +447,7 @@ int PhantomAudioProcessor::getCurrentProgram()
 
 void PhantomAudioProcessor::setCurrentProgram(int index)
 {
+    
 }
 
 const String PhantomAudioProcessor::getProgramName(int index)
@@ -463,7 +464,7 @@ void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock
     ignoreUnused(samplesPerBlock);
 
     int numChannels = jmin(getMainBusNumInputChannels(), getMainBusNumOutputChannels());
-    m_synth->init((float) sampleRate, samplesPerBlock, numChannels);
+    m_synth->init((float) sampleRate, samplesPerBlock, numChannels, getPlayHead());
 }
 
 void PhantomAudioProcessor::releaseResources()

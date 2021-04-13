@@ -26,8 +26,9 @@ public:
      * @param sampleRate The sample rate to use in setting phase deltas / frequencies.
      * @param samplesPerBlock The number of samples in a block (audio buffer).
      * @param numChannels The number of channels to use in the processing.
+     * @param playHead The audio play head object from the audio processor.
      */
-    void init(float sampleRate, int samplesPerBlock, int numChannels);
+    void init(float sampleRate, int samplesPerBlock, int numChannels, AudioPlayHead* playHead);
 
     /**
      * Clears sounds and voices from the synthesizer.
@@ -39,8 +40,9 @@ private:
 
     /**
      * Adds voices to the synthesizer object.
+     * @param playHead The audio play head object from the audio processor.
      */
-    void addVoices();
+    void addVoices(AudioPlayHead* playHead);
 
     /**
      * Adds sounds to the synthesizer object.

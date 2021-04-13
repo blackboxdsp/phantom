@@ -23,7 +23,7 @@ PhantomSynth::~PhantomSynth()
     clear();
 }
 
-void PhantomSynth::init(float sampleRate, int samplesPerBlock, int numChannels)
+void PhantomSynth::init(float sampleRate, int samplesPerBlock, int numChannels, AudioPlayHead* playHead)
 {
     clear();
 
@@ -35,7 +35,7 @@ void PhantomSynth::init(float sampleRate, int samplesPerBlock, int numChannels)
         static_cast<uint32>(1)
     };
 
-    addVoices();
+    addVoices(playHead);
     addSounds();
 }
 
@@ -45,11 +45,11 @@ void PhantomSynth::clear()
     clearVoices();
 }
 
-void PhantomSynth::addVoices()
+void PhantomSynth::addVoices(AudioPlayHead* playHead)
 {
     for(int i = 0; i < k_numVoices; i++)
     {
-        PhantomVoice* voice = new PhantomVoice(m_parameters, m_processSpec);
+        PhantomVoice* voice = new PhantomVoice(m_parameters, m_processSpec, playHead);
         addVoice(voice);
     }
 }

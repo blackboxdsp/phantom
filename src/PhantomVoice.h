@@ -26,7 +26,7 @@
 class PhantomVoice : public SynthesiserVoice
 {
 public:
-    PhantomVoice(AudioProcessorValueTreeState&, dsp::ProcessSpec&);
+    PhantomVoice(AudioProcessorValueTreeState&, dsp::ProcessSpec&, AudioPlayHead*);
     ~PhantomVoice();
 
     /**
