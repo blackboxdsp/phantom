@@ -5,6 +5,7 @@
 - [ ] _fix_ - fixing bugs or other things
 - [ ] _refactor_ - improving existing code without changing external behavior
 - [ ] _sandbox_ - prototyping, designing, or testing new things
+- [ ] _spike_ - massive codebase changes, usually merging develop into main
 - [ ] _test_ - things related to tests
 
 ## Summary
