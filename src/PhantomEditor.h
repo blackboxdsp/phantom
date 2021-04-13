@@ -104,6 +104,14 @@ private:
      * initializing new synth patches.
      */
     void reset();
+
+    /**
+     * Displays a value to the global text box.
+     * @param name The name to print to the display.
+     * @param value The value to print to the display.
+     * @param suffix An optional suffix to use (useful for units of measurement).
+     */
+    void displayToGlobalTextBox(const char* name, const float value, char* suffix = "");
     
     /**
      * This reference is provided as a quick way for your editor to

@@ -40,6 +40,9 @@ void PhantomOscilloscope::paint(Graphics& graphics)
         x = i * width / m_buffer.size();
         y = height / 2.0f + m_buffer[i] * height * 0.5f;
 
+        if(x > 1000.0f) 
+            x = 0.0f;
+
         if(i == 0)
             samplePath.startNewSubPath(x, y);
         else
@@ -63,7 +66,7 @@ void PhantomOscilloscope::timerCallback()
 void PhantomOscilloscope::pushBuffer(AudioSampleBuffer& buffer)
 {
     if(m_bufferIndex == 0)
-        m_buffer.clearQuick();
+        m_buffer.clear();
 
     for(int i = 0; i < buffer.getNumSamples(); i++)
     {

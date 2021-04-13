@@ -93,6 +93,158 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_modEgRelSliderAttachment = nullptr;
 }
 
+void PhantomAudioProcessorEditor::paint(Graphics& g)
+{
+    g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
+    g.setColour(Colours::white);
+    g.setFont(12.0f);
+}
+
+void PhantomAudioProcessorEditor::resized()
+{
+    Rectangle<int> canvas = getLocalBounds();
+
+    const int margin = canvas.getWidth() / 60;
+    canvas.removeFromTop(margin);
+    canvas.removeFromRight(margin);
+    canvas.removeFromBottom(margin);
+    canvas.removeFromLeft(margin);
+
+    const int width = canvas.getWidth();
+    const int height = canvas.getHeight();
+    const int sectionHeight = (height - (margin * 3)) / 4;
+
+    const int topKnobWidth = (width - margin) / 7;
+    Rectangle<int> topArea = canvas.removeFromTop(sectionHeight);
+    canvas.removeFromTop(margin);
+
+    Rectangle<int> ampArea = topArea.removeFromLeft(topKnobWidth);
+    topArea.removeFromLeft(margin);
+    ampArea.removeFromLeft(margin * 3);
+    ampArea.removeFromRight(margin * 3);
+
+    m_levelSlider.setBounds(ampArea.removeFromBottom(ampArea.getHeight() / 2));
+
+    ampArea.removeFromBottom(margin * 1.5);
+
+    m_initButton.setBounds(ampArea);
+
+    Rectangle<int> oscillatorArea = topArea;
+
+    Rectangle<int> oscillatorRangeArea = oscillatorArea.removeFromLeft(topKnobWidth);
+    const int oscillatorAreaSixthHeight = oscillatorArea.getHeight() / 6;
+    m_osc01RangeSlider.setBounds(oscillatorRangeArea.removeFromTop(oscillatorAreaSixthHeight * 1.5));
+    m_oscSyncSlider.setBounds(oscillatorRangeArea.removeFromTop(oscillatorAreaSixthHeight * 3));
+    m_osc02RangeSlider.setBounds(oscillatorRangeArea);
+
+    Rectangle<int> oscillator01Area = oscillatorArea.removeFromTop(oscillatorArea.getHeight() / 2);
+    m_osc01CoarseTuneSlider.setBounds(oscillator01Area.removeFromLeft(topKnobWidth));
+    m_osc01FineTuneSlider.setBounds(oscillator01Area.removeFromLeft(topKnobWidth));
+    m_osc01ShapeIntSlider.setBounds(oscillator01Area.removeFromLeft(topKnobWidth));
+    m_osc01ModDepthSlider.setBounds(oscillator01Area.removeFromLeft(topKnobWidth));
+    m_osc01ModSourceSlider.setBounds(oscillator01Area);
+
+    Rectangle<int> oscillator02Area = oscillatorArea;
+    m_osc02CoarseTuneSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
+    m_osc02FineTuneSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
+    m_osc02ShapeIntSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
+    m_osc02ModDepthSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
+    m_osc02ModSourceSlider.setBounds(oscillator02Area);
+
+    const int middleTopKnobWidth = (width - (margin * 2)) / 8;
+    Rectangle<int> middleTopArea = canvas.removeFromTop(sectionHeight);
+    canvas.removeFromTop(margin);
+
+    Rectangle<int> phasorArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
+    middleTopArea.removeFromLeft(margin);
+
+    Rectangle<int> phasor01Area = phasorArea.removeFromTop(phasorArea.getHeight() / 2);
+    m_phasor01ShapeSlider.setBounds(phasor01Area.removeFromLeft(middleTopKnobWidth));
+    m_phasor01EgIntSlider.setBounds(phasor01Area.removeFromLeft(middleTopKnobWidth));
+    m_phasor01LfoIntSlider.setBounds(phasor01Area);
+
+    Rectangle<int> phasor02Area = phasorArea;
+    m_phasor02ShapeSlider.setBounds(phasor02Area.removeFromLeft(middleTopKnobWidth));
+    m_phasor02EgIntSlider.setBounds(phasor02Area.removeFromLeft(middleTopKnobWidth));
+    m_phasor02LfoIntSlider.setBounds(phasor02Area);
+
+    Rectangle<int> oscilloscopeArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
+    middleTopArea.removeFromLeft(margin);
+    m_oscilloscope->setBounds(oscilloscopeArea);
+
+    Rectangle<int> mixerArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
+    Rectangle<int> mixerOscBalanceArea = mixerArea.removeFromLeft(middleTopKnobWidth);
+    mixerOscBalanceArea.removeFromTop(margin);
+    mixerOscBalanceArea.removeFromBottom(margin);
+    m_mixerOscBalanceSlider.setBounds(mixerOscBalanceArea);
+    m_mixerRingModSlider.setBounds(mixerArea.removeFromTop(mixerArea.getHeight() / 2));
+    m_mixerNoiseSlider.setBounds(mixerArea);
+
+    const int middleBottomKnobWidth = (width - (margin * 2)) / 8;
+    Rectangle<int> middleBottomArea = canvas.removeFromTop(sectionHeight);
+    canvas.removeFromTop(margin);
+
+    Rectangle<int> filterArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
+    middleBottomArea.removeFromLeft(margin);
+
+    Rectangle<int> filterCutoffArea = filterArea.removeFromLeft(middleBottomKnobWidth);
+    filterCutoffArea.removeFromTop(margin);
+    filterCutoffArea.removeFromBottom(margin);
+    m_filterCutoffSlider.setBounds(filterCutoffArea);
+    
+    Rectangle<int> filterTopArea = filterArea.removeFromTop(filterArea.getHeight() / 2);
+    m_filterResoSlider.setBounds(filterTopArea.removeFromLeft(middleBottomKnobWidth));
+    m_filterDriveSlider.setBounds(filterTopArea);
+
+    Rectangle<int> filterBottomArea = filterArea;
+    m_filterEgModDepthSlider.setBounds(filterBottomArea.removeFromLeft(middleBottomKnobWidth));
+    m_filterLfoModDepthSlider.setBounds(filterBottomArea);
+
+    Rectangle<int> analyzerArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
+    middleBottomArea.removeFromLeft(margin);
+    m_analyzer->setBounds(analyzerArea);
+
+    Rectangle<int> lfoArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 2);
+    Rectangle<int> lfoTopArea = lfoArea.removeFromTop(lfoArea.getHeight() / 2);
+    m_lfo01RateSlider.setBounds(lfoTopArea.removeFromLeft(middleBottomKnobWidth));
+    m_lfo01ShapeSlider.setBounds(lfoTopArea);
+
+    Rectangle<int> lfoBottomArea = lfoArea;
+    m_lfo02RateSlider.setBounds(lfoBottomArea.removeFromLeft(middleBottomKnobWidth));
+    m_lfo02ShapeSlider.setBounds(lfoBottomArea);
+
+    const int bottomKnobWidth = (width - (margin * 2)) / 8;
+    Rectangle<int> bottomArea = canvas;
+
+    Rectangle<int> bottomTopArea = bottomArea.removeFromTop(bottomArea.getHeight() / 2);
+    Rectangle<int> ampEgArea = bottomTopArea.removeFromLeft(bottomKnobWidth * 4);
+    bottomTopArea.removeFromLeft(margin);
+    m_ampEgAtkSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
+    m_ampEgDecSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
+    m_ampEgSusSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
+    m_ampEgRelSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
+
+    Rectangle<int> phasorEgArea = bottomTopArea;
+    m_phasorEgAtkSlider.setBounds(phasorEgArea.removeFromLeft(bottomKnobWidth));
+    m_phasorEgDecSlider.setBounds(phasorEgArea.removeFromLeft(bottomKnobWidth));
+    m_phasorEgSusSlider.setBounds(phasorEgArea.removeFromLeft(bottomKnobWidth));
+    m_phasorEgRelSlider.setBounds(phasorEgArea.removeFromLeft(bottomKnobWidth));
+
+    Rectangle<int> bottomBottomArea = bottomArea;
+    Rectangle<int> filterEgArea = bottomBottomArea.removeFromLeft(bottomKnobWidth * 4);
+    bottomBottomArea.removeFromLeft(margin);
+    m_filterEgAtkSlider.setBounds(filterEgArea.removeFromLeft(bottomKnobWidth));
+    m_filterEgDecSlider.setBounds(filterEgArea.removeFromLeft(bottomKnobWidth));
+    m_filterEgSusSlider.setBounds(filterEgArea.removeFromLeft(bottomKnobWidth));
+    m_filterEgRelSlider.setBounds(filterEgArea.removeFromLeft(bottomKnobWidth));
+
+    Rectangle<int> modEgArea = bottomBottomArea;
+    m_modEgAtkSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
+    m_modEgDecSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
+    m_modEgSusSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
+    m_modEgRelSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
+}
+
 void PhantomAudioProcessorEditor::initLayoutVariables()
 {    
     textBoxWidth = 80;
@@ -110,6 +262,10 @@ void PhantomAudioProcessorEditor::initAmpGui() {
     m_levelSlider.setTextValueSuffix(" dB");
     m_levelSlider.setDoubleClickReturnValue(true, Consts::_LEVEL_DEFAULT_VAL);
     m_levelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LEVEL_PARAM_ID, m_levelSlider));
+    m_levelSlider.onValueChange = [this]
+    {
+        this->displayToGlobalTextBox(Consts::_LEVEL_PARAM_NAME, m_levelSlider.getValue(), " dB");
+    };
     addAndMakeVisible(&m_levelSlider);
     m_levelLabel.setText("Level", dontSendNotification);
     m_levelLabel.setJustificationType(Justification::centred);
@@ -662,154 +818,7 @@ void PhantomAudioProcessorEditor::reset()
     m_modEgRelSlider.setValue(Consts::_MOD_EG_REL_DEFAULT_VAL);
 }
 
-void PhantomAudioProcessorEditor::paint(Graphics& g)
+void PhantomAudioProcessorEditor::displayToGlobalTextBox(const char* name, const float value, char* suffix)
 {
-    g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
-    g.setColour(Colours::white);
-    g.setFont(12.0f);
-}
-
-void PhantomAudioProcessorEditor::resized()
-{
-    Rectangle<int> canvas = getLocalBounds();
-
-    const int margin = canvas.getWidth() / 60;
-    canvas.removeFromTop(margin);
-    canvas.removeFromRight(margin);
-    canvas.removeFromBottom(margin);
-    canvas.removeFromLeft(margin);
-
-    const int width = canvas.getWidth();
-    const int height = canvas.getHeight();
-    const int sectionHeight = (height - (margin * 3)) / 4;
-
-    const int topKnobWidth = (width - margin) / 7;
-    Rectangle<int> topArea = canvas.removeFromTop(sectionHeight);
-    canvas.removeFromTop(margin);
-
-    Rectangle<int> ampArea = topArea.removeFromLeft(topKnobWidth);
-    topArea.removeFromLeft(margin);
-    ampArea.removeFromLeft(margin * 3);
-    ampArea.removeFromRight(margin * 3);
-
-    m_levelSlider.setBounds(ampArea.removeFromBottom(ampArea.getHeight() / 2));
-
-    ampArea.removeFromBottom(margin * 1.5);
-
-    m_initButton.setBounds(ampArea);
-
-    Rectangle<int> oscillatorArea = topArea;
-
-    Rectangle<int> oscillatorRangeArea = oscillatorArea.removeFromLeft(topKnobWidth);
-    const int oscillatorAreaSixthHeight = oscillatorArea.getHeight() / 6;
-    m_osc01RangeSlider.setBounds(oscillatorRangeArea.removeFromTop(oscillatorAreaSixthHeight * 1.5));
-    m_oscSyncSlider.setBounds(oscillatorRangeArea.removeFromTop(oscillatorAreaSixthHeight * 3));
-    m_osc02RangeSlider.setBounds(oscillatorRangeArea);
-
-    Rectangle<int> oscillator01Area = oscillatorArea.removeFromTop(oscillatorArea.getHeight() / 2);
-    m_osc01CoarseTuneSlider.setBounds(oscillator01Area.removeFromLeft(topKnobWidth));
-    m_osc01FineTuneSlider.setBounds(oscillator01Area.removeFromLeft(topKnobWidth));
-    m_osc01ShapeIntSlider.setBounds(oscillator01Area.removeFromLeft(topKnobWidth));
-    m_osc01ModDepthSlider.setBounds(oscillator01Area.removeFromLeft(topKnobWidth));
-    m_osc01ModSourceSlider.setBounds(oscillator01Area);
-
-    Rectangle<int> oscillator02Area = oscillatorArea;
-    m_osc02CoarseTuneSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
-    m_osc02FineTuneSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
-    m_osc02ShapeIntSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
-    m_osc02ModDepthSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
-    m_osc02ModSourceSlider.setBounds(oscillator02Area);
-
-    const int middleTopKnobWidth = (width - (margin * 2)) / 8;
-    Rectangle<int> middleTopArea = canvas.removeFromTop(sectionHeight);
-    canvas.removeFromTop(margin);
-
-    Rectangle<int> phasorArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
-    middleTopArea.removeFromLeft(margin);
-
-    Rectangle<int> phasor01Area = phasorArea.removeFromTop(phasorArea.getHeight() / 2);
-    m_phasor01ShapeSlider.setBounds(phasor01Area.removeFromLeft(middleTopKnobWidth));
-    m_phasor01EgIntSlider.setBounds(phasor01Area.removeFromLeft(middleTopKnobWidth));
-    m_phasor01LfoIntSlider.setBounds(phasor01Area);
-
-    Rectangle<int> phasor02Area = phasorArea;
-    m_phasor02ShapeSlider.setBounds(phasor02Area.removeFromLeft(middleTopKnobWidth));
-    m_phasor02EgIntSlider.setBounds(phasor02Area.removeFromLeft(middleTopKnobWidth));
-    m_phasor02LfoIntSlider.setBounds(phasor02Area);
-
-    Rectangle<int> oscilloscopeArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
-    middleTopArea.removeFromLeft(margin);
-    m_oscilloscope->setBounds(oscilloscopeArea);
-
-    Rectangle<int> mixerArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
-    Rectangle<int> mixerOscBalanceArea = mixerArea.removeFromLeft(middleTopKnobWidth);
-    mixerOscBalanceArea.removeFromTop(margin);
-    mixerOscBalanceArea.removeFromBottom(margin);
-    m_mixerOscBalanceSlider.setBounds(mixerOscBalanceArea);
-    m_mixerRingModSlider.setBounds(mixerArea.removeFromTop(mixerArea.getHeight() / 2));
-    m_mixerNoiseSlider.setBounds(mixerArea);
-
-    const int middleBottomKnobWidth = (width - (margin * 2)) / 8;
-    Rectangle<int> middleBottomArea = canvas.removeFromTop(sectionHeight);
-    canvas.removeFromTop(margin);
-
-    Rectangle<int> filterArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
-    middleBottomArea.removeFromLeft(margin);
-
-    Rectangle<int> filterCutoffArea = filterArea.removeFromLeft(middleBottomKnobWidth);
-    filterCutoffArea.removeFromTop(margin);
-    filterCutoffArea.removeFromBottom(margin);
-    m_filterCutoffSlider.setBounds(filterCutoffArea);
-    
-    Rectangle<int> filterTopArea = filterArea.removeFromTop(filterArea.getHeight() / 2);
-    m_filterResoSlider.setBounds(filterTopArea.removeFromLeft(middleBottomKnobWidth));
-    m_filterDriveSlider.setBounds(filterTopArea);
-
-    Rectangle<int> filterBottomArea = filterArea;
-    m_filterEgModDepthSlider.setBounds(filterBottomArea.removeFromLeft(middleBottomKnobWidth));
-    m_filterLfoModDepthSlider.setBounds(filterBottomArea);
-
-    Rectangle<int> analyzerArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
-    middleBottomArea.removeFromLeft(margin);
-    m_analyzer->setBounds(analyzerArea);
-
-    Rectangle<int> lfoArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 2);
-    Rectangle<int> lfoTopArea = lfoArea.removeFromTop(lfoArea.getHeight() / 2);
-    m_lfo01RateSlider.setBounds(lfoTopArea.removeFromLeft(middleBottomKnobWidth));
-    m_lfo01ShapeSlider.setBounds(lfoTopArea);
-
-    Rectangle<int> lfoBottomArea = lfoArea;
-    m_lfo02RateSlider.setBounds(lfoBottomArea.removeFromLeft(middleBottomKnobWidth));
-    m_lfo02ShapeSlider.setBounds(lfoBottomArea);
-
-    const int bottomKnobWidth = (width - (margin * 2)) / 8;
-    Rectangle<int> bottomArea = canvas;
-
-    Rectangle<int> bottomTopArea = bottomArea.removeFromTop(bottomArea.getHeight() / 2);
-    Rectangle<int> ampEgArea = bottomTopArea.removeFromLeft(bottomKnobWidth * 4);
-    bottomTopArea.removeFromLeft(margin);
-    m_ampEgAtkSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
-    m_ampEgDecSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
-    m_ampEgSusSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
-    m_ampEgRelSlider.setBounds(ampEgArea.removeFromLeft(bottomKnobWidth));
-
-    Rectangle<int> phasorEgArea = bottomTopArea;
-    m_phasorEgAtkSlider.setBounds(phasorEgArea.removeFromLeft(bottomKnobWidth));
-    m_phasorEgDecSlider.setBounds(phasorEgArea.removeFromLeft(bottomKnobWidth));
-    m_phasorEgSusSlider.setBounds(phasorEgArea.removeFromLeft(bottomKnobWidth));
-    m_phasorEgRelSlider.setBounds(phasorEgArea.removeFromLeft(bottomKnobWidth));
-
-    Rectangle<int> bottomBottomArea = bottomArea;
-    Rectangle<int> filterEgArea = bottomBottomArea.removeFromLeft(bottomKnobWidth * 4);
-    bottomBottomArea.removeFromLeft(margin);
-    m_filterEgAtkSlider.setBounds(filterEgArea.removeFromLeft(bottomKnobWidth));
-    m_filterEgDecSlider.setBounds(filterEgArea.removeFromLeft(bottomKnobWidth));
-    m_filterEgSusSlider.setBounds(filterEgArea.removeFromLeft(bottomKnobWidth));
-    m_filterEgRelSlider.setBounds(filterEgArea.removeFromLeft(bottomKnobWidth));
-
-    Rectangle<int> modEgArea = bottomBottomArea;
-    m_modEgAtkSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
-    m_modEgDecSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
-    m_modEgSusSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
-    m_modEgRelSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
+    DBG(name << " : " << value << suffix);
 }

@@ -38,8 +38,6 @@ float PhantomEnvelopeGenerator::evaluate() noexcept
 
 void PhantomEnvelopeGenerator::setEnvelopeType()
 {
-    jassert(m_type);
-
     char* atkParamId;
     char* decParamId;
     char* susParamId;
