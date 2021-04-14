@@ -54,11 +54,11 @@ jobs:
       if: ${{ matrix.os == 'macos-latest' }}
       with:
         name: phantom-mac-vst3
-        path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/VST3/Phantom.vst3
+        path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/VST3
     
     - name: "6-B/6 (MacOS): Upload AU"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
         name: phantom-mac-au
-        path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/AU/Phantom.component
+        path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/AU
