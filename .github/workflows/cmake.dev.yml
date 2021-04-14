@@ -40,7 +40,7 @@ jobs:
 
     - name: "7/7 (Phantom): Build"
       working-directory: ${{runner.workspace}}/phantom
-      run: cmake --build bin
+      run: cmake --build bin --config ${{ env.BUILD_TYPE }} --target Phantom_All
     
     - name: "8/9 (Windows): Zip"
       uses: papeloto/action-zip@v1
