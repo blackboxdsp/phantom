@@ -55,7 +55,10 @@ jobs:
       with:
         name: phantom-win
         path: ${{ runner.workspace }}\phantom\bin\phantom-win.zip
+
+    - name: "Dir Print"
       run: find ${{ runner.workspace }}\phantom\bin
+      if: ${{ matrix.os == 'windows-latest' }}
 
     - name: "8/9 (MacOS): Zip"
       uses: papeloto/action-zip@v1
