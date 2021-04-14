@@ -42,6 +42,10 @@ jobs:
       working-directory: ${{ runner.workspace }}/phantom
       run: cmake --build bin --config ${{env.BUILD_TYPE}} --target Phantom_All
     
+    - name: "Dir Print"
+      run: find ${{ runner.workspace }}\phantom\bin
+      if: ${{ matrix.os == 'windows-latest' }}
+
     - name: "8/9 (Windows): Zip"
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'windows-latest' }}
@@ -55,10 +59,6 @@ jobs:
       with:
         name: phantom-win
         path: ${{ runner.workspace }}\phantom\bin\phantom-win.zip
-
-    - name: "Dir Print"
-      run: find ${{ runner.workspace }}\phantom\bin
-      if: ${{ matrix.os == 'windows-latest' }}
 
     - name: "8/9 (MacOS): Zip"
       uses: papeloto/action-zip@v1
