@@ -52,28 +52,28 @@ jobs:
       working-directory: ${{runner.workspace}}/phantom/bin
       run: cmake --build .
     
-    - name: "8/9 (Phantom): Zip Artifact"
+    - name: "8/9 (Windows): Zip"
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'windows-latest' }}
       with:
         files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/Release/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
         dest: ${{runner.workspace}}/phantom-win.zip
 
-    - name: "9/9 (Phantom): Upload Artifact"
+    - name: "9/9 (Windows): Upload"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'windows-latest' }}
       with:
         name: phantom-win
         path: ${{runner.workspace}}/phantom-win.zip
 
-    - name: "8/9 (Phantom): Zip Artifact"
+    - name: "8/9 (MacOS): Zip"
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'macos-latest' }}
       with:
         files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/VST3/Phantom.vst3 ${{runner.workspace}}/phantom/bin/Phantom_artefacts/AU/Phantom.component
         dest: ${{runner.workspace}}/phantom-mac.zip
 
-    - name: "9/9 (Phantom): Upload Artifact"
+    - name: "9/9 (MacOS): Upload"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
