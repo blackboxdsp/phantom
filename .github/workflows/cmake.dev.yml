@@ -62,15 +62,13 @@ jobs:
       - name: "(1/2) Zip"
         uses: papeloto/action-zip@v1
         if: ${{ matrix.os == 'windows-latest' }}
-        working-directory: ${{runner.workspace}}/phantom/bin
         with:
-          files: Phantom_artefacts/Release/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
+          files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/Release/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
           dest: phantom-win.zip
 
       - name: "(2/2) Upload"
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'windows-latest' }}
-        working-directory: ${{runner.workspace}}/phantom/bin
         with:
           name: phantom-win
           path: phantom/phantom-win.zip
@@ -78,15 +76,13 @@ jobs:
       - name: "(1/2) Zip"
         uses: papeloto/action-zip@v1
         if: ${{ matrix.os == 'macos-latest' }}
-        working-directory: ${{runner.workspace}}/phantom/bin
         with:
-          files: Phantom_artefacts/VST3/Phantom.vst3 Phantom_artefacts/AU/Phantom.component
+          files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/VST3/Phantom.vst3 ${{runner.workspace}}/phantom/bin/Phantom_artefacts/AU/Phantom.component
           dest: phantom-mac.zip
 
       - name: "(2/2) Upload"
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'macos-latest' }}
-        working-directory: ${{runner.workspace}}/phantom/bin
         with:
           name: phantom-mac
           path: phantom/phantom-mac.zip
