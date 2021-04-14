@@ -36,10 +36,7 @@ jobs:
     
     - name: "6/7 (Phantom): Configuration"
       working-directory: ${{ runner.workspace }}/phantom
-      run: |
-        cmake -B bin
-        ls ${{ runner.workspace }}
-        ls 
+      run: cmake -B bin
 
     - name: "7/7 (Phantom): Build"
       working-directory: ${{ runner.workspace }}/phantom
@@ -49,15 +46,15 @@ jobs:
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'windows-latest' }}
       with:
-        files: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/${{ env.BUILD_TYPE }}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
-        dest: ${{ runner.workspace }}/phantom/bin/phantom-win.zip
+        files: ${{ runner.workspace }}\phantom\bin\Phantom_artefacts\${{ env.BUILD_TYPE }}\VST3\Phantom.vst3\Contents\x86_64-win\Phantom.vst3
+        dest: ${{ runner.workspace }}\phantom\bin\phantom-win.zip
 
     - name: "9/9 (Windows): Upload"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'windows-latest' }}
       with:
         name: phantom-win
-        path: ${{ runner.workspace }}/phantom/bin/phantom-win.zip
+        path: ${{ runner.workspace }}\phantom\bin\phantom-win.zip
 
     - name: "8/9 (MacOS): Zip"
       uses: papeloto/action-zip@v1
