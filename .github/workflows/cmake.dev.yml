@@ -57,25 +57,25 @@ jobs:
       if: ${{ matrix.os == 'windows-latest' }}
       with:
         files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/Release/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
-        dest: phantom-win.zip
+        dest: ${{runner.workspace}}/phantom-win.zip
 
     - name: "9/9 (Phantom): Upload Artifact"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'windows-latest' }}
       with:
         name: phantom-win
-        path: phantom-win.zip
+        path: ${{runner.workspace}}/phantom-win.zip
 
     - name: "8/9 (Phantom): Zip Artifact"
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'macos-latest' }}
       with:
         files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/VST3/Phantom.vst3 ${{runner.workspace}}/phantom/bin/Phantom_artefacts/AU/Phantom.component
-        dest: phantom-mac.zip
+        dest: ${{runner.workspace}}/phantom-mac.zip
 
     - name: "9/9 (Phantom): Upload Artifact"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
         name: phantom-mac
-        path: phantom-mac.zip
+        path: ${{runner.workspace}}/phantom-mac.zip
