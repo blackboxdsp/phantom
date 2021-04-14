@@ -25,57 +25,47 @@ jobs:
       with:
         repository: juce-framework/JUCE
         path: ${{runner.workspace}}/phantom/JUCE
-  
-    # JUCE
-    - name: "2/7 (JUCE): Create Build Environment"
-      working-directory: ${{runner.workspace}}/phantom/JUCE
-      run: cmake -E make_directory ${{runner.workspace}}/phantom/JUCE/bin
 
     - name: "3/7 (JUCE): Configuration"
-      working-directory: ${{runner.workspace}}/phantom/JUCE/bin
-      run: cmake ${{runner.workspace}}/phantom/JUCE
+      working-directory: ${{runner.workspace}}/phantom/JUCE
+      run: cmake -B bin
 
     - name: "4/7 (JUCE): Build"
-      working-directory: ${{runner.workspace}}/phantom/JUCE/bin
-      run: cmake --build .
-
-    # Phantom
-    - name: "5/7 (Phantom): Create Build Environment"
-      working-directory: ${{runner.workspace}}/phantom
-      run: cmake -E make_directory ${{runner.workspace}}/phantom/bin
+      working-directory: ${{runner.workspace}}/phantom/JUCE
+      run: cmake --build bin
     
     - name: "6/7 (Phantom): Configuration"
-      working-directory: ${{runner.workspace}}/phantom/bin
-      run: cmake ${{runner.workspace}}/phantom
+      working-directory: ${{runner.workspace}}/phantom
+      run: cmake -B bin
 
     - name: "7/7 (Phantom): Build"
-      working-directory: ${{runner.workspace}}/phantom/bin
-      run: cmake --build .
+      working-directory: ${{runner.workspace}}/phantom
+      run: cmake --build bin
     
     - name: "8/9 (Windows): Zip"
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'windows-latest' }}
       with:
-        files: ${{runner.workspace}}/bin/Phantom_artefacts/Release/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
-        dest: ${{runner.workspace}}/phantom-win.zip
+        files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/Release/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
+        dest: ${{runner.workspace}}/phantom/bin/phantom-win.zip
 
     - name: "9/9 (Windows): Upload"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'windows-latest' }}
       with:
         name: phantom-win
-        path: ${{runner.workspace}}/phantom-win.zip
+        path: ${{runner.workspace}}/phantom/bin/phantom-win.zip
 
     - name: "8/9 (MacOS): Zip"
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'macos-latest' }}
       with:
-        files: ${{runner.workspace}}/bin/Phantom_artefacts/VST3/Phantom.vst3 ${{runner.workspace}}/bin/Phantom_artefacts/AU/Phantom.component
-        dest: ${{runner.workspace}}/phantom-mac.zip
+        files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/VST3/Phantom.vst3 ${{runner.workspace}}/bin/Phantom_artefacts/AU/Phantom.component
+        dest: ${{runner.workspace}}/phantom/bin/phantom-mac.zip
 
     - name: "9/9 (MacOS): Upload"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
         name: phantom-mac
-        path: ${{runner.workspace}}/phantom-mac.zip
+        path: ${{runner.workspace}}/phantom/bin/phantom-mac.zip

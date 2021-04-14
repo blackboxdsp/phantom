@@ -818,7 +818,7 @@ void PhantomAudioProcessorEditor::reset()
     m_modEgRelSlider.setValue(Consts::_MOD_EG_REL_DEFAULT_VAL);
 }
 
-void PhantomAudioProcessorEditor::displayToGlobalTextBox(const char* name, const float value, char* suffix)
+void PhantomAudioProcessorEditor::displayToGlobalTextBox(const char* name, const float value, const char* suffix)
 {
     // DBG(name << " : " << value << suffix);
 }

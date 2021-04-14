@@ -111,7 +111,7 @@ private:
      * @param value The value to print to the display.
      * @param suffix An optional suffix to use (useful for units of measurement).
      */
-    void displayToGlobalTextBox(const char* name, const float value, char* suffix = (char*) "");
+    void displayToGlobalTextBox(const char* name, const float value, const char* suffix);
     
     /**
      * This reference is provided as a quick way for your editor to
