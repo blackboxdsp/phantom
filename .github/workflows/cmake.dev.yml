@@ -46,19 +46,19 @@ jobs:
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'windows-latest' }}
       with:
-        name: phantom-win
+        name: phantom-win-vst3
         path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/${{ env.BUILD_TYPE }}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
 
-    - name: "6a/6 (MacOS): Upload VST3"
+    - name: "6-A/6 (MacOS): Upload VST3"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
-        name: phantom-mac
+        name: phantom-mac-vst3
         path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/VST3/Phantom.vst3
     
-    - name: "6b/6 (MacOS): Upload VST3"
+    - name: "6-B/6 (MacOS): Upload AU"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
-        name: phantom-mac
-        path: ${{ runner.workspace }}/bin/Phantom_artefacts/AU/Phantom.component
+        name: phantom-mac-au
+        path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/AU/Phantom.component
