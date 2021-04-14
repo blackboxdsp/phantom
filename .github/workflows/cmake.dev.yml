@@ -56,7 +56,7 @@ jobs:
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'windows-latest' }}
       with:
-        files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/Release/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
+        files: ${{runner.workspace}}/bin/Phantom_artefacts/Release/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
         dest: ${{runner.workspace}}/phantom-win.zip
 
     - name: "9/9 (Windows): Upload"
@@ -70,7 +70,7 @@ jobs:
       uses: papeloto/action-zip@v1
       if: ${{ matrix.os == 'macos-latest' }}
       with:
-        files: ${{runner.workspace}}/phantom/bin/Phantom_artefacts/VST3/Phantom.vst3 ${{runner.workspace}}/phantom/bin/Phantom_artefacts/AU/Phantom.component
+        files: ${{runner.workspace}}/bin/Phantom_artefacts/VST3/Phantom.vst3 ${{runner.workspace}}/bin/Phantom_artefacts/AU/Phantom.component
         dest: ${{runner.workspace}}/phantom-mac.zip
 
     - name: "9/9 (MacOS): Upload"
