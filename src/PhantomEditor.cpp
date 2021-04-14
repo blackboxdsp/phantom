@@ -820,5 +820,5 @@ void PhantomAudioProcessorEditor::reset()
 
 void PhantomAudioProcessorEditor::displayToGlobalTextBox(const char* name, const float value, char* suffix)
 {
-    DBG(name << " : " << value << suffix);
+    // DBG(name << " : " << value << suffix);
 }

@@ -59,7 +59,8 @@ bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
 
 void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-    stopNote(velocity, true);
+    m_isNoteOn = true;
+    m_velocity = velocity;
 
     m_midiNoteNumber = midiNoteNumber;
     m_primaryOsc->update(m_midiNoteNumber, getSampleRate());
@@ -84,16 +85,22 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 
 void PhantomVoice::stopNote(float velocity, bool allowTailOff)
 {
+    clearCurrentNote();
+
+    m_isNoteOn = false;
+    m_velocity = velocity;
+
     m_ampEg->noteOff();
     m_phaseEg->noteOff();
     m_filterEg->noteOff();
     m_modEg->noteOff();
-
-    clearCurrentNote();
 }
 
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
+    if(m_isNoteOn && !isKeyDown())
+        stopNote(0.0f, false);
+
     m_ampEg->update();
     m_phaseEg->update();
     m_filterEg->update();

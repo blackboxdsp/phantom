@@ -33,14 +33,14 @@ public:
      * Called to let the voice know that the pitch wheel has been moved.
      * @param pitchWheelPos The new pitch wheel position value.
      */
-    void pitchWheelMoved(int pitchWheelPos) { }
+    void pitchWheelMoved(int pitchWheelPos) override { }
 
     /**
      * Called to let the voice know that a MIDI controller has been moved.
      * @param controllerNum The new controller number.
      * @param controllerValue The new controller value.
      */
-    void controllerMoved(int controllerNumber, int controllerValue) { }
+    void controllerMoved(int controllerNumber, int controllerValue) override { }
 
     /**
      * Checks for a `null_ptr`
@@ -158,4 +158,14 @@ private:
      * Constant float value for checking zero-crossings in phase.
      */
     const float k_oscSyncPhaseThreshold = 0.000001f;
+
+    /**
+     * Boolean value for if the voice is currently playing a note.
+     */
+    bool m_isNoteOn = false;
+    
+    /**
+     * Float value for velocity of a note, useful in calling `stopNote()` at any time.
+     */
+    float m_velocity;
 };
