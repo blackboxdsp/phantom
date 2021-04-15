@@ -42,21 +42,21 @@ jobs:
       working-directory: ${{ runner.workspace }}/phantom
       run: cmake --build bin --config ${{env.BUILD_TYPE}} --target Phantom_All
 
-    - name: "6/6: Upload VST3 (Windows)"
+    - name: "(Windows) 6/6: Upload VST3"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'windows-latest' }}
       with:
         name: phantom-win-vst3
         path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/${{ env.BUILD_TYPE }}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
 
-    - name: "6-A/6: Upload VST3 (MacOS)"
+    - name: "(MacOS) 6-A/6: Upload VST3"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
         name: phantom-mac-vst3
         path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/VST3
     
-    - name: "6-B/6: Upload AU (MacOS)"
+    - name: "(MacOS) 6-B/6: Upload AU"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
@@ -80,10 +80,19 @@ jobs:
       run: ls -R
       working-directory: ${{ runner.workspace }}/artifacts
 
+    - name: "Move Artifacts"
+      run: |
+        mkdir ${{ runner.workspace }}/artifacts/phantom
+        mkdir ${{ runner.workspace }}/artifacts/phantom/Windows
+        mkdir ${{ runner.workspace }}/artifacts/phantom/MacOS
+        mv -r ${{ runner.workspace }}/artifacts/phantom-win-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom/Windows/Phantom.vst3
+        mv -r ${{ runner.workspace }}/artifacts/phantom-mac-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.vst3
+        mv -r ${{ runner.workspace }}/artifacts/phantom-mac-au/Phantom.component ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.component
+
     - name: "Zip Artifacts"
       uses: montudor/action-zip@v0.1.1
       with:
-        args: zip -qq -r artifacts/phantom.zip ${{ runner.workspace }}/artifacts/phantom-win-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom-mac-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom-mac-au/Phantom.component
+        args: zip -r phantom.zip ${{ runner.workspace }}/artifacts/phantom
 
     - name: "Check Zip"
       run: ls -R
