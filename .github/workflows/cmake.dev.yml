@@ -62,3 +62,25 @@ jobs:
       with:
         name: phantom-mac-au
         path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/AU
+
+  upload:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: "Preparation"
+      uses: actions/checkout@v2
+
+    - name: "Retrieve Artifacts"
+      uses: actions/download-artifact@v2
+      with:
+        path: ${{ runner.workspace }}/artifacts
+
+    - name: "Display Artifacts"
+      run: ls -R
+      working-directory: ${{ runner.workspace }}/artifacts
+
+    # - name: "Zip Artifacts"
+    #   uses: montudor/action-zip@v0.1.1
+    #   with:
+    #     args: zip phantom.zip ${{ runner.workspace }}/artifacts/
