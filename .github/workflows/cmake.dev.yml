@@ -83,8 +83,8 @@ jobs:
     - name: "Zip Artifacts"
       uses: montudor/action-zip@v0.1.1
       with:
-        args: zip artifacts/phantom.zip ${{ runner.workspace }}/artifacts/phantom-win-vst3 ${{ runner.workspace }}/artifacts/phantom-mac-vst3 ${{ runner.workspace }}/artifacts/phantom-mac-au
+        args: zip -qq -r artifacts/phantom.zip ${{ runner.workspace }}/artifacts/phantom-win-vst3 ${{ runner.workspace }}/artifacts/phantom-mac-vst3 ${{ runner.workspace }}/artifacts/phantom-mac-au
 
-    - name: "Display Artifacts"
+    - name: "Check Zip"
       run: ls -R
       working-directory: ${{ runner.workspace }}/artifacts
