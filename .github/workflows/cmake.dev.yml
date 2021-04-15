@@ -93,18 +93,21 @@ jobs:
       with:
         credentials: ${{ secrets.GCP_CREDENTIALS }}
         path: ${{ runner.workspace }}/artifacts/phantom/Windows/Phantom.vst3
-        destination: mattmaxwell-products/staged/phantom/windows
+        destination: mattmaxwell-products/staged/phantom/Windows
+        gzip: true
 
     - name: "Upload VST3 (MacOS) to Cloud Storage"
       uses: google-github-actions/upload-cloud-storage@main
       with:
         credentials: ${{ secrets.GCP_CREDENTIALS }}
         path: ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.vst3
-        destination: mattmaxwell-products/staged/phantom/macos
+        destination: mattmaxwell-products/staged/phantom/MacOS
+        gzip: true
 
     - name: "Upload AU (MacOS) to Cloud Storage"
       uses: google-github-actions/upload-cloud-storage@main
       with:
         credentials: ${{ secrets.GCP_CREDENTIALS }}
         path: ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.component
-        destination: mattmaxwell-products/staged/phantom/macos
+        destination: mattmaxwell-products/staged/phantom/MacOS
+        gzip: true
