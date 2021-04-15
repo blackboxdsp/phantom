@@ -85,9 +85,9 @@ jobs:
         mkdir ${{ runner.workspace }}/artifacts/phantom
         mkdir ${{ runner.workspace }}/artifacts/phantom/Windows
         mkdir ${{ runner.workspace }}/artifacts/phantom/MacOS
-        mv -r ${{ runner.workspace }}/artifacts/phantom-win-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom/Windows/Phantom.vst3
-        mv -r ${{ runner.workspace }}/artifacts/phantom-mac-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.vst3
-        mv -r ${{ runner.workspace }}/artifacts/phantom-mac-au/Phantom.component ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.component
+        mv ${{ runner.workspace }}/artifacts/phantom-win-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom/Windows/Phantom.vst3
+        mv ${{ runner.workspace }}/artifacts/phantom-mac-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.vst3
+        mv ${{ runner.workspace }}/artifacts/phantom-mac-au/Phantom.component ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.component
 
     - name: "Zip Artifacts"
       uses: montudor/action-zip@v0.1.1
