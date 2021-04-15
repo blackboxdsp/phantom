@@ -76,10 +76,6 @@ jobs:
       with:
         path: ${{ runner.workspace }}/artifacts
 
-    - name: "Display Artifacts"
-      run: ls -R
-      working-directory: ${{ runner.workspace }}/artifacts
-
     - name: "Move Artifacts"
       run: |
         mkdir ${{ runner.workspace }}/artifacts/phantom
@@ -89,6 +85,10 @@ jobs:
         mv ${{ runner.workspace }}/artifacts/phantom-mac-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.vst3
         mv ${{ runner.workspace }}/artifacts/phantom-mac-au/Phantom.component ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.component
 
+    - name: "Display Artifacts"
+      run: ls -R
+      working-directory: ${{ runner.workspace }}/artifacts
+
     - name: "Zip Artifacts"
       uses: montudor/action-zip@v0.1.1
       with:
@@ -97,4 +97,3 @@ jobs:
     - name: "Check Zip"
       run: ls -R
       working-directory: ${{ runner.workspace }}/artifacts
-      
