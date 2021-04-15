@@ -89,7 +89,7 @@ jobs:
       uses: papeloto/action-zip@v1
       with:
         files: ${{ runner.workspace }}/artifacts/phantom
-        dest: staged_phantom.zip
+        dest: phantom.zip
 
     - name: "Check Zip"
       run: ls -R
@@ -98,5 +98,5 @@ jobs:
       uses: google-github-actions/upload-cloud-storage@main
       with:
         credentials: ${{ secrets.GCP_CREDENTIALS }}
-        path: staged_phantom.zip
-        destination: mattmaxwell-products/staged_phantom.zip
+        path: phantom.zip
+        destination: mattmaxwell-products/staged
