@@ -20,43 +20,43 @@ jobs:
     - name: "Preparation"
       uses: actions/checkout@v2
 
-    - name: "1/6 (JUCE): Clone Repository"
+    - name: "1/6: Clone JUCE Repository"
       uses: actions/checkout@v2
       with:
         repository: juce-framework/JUCE
         path: ${{ runner.workspace }}/phantom/JUCE
 
-    - name: "2/6 (JUCE): Configuration"
+    - name: "2/6: Configure JUCE"
       working-directory: ${{ runner.workspace }}/phantom/JUCE
       run: cmake -B bin
 
-    - name: "3/6 (JUCE): Build"
+    - name: "3/6: Build JUCE"
       working-directory: ${{ runner.workspace }}/phantom/JUCE
       run: cmake --build bin
     
-    - name: "4/6 (Phantom): Configuration"
+    - name: "4/6: Configure Phantom"
       working-directory: ${{ runner.workspace }}/phantom
       run: cmake -B bin
 
-    - name: "5/6 (Phantom): Build"
+    - name: "5/6: Build Phantom"
       working-directory: ${{ runner.workspace }}/phantom
       run: cmake --build bin --config ${{env.BUILD_TYPE}} --target Phantom_All
 
-    - name: "6/6 (Windows): Upload VST3"
+    - name: "6/6: Upload VST3 (Windows)"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'windows-latest' }}
       with:
         name: phantom-win-vst3
         path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/${{ env.BUILD_TYPE }}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3
 
-    - name: "6-A/6 (MacOS): Upload VST3"
+    - name: "6-A/6: Upload VST3 (MacOS)"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
         name: phantom-mac-vst3
         path: ${{ runner.workspace }}/phantom/bin/Phantom_artefacts/VST3
     
-    - name: "6-B/6 (MacOS): Upload AU"
+    - name: "6-B/6: Upload AU (MacOS)"
       uses: actions/upload-artifact@v2
       if: ${{ matrix.os == 'macos-latest' }}
       with:
@@ -80,7 +80,11 @@ jobs:
       run: ls -R
       working-directory: ${{ runner.workspace }}/artifacts
 
-    # - name: "Zip Artifacts"
-    #   uses: montudor/action-zip@v0.1.1
-    #   with:
-    #     args: zip phantom.zip ${{ runner.workspace }}/artifacts/
+    - name: "Zip Artifacts"
+      uses: montudor/action-zip@v0.1.1
+      with:
+        args: zip artifacts/phantom.zip ${{ runner.workspace }}/artifacts/phantom-win-vst3 ${{ runner.workspace }}/artifacts/phantom-mac-vst3 ${{ runner.workspace }}/artifacts/phantom-mac-au
+
+    - name: "Display Artifacts"
+      run: ls -R
+      working-directory: ${{ runner.workspace }}/artifacts
