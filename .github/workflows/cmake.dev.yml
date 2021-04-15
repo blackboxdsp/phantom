@@ -85,14 +85,11 @@ jobs:
         mv ${{ runner.workspace }}/artifacts/phantom-mac-vst3/Phantom.vst3 ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.vst3
         mv ${{ runner.workspace }}/artifacts/phantom-mac-au/Phantom.component ${{ runner.workspace }}/artifacts/phantom/MacOS/Phantom.component
 
-    - name: "Display Artifacts"
-      run: ls -R
-      working-directory: ${{ runner.workspace }}/artifacts
-
     - name: "Zip Artifacts"
-      uses: montudor/action-zip@v0.1.1
+      uses: papeloto/action-zip@v1
       with:
-        args: zip -r phantom.zip ${{ runner.workspace }}/artifacts/phantom
+        files: ${{ runner.workspace }}/artifacts/phantom
+        dest: ${{ runner.workspace }}/artifacts/phantom.zip
 
     - name: "Check Zip"
       run: ls -R
