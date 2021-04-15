@@ -88,9 +88,8 @@ jobs:
     - name: "Zip Artifacts"
       uses: papeloto/action-zip@v1
       with:
-        files: ${{ runner.workspace }}/artifacts/phantom/
-        dest: ${{ runner.workspace }}/artifacts/phantom.zip
+        files: ${{ runner.workspace }}/artifacts/phantom
+        dest: phantom.zip
 
     - name: "Check Zip"
       run: ls -R
-      working-directory: ${{ runner.workspace }}/artifacts
