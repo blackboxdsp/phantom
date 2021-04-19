@@ -21,6 +21,7 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec
 
     m_waveshaper.reset(new PhantomWaveshaper());
 
+    p_type = m_parameters.getRawParameterValue(Consts::_FLTR_MODE_PARAM_ID);
     p_cutoff = m_parameters.getRawParameterValue(Consts::_FLTR_CUTOFF_PARAM_ID);
     p_resonance = m_parameters.getRawParameterValue(Consts::_FLTR_RESO_PARAM_ID);
     p_drive = m_parameters.getRawParameterValue(Consts::_FLTR_DRIVE_PARAM_ID);
@@ -35,6 +36,7 @@ PhantomFilter::~PhantomFilter()
     m_filter = nullptr;
     m_waveshaper = nullptr;
 
+    p_type = nullptr;
     p_cutoff = nullptr;
     p_resonance = nullptr;
     p_drive = nullptr;
@@ -49,6 +51,7 @@ void PhantomFilter::update() noexcept
      * function. Discontinuous numbers could result in artifacts.
     */
 
+    m_filter->setType((dsp::StateVariableTPTFilterType)(int) *p_type);
     m_filter->setResonance(*p_resonance);
 }
 

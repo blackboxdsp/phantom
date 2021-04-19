@@ -104,6 +104,9 @@ namespace Consts
 
     // FILTERs
 
+    constexpr char *_FLTR_MODE_PARAM_ID = "filterMode";
+    constexpr char *_FLTR_MODE_PARAM_NAME = "Filter Mode";
+    constexpr float _FLTR_MODE_DEFAULT_VAL = 0.0f;
     constexpr char *_FLTR_CUTOFF_PARAM_ID = "filterCutoff";
     constexpr char *_FLTR_CUTOFF_PARAM_NAME = "Filter Cutoff";
     constexpr float _FLTR_CUTOFF_DEFAULT_VAL = 1000.0f;
