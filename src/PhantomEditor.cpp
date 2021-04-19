@@ -304,6 +304,16 @@ void PhantomAudioProcessorEditor::initMixerGui()
     m_mixerLabel.attachToComponent(&m_mixerOscBalanceSlider, false);
     addAndMakeVisible(&m_mixerLabel);
 
+    m_mixerAmpGainSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_mixerAmpGainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_mixerAmpGainSlider.setDoubleClickReturnValue(true, Consts::_MIXER_AMP_GAIN_DEFAULT_VAL);
+    m_mixerAmpGainSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_AMP_GAIN_PARAM_ID, m_mixerAmpGainSlider));
+    addAndMakeVisible(&m_mixerAmpGainSlider);
+    m_mixerAmpGainLabel.setText("Amp Gain", dontSendNotification);
+    m_mixerAmpGainLabel.setJustificationType(Justification::centred);
+    m_mixerAmpGainLabel.attachToComponent(&m_mixerAmpGainSlider, false);
+    addAndMakeVisible(&m_mixerAmpGainLabel);
+
     m_mixerRingModSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_mixerRingModSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
     m_mixerRingModSlider.setDoubleClickReturnValue(true, Consts::_MIXER_RING_MOD_DEFAULT_VAL);
@@ -638,6 +648,7 @@ void PhantomAudioProcessorEditor::reset()
     m_phasor02LfoIntSlider.setValue(Consts::_PHASOR_02_LFO_INT_DEFAULT_VAL);
 
     m_mixerOscBalanceSlider.setValue(Consts::_MIXER_OSC_BAL_DEFAULT_VAL);
+    m_mixerAmpGainSlider.setValue(Consts::_MIXER_AMP_GAIN_DEFAULT_VAL);
     m_mixerRingModSlider.setValue(Consts::_MIXER_RING_MOD_DEFAULT_VAL);
     m_mixerNoiseSlider.setValue(Consts::_MIXER_NOISE_DEFAULT_VAL);
 
@@ -754,12 +765,14 @@ void PhantomAudioProcessorEditor::resized()
     m_oscilloscope->setBounds(oscilloscopeArea);
 
     Rectangle<int> mixerArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
-    Rectangle<int> mixerOscBalanceArea = mixerArea.removeFromLeft(middleTopKnobWidth);
-    mixerOscBalanceArea.removeFromTop(margin);
-    mixerOscBalanceArea.removeFromBottom(margin);
-    m_mixerOscBalanceSlider.setBounds(mixerOscBalanceArea);
-    m_mixerRingModSlider.setBounds(mixerArea.removeFromTop(mixerArea.getHeight() / 2));
-    m_mixerNoiseSlider.setBounds(mixerArea);
+
+    Rectangle<int> mixerTopArea = mixerArea.removeFromTop(mixerArea.getHeight() / 2);
+    m_mixerOscBalanceSlider.setBounds(mixerTopArea.removeFromLeft(middleTopKnobWidth));
+    m_mixerRingModSlider.setBounds(mixerTopArea);
+
+    Rectangle<int> mixerBottomArea = mixerArea;
+    m_mixerAmpGainSlider.setBounds(mixerBottomArea.removeFromLeft(middleTopKnobWidth));
+    m_mixerNoiseSlider.setBounds(mixerBottomArea);
 
     const int middleBottomKnobWidth = (width - (margin * 2)) / 8;
     Rectangle<int> middleBottomArea = canvas.removeFromTop(sectionHeight);

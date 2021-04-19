@@ -189,6 +189,9 @@ private:
     Slider m_mixerOscBalanceSlider;
     Label m_mixerOscBalanceLabel;
     std::unique_ptr<SliderAttachment> m_mixerOscBalanceSliderAttachment;
+    Slider m_mixerAmpGainSlider;
+    Label m_mixerAmpGainLabel;
+    std::unique_ptr<SliderAttachment> m_mixerAmpGainSliderAttachment;
     Slider m_mixerRingModSlider;
     Label m_mixerRingModLabel;
     std::unique_ptr<SliderAttachment> m_mixerRingModSliderAttachment;

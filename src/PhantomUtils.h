@@ -95,6 +95,9 @@ namespace Consts
     constexpr char *_MIXER_OSC_BAL_PARAM_ID = "mixerOscBalance";
     constexpr char *_MIXER_OSC_BAL_PARAM_NAME = "Mixer Osc Balance";
     constexpr float _MIXER_OSC_BAL_DEFAULT_VAL = 0.5f;
+    constexpr char *_MIXER_AMP_GAIN_PARAM_ID = "mixerAmpGain";
+    constexpr char *_MIXER_AMP_GAIN_PARAM_NAME = "Mixer Amp Gain";
+    constexpr float _MIXER_AMP_GAIN_DEFAULT_VAL = 1.0f;
     constexpr char *_MIXER_RING_MOD_PARAM_ID = "mixerRngMod";
     constexpr char *_MIXER_RING_MOD_PARAM_NAME = "Mixer Rng Mod";
     constexpr float _MIXER_RING_MOD_DEFAULT_VAL = 0.0;
