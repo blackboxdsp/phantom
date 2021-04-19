@@ -70,6 +70,12 @@ private:
     std::atomic<float>* p_drive;
 
     /**
+     * The atomic parameter pointer for the filter's type (low-pass, band-bass,
+     * or high-pass).
+     */
+    std::atomic<float>* p_type;
+
+    /**
      * The atomic parameter pointer for the filter's envelope
      * generator's modulation depth.
      */
@@ -83,7 +89,7 @@ private:
 
     /**
      * The previous frequency value for preventing artifacting
-     * when changin and/or automating frequency cutoff.
+     * when changing and/or automating frequency cutoff.
      */
     float m_previousFrequency;
 

@@ -24,6 +24,7 @@ PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec
     p_cutoff = m_parameters.getRawParameterValue(Consts::_FLTR_CUTOFF_PARAM_ID);
     p_resonance = m_parameters.getRawParameterValue(Consts::_FLTR_RESO_PARAM_ID);
     p_drive = m_parameters.getRawParameterValue(Consts::_FLTR_DRIVE_PARAM_ID);
+    p_type = m_parameters.getRawParameterValue(Consts::_FLTR_MODE_PARAM_ID);
     p_egModDepth = m_parameters.getRawParameterValue(Consts::_FLTR_EG_MOD_DEPTH_PARAM_ID);
     p_lfoModDepth = m_parameters.getRawParameterValue(Consts::_FLTR_LFO_MOD_DEPTH_PARAM_ID);
 
@@ -38,6 +39,7 @@ PhantomFilter::~PhantomFilter()
     p_cutoff = nullptr;
     p_resonance = nullptr;
     p_drive = nullptr;
+    p_type = nullptr;
     p_egModDepth = nullptr;
     p_lfoModDepth = nullptr;
 }
@@ -49,6 +51,7 @@ void PhantomFilter::update() noexcept
      * function. Discontinuous numbers could result in artifacts.
     */
 
+    m_filter->setType((dsp::StateVariableTPTFilterType)(int) *p_type);
     m_filter->setResonance(*p_resonance);
 }
 
@@ -60,7 +63,8 @@ float PhantomFilter::evaluate(float sample, float egMod, float lfoMod) noexcept
     float offset = k_cutoffModulationMultiplier * mod;
 
     float frequency = m_waveshaper->clip(*p_cutoff + offset, k_cutoffLowerBounds, k_cutoffUpperCounds);
-    m_filter->setCutoffFrequency(frequency);
+    m_filter->setCutoffFrequency(m_previousFrequency + frequency / 2.0f);
+    m_previousFrequency = frequency;
 
     float distortion = m_waveshaper->htan(*p_drive, sample);
     sample = (*p_drive * distortion) + ((1.0f - *p_drive) * sample);

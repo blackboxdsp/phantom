@@ -207,6 +207,13 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     // FILTER
 
+    auto filterMode = std::make_unique<AudioParameterFloat>(
+        Consts::_FLTR_MODE_PARAM_ID, Consts::_FLTR_MODE_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 2.0f, 1.0f),
+        Consts::_FLTR_MODE_DEFAULT_VAL
+    );
+    params.push_back(std::move(filterMode));
+
     auto filterCutoff = std::make_unique<AudioParameterFloat>(
         Consts::_FLTR_CUTOFF_PARAM_ID, Consts::_FLTR_CUTOFF_PARAM_NAME,
         NormalisableRange<float>(20.0f, 20000.0f, 0.1f, getSkewFactor(20.0f, 20000.0f, 2000.0f), false),
