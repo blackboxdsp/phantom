@@ -89,7 +89,7 @@ private:
 
     /**
      * The previous frequency value for preventing artifacting
-     * when changin and/or automating frequency cutoff.
+     * when changing and/or automating frequency cutoff.
      */
     float m_previousFrequency;
 

@@ -158,4 +158,14 @@ private:
      * Constant float value for checking zero-crossings in phase.
      */
     const float k_oscSyncPhaseThreshold = 0.000001f;
+
+    /**
+     * Boolean value for if the voice is currently playing a note.
+     */
+    bool m_isNoteOn = false;
+    
+    /**
+     * Float value for velocity of a note, useful in calling `stopNote()` at any time.
+     */
+    float m_velocity = -1.0f;
 };

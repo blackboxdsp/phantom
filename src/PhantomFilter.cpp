@@ -63,7 +63,8 @@ float PhantomFilter::evaluate(float sample, float egMod, float lfoMod) noexcept
     float offset = k_cutoffModulationMultiplier * mod;
 
     float frequency = m_waveshaper->clip(*p_cutoff + offset, k_cutoffLowerBounds, k_cutoffUpperCounds);
-    m_filter->setCutoffFrequency(frequency);
+    m_filter->setCutoffFrequency(m_previousFrequency + frequency / 2.0f);
+    m_previousFrequency = frequency;
 
     float distortion = m_waveshaper->htan(*p_drive, sample);
     sample = (*p_drive * distortion) + ((1.0f - *p_drive) * sample);
