@@ -64,6 +64,7 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_filterCutoffSliderAttachment = nullptr;
     m_filterResoSliderAttachment = nullptr;
     m_filterDriveSliderAttachment = nullptr;
+    m_filterModeSliderAttachment = nullptr;
     m_filterEgModDepthSliderAttachment = nullptr;
     m_filterLfoModDepthSliderAttachment = nullptr;
 
@@ -362,6 +363,16 @@ void PhantomAudioProcessorEditor::initFilterGui()
     m_filterDriveLabel.attachToComponent(&m_filterDriveSlider, false);
     addAndMakeVisible(&m_filterDriveLabel);
 
+    m_filterModeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterModeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    m_filterModeSlider.setDoubleClickReturnValue(true, Consts::_FLTR_MODE_DEFAULT_VAL);
+    m_filterModeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_MODE_PARAM_ID, m_filterModeSlider));
+    addAndMakeVisible(&m_filterModeSlider);
+    m_filterModeLabel.setText("Mode", dontSendNotification);
+    m_filterModeLabel.setJustificationType(Justification::centred);
+    m_filterModeLabel.attachToComponent(&m_filterModeSlider, false);
+    addAndMakeVisible(&m_filterModeLabel);
+
     m_filterEgModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterEgModDepthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
     m_filterEgModDepthSlider.setDoubleClickReturnValue(true, Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL);
@@ -633,6 +644,7 @@ void PhantomAudioProcessorEditor::reset()
     m_filterCutoffSlider.setValue(Consts::_FLTR_CUTOFF_DEFAULT_VAL);
     m_filterResoSlider.setValue(Consts::_FLTR_RESO_DEFAULT_VAL);
     m_filterDriveSlider.setValue(Consts::_FLTR_DRIVE_DEFAULT_VAL);
+    m_filterModeSlider.setValue(Consts::_FLTR_MODE_DEFAULT_VAL);
     m_filterEgModDepthSlider.setValue(Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL);
     m_filterLfoModDepthSlider.setValue(Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL);
 
@@ -756,16 +768,13 @@ void PhantomAudioProcessorEditor::resized()
     Rectangle<int> filterArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
     middleBottomArea.removeFromLeft(margin);
 
-    Rectangle<int> filterCutoffArea = filterArea.removeFromLeft(middleBottomKnobWidth);
-    filterCutoffArea.removeFromTop(margin);
-    filterCutoffArea.removeFromBottom(margin);
-    m_filterCutoffSlider.setBounds(filterCutoffArea);
-    
     Rectangle<int> filterTopArea = filterArea.removeFromTop(filterArea.getHeight() / 2);
+    m_filterCutoffSlider.setBounds(filterTopArea.removeFromLeft(middleBottomKnobWidth));
     m_filterResoSlider.setBounds(filterTopArea.removeFromLeft(middleBottomKnobWidth));
     m_filterDriveSlider.setBounds(filterTopArea);
 
     Rectangle<int> filterBottomArea = filterArea;
+    m_filterModeSlider.setBounds(filterBottomArea.removeFromLeft(middleBottomKnobWidth));
     m_filterEgModDepthSlider.setBounds(filterBottomArea.removeFromLeft(middleBottomKnobWidth));
     m_filterLfoModDepthSlider.setBounds(filterBottomArea);
 

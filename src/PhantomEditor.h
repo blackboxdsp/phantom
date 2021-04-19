@@ -206,6 +206,9 @@ private:
     Slider m_filterDriveSlider;
     Label m_filterDriveLabel;
     std::unique_ptr<SliderAttachment> m_filterDriveSliderAttachment;
+    Slider m_filterModeSlider;
+    Label m_filterModeLabel;
+    std::unique_ptr<SliderAttachment> m_filterModeSliderAttachment;
     Slider m_filterEgModDepthSlider;
     Label m_filterEgModDepthLabel;
     std::unique_ptr<SliderAttachment> m_filterEgModDepthSliderAttachment;

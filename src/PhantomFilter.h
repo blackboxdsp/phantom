@@ -55,12 +55,6 @@ private:
     AudioProcessorValueTreeState& m_parameters;
 
     /**
-     * The atomic parameter pointer for the filter's type (low-pass, band-bass,
-     * or high-pass).
-     */
-    std::atomic<float>* p_type;
-
-    /**
      * The atomic parameter pointer for the filter's cutoff.
      */
     std::atomic<float>* p_cutoff;
@@ -74,6 +68,12 @@ private:
      * The atomic parameter pointer for the filter's drive.
      */
     std::atomic<float>* p_drive;
+
+    /**
+     * The atomic parameter pointer for the filter's type (low-pass, band-bass,
+     * or high-pass).
+     */
+    std::atomic<float>* p_type;
 
     /**
      * The atomic parameter pointer for the filter's envelope
