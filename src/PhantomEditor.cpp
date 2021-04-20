@@ -743,9 +743,13 @@ void PhantomAudioProcessorEditor::resized()
     m_osc02ModDepthSlider.setBounds(oscillator02Area.removeFromLeft(topKnobWidth));
     m_osc02ModSourceSlider.setBounds(oscillator02Area);
 
-    const int middleTopKnobWidth = (width - (margin * 2)) / 8;
+    const int middleTopKnobWidth = (width - (margin * 2)) / 7;
     Rectangle<int> middleTopArea = canvas.removeFromTop(sectionHeight);
     canvas.removeFromTop(margin);
+
+    Rectangle<int> oscilloscopeArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
+    middleTopArea.removeFromLeft(margin);
+    m_oscilloscope->setBounds(oscilloscopeArea);
 
     Rectangle<int> phasorArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
     middleTopArea.removeFromLeft(margin);
@@ -760,11 +764,15 @@ void PhantomAudioProcessorEditor::resized()
     m_phasor02EgIntSlider.setBounds(phasor02Area.removeFromLeft(middleTopKnobWidth));
     m_phasor02LfoIntSlider.setBounds(phasor02Area);
 
-    Rectangle<int> oscilloscopeArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
-    middleTopArea.removeFromLeft(margin);
-    m_oscilloscope->setBounds(oscilloscopeArea);
+    Rectangle<int> analyzerArea = middleTopArea;
+    m_analyzer->setBounds(analyzerArea);
 
-    Rectangle<int> mixerArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
+    const int middleBottomKnobWidth = (width - (margin * 2)) / 7;
+    Rectangle<int> middleBottomArea = canvas.removeFromTop(sectionHeight);
+    canvas.removeFromTop(margin);
+
+    Rectangle<int> mixerArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 2);
+    middleBottomArea.removeFromLeft(margin);
 
     Rectangle<int> mixerTopArea = mixerArea.removeFromTop(mixerArea.getHeight() / 2);
     m_mixerOscBalanceSlider.setBounds(mixerTopArea.removeFromLeft(middleTopKnobWidth));
@@ -773,10 +781,6 @@ void PhantomAudioProcessorEditor::resized()
     Rectangle<int> mixerBottomArea = mixerArea;
     m_mixerAmpGainSlider.setBounds(mixerBottomArea.removeFromLeft(middleTopKnobWidth));
     m_mixerNoiseSlider.setBounds(mixerBottomArea);
-
-    const int middleBottomKnobWidth = (width - (margin * 2)) / 8;
-    Rectangle<int> middleBottomArea = canvas.removeFromTop(sectionHeight);
-    canvas.removeFromTop(margin);
 
     Rectangle<int> filterArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
     middleBottomArea.removeFromLeft(margin);
@@ -790,10 +794,6 @@ void PhantomAudioProcessorEditor::resized()
     m_filterModeSlider.setBounds(filterBottomArea.removeFromLeft(middleBottomKnobWidth));
     m_filterEgModDepthSlider.setBounds(filterBottomArea.removeFromLeft(middleBottomKnobWidth));
     m_filterLfoModDepthSlider.setBounds(filterBottomArea);
-
-    Rectangle<int> analyzerArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
-    middleBottomArea.removeFromLeft(margin);
-    m_analyzer->setBounds(analyzerArea);
 
     Rectangle<int> lfoArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 2);
     Rectangle<int> lfoTopArea = lfoArea.removeFromTop(lfoArea.getHeight() / 2);
