@@ -25,6 +25,8 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     initAnalyzer();
     initOscilloscope();
 
+    initPresetMenu();
+
     setResizable(true, true);
     setSize(1280, 720);
 }
@@ -622,6 +624,13 @@ void PhantomAudioProcessorEditor::initAnalyzer()
     addAndMakeVisible(m_analyzer.get());
 }
 
+void PhantomAudioProcessorEditor::initPresetMenu()
+{
+    m_presetsLabel.setText("PRESET: NAME_HERE", dontSendNotification);
+    m_presetsLabel.setJustificationType(Justification::centred);
+    addAndMakeVisible(&m_presetsLabel);
+}
+
 void PhantomAudioProcessorEditor::reset()
 {
     m_levelSlider.setValue(Consts::_LEVEL_DEFAULT_VAL);
@@ -704,7 +713,7 @@ void PhantomAudioProcessorEditor::resized()
 
     const int width = canvas.getWidth();
     const int height = canvas.getHeight();
-    const int sectionHeight = (height - (margin * 3)) / 4;
+    const int sectionHeight = (height - (margin * 6)) / 4;
 
     const int topKnobWidth = (width - margin) / 7;
     Rectangle<int> topArea = canvas.removeFromTop(sectionHeight);
@@ -744,7 +753,7 @@ void PhantomAudioProcessorEditor::resized()
     m_osc02ModSourceSlider.setBounds(oscillator02Area);
 
     const int middleTopKnobWidth = (width - (margin * 2)) / 7;
-    Rectangle<int> middleTopArea = canvas.removeFromTop(sectionHeight);
+    Rectangle<int> middleTopArea = canvas.removeFromTop(sectionHeight + (margin * 2));
     canvas.removeFromTop(margin);
 
     Rectangle<int> oscilloscopeArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
@@ -753,6 +762,10 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> phasorArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
     middleTopArea.removeFromLeft(margin);
+
+    Rectangle<int> presetArea = phasorArea.removeFromBottom(margin * 1.5);
+    m_presetsLabel.setBounds(presetArea);
+    phasorArea.removeFromBottom(margin * 0.5);
 
     Rectangle<int> phasor01Area = phasorArea.removeFromTop(phasorArea.getHeight() / 2);
     m_phasor01ShapeSlider.setBounds(phasor01Area.removeFromLeft(middleTopKnobWidth));

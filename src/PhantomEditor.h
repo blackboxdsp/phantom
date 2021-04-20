@@ -100,6 +100,11 @@ private:
     void initAnalyzer();
 
     /**
+     * Initializes the GUI for the preset menu.
+     */
+    void initPresetMenu();
+
+    /**
      * Resets all of the sliders to their default values, useful for 
      * initializing new synth patches.
      */
@@ -278,4 +283,6 @@ private:
     std::unique_ptr<SliderAttachment> m_modEgSusSliderAttachment;
     Slider m_modEgRelSlider;
     std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
+
+    Label m_presetsLabel;
 };
