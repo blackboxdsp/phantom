@@ -557,7 +557,7 @@ void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInByte
 
 float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)
 {
-    return std::log((0.5f)) / std::log((center - start) / (end - start));
+    return std::log(0.5f) / std::log((center - start) / (end - start));
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

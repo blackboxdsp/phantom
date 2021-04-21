@@ -8,14 +8,14 @@ add_subdirectory(juce)
 
 #===============================================================================
 juce_add_plugin(Phantom
-        VERSION "0.0.1"
+        VERSION "1.0.0"
         COMPANY_NAME "Maxwell Audio"
         IS_SYNTH TRUE
         IS_MIDI_EFFECT FALSE
         NEEDS_MIDI_INPUT TRUE
         NEEDS_MIDI_OUTPUT FALSE
-        PLUGIN_MANUFACTURER_CODE Matt
-        PLUGIN_CODE Phan
+        PLUGIN_MANUFACTURER_CODE MFLX
+        PLUGIN_CODE PHTM
         FORMATS AU VST3
         PRODUCT_NAME "Phantom")
 
