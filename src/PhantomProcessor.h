@@ -65,13 +65,13 @@ public:
      * Saves all plugin metadata data to the XML element.
      * @param xml The reference to the XML object to save to.
      */
-    void saveMetadataToXml(XmlElement& xml);
+    std::unique_ptr<XmlElement> saveMetadataToXml(std::unique_ptr<XmlElement> xml);
 
     /**
      * Loads all plugin data (+ parameters) from the XML element.
      * @param xml The XML object to load state data from.
      */
-    void loadStateFromXml(XmlElement& xml);
+    std::unique_ptr<XmlElement> loadStateFromXml(std::unique_ptr<XmlElement> xml);
     
     /**
      * Loads XML data in string format from memory at specified reference.
