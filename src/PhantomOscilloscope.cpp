@@ -10,6 +10,7 @@
 
 #include "PhantomOscilloscope.h"
 #include "PhantomUtils.h"
+#include "PhantomWaveshaper.h"
 
 PhantomOscilloscope::PhantomOscilloscope()
 {
@@ -31,20 +32,23 @@ void PhantomOscilloscope::paint(Graphics& graphics)
 
     Path samplePath;
 
-    float x = 0.0f;
-    float y = m_buffer[0] * height * 0.5f;
-    samplePath.startNewSubPath(x , y);
+    samplePath.startNewSubPath(m_point.x , m_point.y);
 
     for(int i = 0; i < m_buffer.size(); i++)
     {
-        x = i * width / m_buffer.size();
-        y = height / 2.0f + m_buffer[i] * height * 0.5f;
+        m_point.x = i * width / m_buffer.size();
+        m_point.y = height / 2.0f + PhantomWaveshaper::clip(m_buffer[i], -1.0f, 1.0f) * height * 0.5f;
 
         if(i == 0)
-            samplePath.startNewSubPath(x, y);
+            samplePath.startNewSubPath(m_point.x, m_point.y);
         else
-            samplePath.lineTo(x , y);
+            samplePath.lineTo(m_point.x, m_point.y);
     }
+
+    // NOTE: Only the x value is reset here because we have reached the end of the buffer,
+    // meaning that we must reset to the beginning again however keeping the y value allows
+    // the visual to be drawn continuously from the previous buffer.
+    m_point.x = 0.0f;
 
     graphics.setColour(Consts::_FILL_START_COLOUR);
     graphics.strokePath(samplePath, PathStrokeType(m_strokeWidth));

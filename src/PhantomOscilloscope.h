@@ -27,7 +27,7 @@ public:
      * Determines the GUI display of the oscilloscope component.
      * @param graphics The reference to the `Graphics` object.
      */
-    void paint(Graphics& graphics) override;
+    void paint(Graphics &graphics) override;
 
     /**
      * Determines the layout of the oscilloscopes GUI components.
@@ -43,7 +43,7 @@ public:
      * Inserts data into the buffer to use for the display.
      * @param buffer A reference to the buffer data that will be inserted.
      */
-    void pushBuffer(AudioSampleBuffer& buffer);
+    void pushBuffer(AudioSampleBuffer &buffer);
 
     /**
      * Enumerator with data for the size of the buffer to use 
@@ -54,7 +54,7 @@ public:
     enum
     {
         BUFFER_ORDER = 11,
-        BUFFER_SIZE = 1 << BUFFER_ORDER,    // 2048
+        BUFFER_SIZE = 1 << BUFFER_ORDER, // 2048
     };
 
 private:
@@ -73,5 +73,16 @@ private:
     /**
      * The width of the stroke path.
      */
-    const float m_strokeWidth = 3.0f; 
+    const float m_strokeWidth = 3.0f;
+
+    Point<float> m_point = { 0.0f, 0.0f };
+};
+
+/**
+ * Small utility struct for easier coordinate data.
+ */
+template<class T>
+struct Point
+{
+    T x, y;
 };
