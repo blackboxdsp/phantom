@@ -3,11 +3,12 @@
 start_time=$(date +%s)
 
 COPY_BUILD_STEP=false
-DAW_TO_OPEN=""
+DAW_TO_OPEN=
 REMOVE_PREV_BUILD=false
-BUILD_TYPE=Debug
+BUILD_TYPE="Debug"
 
-COMPANY_NAME="Maxwell Audio"
+COMPANY_NAME="Black Box DSP"
+PLUGIN_NAME="Phantom"
 
 for i in "$@"; do
     case $i in
@@ -64,12 +65,12 @@ if [ ! -d "./juce/build" ]; then
     cd ../
 fi
 
-echo -e "Configuring (Phantom)...\n"
-cmake -B bin
+echo -e "Configuring (${PLUGIN_NAME})...\n"
+cmake -B bin .
 echo -e "\nSUCCESS: Configured plugin build\n"
 
-echo -e "Building (Phantom)...\n"
-cmake --build bin --config "$BUILD_TYPE" --target Phantom_All
+echo -e "Building (${PLUGIN_NAME})...\n"
+cmake --build bin --config "$BUILD_TYPE" --target "${PLUGIN_NAME}_All"
 echo -e "\nSUCCESS: Built plugin executable(s)\n"
 
 if [ ! -z "$DAW_TO_OPEN" ]; then
@@ -79,16 +80,16 @@ fi
 
 if [ "$COPY_BUILD_STEP" = true ]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        rm -rf "/Library/Audio/Plug-Ins/VST3/Phantom.vst3"
-        cp -r "./bin/Phantom_artefacts/VST3/Phantom.vst3" "/Library/Audio/Plug-Ins/VST3/Phantom.vst3"
+        rm -rf "/Library/Audio/Plug-Ins/VST3/${PLUGIN_NAME}.vst3"
+        cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "/Library/Audio/Plug-Ins/VST3/${PLUGIN_NAME}.vst3"
         echo -e "SUCCESS: Copied VST3 bundle to plugins directory\n"
 
-        rm -rf "/Library/Audio/Plug-Ins/Components/Phantom.component"
-        cp -r "./bin/Phantom_artefacts/AU/Phantom.component" "/Library/Audio/Plug-Ins/Components/Phantom.component"
+        rm -rf "/Library/Audio/Plug-Ins/Components/${PLUGIN_NAME}.component"
+        cp -r "./bin/${PLUGIN_NAME}_artefacts/AU/${PLUGIN_NAME}.component" "/Library/Audio/Plug-Ins/Components/${PLUGIN_NAME}.component"
         echo -e "SUCCESS: Copied AU bundle to plugins directory\n"
     else
-        rm -f "/c/Program Files/Steinberg/Vst3Plugins/${COMPANY_NAME}/Phantom.vst3"
-        cp "./bin/Phantom_artefacts/${BUILD_TYPE}/VST3/Phantom.vst3/Contents/x86_64-win/Phantom.vst3" "/c/Program Files/Steinberg/Vst3Plugins/${COMPANY_NAME}/Phantom.vst3"
+        rm -f "/c/Program Files/Steinberg/Vst3Plugins/${PLUGIN_NAME}.vst3"
+        cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "/c/Program Files/Steinberg/Vst3Plugins/${PLUGIN_NAME}.vst3"
         echo -e "SUCCESS: Copied VST3 bundle to plugins directory\n"
     fi
 fi

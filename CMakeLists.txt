@@ -1,12 +1,12 @@
-#===============================================================================
+# Checks that the installed version of CMake can understand the following commands
 cmake_minimum_required(VERSION 3.15)
 
-project(Phantom VERSION 0.0.1)
+# Declaring targets and describing source/ binary directories
+project(Phantom VERSION 1.0.0)
 
-#===============================================================================
+# Declare dependency on JUCE (as installed on the local system)
 add_subdirectory(juce)
 
-#===============================================================================
 juce_add_plugin(Phantom
         VERSION "1.0.0"
         COMPANY_NAME "Black Box DSP"
