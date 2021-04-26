@@ -156,19 +156,6 @@ namespace Consts
     constexpr char *_AMP_EG_REL_PARAM_NAME = "Amp EG Rel";
     constexpr float _AMP_EG_REL_DEFAULT_VAL = 0.6f;
 
-    constexpr char *_FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
-    constexpr char *_FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
-    constexpr float _FLTR_EG_ATK_DEFAULT_VAL = 0.01f;
-    constexpr char *_FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
-    constexpr char *_FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
-    constexpr float _FLTR_EG_DEC_DEFAULT_VAL = 0.4f;
-    constexpr char *_FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
-    constexpr char *_FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
-    constexpr float _FLTR_EG_SUS_DEFAULT_VAL = -30.0f;
-    constexpr char *_FLTR_EG_REL_PARAM_ID = "fltrEgRel";
-    constexpr char *_FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
-    constexpr float _FLTR_EG_REL_DEFAULT_VAL = 0.8f;
-
     constexpr char *_PHASOR_EG_ATK_PARAM_ID = "phaseEgAtk";
     constexpr char *_PHASOR_EG_ATK_PARAM_NAME = "Phase EG Atk";
     constexpr float _PHASOR_EG_ATK_DEFAULT_VAL = 0.1f;
@@ -181,6 +168,19 @@ namespace Consts
     constexpr char *_PHASOR_EG_REL_PARAM_ID = "phaseEgRel";
     constexpr char *_PHASOR_EG_REL_PARAM_NAME = "Phase EG Rel";
     constexpr float _PHASOR_EG_REL_DEFAULT_VAL = 1.2f;
+
+    constexpr char *_FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
+    constexpr char *_FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
+    constexpr float _FLTR_EG_ATK_DEFAULT_VAL = 0.01f;
+    constexpr char *_FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
+    constexpr char *_FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
+    constexpr float _FLTR_EG_DEC_DEFAULT_VAL = 0.4f;
+    constexpr char *_FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
+    constexpr char *_FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
+    constexpr float _FLTR_EG_SUS_DEFAULT_VAL = -30.0f;
+    constexpr char *_FLTR_EG_REL_PARAM_ID = "fltrEgRel";
+    constexpr char *_FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
+    constexpr float _FLTR_EG_REL_DEFAULT_VAL = 0.8f;
 
     constexpr char *_MOD_EG_ATK_PARAM_ID = "modEgAtk";
     constexpr char *_MOD_EG_ATK_PARAM_NAME = "Mod EG Atk";

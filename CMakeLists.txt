@@ -9,12 +9,12 @@ add_subdirectory(juce)
 #===============================================================================
 juce_add_plugin(Phantom
         VERSION "1.0.0"
-        COMPANY_NAME "Maxwell Audio"
+        COMPANY_NAME "Black Box DSP"
         IS_SYNTH TRUE
         IS_MIDI_EFFECT FALSE
         NEEDS_MIDI_INPUT TRUE
         NEEDS_MIDI_OUTPUT FALSE
-        PLUGIN_MANUFACTURER_CODE MFLX
+        PLUGIN_MANUFACTURER_CODE BKBX
         PLUGIN_CODE PHTM
         FORMATS AU VST3
         PRODUCT_NAME "Phantom")

@@ -7,7 +7,6 @@
 
 #include "PhantomEditor.h"
 #include "PhantomProcessor.h"
-#include "PhantomUtils.h"
 
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -24,6 +23,9 @@ PhantomAudioProcessor::PhantomAudioProcessor()
 {
     m_synth.reset(new PhantomSynth(m_parameters));
     m_amp.reset(new PhantomAmplifier(m_parameters));
+
+    auto dir = File::getCurrentWorkingDirectory();
+    DBG(dir.getFullPathName());
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
@@ -525,6 +527,10 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
         editor->m_oscilloscope->pushBuffer(buffer);
         editor->m_analyzer->pushBuffer(buffer);
     }
+    else
+    {
+        DBG("EDITOR WAS NULL");
+    }
 }
 
 bool PhantomAudioProcessor::hasEditor() const
@@ -540,19 +546,78 @@ AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
+    saveMetadataToXml(*xml);
     copyXmlToBinary(*xml, destData);
 }
 
 void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
-    if(xmlState.get() != nullptr)
+    std::unique_ptr<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+    if(xml.get() != nullptr)
+        loadStateFromXml(*xml);
+}
+
+void PhantomAudioProcessor::saveMetadataToXml(XmlElement& xml)
+{
+    xml.setAttribute(String("pluginVersion"), k_pluginVersion);
+    xml.setAttribute(String("presetName"), m_presetName);
+
+    DBG("XML:\n\n" << xml.toString());
+}
+
+void PhantomAudioProcessor::loadStateFromXml(XmlElement& xml)
+{
+    if(xml.hasTagName(k_pluginName)) 
     {
-        if(xmlState->hasTagName(m_parameters.state.getType()))
-        {
-            m_parameters.replaceState(ValueTree::fromXml(*xmlState));
-        }
+        // NOTE: If this fails then it could be possible that there are data mismatches in the parameter 
+        // data (i.e. number of parameters is different).
+        jassert(k_pluginVersion == xml.getStringAttribute("pluginVersion"));
+
+        m_presetName = xml.getStringAttribute(String("presetName"));
+        
+        m_parameters.replaceState(ValueTree::fromXml(xml));
     }
+}
+
+void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
+{
+    XmlDocument doc(stateStr);
+    std::unique_ptr<XmlElement> xml = doc.getDocumentElement();
+    if(xml)
+    {
+        loadStateFromXml(*xml.get());
+
+        xml = nullptr;
+    }
+}
+
+void PhantomAudioProcessor::saveStateToText(String& destStr)
+{
+    std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
+    
+    saveMetadataToXml(*xml);
+
+    destStr = xml->createDocument(String(""), true, false);
+}
+
+void PhantomAudioProcessor::loadStateFromFile(File newFile)
+{
+    std::unique_ptr<XmlElement> xml = XmlDocument::parse(newFile);
+    if(xml != 0 && xml->hasTagName(k_pluginName))
+    {
+        loadStateFromXml(*xml.get());
+
+        xml = nullptr;
+    }
+}
+
+bool PhantomAudioProcessor::saveStateToFile(File newFile) 
+{
+    std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
+    
+    saveMetadataToXml(*xml);
+
+    return xml->writeToFile(newFile, "");
 }
 
 float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)

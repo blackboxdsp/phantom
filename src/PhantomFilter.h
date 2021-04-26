@@ -91,7 +91,7 @@ private:
      * The previous frequency value for preventing artifacting
      * when changing and/or automating frequency cutoff.
      */
-    float m_previousFrequency;
+    float m_previousFrequency = 0.0f;
 
     /**
      * The number of channels to filter.
