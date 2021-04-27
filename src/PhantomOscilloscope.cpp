@@ -37,7 +37,7 @@ void PhantomOscilloscope::paint(Graphics& graphics)
     for(int i = 0; i < m_buffer.size(); i++)
     {
         m_point.x = i * width / m_buffer.size();
-        m_point.y = height / 2.0f + PhantomWaveshaper::clip(m_buffer[i], -1.0f, 1.0f) * height * 0.5f;
+        m_point.y = height / 2.0f + PhantomWaveshaper::clip(m_buffer[i], -1.0f, 1.0f) * height * 0.49f;
 
         if(i == 0)
             samplePath.startNewSubPath(m_point.x, m_point.y);
