@@ -8,7 +8,7 @@
 
 <div style="text-align: center">
     <img 
-        src="https://storage.googleapis.com/mattmaxwell-assets/portfolio/projects/phantom.png" 
+        src="https://storage.googleapis.com/mattmaxwell-assets/images/portfolio/projects/phantom.png" 
         alt="Phantom screenshot" 
         title="Phantom running in Ableton Live 10"
         width="720"
