@@ -10,7 +10,7 @@
 #include "PhantomUtils.h"
 
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts)
-    : AudioProcessorEditor(&p), m_audioProcessor(p), m_parameters(vts)
+    : AudioProcessorEditor(&p), m_processor(p), m_parameters(vts)
 {
     initLayoutVariables();
 
@@ -626,9 +626,57 @@ void PhantomAudioProcessorEditor::initAnalyzer()
 
 void PhantomAudioProcessorEditor::initPresetMenu()
 {
-    m_presetsLabel.setText("PRESET: NAME_HERE", dontSendNotification);
-    m_presetsLabel.setJustificationType(Justification::centred);
-    addAndMakeVisible(&m_presetsLabel);
+    m_presetLabel.setText("PRESET: ", dontSendNotification);
+    m_presetLabel.setJustificationType(Justification::centred);
+    addAndMakeVisible(&m_presetLabel);
+
+    m_presetButton.setButtonText("preset_name");
+    addAndMakeVisible(&m_presetButton);
+
+    m_presetButton.onClick = [this](){
+        PopupMenu menu;
+
+        menu.addItem(PopupMenu::Item("Copy to Clipboard")
+            .setAction([this](){
+                DBG("COPYING...");
+            })
+        );
+        menu.addItem(PopupMenu::Item("Paste from Clipboard")
+            .setAction([this](){
+                DBG("PASTING...");
+            })
+        );
+
+        menu.addSeparator();
+
+        // // TODO: Add submenus here for bass, pads, ..., and user
+
+        // // TODO: Load presets from XML here...
+        // String dataDir = File::getSpecialLocation(File::userApplicationDataDirectory).getFullPathName()
+        //     + "/Black Box DSP/Phantom";
+        // DBG(dataDir);
+
+        // File dir(dataDir);
+        // if(!dir.exists())
+        //     dir.createDirectory();
+
+        // Array<File> files = dir.findChildFiles(File::findFiles, false, "*.xml");
+        // for(File f : files)
+        // {
+        //     DBG("FILE: " << f.getFileName());
+        // }
+
+        // if(dir.getChildFile("presets.xml").existsAsFile())
+        // {
+        //     DBG("presets.xml does exist");
+        // }
+        // else 
+        // {
+        //     DBG("presets.xml does NOT exist");
+        // }
+
+        menu.show();
+    };
 }
 
 void PhantomAudioProcessorEditor::reset()
@@ -764,7 +812,8 @@ void PhantomAudioProcessorEditor::resized()
     middleTopArea.removeFromLeft(margin);
 
     Rectangle<int> presetArea = phasorArea.removeFromBottom(margin * 1.5);
-    m_presetsLabel.setBounds(presetArea);
+    m_presetLabel.setBounds(presetArea.removeFromLeft(presetArea.getWidth() / 2));
+    m_presetButton.setBounds(presetArea);
     phasorArea.removeFromBottom(margin * 0.5);
 
     Rectangle<int> phasor01Area = phasorArea.removeFromTop(phasorArea.getHeight() / 2);
@@ -847,4 +896,9 @@ void PhantomAudioProcessorEditor::resized()
     m_modEgDecSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
     m_modEgSusSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
     m_modEgRelSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
+}
+
+void print_something()
+{
+    std::cout << "SOMETHING" << std::endl;
 }

@@ -559,23 +559,24 @@ void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInByte
 
 std::unique_ptr<XmlElement> PhantomAudioProcessor::saveMetadataToXml(std::unique_ptr<XmlElement> xml)
 {
-    xml->setAttribute(String("pluginVersion"), k_pluginVersion);
-    xml->setAttribute(String("presetName"), m_presetName);
+    xml->setAttribute("pluginVersion", k_pluginVersion);
+    xml->setAttribute("presetName", m_presetName);
 
-    DBG("XML:\n\n" << xml->toString());
+    DBG("XML:\n" << xml->toString());
 
     return xml;
 }
 
 std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_ptr<XmlElement> xml)
 {
-    if(xml->hasTagName(k_pluginName)) 
+    if(xml->hasTagName(k_pluginName))
     {
         // NOTE: If this fails then it could be possible that there are data mismatches in the parameter 
         // data (i.e. number of parameters is different).
         jassert(k_pluginVersion == xml->getStringAttribute("pluginVersion"));
 
-        m_presetName = xml->getStringAttribute(String("presetName"));
+        m_presetName = xml->hasAttribute("presetName") ?
+            xml->getStringAttribute("presetName") : "Init";
         
         m_parameters.replaceState(ValueTree::fromXml(*xml));
     }
@@ -585,6 +586,8 @@ std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_
 
 void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
 {
+    DBG("LOADING: " << stateStr);
+
     XmlDocument doc(stateStr);
     std::unique_ptr<XmlElement> xml = doc.getDocumentElement();
     if(xml)
@@ -593,9 +596,11 @@ void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
 
 void PhantomAudioProcessor::saveStateToText(String& destStr)
 {
+    DBG("SAVING: " << destStr);
+
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
     
-    destStr = saveMetadataToXml(std::move(xml))->createDocument(String(""), true, false);
+    destStr = saveMetadataToXml(std::move(xml))->createDocument("", true, false);
 }
 
 void PhantomAudioProcessor::loadStateFromFile(File newFile)

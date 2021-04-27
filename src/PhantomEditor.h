@@ -46,6 +46,17 @@ public:
      */
     std::unique_ptr<PhantomOscilloscope> m_oscilloscope;
 
+    /** The reference to the value tree state useful in retrieving or 
+     * storing parameter information.
+     */
+    AudioProcessorValueTreeState& m_parameters;
+
+    /**
+     * This reference is provided as a quick way for your editor to
+     * access the processor object that created it.
+     */
+    PhantomAudioProcessor& m_processor;
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
 
@@ -109,14 +120,6 @@ private:
      * initializing new synth patches.
      */
     void reset();
-    
-    /**
-     * This reference is provided as a quick way for your editor to
-     * access the processor object that created it.
-     */
-    PhantomAudioProcessor& m_audioProcessor;
-
-    AudioProcessorValueTreeState& m_parameters;
 
     /**
      * The width for a text box.
@@ -284,5 +287,6 @@ private:
     Slider m_modEgRelSlider;
     std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
 
-    Label m_presetsLabel;
+    Label m_presetLabel;
+    TextButton m_presetButton;
 };
