@@ -37,6 +37,12 @@ public:
     void resized() override;
 
     /**
+     * Resets all of the sliders to their default values, useful for 
+     * initializing new synth patches.
+     */
+    void reset();
+
+    /**
      * The unique pointer to the analyzer, used by the processor.
      */
     std::unique_ptr<PhantomAnalyzer> m_analyzer;
@@ -116,12 +122,6 @@ private:
     void initPresetMenu();
 
     /**
-     * Resets all of the sliders to their default values, useful for 
-     * initializing new synth patches.
-     */
-    void reset();
-
-    /**
      * The width for a text box.
      */
     int textBoxWidth;
@@ -134,8 +134,6 @@ private:
     //================
     // GUI COMPONENTS
     //================
-
-    TextButton m_initButton;
 
     Slider m_levelSlider;
     Label m_levelLabel;

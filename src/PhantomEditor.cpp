@@ -103,11 +103,6 @@ void PhantomAudioProcessorEditor::initLayoutVariables()
 }
 
 void PhantomAudioProcessorEditor::initAmpGui() {
-    m_initButton.setButtonText("INIT");
-    m_initButton.setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
-    m_initButton.onClick = [&]{ reset(); };
-    addAndMakeVisible(&m_initButton);
-
     m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_levelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
     m_levelSlider.setTextValueSuffix(" dB");
@@ -636,6 +631,11 @@ void PhantomAudioProcessorEditor::initPresetMenu()
     m_presetButton.onClick = [this](){
         PopupMenu menu;
 
+        menu.addItem(PopupMenu::Item("Init")
+            .setAction([this](){
+                reset();
+            })
+        );
         menu.addItem(PopupMenu::Item("Save as")
             .setAction([this](){
                 DBG("Saving as ...");
@@ -774,14 +774,10 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> ampArea = topArea.removeFromLeft(topKnobWidth);
     topArea.removeFromLeft(margin);
-    ampArea.removeFromLeft(margin * 3);
-    ampArea.removeFromRight(margin * 3);
+    ampArea.removeFromLeft(margin * 1.5);
+    ampArea.removeFromRight(margin * 1.5);
 
-    m_levelSlider.setBounds(ampArea.removeFromBottom(ampArea.getHeight() / 2));
-
-    ampArea.removeFromBottom(margin * 1.5);
-
-    m_initButton.setBounds(ampArea);
+    m_levelSlider.setBounds(ampArea);
 
     Rectangle<int> oscillatorArea = topArea;
 
