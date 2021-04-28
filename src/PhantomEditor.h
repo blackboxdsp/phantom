@@ -40,6 +40,8 @@ public:
      * Resets all of the sliders to their default values, useful for 
      * initializing new synth patches.
      */
+    void initParameters();
+
     void reset();
 
     /**

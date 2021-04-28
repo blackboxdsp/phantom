@@ -32,8 +32,8 @@ public:
 
     void processBlock(AudioBuffer<float> &, MidiBuffer &) override;
 
-    AudioProcessorEditor *createEditor() override;
     bool hasEditor() const override;
+    AudioProcessorEditor *createEditor() override;
 
     const String getName() const override;
 
@@ -98,6 +98,11 @@ public:
      */
     float getSkewFactor(float start, float end, float center);
 
+    /**
+     * The name of the currently selected preset.
+     */
+    String m_presetName = String("Init");
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessor)
 
@@ -114,24 +119,4 @@ private:
      * has written its data.
      */
     std::unique_ptr<PhantomAmplifier> m_amp;
-
-    /**
-     * The name of the currently selected preset.
-     */
-    String m_presetName = "Init";
-
-    /**
-     * The name of the plugin.
-     */
-    const String k_pluginName = "Phantom";
-
-    /**
-     * The version of the plugin.
-     */
-    const String k_pluginVersion = "1.0.0-beta";
-
-    /**
-     * The total number of parameters.
-     */
-    const int k_numParameters = 50;
 };

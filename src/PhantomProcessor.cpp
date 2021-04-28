@@ -23,9 +23,6 @@ PhantomAudioProcessor::PhantomAudioProcessor()
 {
     m_synth.reset(new PhantomSynth(m_parameters));
     m_amp.reset(new PhantomAmplifier(m_parameters));
-
-    auto dir = File::getCurrentWorkingDirectory();
-    DBG(dir.getFullPathName());
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
@@ -528,9 +525,7 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
         editor->m_analyzer->pushBuffer(buffer);
     }
     else
-    {
-        DBG("EDITOR WAS NULL");
-    }
+        DBG("ERROR: Editor is null");
 }
 
 bool PhantomAudioProcessor::hasEditor() const
@@ -545,13 +540,15 @@ AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 
 void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
+    DBG("GETTING STATE INFO...");
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
+    xml = saveMetadataToXml(std::move(xml));
     copyXmlToBinary(*xml, destData);
-    saveMetadataToXml(std::move(xml));
 }
 
 void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
+    DBG("SETTING STATE INFO...");
     std::unique_ptr<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml.get() != nullptr)
         loadStateFromXml(std::move(xml));
@@ -559,25 +556,41 @@ void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInByte
 
 std::unique_ptr<XmlElement> PhantomAudioProcessor::saveMetadataToXml(std::unique_ptr<XmlElement> xml)
 {
-    xml->setAttribute("pluginVersion", k_pluginVersion);
+    xml->setAttribute("pluginVersion", Consts::_PLUGIN_VERSION);
     xml->setAttribute("presetName", m_presetName);
-
-    DBG("XML:\n" << xml->toString());
 
     return xml;
 }
 
 std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_ptr<XmlElement> xml)
 {
-    if(xml->hasTagName(k_pluginName))
+    if(xml->hasTagName(Consts::_PLUGIN_NAME))
     {
-        // NOTE: If this fails then it could be possible that there are data mismatches in the parameter 
-        // data (i.e. number of parameters is different).
-        jassert(k_pluginVersion == xml->getStringAttribute("pluginVersion"));
+        // checkPluginVersions()
+        bool doPluginVersionsMatch = String(Consts::_PLUGIN_VERSION).equalsIgnoreCase(xml->getStringAttribute("pluginVersion"));
+        DBG(Consts::_PLUGIN_VERSION << " " << xml->getStringAttribute("pluginVersion"));
+        jassert(doPluginVersionsMatch);
 
-        m_presetName = xml->getStringAttribute("presetName");
-        if(m_presetName == "") m_presetName = "Init";
-        
+        // loadPresetName
+        String presetName = String(xml->getStringAttribute("presetName"));
+        if(presetName.isEmpty() || presetName.equalsIgnoreCase("Init"))
+            if(m_presetName.isEmpty())
+                m_presetName = String("Init");
+            else
+                // WARNING: Preset has already been loaded and plugin is called to load either the same
+                // or another XMl data object.
+                return xml;
+        else
+            m_presetName = presetName;
+
+        DBG(xml->toString());
+        DBG("XML DATA: " << xml->getStringAttribute("presetName"));
+        DBG("VARIABLE: " << m_presetName);
+
+        PhantomAudioProcessorEditor* editor = static_cast<PhantomAudioProcessorEditor*>(getActiveEditor());
+        if(editor)
+            editor->reset();
+
         m_parameters.replaceState(ValueTree::fromXml(*xml));
     }
 
@@ -586,8 +599,6 @@ std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_
 
 void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
 {
-    DBG("LOADING: " << stateStr);
-
     XmlDocument doc(stateStr);
     std::unique_ptr<XmlElement> xml = doc.getDocumentElement();
     if(xml)
@@ -604,7 +615,7 @@ std::unique_ptr<String> PhantomAudioProcessor::saveStateToText()
 void PhantomAudioProcessor::loadStateFromFile(File newFile)
 {
     std::unique_ptr<XmlElement> xml = XmlDocument::parse(newFile);
-    if(xml != nullptr && xml->hasTagName(k_pluginName))
+    if(xml != nullptr && xml->hasTagName(Consts::_PLUGIN_NAME))
         loadStateFromXml(std::move(xml));
 }
 

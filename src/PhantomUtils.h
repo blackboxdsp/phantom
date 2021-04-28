@@ -203,7 +203,7 @@ namespace Consts
 
     constexpr char *_COMPANY_NAME = "Black Box DSP";
     constexpr char *_PLUGIN_NAME = "Phantom";
-    constexpr char *_PLUGIN_VERSION = "v1.0.0-beta";
+    constexpr char *_PLUGIN_VERSION = "1.0.0-beta";
 }
 
 #endif

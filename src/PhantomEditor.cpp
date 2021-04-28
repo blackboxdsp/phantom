@@ -6,7 +6,6 @@
 */
 
 #include "PhantomEditor.h"
-#include "PhantomProcessor.h"
 #include "PhantomUtils.h"
 
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts)
@@ -625,22 +624,12 @@ void PhantomAudioProcessorEditor::initPresetMenu()
     m_presetLabel.setJustificationType(Justification::centred);
     addAndMakeVisible(&m_presetLabel);
 
-    m_presetButton.setButtonText("preset_name");
+    m_presetButton.setButtonText(m_processor.m_presetName);
     addAndMakeVisible(&m_presetButton);
 
     m_presetButton.onClick = [this](){
         PopupMenu menu;
 
-        menu.addItem(PopupMenu::Item("Init")
-            .setAction([this](){
-                reset();
-            })
-        );
-        menu.addItem(PopupMenu::Item("Save as")
-            .setAction([this](){
-                DBG("Saving as ...");
-            })
-        );
         menu.addItem(PopupMenu::Item("Copy to clipboard")
             .setAction([this](){
                 SystemClipboard::copyTextToClipboard(*m_processor.saveStateToText());
@@ -649,6 +638,21 @@ void PhantomAudioProcessorEditor::initPresetMenu()
         menu.addItem(PopupMenu::Item("Paste from clipboard")
             .setAction([this](){
                 m_processor.loadStateFromText(SystemClipboard::getTextFromClipboard());
+                reset();
+            })
+        );
+
+        menu.addSeparator();
+
+        menu.addItem(PopupMenu::Item("Initialize")
+            .setAction([this](){
+                initParameters();
+                reset();
+            })
+        );
+        menu.addItem(PopupMenu::Item("Save as")
+            .setAction([this](){
+                DBG("Saving as ...");
             })
         );
 
@@ -684,7 +688,7 @@ void PhantomAudioProcessorEditor::initPresetMenu()
     };
 }
 
-void PhantomAudioProcessorEditor::reset()
+void PhantomAudioProcessorEditor::initParameters()
 {
     m_levelSlider.setValue(Consts::_LEVEL_DEFAULT_VAL);
 
@@ -747,8 +751,15 @@ void PhantomAudioProcessorEditor::reset()
     m_modEgRelSlider.setValue(Consts::_MOD_EG_REL_DEFAULT_VAL);
 }
 
+void PhantomAudioProcessorEditor::reset()
+{
+    m_presetButton.setButtonText(m_processor.m_presetName);
+}
+
 void PhantomAudioProcessorEditor::paint(Graphics& g)
 {
+    reset();
+
     g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
     g.setColour(Colours::white);
     g.setFont(12.0f);
@@ -774,8 +785,8 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> ampArea = topArea.removeFromLeft(topKnobWidth);
     topArea.removeFromLeft(margin);
-    ampArea.removeFromLeft(margin * 1.5);
-    ampArea.removeFromRight(margin * 1.5);
+    ampArea.removeFromLeft(margin * 2);
+    ampArea.removeFromRight(margin * 2);
 
     m_levelSlider.setBounds(ampArea);
 
