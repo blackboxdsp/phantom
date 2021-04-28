@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Phantom pluginVersion="1.0.0-beta" presetName="">
+<Phantom pluginVersion="1.0.0-beta" presetName="The Stack">
   <PARAM id="ampEgAtk" value="0.01999999955296516"/>
   <PARAM id="ampEgDec" value="0.2000000029802322"/>
   <PARAM id="ampEgRel" value="0.5999999642372131"/>

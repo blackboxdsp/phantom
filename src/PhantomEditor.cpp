@@ -636,14 +636,19 @@ void PhantomAudioProcessorEditor::initPresetMenu()
     m_presetButton.onClick = [this](){
         PopupMenu menu;
 
-        menu.addItem(PopupMenu::Item("Copy to Clipboard")
+        menu.addItem(PopupMenu::Item("Save as")
             .setAction([this](){
-                DBG("COPYING...");
+                DBG("Saving as ...");
             })
         );
-        menu.addItem(PopupMenu::Item("Paste from Clipboard")
+        menu.addItem(PopupMenu::Item("Copy to clipboard")
             .setAction([this](){
-                DBG("PASTING...");
+                SystemClipboard::copyTextToClipboard(*m_processor.saveStateToText());
+            })
+        );
+        menu.addItem(PopupMenu::Item("Paste from clipboard")
+            .setAction([this](){
+                DBG("Pasting ...");
             })
         );
 

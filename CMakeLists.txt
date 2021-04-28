@@ -7,6 +7,7 @@ project(Phantom VERSION 1.0.0)
 # Declare dependency on JUCE (as installed on the local system)
 add_subdirectory(juce)
 
+# Define plugin metadata
 juce_add_plugin(Phantom
         VERSION "1.0.0"
         COMPANY_NAME "Black Box DSP"
@@ -47,6 +48,13 @@ target_compile_definitions(Phantom PUBLIC
         JUCE_VST3_CAN_REPLACE_VST2=0
         JUCE_DISPLAY_SPLASH_SCREEN=0)
 
+# Add binary data from resources folder
+juce_add_binary_data(PhantomData SOURCES
+        resources/presets/bass/noise-bass.xml
+        resources/presets/lead/siren.xml
+        resources/presets/pad/the-stack.xml)
+
+# Link libraries to the plugin's source code and other resources (i.e. binary data)
 target_link_libraries(Phantom PRIVATE
     juce::juce_audio_utils
     juce::juce_dsp)

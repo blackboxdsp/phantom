@@ -81,9 +81,8 @@ public:
 
     /**
      * Saves XML data in string format to memory at specified reference.
-     * @param destStr The reference to the intended destination of the string-formatted XML data.
      */ 
-    void saveStateToText(String& destStr);
+    std::unique_ptr<String> saveStateToText();
 
 
     void loadStateFromFile(File newFile);

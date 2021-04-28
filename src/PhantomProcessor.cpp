@@ -546,8 +546,8 @@ AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
-    xml = saveMetadataToXml(std::move(xml));
     copyXmlToBinary(*xml, destData);
+    saveMetadataToXml(std::move(xml));
 }
 
 void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
@@ -594,13 +594,11 @@ void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
         loadStateFromXml(std::move(xml));
 }
 
-void PhantomAudioProcessor::saveStateToText(String& destStr)
+std::unique_ptr<String> PhantomAudioProcessor::saveStateToText()
 {
-    DBG("SAVING: " << destStr);
-
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
     
-    destStr = saveMetadataToXml(std::move(xml))->createDocument("", true, false);
+    return std::make_unique<String>(saveMetadataToXml(std::move(xml))->createDocument("", true, false));
 }
 
 void PhantomAudioProcessor::loadStateFromFile(File newFile)
