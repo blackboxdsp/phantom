@@ -118,7 +118,7 @@ private:
     /**
      * The name of the currently selected preset.
      */
-    String m_presetName;
+    String m_presetName = "Init";
 
     /**
      * The name of the plugin.

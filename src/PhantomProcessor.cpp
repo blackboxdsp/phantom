@@ -575,8 +575,8 @@ std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_
         // data (i.e. number of parameters is different).
         jassert(k_pluginVersion == xml->getStringAttribute("pluginVersion"));
 
-        m_presetName = xml->hasAttribute("presetName") ?
-            xml->getStringAttribute("presetName") : "Init";
+        m_presetName = xml->getStringAttribute("presetName");
+        if(m_presetName == "") m_presetName = "Init";
         
         m_parameters.replaceState(ValueTree::fromXml(*xml));
     }

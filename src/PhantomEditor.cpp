@@ -648,7 +648,7 @@ void PhantomAudioProcessorEditor::initPresetMenu()
         );
         menu.addItem(PopupMenu::Item("Paste from clipboard")
             .setAction([this](){
-                DBG("Pasting ...");
+                m_processor.loadStateFromText(SystemClipboard::getTextFromClipboard());
             })
         );
 
@@ -897,9 +897,4 @@ void PhantomAudioProcessorEditor::resized()
     m_modEgDecSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
     m_modEgSusSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
     m_modEgRelSlider.setBounds(modEgArea.removeFromLeft(bottomKnobWidth));
-}
-
-void print_something()
-{
-    std::cout << "SOMETHING" << std::endl;
 }
