@@ -37,12 +37,15 @@ public:
     void resized() override;
 
     /**
+     * Resets components of the GUI.
+     */
+    void resetGui();
+
+    /**
      * Resets all of the sliders to their default values, useful for 
      * initializing new synth patches.
      */
-    void initParameters();
-
-    void reset();
+    void resetParameters();
 
     /**
      * The unique pointer to the analyzer, used by the processor.

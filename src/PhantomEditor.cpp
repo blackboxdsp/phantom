@@ -625,6 +625,8 @@ void PhantomAudioProcessorEditor::initPresetMenu()
     addAndMakeVisible(&m_presetLabel);
 
     m_presetButton.setButtonText(m_processor.m_presetName);
+    m_presetButton.setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
+    m_presetButton.setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
     addAndMakeVisible(&m_presetButton);
 
     m_presetButton.onClick = [this](){
@@ -638,7 +640,8 @@ void PhantomAudioProcessorEditor::initPresetMenu()
         menu.addItem(PopupMenu::Item("Paste from clipboard")
             .setAction([this](){
                 m_processor.loadStateFromText(SystemClipboard::getTextFromClipboard());
-                reset();
+
+                resetGui();
             })
         );
 
@@ -646,49 +649,42 @@ void PhantomAudioProcessorEditor::initPresetMenu()
 
         menu.addItem(PopupMenu::Item("Initialize")
             .setAction([this](){
-                initParameters();
-                reset();
+                m_processor.resetState();
+                
+                resetParameters();
+                resetGui();
             })
         );
         menu.addItem(PopupMenu::Item("Save as")
             .setAction([this](){
-                DBG("Saving as ...");
+                String presetDirPath = File::getSpecialLocation(File::userApplicationDataDirectory).getFullPathName()
+                    + "/Black Box DSP/Phantom/Presets";
+                FileChooser browser("Save as ...", presetDirPath, "*.xml");
+
+                if(browser.browseForFileToSave(true))
+                {
+                    m_processor.saveStateToFile(browser.getResult());
+
+                    resetParameters();
+                    resetGui();
+                }
             })
         );
 
         menu.addSeparator();
 
-        // // TODO: Add submenus here for bass, pads, ..., and user
-
-        // // TODO: Load presets from XML here...
-        // String dataDir = File::getSpecialLocation(File::userApplicationDataDirectory).getFullPathName()
-        //     + "/Black Box DSP/Phantom";
-        // DBG(dataDir);
-
-        // File dir(dataDir);
-        // if(!dir.exists())
-        //     dir.createDirectory();
-
-        // Array<File> files = dir.findChildFiles(File::findFiles, false, "*.xml");
-        // for(File f : files)
-        // {
-        //     DBG("FILE: " << f.getFileName());
-        // }
-
-        // if(dir.getChildFile("presets.xml").existsAsFile())
-        // {
-        //     DBG("presets.xml does exist");
-        // }
-        // else 
-        // {
-        //     DBG("presets.xml does NOT exist");
-        // }
+        menu.addSectionHeader("Presets");
 
         menu.show();
     };
 }
 
-void PhantomAudioProcessorEditor::initParameters()
+void PhantomAudioProcessorEditor::resetGui()
+{
+    m_presetButton.setButtonText(m_processor.m_presetName);
+}
+
+void PhantomAudioProcessorEditor::resetParameters()
 {
     m_levelSlider.setValue(Consts::_LEVEL_DEFAULT_VAL);
 
@@ -751,14 +747,9 @@ void PhantomAudioProcessorEditor::initParameters()
     m_modEgRelSlider.setValue(Consts::_MOD_EG_REL_DEFAULT_VAL);
 }
 
-void PhantomAudioProcessorEditor::reset()
-{
-    m_presetButton.setButtonText(m_processor.m_presetName);
-}
-
 void PhantomAudioProcessorEditor::paint(Graphics& g)
 {
-    reset();
+    resetGui();
 
     g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
     g.setColour(Colours::white);

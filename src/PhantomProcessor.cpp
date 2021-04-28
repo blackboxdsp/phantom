@@ -524,8 +524,6 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
         editor->m_oscilloscope->pushBuffer(buffer);
         editor->m_analyzer->pushBuffer(buffer);
     }
-    else
-        DBG("ERROR: Editor is null");
 }
 
 bool PhantomAudioProcessor::hasEditor() const
@@ -540,7 +538,6 @@ AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 
 void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    DBG("GETTING STATE INFO...");
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
     xml = saveMetadataToXml(std::move(xml));
     copyXmlToBinary(*xml, destData);
@@ -548,30 +545,18 @@ void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 
 void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    DBG("SETTING STATE INFO...");
     std::unique_ptr<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     if(xml.get() != nullptr)
         loadStateFromXml(std::move(xml));
-}
-
-std::unique_ptr<XmlElement> PhantomAudioProcessor::saveMetadataToXml(std::unique_ptr<XmlElement> xml)
-{
-    xml->setAttribute("pluginVersion", Consts::_PLUGIN_VERSION);
-    xml->setAttribute("presetName", m_presetName);
-
-    return xml;
 }
 
 std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_ptr<XmlElement> xml)
 {
     if(xml->hasTagName(Consts::_PLUGIN_NAME))
     {
-        // checkPluginVersions()
         bool doPluginVersionsMatch = String(Consts::_PLUGIN_VERSION).equalsIgnoreCase(xml->getStringAttribute("pluginVersion"));
-        DBG(Consts::_PLUGIN_VERSION << " " << xml->getStringAttribute("pluginVersion"));
         jassert(doPluginVersionsMatch);
 
-        // loadPresetName
         String presetName = String(xml->getStringAttribute("presetName"));
         if(presetName.isEmpty() || presetName.equalsIgnoreCase("Init"))
             if(m_presetName.isEmpty())
@@ -583,47 +568,53 @@ std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_
         else
             m_presetName = presetName;
 
-        DBG(xml->toString());
-        DBG("XML DATA: " << xml->getStringAttribute("presetName"));
-        DBG("VARIABLE: " << m_presetName);
-
-        PhantomAudioProcessorEditor* editor = static_cast<PhantomAudioProcessorEditor*>(getActiveEditor());
-        if(editor)
-            editor->reset();
-
         m_parameters.replaceState(ValueTree::fromXml(*xml));
     }
 
     return xml;
 }
 
-void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
+std::unique_ptr<XmlElement> PhantomAudioProcessor::saveMetadataToXml(std::unique_ptr<XmlElement> xml)
 {
-    XmlDocument doc(stateStr);
-    std::unique_ptr<XmlElement> xml = doc.getDocumentElement();
-    if(xml)
-        loadStateFromXml(std::move(xml));
+    xml->setAttribute("pluginVersion", Consts::_PLUGIN_VERSION);
+    xml->setAttribute("presetName", m_presetName);
+
+    return xml;
 }
 
 std::unique_ptr<String> PhantomAudioProcessor::saveStateToText()
 {
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
     
-    return std::make_unique<String>(saveMetadataToXml(std::move(xml))->createDocument("", true, false));
+    return std::make_unique<String>(saveMetadataToXml(std::move(xml))->toString());
 }
 
-void PhantomAudioProcessor::loadStateFromFile(File newFile)
+void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
 {
-    std::unique_ptr<XmlElement> xml = XmlDocument::parse(newFile);
-    if(xml != nullptr && xml->hasTagName(Consts::_PLUGIN_NAME))
+    std::unique_ptr<XmlElement> xml = XmlDocument::parse(stateStr);
+    if(xml)
         loadStateFromXml(std::move(xml));
 }
 
-bool PhantomAudioProcessor::saveStateToFile(File newFile) 
+bool PhantomAudioProcessor::saveStateToFile(File& file) 
 {
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
-    
-    return saveMetadataToXml(std::move(xml))->writeToFile(newFile, "");
+
+    m_presetName = file.getFileNameWithoutExtension();
+
+    return saveMetadataToXml(std::move(xml))->writeTo(file);
+}
+
+void PhantomAudioProcessor::loadStateFromFile(File& file)
+{
+    std::unique_ptr<XmlElement> xml = XmlDocument::parse(file);
+    if(xml && xml->hasTagName(Consts::_PLUGIN_NAME))
+        loadStateFromXml(std::move(xml));
+}
+
+void PhantomAudioProcessor::resetState()
+{
+    m_presetName = String("Init");
 }
 
 float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)

@@ -62,16 +62,24 @@ public:
     void setStateInformation(const void *data, int sizeInBytes) override;
 
     /**
-     * Saves all plugin metadata data to the XML element.
+     * Loads plugin state from the XML element.
+     * @param xml The XML object to load state data from.
+     * @returns The same pointer provided to the method.
+     */
+    std::unique_ptr<XmlElement> loadStateFromXml(std::unique_ptr<XmlElement> xml);
+
+    /**
+     * Saves all plugin metadata data to the XML element (i.e. version, preset name).
      * @param xml The reference to the XML object to save to.
+     * @returns The same pointer provided to the method.
      */
     std::unique_ptr<XmlElement> saveMetadataToXml(std::unique_ptr<XmlElement> xml);
 
     /**
-     * Loads all plugin data (+ parameters) from the XML element.
-     * @param xml The XML object to load state data from.
-     */
-    std::unique_ptr<XmlElement> loadStateFromXml(std::unique_ptr<XmlElement> xml);
+     * Saves XML data in string format to memory at specified reference.
+     * @returns Pointer to the `String` object containing all of the state data.
+     */ 
+    std::unique_ptr<String> saveStateToText();
     
     /**
      * Loads XML data in string format from memory at specified reference.
@@ -80,15 +88,22 @@ public:
     void loadStateFromText(const String& stateStr);
 
     /**
-     * Saves XML data in string format to memory at specified reference.
-     */ 
-    std::unique_ptr<String> saveStateToText();
-
-
-    void loadStateFromFile(File newFile);
+     * Creates or overwrites preset file containing the plugin state data in XML format.
+     * @param file The reference to the file to save data to.
+     * @returns `true` if the file was saved successfully.
+     */
+    bool saveStateToFile(File& file);
     
+    /**
+     * Loads the plugin state data from a preset file.
+     */
+    void loadStateFromFile(File& file);
 
-    bool saveStateToFile(File newFile);
+    /**
+     * Re-initializes variables relevant variables for
+     * plugin state data.
+     */
+    void resetState();
 
     /**
      * Calculates the skew factor given a start, end, and desired center point.
