@@ -11,14 +11,19 @@ add_subdirectory(juce)
 juce_add_plugin(Phantom
         VERSION "1.0.0"
         COMPANY_NAME "Black Box DSP"
+        COMPANY_WEBSITE "https://blackboxdsp.com"
+        PRODUCT_NAME Phantom
+        PLUGIN_NAME Phantom
+        PLUGIN_MANUFACTURER_CODE Bkbx
+        PLUGIN_CODE Phtm
+        BUNDLE_ID "com.blackboxdsp.phantom"
+        FORMATS VST3 AU AUv3
+        VST3_CATEGORIES Instrument Synth
+        AU_MAIN_TYPE kAudioUnitType_MusicDevice
         IS_SYNTH TRUE
         IS_MIDI_EFFECT FALSE
         NEEDS_MIDI_INPUT TRUE
-        NEEDS_MIDI_OUTPUT FALSE
-        PLUGIN_MANUFACTURER_CODE BKBX
-        PLUGIN_CODE PHTM
-        FORMATS AU VST3
-        PRODUCT_NAME "Phantom")
+        NEEDS_MIDI_OUTPUT FALSE)
 
 # Generate the JUCE header file for our source code
 juce_generate_juce_header(Phantom)
@@ -49,12 +54,13 @@ target_compile_definitions(Phantom PUBLIC
         JUCE_DISPLAY_SPLASH_SCREEN=0)
 
 # Add binary data from resources folder
-juce_add_binary_data(PhantomData SOURCES
-        resources/presets/bass/noise-bass.xml
-        resources/presets/lead/siren.xml
-        resources/presets/pad/the-stack.xml)
+juce_add_binary_data(PhantomData HEADER_NAME "PhantomData.h" NAMESPACE PhantomData SOURCES
+        resources/presets/noise-bass.xml
+        resources/presets/siren.xml
+        resources/presets/the-stack.xml)
 
 # Link libraries to the plugin's source code and other resources (i.e. binary data)
 target_link_libraries(Phantom PRIVATE
-    juce::juce_audio_utils
-    juce::juce_dsp)
+        PhantomData
+        juce::juce_audio_utils
+        juce::juce_dsp)

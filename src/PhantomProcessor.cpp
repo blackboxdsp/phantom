@@ -5,6 +5,7 @@
   ==============================================================================
 */
 
+#include "PhantomData.h"
 #include "PhantomEditor.h"
 #include "PhantomProcessor.h"
 
@@ -591,7 +592,7 @@ std::unique_ptr<String> PhantomAudioProcessor::saveStateToText()
 
 void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
 {
-    std::unique_ptr<XmlElement> xml = XmlDocument::parse(stateStr);
+    std::unique_ptr<XmlElement> xml = juce::parseXML(stateStr);
     if(xml)
         loadStateFromXml(std::move(xml));
 }
@@ -607,7 +608,7 @@ bool PhantomAudioProcessor::saveStateToFile(File& file)
 
 void PhantomAudioProcessor::loadStateFromFile(File& file)
 {
-    std::unique_ptr<XmlElement> xml = XmlDocument::parse(file);
+    std::unique_ptr<XmlElement> xml = juce::parseXML(file);
     if(xml && xml->hasTagName(Consts::_PLUGIN_NAME))
         loadStateFromXml(std::move(xml));
 }

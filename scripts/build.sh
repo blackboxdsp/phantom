@@ -5,10 +5,10 @@ start_time=$(date +%s)
 COPY_BUILD_STEP=false
 DAW_TO_OPEN=
 REMOVE_PREV_BUILD=false
-BUILD_TYPE="Debug"
+BUILD_TYPE=Debug
 
 COMPANY_NAME="Black Box DSP"
-PLUGIN_NAME="Phantom"
+PLUGIN_NAME=Phantom
 
 for i in "$@"; do
     case $i in
