@@ -114,7 +114,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
     
     m_filter->update();
 
-    for (int sample = startSample; sample < numSamples; sample++)
+    for (int sampleIdx = startSample; sampleIdx < numSamples; sampleIdx++)
     {
         float ampEgMod = m_ampEg->evaluate();
         float phaseEgMod = m_phaseEg->evaluate();
@@ -131,11 +131,8 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float filterVal = m_filter->evaluate(oscVal, filterEgMod, lfo01Mod);
         float ampVal = filterVal * ampEgMod;
 
-        for (int channel = 0; channel < buffer.getNumChannels(); channel++)
-        {
-            float oldSample = buffer.getSample(channel, sample);
-            buffer.setSample(channel, sample, oldSample + ampVal);
-        }
+        for (int channelIdx = 0; channelIdx < buffer.getNumChannels(); channelIdx++)
+            buffer.setSample(channelIdx, sampleIdx, ampVal);
     }
 }
 

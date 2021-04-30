@@ -46,6 +46,12 @@ private:
      * oscillator 1 and 2.
      */
     std::atomic<float>* p_oscBalance;
+
+    /**
+     * The atomic parameter pointer for amplifier gain, which effectively controls
+     * how much of the signal is output by the mixer (in terms of amplitude).
+     */
+    std::atomic<float>* p_ampGain;
     
     /**
      * The atomic parameter pointer for ring modulation, which controls the level that ring

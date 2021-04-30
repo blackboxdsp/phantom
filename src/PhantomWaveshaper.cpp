@@ -51,13 +51,3 @@ float PhantomWaveshaper::hclip(float x) noexcept
 {
     return std::abs(x) > 0.5f ? 0.5f * sign(x) : x;
 }
-
-float PhantomWaveshaper::clip(float x, float lower, float upper) noexcept
-{
-    return std::max(lower, std::min(x, upper));
-}
-
-float PhantomWaveshaper::sign(float x) noexcept
-{
-    return x >= 0.0f ? 1.0f : -1.0f;
-}

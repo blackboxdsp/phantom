@@ -95,6 +95,9 @@ namespace Consts
     constexpr char *_MIXER_OSC_BAL_PARAM_ID = "mixerOscBalance";
     constexpr char *_MIXER_OSC_BAL_PARAM_NAME = "Mixer Osc Balance";
     constexpr float _MIXER_OSC_BAL_DEFAULT_VAL = 0.5f;
+    constexpr char *_MIXER_AMP_GAIN_PARAM_ID = "mixerAmpGain";
+    constexpr char *_MIXER_AMP_GAIN_PARAM_NAME = "Mixer Amp Gain";
+    constexpr float _MIXER_AMP_GAIN_DEFAULT_VAL = 1.0f;
     constexpr char *_MIXER_RING_MOD_PARAM_ID = "mixerRngMod";
     constexpr char *_MIXER_RING_MOD_PARAM_NAME = "Mixer Rng Mod";
     constexpr float _MIXER_RING_MOD_DEFAULT_VAL = 0.0;
@@ -153,19 +156,6 @@ namespace Consts
     constexpr char *_AMP_EG_REL_PARAM_NAME = "Amp EG Rel";
     constexpr float _AMP_EG_REL_DEFAULT_VAL = 0.6f;
 
-    constexpr char *_FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
-    constexpr char *_FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
-    constexpr float _FLTR_EG_ATK_DEFAULT_VAL = 0.01f;
-    constexpr char *_FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
-    constexpr char *_FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
-    constexpr float _FLTR_EG_DEC_DEFAULT_VAL = 0.4f;
-    constexpr char *_FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
-    constexpr char *_FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
-    constexpr float _FLTR_EG_SUS_DEFAULT_VAL = -30.0f;
-    constexpr char *_FLTR_EG_REL_PARAM_ID = "fltrEgRel";
-    constexpr char *_FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
-    constexpr float _FLTR_EG_REL_DEFAULT_VAL = 0.8f;
-
     constexpr char *_PHASOR_EG_ATK_PARAM_ID = "phaseEgAtk";
     constexpr char *_PHASOR_EG_ATK_PARAM_NAME = "Phase EG Atk";
     constexpr float _PHASOR_EG_ATK_DEFAULT_VAL = 0.1f;
@@ -178,6 +168,19 @@ namespace Consts
     constexpr char *_PHASOR_EG_REL_PARAM_ID = "phaseEgRel";
     constexpr char *_PHASOR_EG_REL_PARAM_NAME = "Phase EG Rel";
     constexpr float _PHASOR_EG_REL_DEFAULT_VAL = 1.2f;
+
+    constexpr char *_FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
+    constexpr char *_FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
+    constexpr float _FLTR_EG_ATK_DEFAULT_VAL = 0.01f;
+    constexpr char *_FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
+    constexpr char *_FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
+    constexpr float _FLTR_EG_DEC_DEFAULT_VAL = 0.4f;
+    constexpr char *_FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
+    constexpr char *_FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
+    constexpr float _FLTR_EG_SUS_DEFAULT_VAL = -30.0f;
+    constexpr char *_FLTR_EG_REL_PARAM_ID = "fltrEgRel";
+    constexpr char *_FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
+    constexpr float _FLTR_EG_REL_DEFAULT_VAL = 0.8f;
 
     constexpr char *_MOD_EG_ATK_PARAM_ID = "modEgAtk";
     constexpr char *_MOD_EG_ATK_PARAM_NAME = "Mod EG Atk";
@@ -197,6 +200,10 @@ namespace Consts
     const Colour _STROKE_COLOUR = Colour::fromRGBA(100, 222, 250, 205);
     const Colour _FILL_START_COLOUR = Colour::fromRGBA(77, 202, 227, 205);
     const Colour _FILL_END_COLOUR = Colour::fromRGBA(42, 178, 209, 205);
+
+    constexpr char *_COMPANY_NAME = "Black Box DSP";
+    constexpr char *_PLUGIN_NAME = "Phantom";
+    constexpr char *_PLUGIN_VERSION = "1.0.0-beta";
 }
 
 #endif

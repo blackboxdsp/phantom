@@ -5,9 +5,9 @@
   ==============================================================================
 */
 
+#include "PhantomData.h"
 #include "PhantomEditor.h"
 #include "PhantomProcessor.h"
-#include "PhantomUtils.h"
 
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -24,6 +24,8 @@ PhantomAudioProcessor::PhantomAudioProcessor()
 {
     m_synth.reset(new PhantomSynth(m_parameters));
     m_amp.reset(new PhantomAmplifier(m_parameters));
+
+    writePresetFiles();
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
@@ -190,6 +192,13 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
         Consts::_MIXER_OSC_BAL_DEFAULT_VAL
     );
     params.push_back(std::move(mixerOscBalance));
+
+    auto mixerAmpGain = std::make_unique<AudioParameterFloat>(
+        Consts::_MIXER_AMP_GAIN_PARAM_ID, Consts::_MIXER_AMP_GAIN_PARAM_NAME,
+        NormalisableRange<float>(0.0f, 1.2f, 0.01f),
+        Consts::_MIXER_AMP_GAIN_DEFAULT_VAL
+    );
+    params.push_back(std::move(mixerAmpGain));
 
     auto mixerRingMod = std::make_unique<AudioParameterFloat>(
         Consts::_MIXER_RING_MOD_PARAM_ID, Consts::_MIXER_RING_MOD_PARAM_NAME,
@@ -406,7 +415,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
 const String PhantomAudioProcessor::getName() const
 {
-    return JucePlugin_Name;
+    return Consts::_PLUGIN_NAME;
 }
 
 bool PhantomAudioProcessor::acceptsMidi() const
@@ -533,24 +542,146 @@ AudioProcessorEditor* PhantomAudioProcessor::createEditor()
 void PhantomAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
     std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
+    xml = saveMetadataToXml(std::move(xml));
     copyXmlToBinary(*xml, destData);
 }
 
 void PhantomAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
-    if(xmlState.get() != nullptr)
+    std::unique_ptr<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+    if(xml.get() != nullptr)
+        loadStateFromXml(std::move(xml));
+}
+
+std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_ptr<XmlElement> xml)
+{
+    if(xml->hasTagName(Consts::_PLUGIN_NAME))
     {
-        if(xmlState->hasTagName(m_parameters.state.getType()))
-        {
-            m_parameters.replaceState(ValueTree::fromXml(*xmlState));
-        }
+        bool doPluginVersionsMatch = String(Consts::_PLUGIN_VERSION).equalsIgnoreCase(xml->getStringAttribute("pluginVersion"));
+        jassert(doPluginVersionsMatch);
+
+        String presetName = String(xml->getStringAttribute("presetName"));
+        if(presetName.isEmpty() || presetName.equalsIgnoreCase("Init"))
+            if(m_presetName.isEmpty())
+                m_presetName = String("Init");
+            else
+                // WARNING: Preset has already been loaded and plugin is called to load either the same
+                // or another XMl data object.
+                return xml;
+        else
+            m_presetName = presetName;
+
+        m_parameters.replaceState(ValueTree::fromXml(*xml));
     }
+
+    return xml;
+}
+
+std::unique_ptr<XmlElement> PhantomAudioProcessor::saveMetadataToXml(std::unique_ptr<XmlElement> xml)
+{
+    return saveMetadataToXml(std::move(xml), m_presetName);
+}
+
+std::unique_ptr<XmlElement> PhantomAudioProcessor::saveMetadataToXml(std::unique_ptr<XmlElement> xml, String& presetName)
+{
+    xml->setAttribute("pluginVersion", Consts::_PLUGIN_VERSION);
+    xml->setAttribute("presetName", presetName);
+
+    return xml;
+}
+
+
+std::unique_ptr<String> PhantomAudioProcessor::saveStateToText()
+{
+    std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
+    
+    return std::make_unique<String>(saveMetadataToXml(std::move(xml))->toString());
+}
+
+void PhantomAudioProcessor::loadStateFromText(const String& stateStr)
+{
+    std::unique_ptr<XmlElement> xml = juce::parseXML(stateStr);
+    if(xml)
+        loadStateFromXml(std::move(xml));
+}
+
+bool PhantomAudioProcessor::saveStateToFile(File& file) 
+{
+    std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
+
+    m_presetName = file.getFileNameWithoutExtension();
+
+    return saveMetadataToXml(std::move(xml))->writeTo(file);
+}
+
+bool PhantomAudioProcessor::saveXmlToFile(std::unique_ptr<XmlElement> xml, File& dir)
+{
+    // The file must be stored within a direcctory!
+    jassert(dir.isDirectory());
+
+    String presetType = xml->getStringAttribute("presetType");
+    String presetName = xml->getStringAttribute("presetName");
+
+    xml->removeAttribute("presetType");
+
+    // These attributes must exist!
+    jassert(presetType.isNotEmpty() && presetName.isNotEmpty());
+
+    File typeSubDir = File(dir.getFullPathName() + "/" + presetType);
+    if(!typeSubDir.exists())
+        typeSubDir.createDirectory();
+
+    File presetFile = File(typeSubDir.getFullPathName() + "/" + presetName + ".xml");
+
+    return saveMetadataToXml(std::move(xml), presetName)->writeTo(presetFile);
+}
+
+void PhantomAudioProcessor::loadStateFromFile(File& file)
+{
+    std::unique_ptr<XmlElement> xml = juce::parseXML(file);
+    if(xml && xml->hasTagName(Consts::_PLUGIN_NAME))
+        loadStateFromXml(std::move(xml));
+}
+
+File PhantomAudioProcessor::getPresetDirectory()
+{
+    String presetDirPath = File::getSpecialLocation(File::userApplicationDataDirectory).getFullPathName()
+        + "/Black Box DSP/Phantom/Presets";
+
+    return File(presetDirPath);
+}
+
+Array<File> PhantomAudioProcessor::getPresetFiles()
+{
+    return getPresetDirectory().findChildFiles(File::findFiles, true, "*.xml");
+}
+
+void PhantomAudioProcessor::writePresetFiles()
+{
+    File presetDir = getPresetDirectory();
+
+    if(presetDir.exists())
+        return;
+
+    presetDir.createDirectory();
+
+    saveXmlToFile(juce::parseXML(PhantomData::algo_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::analog_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::feather_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::noisetap_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::overlord_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::siren_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::thestack_xml), presetDir);
+}
+
+void PhantomAudioProcessor::resetState()
+{
+    m_presetName = String("Init");
 }
 
 float PhantomAudioProcessor::getSkewFactor(float start, float end, float center)
 {
-    return std::log((0.5f)) / std::log((center - start) / (end - start));
+    return std::log(0.5f) / std::log((center - start) / (end - start));
 }
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

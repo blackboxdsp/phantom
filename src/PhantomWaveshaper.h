@@ -59,7 +59,7 @@ public:
      * @param upper The upper bound to use.
      * @returns The clipped value between the lower and upper bounds.
      */
-    float clip(float x, float lower, float upper) noexcept;
+    static float clip(float x, float lower, float upper) noexcept { return std::max(lower, std::min(x, upper)); };
 
 
     /**
@@ -67,7 +67,7 @@ public:
      * @param x The value to use in determining polarity.
      * @returns The sign of a value (-1.0f if below zero, else 1.0f).
      */
-    float sign(float x) noexcept;
+    static float sign(float x) noexcept { return x >= 0.0f ? 1.0f : -1.0f; };
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomWaveshaper)

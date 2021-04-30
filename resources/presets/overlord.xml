@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Phantom pluginVersion="1.0.0-beta" presetName="Overlord" presetType="Bass">
+  <PARAM id="ampEgAtk" value="0.239999994635582"/>
+  <PARAM id="ampEgDec" value="1.419999957084656"/>
+  <PARAM id="ampEgRel" value="8.449999809265137"/>
+  <PARAM id="ampEgSus" value="-9.399997711181641"/>
+  <PARAM id="filterCutoff" value="102.7000045776367"/>
+  <PARAM id="filterDrive" value="0.699999988079071"/>
+  <PARAM id="filterEgModDepth" value="0.2200000286102295"/>
+  <PARAM id="filterLfoModDepth" value="0.03999996185302734"/>
+  <PARAM id="filterMode" value="0.0"/>
+  <PARAM id="filterReso" value="2.539999961853027"/>
+  <PARAM id="fltrEgAtk" value="0.04999999701976776"/>
+  <PARAM id="fltrEgDec" value="1.259999990463257"/>
+  <PARAM id="fltrEgRel" value="3.379999876022339"/>
+  <PARAM id="fltrEgSus" value="-15.39999771118164"/>
+  <PARAM id="level" value="0.0"/>
+  <PARAM id="lfo01Rate" value="0.2700000107288361"/>
+  <PARAM id="lfo01Shape" value="1.0"/>
+  <PARAM id="lfo02Rate" value="0.2199999988079071"/>
+  <PARAM id="lfo02Shape" value="1.0"/>
+  <PARAM id="mixerAmpGain" value="1.0"/>
+  <PARAM id="mixerNoise" value="0.0"/>
+  <PARAM id="mixerOscBalance" value="0.5"/>
+  <PARAM id="mixerRngMod" value="0.7899999618530273"/>
+  <PARAM id="modEgAtk" value="0.009999999776482582"/>
+  <PARAM id="modEgDec" value="0.2699999809265137"/>
+  <PARAM id="modEgRel" value="0.2000000029802322"/>
+  <PARAM id="modEgSus" value="-60.0"/>
+  <PARAM id="osc01CoarseTune" value="0.0"/>
+  <PARAM id="osc01FineTune" value="0.0"/>
+  <PARAM id="osc01ModDepth" value="0.0"/>
+  <PARAM id="osc01ModSource" value="0.0"/>
+  <PARAM id="osc01Range" value="1.0"/>
+  <PARAM id="osc01ShapeInt" value="0.3799999952316284"/>
+  <PARAM id="osc02CoarseTune" value="0.0"/>
+  <PARAM id="osc02FineTune" value="4.800003051757812"/>
+  <PARAM id="osc02ModDepth" value="0.0"/>
+  <PARAM id="osc02ModSource" value="1.0"/>
+  <PARAM id="osc02Range" value="2.0"/>
+  <PARAM id="osc02ShapeInt" value="0.0"/>
+  <PARAM id="oscSync" value="0.0"/>
+  <PARAM id="phaseEgAtk" value="0.009999999776482582"/>
+  <PARAM id="phaseEgDec" value="1.019999980926514"/>
+  <PARAM id="phaseEgRel" value="3.519999980926514"/>
+  <PARAM id="phaseEgSus" value="-7.0"/>
+  <PARAM id="phasor01EgInt"/>
+  <PARAM id="phasor01LfoInt" value="0.6899999976158142"/>
+  <PARAM id="phasor01Shape"/>
+  <PARAM id="phasor02EgInt"/>
+  <PARAM id="phasor02LfoInt"/>
+  <PARAM id="phasor02Shape"/>
+</Phantom>

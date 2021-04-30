@@ -1,23 +1,29 @@
-#===============================================================================
+# Checks that the installed version of CMake can understand the following commands
 cmake_minimum_required(VERSION 3.15)
 
-project(Phantom VERSION 0.0.1)
+# Declaring targets and describing source/ binary directories
+project(Phantom VERSION 1.0.0)
 
-#===============================================================================
+# Declare dependency on JUCE (as installed on the local system)
 add_subdirectory(juce)
 
-#===============================================================================
+# Define plugin metadata
 juce_add_plugin(Phantom
-        VERSION "0.0.1"
-        COMPANY_NAME "Maxwell Audio"
+        VERSION "1.0.0"
+        COMPANY_NAME "Black Box DSP"
+        COMPANY_WEBSITE "https://blackboxdsp.com"
+        PRODUCT_NAME Phantom
+        PLUGIN_NAME Phantom
+        PLUGIN_MANUFACTURER_CODE Bkbx
+        PLUGIN_CODE Phtm
+        BUNDLE_ID "com.blackboxdsp.phantom"
+        FORMATS VST3 AU AUv3
+        VST3_CATEGORIES Instrument Synth
+        AU_MAIN_TYPE kAudioUnitType_MusicDevice
         IS_SYNTH TRUE
         IS_MIDI_EFFECT FALSE
         NEEDS_MIDI_INPUT TRUE
-        NEEDS_MIDI_OUTPUT FALSE
-        PLUGIN_MANUFACTURER_CODE Matt
-        PLUGIN_CODE Phan
-        FORMATS AU VST3
-        PRODUCT_NAME "Phantom")
+        NEEDS_MIDI_OUTPUT FALSE)
 
 # Generate the JUCE header file for our source code
 juce_generate_juce_header(Phantom)
@@ -47,6 +53,18 @@ target_compile_definitions(Phantom PUBLIC
         JUCE_VST3_CAN_REPLACE_VST2=0
         JUCE_DISPLAY_SPLASH_SCREEN=0)
 
+# Add binary data from resources folder
+juce_add_binary_data(PhantomData HEADER_NAME "PhantomData.h" NAMESPACE PhantomData SOURCES
+        resources/presets/algo.xml
+        resources/presets/analog.xml
+        resources/presets/feather.xml
+        resources/presets/noise-tap.xml
+        resources/presets/overlord.xml
+        resources/presets/siren.xml
+        resources/presets/the-stack.xml)
+
+# Link libraries to the plugin's source code and other resources (i.e. binary data)
 target_link_libraries(Phantom PRIVATE
-    juce::juce_audio_utils
-    juce::juce_dsp)
+        PhantomData
+        juce::juce_audio_utils
+        juce::juce_dsp)

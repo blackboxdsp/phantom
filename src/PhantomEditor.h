@@ -22,19 +22,55 @@ typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 class PhantomAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
-    PhantomAudioProcessorEditor(PhantomAudioProcessor&, AudioProcessorValueTreeState&);
+    PhantomAudioProcessorEditor(PhantomAudioProcessor &, AudioProcessorValueTreeState &);
     ~PhantomAudioProcessorEditor() override;
 
     /**
      * Determines the appearance of the main plugin component.
      */
-    void paint(Graphics&) override;
+    void paint(Graphics &) override;
 
     /**
      * Determines the layout of the various GUI components for new 
      * window size.
      */
     void resized() override;
+
+    /**
+     * Adds presets from presets folder to popup menu.
+     * @param menu The reference to the menu to add the presets to.
+     */
+    void addPresetsToMenu(PopupMenu &menu);
+
+    /**
+     * Loads the presets' filepaths from the presets 
+     * directory.
+     */
+    void loadPresetFilePaths();
+
+    /**
+     * Loads the file in the filepaths array at the specified index.
+     */
+    void loadPresetFileAtIndex();
+
+    /**
+     * Sets the preset index based on the preset files 
+     * in the presets folder and the current name according 
+     * to the processor.
+     * @returns `true` if a preset was matched.
+     */
+    bool setPresetIdx();
+
+    /**
+     * Resets components of the GUI.
+     */
+    void resetGui();
+
+    /**
+     * Resets all of the sliders to their default values, useful for 
+     * initializing new synth patches.
+     */
+    void resetParameters();
 
     /**
      * The unique pointer to the analyzer, used by the processor.
@@ -45,6 +81,23 @@ public:
      * The unique pointer to the oscilloscope, used by the processor.
      */
     std::unique_ptr<PhantomOscilloscope> m_oscilloscope;
+
+    /** The reference to the value tree state useful in retrieving or 
+     * storing parameter information.
+     */
+    AudioProcessorValueTreeState &m_parameters;
+
+    /**
+     * This reference is provided as a quick way for your editor to
+     * access the processor object that created it.
+     */
+    PhantomAudioProcessor &m_processor;
+
+    /**
+     * This array holds all of the relative paths to the presets in 
+     * the same order they were added to the preset menu (alphabetically).
+     */
+    Array<String> m_presetFilePaths;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
@@ -100,38 +153,34 @@ private:
     void initAnalyzer();
 
     /**
-     * Resets all of the sliders to their default values, useful for 
-     * initializing new synth patches.
+     * Initializes the GUI for the preset menu.
      */
-    void reset();
-    
-    /**
-     * This reference is provided as a quick way for your editor to
-     * access the processor object that created it.
-     */
-    PhantomAudioProcessor& m_audioProcessor;
+    void initPresetMenu();
 
-    AudioProcessorValueTreeState& m_parameters;
+    /**
+     * This index keeps track of the currently selected preset's
+     * filepath, using for navigating quickly between them.
+     * WARNING: Do NOT change the initialization value.
+     */
+    int m_presetIdx = -3;
 
     /**
      * The width for a text box.
      */
-    int textBoxWidth;
+    int m_textBoxWidth;
 
     /**
      * The height for a text box;
      */
-    int textBoxHeight;
+    int m_textBoxHeight;
 
     //================
     // GUI COMPONENTS
     //================
 
-    TextButton m_initButton;
-
     Slider m_levelSlider;
     Label m_levelLabel;
-    std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
+    std::unique_ptr<SliderAttachment> m_levelSliderAttachment;
 
     Label m_oscLabel;
     Slider m_oscSyncSlider;
@@ -189,6 +238,9 @@ private:
     Slider m_mixerOscBalanceSlider;
     Label m_mixerOscBalanceLabel;
     std::unique_ptr<SliderAttachment> m_mixerOscBalanceSliderAttachment;
+    Slider m_mixerAmpGainSlider;
+    Label m_mixerAmpGainLabel;
+    std::unique_ptr<SliderAttachment> m_mixerAmpGainSliderAttachment;
     Slider m_mixerRingModSlider;
     Label m_mixerRingModLabel;
     std::unique_ptr<SliderAttachment> m_mixerRingModSliderAttachment;
@@ -275,4 +327,9 @@ private:
     std::unique_ptr<SliderAttachment> m_modEgSusSliderAttachment;
     Slider m_modEgRelSlider;
     std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
+
+    Label m_presetLabel;
+    TextButton m_presetButton;
+    TextButton m_presetLeftButton;
+    TextButton m_presetRightButton;
 };
