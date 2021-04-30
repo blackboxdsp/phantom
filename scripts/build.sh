@@ -55,7 +55,7 @@ if [ ! -d "./juce" ]; then
     
     cd ../
 
-    echo -e "\n[Success] Cloned JUCE repository\n"
+    echo -e "\n[Success] Cloned JUCE repository!\n"
 fi
 
 if [ ! -d "./juce/build" ]; then
