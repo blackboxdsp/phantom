@@ -4,19 +4,34 @@
 
 PLUGIN_NAME=Phantom
 BUILD_TYPE=Release
-DIST_DIR=dist
 OPER_SYS=Windows
+
+DIST_DIR=dist
+DIST_ZIP="phantom.zip"
+DIST_BUCKET="mattmaxwell-products"
+
+GCP_CONFIGURATION=mattmaxwell
+GCP_PROJECT_ID=mattmaxwell-304801
+GCP_SERVICE_ACCOUNT=gcloud-api@mattmaxwell-304801.iam.gserviceaccount.com
+GCP_AUTH_KEY_FILE=./conf/gcloud/gcloud-api.json
 
 PACKAGE_STEP=false
 DISTRIBUTE_STEP=false
 
 start_time=$(date +%s)
 
+echo -e "Doing preparation checks...\n"
+
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-if [ "$BRANCH" != "dist" ]; then
-    echo -e "[Error] The wrong git branch is checked out. To switch to the correct branch, please use:\n\n\tgit checkout dist"
-    
+if [ "$BRANCH" != "dist" ];
+then
+    echo -e "\t[✘] Branch is set to \"dist\"\n"
+    echo -e "To switch to the correct branch, please use:\n\n\tgit checkout dist\n"
+    echo -e "If the dist branch does NOT exist remotely then please use:\n\n\tgit checkout -b dist ${BRANCH} && git push -u origin dist"
+
     exit 1;
+else
+    echo -e "\t[✔] Branch is set to \"dist\""
 fi
 
 for i in "$@"; do
@@ -57,14 +72,55 @@ if [ "$PACKAGE_STEP" = true ]; then
 
     git add .
     git commit -m "BUILD: ${OPER_SYS} - $(date)"
-    git push
+    git push -u 
 
     echo -e "\n[Success] Package plugin for distribution!"
 fi
 
 if [ "$DISTRIBUTE_STEP" = true ]; then
-    echo -e "\n[TODO] Bash stuff for distributing files."
+    CURRENT_GCP_PROJECT=$(gcloud config get-value project)
+    if [ "$CURRENT_GCP_PROJECT" != "$GCP_PROJECT_ID" ]
+    then
+        echo -e "\t[✘] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"
+        echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config configurations activate $GCP_CONFIGURATION"
+
+        exit 1;
+    else
+        echo -e "\t[✔] Cloud SDK's configuration is set for $GCP_PROJECT_ID"
+    fi
+
+    CURRENT_GCP_ACCOUNT=$(gcloud config list account --format "value(core.account)")
+    if [ "$CURRENT_GCP_ACCOUNT" != "$GCP_SERVICE_ACCOUNT" ]
+    then
+        echo -e "\t[✘] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
+        echo -e "To properly set the service account for this project, use:\n\n\tgcloud config set account $GCP_SERVICE_ACCOUNT"
+        echo -e "and"
+        echo -e "\tgcloud auth activate-service-account $GCP_SERVICE_ACCOUNT --key-file=$GCP_AUTH_KEY_FILE"
+
+        exit 1;
+    else
+        echo -e "\t[✔] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
+    fi
+
+    git pull
+
+    if [[ ${OSTYPE} == "darwin"* ]]; then
+        zip -r ${DIST_ZIP} dist/
+    else
+        7z a -tzip ${DIST_ZIP} dist/
+    fi
+    echo -e "\n[Success] Zipped plugin binaries!"
+
+    gsutil cp ${DIST_ZIP} gs://${DIST_BUCKET}
+    echo -e "[Success] Uploaded plugin binaries!"
+
+    rm -f ./${DIST_ZIP}
+
+    git push -d origin dist
+    echo -e "[Success] Deleted remote branch!"
 fi
+
+echo -e ""
 
 convertsecs() {
     ((m = (${1} % 3600) / 60))

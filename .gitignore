@@ -11,7 +11,11 @@ juce/
 
 # Binaries and executables
 bin/
+dist/
 out/
+
+# Confidential stuff
+conf/
 
 # Miscellaneous project stuff
 design/
