@@ -666,6 +666,8 @@ void PhantomAudioProcessorEditor::initPresetMenu()
                 {
                     m_processor.saveStateToFile(browser.getResult());
 
+                    loadPresetFilePaths();
+                    setPresetIdx();
                     resetGui();
                 }
             })
@@ -725,12 +727,22 @@ void PhantomAudioProcessorEditor::addPresetsToMenu(PopupMenu& menu)
             .setAction([this, pf](){
                 m_processor.loadStateFromFile(File(pf.getFullPathName()));
 
+                setPresetIdx();
                 resetGui();
             })
         );
     }
 
     menu.addSubMenu(previousTypeDir, typeDirSubMenu);
+}
+
+
+void PhantomAudioProcessorEditor::loadPresetFilePaths()
+{
+    m_presetFilePaths.clearQuick();
+
+    for(File pf : m_processor.getPresetFiles())
+        m_presetFilePaths.add(pf.getFullPathName());
 }
 
 void PhantomAudioProcessorEditor::loadPresetFileAtIndex()
@@ -784,14 +796,6 @@ bool PhantomAudioProcessorEditor::setPresetIdx()
     DBG(m_presetIdx);
 
     return false;
-}
-
-void PhantomAudioProcessorEditor::loadPresetFilePaths()
-{
-    m_presetFilePaths.clearQuick();
-
-    for(File pf : m_processor.getPresetFiles())
-        m_presetFilePaths.add(pf.getFullPathName());
 }
 
 void PhantomAudioProcessorEditor::resetGui()

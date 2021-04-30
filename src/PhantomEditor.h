@@ -43,9 +43,23 @@ public:
     void addPresetsToMenu(PopupMenu &menu);
 
     /**
+     * Loads the presets' filepaths from the presets 
+     * directory.
+     */
+    void loadPresetFilePaths();
+
+    /**
      * Loads the file in the filepaths array at the specified index.
      */
     void loadPresetFileAtIndex();
+
+    /**
+     * Sets the preset index based on the preset files 
+     * in the presets folder and the current name according 
+     * to the processor.
+     * @returns `true` if a preset was matched.
+     */
+    bool setPresetIdx();
 
     /**
      * Resets components of the GUI.
@@ -142,20 +156,6 @@ private:
      * Initializes the GUI for the preset menu.
      */
     void initPresetMenu();
-
-    /**
-     * Loads the presets' filepaths from the presets 
-     * directory.
-     */
-    void loadPresetFilePaths();
-
-    /**
-     * Sets the preset index based on the preset files 
-     * in the presets folder and the current name according 
-     * to the processor.
-     * @returns `true` if a preset was matched.
-     */
-    bool setPresetIdx();
 
     /**
      * This index keeps track of the currently selected preset's
