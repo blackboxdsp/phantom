@@ -9,13 +9,13 @@
 namespace PhantomData
 {
     extern const char*   algo_xml;
-    const int            algo_xmlSize = 1934;
+    const int            algo_xmlSize = 1979;
 
     extern const char*   analog_xml;
-    const int            analog_xmlSize = 1937;
+    const int            analog_xmlSize = 1982;
 
     extern const char*   feather_xml;
-    const int            feather_xmlSize = 1938;
+    const int            feather_xmlSize = 1983;
 
     extern const char*   noisetap_xml;
     const int            noisetap_xmlSize = 2530;
@@ -24,10 +24,10 @@ namespace PhantomData
     const int            overlord_xmlSize = 2495;
 
     extern const char*   siren_xml;
-    const int            siren_xmlSize = 1936;
+    const int            siren_xmlSize = 1981;
 
     extern const char*   thestack_xml;
-    const int            thestack_xmlSize = 1939;
+    const int            thestack_xmlSize = 1984;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 7;
