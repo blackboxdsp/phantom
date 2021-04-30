@@ -116,15 +116,20 @@ public:
     void loadStateFromFile(File& file);
 
     /**
-     * Retrieves the appropriate preset directory for the user, and 
-     * creates it if it is not found.
+     * Retrieves the appropriate preset directory for the user, whether it exists or not.
      * @returns The file object representing the preset folder on the user's machine.
      */
     File getPresetDirectory();
 
     /**
+     * Retrieves all of the preset files (*.xml) within the presets folder.
+     */
+    Array<File> getPresetFiles();
+
+    /**
      * Writes all of the (XML) binary data resources
-     * to files the app data directory on the user's computer
+     * to files the app data directory on the user's computer.
+     * CAUTION: Be sure to precompile the binary resources if you've added more stock presets.
      * @returns `true` if the file was saved successfully.
      */
     void writePresetFiles(); 

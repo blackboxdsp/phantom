@@ -616,14 +616,22 @@ bool PhantomAudioProcessor::saveStateToFile(File& file)
 
 bool PhantomAudioProcessor::saveXmlToFile(std::unique_ptr<XmlElement> xml, File& dir)
 {
-    DBG(xml->toString());
-
+    // The file must be stored within a direcctory!
     jassert(dir.isDirectory());
 
+    String presetType = xml->getStringAttribute("presetType");
     String presetName = xml->getStringAttribute("presetName");
-    File file = File(dir.getFullPathName() + "/" + presetName + ".xml");
 
-    return saveMetadataToXml(std::move(xml), presetName)->writeTo(file);
+    // These attributes must exist!
+    jassert(presetType.isNotEmpty() && presetName.isNotEmpty());
+
+    File typeSubDir = File(dir.getFullPathName() + "/" + presetType);
+    if(!typeSubDir.exists())
+        typeSubDir.createDirectory();
+
+    File presetFile = File(typeSubDir.getFullPathName() + "/" + presetName + ".xml");
+
+    return saveMetadataToXml(std::move(xml), presetName)->writeTo(presetFile);
 }
 
 void PhantomAudioProcessor::loadStateFromFile(File& file)
@@ -638,19 +646,27 @@ File PhantomAudioProcessor::getPresetDirectory()
     String presetDirPath = File::getSpecialLocation(File::userApplicationDataDirectory).getFullPathName()
         + "/Black Box DSP/Phantom/Presets";
 
-    File file = File(presetDirPath);
+    return File(presetDirPath);
+}
 
-    if(!file.exists())
-        file.createDirectory();
-
-    return file;
+Array<File> PhantomAudioProcessor::getPresetFiles()
+{
+    return getPresetDirectory().findChildFiles(File::findFiles, true, "*.xml");
 }
 
 void PhantomAudioProcessor::writePresetFiles()
 {
     File presetDir = getPresetDirectory();
 
-    saveXmlToFile(juce::parseXML(PhantomData::noisebass_xml), presetDir);
+    if(presetDir.exists())
+        return;
+
+    presetDir.createDirectory();
+
+    saveXmlToFile(juce::parseXML(PhantomData::algo_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::analog_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::feather_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::overlord_xml), presetDir);
     saveXmlToFile(juce::parseXML(PhantomData::siren_xml), presetDir);
     saveXmlToFile(juce::parseXML(PhantomData::thestack_xml), presetDir);
 }

@@ -37,6 +37,12 @@ public:
     void resized() override;
 
     /**
+     * Adds presets from presets folder to popup menu.
+     * @param menu The reference to the menu to add the presets to.
+     */
+    void addPresetsToMenu(PopupMenu& menu);
+
+    /**
      * Resets components of the GUI.
      */
     void resetGui();
@@ -67,6 +73,12 @@ public:
      * access the processor object that created it.
      */
     PhantomAudioProcessor& m_processor;
+
+    /**
+     * This array holds all of the relative paths to the presets in 
+     * the same order they were added to the preset menu (alphabetically).
+     */
+    Array<String> m_presetFilePaths;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
@@ -129,12 +141,12 @@ private:
     /**
      * The width for a text box.
      */
-    int textBoxWidth;
+    int m_textBoxWidth;
 
     /**
      * The height for a text box;
      */
-    int textBoxHeight;
+    int m_textBoxHeight;
 
     //================
     // GUI COMPONENTS
