@@ -22,13 +22,13 @@ typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 class PhantomAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
-    PhantomAudioProcessorEditor(PhantomAudioProcessor&, AudioProcessorValueTreeState&);
+    PhantomAudioProcessorEditor(PhantomAudioProcessor &, AudioProcessorValueTreeState &);
     ~PhantomAudioProcessorEditor() override;
 
     /**
      * Determines the appearance of the main plugin component.
      */
-    void paint(Graphics&) override;
+    void paint(Graphics &) override;
 
     /**
      * Determines the layout of the various GUI components for new 
@@ -40,7 +40,12 @@ public:
      * Adds presets from presets folder to popup menu.
      * @param menu The reference to the menu to add the presets to.
      */
-    void addPresetsToMenu(PopupMenu& menu);
+    void addPresetsToMenu(PopupMenu &menu);
+
+    /**
+     * Loads the file in the filepaths array at the specified index.
+     */
+    void loadPresetFileAtIndex();
 
     /**
      * Resets components of the GUI.
@@ -66,13 +71,13 @@ public:
     /** The reference to the value tree state useful in retrieving or 
      * storing parameter information.
      */
-    AudioProcessorValueTreeState& m_parameters;
+    AudioProcessorValueTreeState &m_parameters;
 
     /**
      * This reference is provided as a quick way for your editor to
      * access the processor object that created it.
      */
-    PhantomAudioProcessor& m_processor;
+    PhantomAudioProcessor &m_processor;
 
     /**
      * This array holds all of the relative paths to the presets in 
@@ -139,6 +144,27 @@ private:
     void initPresetMenu();
 
     /**
+     * Loads the presets' filepaths from the presets 
+     * directory.
+     */
+    void loadPresetFilePaths();
+
+    /**
+     * Sets the preset index based on the preset files 
+     * in the presets folder and the current name according 
+     * to the processor.
+     * @returns `true` if a preset was matched.
+     */
+    bool setPresetIdx();
+
+    /**
+     * This index keeps track of the currently selected preset's
+     * filepath, using for navigating quickly between them.
+     * WARNING: Do NOT change the initialization value.
+     */
+    int m_presetIdx = -3;
+
+    /**
      * The width for a text box.
      */
     int m_textBoxWidth;
@@ -154,7 +180,7 @@ private:
 
     Slider m_levelSlider;
     Label m_levelLabel;
-    std::unique_ptr<SliderAttachment> m_levelSliderAttachment; 
+    std::unique_ptr<SliderAttachment> m_levelSliderAttachment;
 
     Label m_oscLabel;
     Slider m_oscSyncSlider;
@@ -304,4 +330,6 @@ private:
 
     Label m_presetLabel;
     TextButton m_presetButton;
+    TextButton m_presetLeftButton;
+    TextButton m_presetRightButton;
 };

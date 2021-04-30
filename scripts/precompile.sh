@@ -43,5 +43,7 @@ convertsecs() {
 
 end_time=$(date +%s)
 execution_time=$(expr $end_time - $start_time)
-echo -e "Total time elapsed:    $(convertsecs $execution_time)"
-echo -e "Script name:           precompile.sh"
+echo -e "Total time elapsed:    $(convertsecs $execution_time)"\
+
+me=`basename "$0"`
+echo -e "Script name:           ${me}"

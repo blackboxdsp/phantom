@@ -622,6 +622,8 @@ bool PhantomAudioProcessor::saveXmlToFile(std::unique_ptr<XmlElement> xml, File&
     String presetType = xml->getStringAttribute("presetType");
     String presetName = xml->getStringAttribute("presetName");
 
+    xml->removeAttribute("presetType");
+
     // These attributes must exist!
     jassert(presetType.isNotEmpty() && presetName.isNotEmpty());
 

@@ -26,6 +26,8 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
     initPresetMenu();
 
+    loadPresetFilePaths();
+
     setResizable(true, true);
     setSize(1280, 720);
 }
@@ -628,7 +630,6 @@ void PhantomAudioProcessorEditor::initPresetMenu()
     m_presetButton.setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
     m_presetButton.setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
     addAndMakeVisible(&m_presetButton);
-
     m_presetButton.onClick = [this](){
         PopupMenu menu;
 
@@ -675,10 +676,26 @@ void PhantomAudioProcessorEditor::initPresetMenu()
         menu.addSectionHeader("Presets");
 
         addPresetsToMenu(menu);
-        for(auto elem : m_presetFilePaths)
-            DBG(elem);
 
         menu.show();
+    };
+
+    m_presetLeftButton.setButtonText("<");
+    m_presetLeftButton.setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
+    m_presetLeftButton.setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
+    addAndMakeVisible(&m_presetLeftButton);
+    m_presetLeftButton.onClick = [this](){
+        m_presetIdx--;
+        loadPresetFileAtIndex();
+    };
+
+    m_presetRightButton.setButtonText(">");
+    m_presetRightButton.setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
+    m_presetRightButton.setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
+    addAndMakeVisible(&m_presetRightButton);
+    m_presetRightButton.onClick = [this](){
+        m_presetIdx++;
+        loadPresetFileAtIndex();
     };
 }
 
@@ -687,8 +704,7 @@ void PhantomAudioProcessorEditor::addPresetsToMenu(PopupMenu& menu)
     String previousTypeDir = String("");
     PopupMenu typeDirSubMenu;
 
-    Array<File> presetFiles = m_processor.getPresetFiles();
-    for(File pf : presetFiles)
+    for(File pf : m_processor.getPresetFiles())
     {
         if(previousTypeDir.isEmpty())
             previousTypeDir = pf.getParentDirectory().getFileName();
@@ -704,17 +720,78 @@ void PhantomAudioProcessorEditor::addPresetsToMenu(PopupMenu& menu)
 
         String presetName = String(pf.getFileNameWithoutExtension());
         typeDirSubMenu.addItem(
-            PopupMenu::Item(presetName).setAction([this, pf](){
+            PopupMenu::Item(presetName)
+            .setEnabled(!presetName.equalsIgnoreCase(m_processor.m_presetName))
+            .setAction([this, pf](){
                 m_processor.loadStateFromFile(File(pf.getFullPathName()));
 
                 resetGui();
             })
         );
-
-        m_presetFilePaths.add(String(typeDir + "/" + presetName));
     }
 
     menu.addSubMenu(previousTypeDir, typeDirSubMenu);
+}
+
+void PhantomAudioProcessorEditor::loadPresetFileAtIndex()
+{
+
+    if(m_presetIdx >= -4 && m_presetIdx <= -2)
+    {
+        int previousIdx = m_presetIdx;
+
+        if(!setPresetIdx())
+            m_presetIdx = 0;
+        else 
+            if(previousIdx == -4)
+                m_presetIdx--;
+            else
+                m_presetIdx++;
+    }
+
+    DBG("Before: " << m_presetIdx);
+
+    if(m_presetIdx < 0)
+        m_presetIdx = m_presetFilePaths.size() - 1;
+    else if(m_presetIdx >= m_presetFilePaths.size())
+        m_presetIdx = 0;
+
+    File file = File(m_presetFilePaths[m_presetIdx]);
+    m_processor.loadStateFromFile(file);
+
+    resetGui();
+
+    DBG(m_presetIdx << ": " << m_presetFilePaths[m_presetIdx]);
+}
+
+bool PhantomAudioProcessorEditor::setPresetIdx()
+{
+    int count = 0;
+
+    for(File pf : m_processor.getPresetFiles())
+    {
+        String presetName = pf.getFileNameWithoutExtension();
+        if(presetName == m_processor.m_presetName)
+        {
+            m_presetIdx = count;
+
+            return true;
+        }
+
+        count++;
+    }
+
+    DBG(m_presetIdx);
+
+    return false;
+}
+
+void PhantomAudioProcessorEditor::loadPresetFilePaths()
+{
+    m_presetFilePaths.clearQuick();
+
+    for(File pf : m_processor.getPresetFiles())
+        m_presetFilePaths.add(pf.getFullPathName());
 }
 
 void PhantomAudioProcessorEditor::resetGui()
@@ -853,8 +930,12 @@ void PhantomAudioProcessorEditor::resized()
     middleTopArea.removeFromLeft(margin);
 
     Rectangle<int> presetArea = phasorArea.removeFromBottom(margin * 1.5);
-    m_presetLabel.setBounds(presetArea.removeFromLeft(presetArea.getWidth() / 2));
-    m_presetButton.setBounds(presetArea);
+    const int presetAreaWidth = presetArea.getWidth();
+    m_presetLabel.setBounds(presetArea.removeFromLeft(presetAreaWidth * 0.3));
+    m_presetButton.setBounds(presetArea.removeFromLeft(presetAreaWidth * 0.4));
+    presetArea.removeFromLeft(presetAreaWidth * 0.1);
+    m_presetLeftButton.setBounds(presetArea.removeFromLeft(presetAreaWidth * 0.1));
+    m_presetRightButton.setBounds(presetArea);
     phasorArea.removeFromBottom(margin * 0.5);
 
     Rectangle<int> phasor01Area = phasorArea.removeFromTop(phasorArea.getHeight() / 2);
