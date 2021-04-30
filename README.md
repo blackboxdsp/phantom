@@ -24,7 +24,7 @@ Phantom is a phase distortion synthesizer plugin targeting VST3 and AU for MacOS
 
 ## Usage
 
-Phantom is capable of running with any plugin host as long as it supports VST3 or AU. Please refer to your DAW's manual to see compatible plugin formats.
+Phantom is capable of running with any plugin host as long as it supports VST3 or AU. Please refer to your DAW's manual to see compatible plugin formats. For more information about installating or using the plugin, please refer to the [installation guide](./resources/info/INSTALLATION.md) and [manual](./resources/info/MANUAL.md) respectively.
 
 ## Contributing
 
