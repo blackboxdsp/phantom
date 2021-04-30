@@ -415,7 +415,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
 const String PhantomAudioProcessor::getName() const
 {
-    return JucePlugin_Name;
+    return Consts::_PLUGIN_NAME;
 }
 
 bool PhantomAudioProcessor::acceptsMidi() const
@@ -668,6 +668,7 @@ void PhantomAudioProcessor::writePresetFiles()
     saveXmlToFile(juce::parseXML(PhantomData::algo_xml), presetDir);
     saveXmlToFile(juce::parseXML(PhantomData::analog_xml), presetDir);
     saveXmlToFile(juce::parseXML(PhantomData::feather_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::noisetap_xml), presetDir);
     saveXmlToFile(juce::parseXML(PhantomData::overlord_xml), presetDir);
     saveXmlToFile(juce::parseXML(PhantomData::siren_xml), presetDir);
     saveXmlToFile(juce::parseXML(PhantomData::thestack_xml), presetDir);

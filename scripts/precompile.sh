@@ -20,15 +20,15 @@ for i in "$@"; do
     esac
 done
 
-echo -e "Precompiling Phantom resources...\n"
+echo -e "Precompiling ${PLUGIN_NAME} resources...\n"
 
 rm -rf ./bin
 
 cmake -B bin .
-echo -e "\n[Success] Configured Phantom for CMake build!\n"
+echo -e "\n[Success] Configured ${PLUGIN_NAME} for CMake build!\n"
 
 cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All"
-echo -e "\n[Success] Built Phantom!\n"
+echo -e "\n[Success] Built ${PLUGIN_NAME}!\n"
 
 rm -f src/${FILENAME}
 
