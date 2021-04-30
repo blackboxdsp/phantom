@@ -72,7 +72,7 @@ if [ "$PACKAGE_STEP" = true ]; then
 
     git add .
     git commit -m "BUILD: ${OPER_SYS} - $(date)"
-    git push -u 
+    git push
 
     echo -e "\n[Success] Package plugin for distribution!"
 fi
@@ -112,12 +112,12 @@ if [ "$DISTRIBUTE_STEP" = true ]; then
     echo -e "\n[Success] Zipped plugin binaries!"
 
     gsutil cp ${DIST_ZIP} gs://${DIST_BUCKET}
-    echo -e "[Success] Uploaded plugin binaries!"
+    echo -e "\n[Success] Uploaded plugin binaries!"
 
     rm -f ./${DIST_ZIP}
 
     git push -d origin dist
-    echo -e "[Success] Deleted remote branch!"
+    echo -e "\n[Success] Deleted remote branch!"
 fi
 
 echo -e ""
