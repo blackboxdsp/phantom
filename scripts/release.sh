@@ -5,31 +5,42 @@
 PLUGIN_NAME=Phantom
 BUILD_TYPE=Release
 DIST_DIR=dist
+OPER_SYS=Windows
 
 start_time=$(date +%s)
 
-rm -rf ./bin
-rm -rf ./dist
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$BRANCH" != "dist" ]; then
+    echo -e "[Error] The wrong git branch is checked out. To switch to the correct branch, please use:\n\n\tgit checkout dist"
+    
+    exit 1;
+fi
 
-mkdir dist
+rm -rf ./bin
 
 scripts/build.sh -p -b=${BUILD_TYPE}
 
 if [[ ${OSTYPE} == "darwin"* ]]; then
-    if [ ! -d "${DIST_DIR}/macos" ]; then
-        mkdir "${DIST_DIR}/macos"
-    fi
+    OPER_SYS=MacOS
+
+    rm -rf "${DIST_DIR}/macos"
+    mkdir "${DIST_DIR}/macos" 
 
     cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "${DIST_DIR}/macos/${PLUGIN_NAME}.vst3"
     cp -r "./bin/${PLUGIN_NAME}_artefacts/AU/${PLUGIN_NAME}.component" "${DIST_DIR}/macos/${PLUGIN_NAME}.component"
+
 else
-    if [ ! -d "${DIST_DIR}/windows" ]; then
-        mkdir "${DIST_DIR}/windows"
-    fi
+    OPER_SYS=Windows
+
+    rm -rf "${DIST_DIR}/windows" 
+    mkdir "${DIST_DIR}/windows"
 
     cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "${DIST_DIR}/windows/${PLUGIN_NAME}.vst3"
 fi
-echo -e "\n[Success] Copied plugin binaries!\n"
+
+git add .
+git commit -m "BUILD: ${OPER_SYS} - $(date)"
+git push
 
 convertsecs() {
     ((m = (${1} % 3600) / 60))
