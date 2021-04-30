@@ -72,7 +72,7 @@ package_binaries() {
         cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "${DIST_DIR}/windows/${PLUGIN_NAME}.vst3"
     fi
 
-    git add .
+    git add dist
     git commit -m "BUILD: ${OPER_SYS} - $(date)"
     git push
 
