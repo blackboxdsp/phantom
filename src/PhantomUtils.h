@@ -98,8 +98,8 @@ namespace Consts
     constexpr char *_MIXER_AMP_GAIN_PARAM_ID = "mixerAmpGain";
     constexpr char *_MIXER_AMP_GAIN_PARAM_NAME = "Mixer Amp Gain";
     constexpr float _MIXER_AMP_GAIN_DEFAULT_VAL = 1.0f;
-    constexpr char *_MIXER_RING_MOD_PARAM_ID = "mixerRngMod";
-    constexpr char *_MIXER_RING_MOD_PARAM_NAME = "Mixer Rng Mod";
+    constexpr char *_MIXER_RING_MOD_PARAM_ID = "mixerRingMod";
+    constexpr char *_MIXER_RING_MOD_PARAM_NAME = "Mixer Ring Mod";
     constexpr float _MIXER_RING_MOD_DEFAULT_VAL = 0.0;
     constexpr char *_MIXER_NOISE_PARAM_ID = "mixerNoise";
     constexpr char *_MIXER_NOISE_PARAM_NAME = "Mixer Noise";
@@ -144,55 +144,55 @@ namespace Consts
     // EGs
 
     constexpr char *_AMP_EG_ATK_PARAM_ID = "ampEgAtk";
-    constexpr char *_AMP_EG_ATK_PARAM_NAME = "Amp EG Atk";
+    constexpr char *_AMP_EG_ATK_PARAM_NAME = "Amp EG Attack";
     constexpr float _AMP_EG_ATK_DEFAULT_VAL = 0.02f;
     constexpr char *_AMP_EG_DEC_PARAM_ID = "ampEgDec";
-    constexpr char *_AMP_EG_DEC_PARAM_NAME = "Amp EG Dec";
+    constexpr char *_AMP_EG_DEC_PARAM_NAME = "Amp EG Decay";
     constexpr float _AMP_EG_DEC_DEFAULT_VAL = 0.2f;
     constexpr char *_AMP_EG_SUS_PARAM_ID = "ampEgSus";
-    constexpr char *_AMP_EG_SUS_PARAM_NAME = "Amp EG Sus";
+    constexpr char *_AMP_EG_SUS_PARAM_NAME = "Amp EG Sustain";
     constexpr float _AMP_EG_SUS_DEFAULT_VAL = -30.0f;
     constexpr char *_AMP_EG_REL_PARAM_ID = "ampEgRel";
-    constexpr char *_AMP_EG_REL_PARAM_NAME = "Amp EG Rel";
+    constexpr char *_AMP_EG_REL_PARAM_NAME = "Amp EG Release";
     constexpr float _AMP_EG_REL_DEFAULT_VAL = 0.6f;
 
     constexpr char *_PHASOR_EG_ATK_PARAM_ID = "phaseEgAtk";
-    constexpr char *_PHASOR_EG_ATK_PARAM_NAME = "Phase EG Atk";
+    constexpr char *_PHASOR_EG_ATK_PARAM_NAME = "Phase EG Attack";
     constexpr float _PHASOR_EG_ATK_DEFAULT_VAL = 0.1f;
     constexpr char *_PHASOR_EG_DEC_PARAM_ID = "phaseEgDec";
-    constexpr char *_PHASOR_EG_DEC_PARAM_NAME = "Phase EG Dec";
+    constexpr char *_PHASOR_EG_DEC_PARAM_NAME = "Phase EG Decay";
     constexpr float _PHASOR_EG_DEC_DEFAULT_VAL = 0.25f;
     constexpr char *_PHASOR_EG_SUS_PARAM_ID = "phaseEgSus";
-    constexpr char *_PHASOR_EG_SUS_PARAM_NAME = "Phase EG Sus";
+    constexpr char *_PHASOR_EG_SUS_PARAM_NAME = "Phase EG Sustain";
     constexpr float _PHASOR_EG_SUS_DEFAULT_VAL = -30.0f;
     constexpr char *_PHASOR_EG_REL_PARAM_ID = "phaseEgRel";
-    constexpr char *_PHASOR_EG_REL_PARAM_NAME = "Phase EG Rel";
+    constexpr char *_PHASOR_EG_REL_PARAM_NAME = "Phase EG Release";
     constexpr float _PHASOR_EG_REL_DEFAULT_VAL = 1.2f;
 
     constexpr char *_FLTR_EG_ATK_PARAM_ID = "fltrEgAtk";
-    constexpr char *_FLTR_EG_ATK_PARAM_NAME = "Filter EG Atk";
+    constexpr char *_FLTR_EG_ATK_PARAM_NAME = "Filter EG Attack";
     constexpr float _FLTR_EG_ATK_DEFAULT_VAL = 0.01f;
     constexpr char *_FLTR_EG_DEC_PARAM_ID = "fltrEgDec";
-    constexpr char *_FLTR_EG_DEC_PARAM_NAME = "Filter EG Dec";
+    constexpr char *_FLTR_EG_DEC_PARAM_NAME = "Filter EG Decay";
     constexpr float _FLTR_EG_DEC_DEFAULT_VAL = 0.4f;
     constexpr char *_FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
-    constexpr char *_FLTR_EG_SUS_PARAM_NAME = "Filter EG Sus";
+    constexpr char *_FLTR_EG_SUS_PARAM_NAME = "Filter EG Sustain";
     constexpr float _FLTR_EG_SUS_DEFAULT_VAL = -30.0f;
     constexpr char *_FLTR_EG_REL_PARAM_ID = "fltrEgRel";
-    constexpr char *_FLTR_EG_REL_PARAM_NAME = "Filter EG Rel";
+    constexpr char *_FLTR_EG_REL_PARAM_NAME = "Filter EG Release";
     constexpr float _FLTR_EG_REL_DEFAULT_VAL = 0.8f;
 
     constexpr char *_MOD_EG_ATK_PARAM_ID = "modEgAtk";
-    constexpr char *_MOD_EG_ATK_PARAM_NAME = "Mod EG Atk";
+    constexpr char *_MOD_EG_ATK_PARAM_NAME = "Mod EG Attack";
     constexpr float _MOD_EG_ATK_DEFAULT_VAL = 0.01f;
     constexpr char *_MOD_EG_DEC_PARAM_ID = "modEgDec";
-    constexpr char *_MOD_EG_DEC_PARAM_NAME = "Mod EG Dec";
+    constexpr char *_MOD_EG_DEC_PARAM_NAME = "Mod EG Decay";
     constexpr float _MOD_EG_DEC_DEFAULT_VAL = 0.15f;
     constexpr char *_MOD_EG_SUS_PARAM_ID = "modEgSus";
-    constexpr char *_MOD_EG_SUS_PARAM_NAME = "Mod EG Sus";
+    constexpr char *_MOD_EG_SUS_PARAM_NAME = "Mod EG Sustain";
     constexpr float _MOD_EG_SUS_DEFAULT_VAL = -60.0f;
     constexpr char *_MOD_EG_REL_PARAM_ID = "modEgRel";
-    constexpr char *_MOD_EG_REL_PARAM_NAME = "Mod EG Rel";
+    constexpr char *_MOD_EG_REL_PARAM_NAME = "Mod EG Release";
     constexpr float _MOD_EG_REL_DEFAULT_VAL = 0.2f;
 
     constexpr int _WAVETABLE_SIZE = 1 << 11;
