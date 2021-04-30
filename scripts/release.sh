@@ -50,7 +50,7 @@ done
 if [ "$PACKAGE_STEP" = true ]; then
     rm -rf ./bin
 
-    scripts/precompile.sh -b=${BUILD_TYPE}
+    scripts/build.sh -b=${BUILD_TYPE}
 
     if [[ ${OSTYPE} == "darwin"* ]]; then
         OPER_SYS=MacOS
