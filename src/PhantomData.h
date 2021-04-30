@@ -18,7 +18,7 @@ namespace PhantomData
     const int            feather_xmlSize = 1938;
 
     extern const char*   overlord_xml;
-    const int            overlord_xmlSize = 1939;
+    const int            overlord_xmlSize = 2495;
 
     extern const char*   siren_xml;
     const int            siren_xmlSize = 1936;
