@@ -58,7 +58,7 @@ juce_add_binary_data(PhantomData HEADER_NAME "PhantomData.h" NAMESPACE PhantomDa
         resources/presets/algo.xml
         resources/presets/analog.xml
         resources/presets/feather.xml
-        resources/preets/noise-tap.xml
+        resources/presets/noise-tap.xml
         resources/presets/overlord.xml
         resources/presets/siren.xml
         resources/presets/the-stack.xml)
