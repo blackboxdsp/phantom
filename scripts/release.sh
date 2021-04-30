@@ -26,7 +26,7 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 if [ "$BRANCH" != "dist" ];
 then
     echo -e "\t[✘] Branch is set to \"dist\"\n"
-    echo -e "To switch to the correct branch, please use:\n\n\tgit checkout dist\n"
+    echo -e "If the dist branch already exists, please use:\n\n\tgit checkout dist\n"
     echo -e "If the dist branch does NOT exist remotely then please use:\n\n\tgit checkout -b dist ${BRANCH} && git push -u origin dist"
 
     exit 1;
@@ -47,8 +47,10 @@ for i in "$@"; do
     esac
 done
 
-if [ "$PACKAGE_STEP" = true ]; then
+package_binaries() {
     rm -rf ./bin
+
+    git pull
 
     scripts/build.sh -b=${BUILD_TYPE}
 
@@ -74,7 +76,11 @@ if [ "$PACKAGE_STEP" = true ]; then
     git commit -m "BUILD: ${OPER_SYS} - $(date)"
     git push
 
-    echo -e "\n[Success] Package plugin for distribution!"
+    echo -e "\n[Success] Packaged plugin for distribution!"
+}
+
+if [ "$PACKAGE_STEP" = true ]; then
+    package_binaries
 fi
 
 if [ "$DISTRIBUTE_STEP" = true ]; then
@@ -102,7 +108,7 @@ if [ "$DISTRIBUTE_STEP" = true ]; then
         echo -e "\t[✔] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
     fi
 
-    git pull
+    package_binaries
 
     if [[ ${OSTYPE} == "darwin"* ]]; then
         zip -r ${DIST_ZIP} dist/
