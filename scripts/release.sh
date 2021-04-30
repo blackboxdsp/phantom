@@ -50,6 +50,8 @@ done
 package_binaries() {
     rm -rf ./bin
 
+    git pull
+
     scripts/build.sh -b=${BUILD_TYPE}
 
     if [[ ${OSTYPE} == "darwin"* ]]; then
@@ -105,8 +107,6 @@ if [ "$DISTRIBUTE_STEP" = true ]; then
     else
         echo -e "\t[✔] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
     fi
-
-    git pull
 
     package_binaries
 
