@@ -664,7 +664,8 @@ void PhantomAudioProcessorEditor::initPresetMenu()
 
                 if(browser.browseForFileToSave(true))
                 {
-                    m_processor.saveStateToFile(browser.getResult());
+                    File res = browser.getResult();
+                    m_processor.saveStateToFile(res);
 
                     loadPresetFilePaths();
                     setPresetIdx();
@@ -725,7 +726,8 @@ void PhantomAudioProcessorEditor::addPresetsToMenu(PopupMenu& menu)
             PopupMenu::Item(presetName)
             .setEnabled(!presetName.equalsIgnoreCase(m_processor.m_presetName))
             .setAction([this, pf](){
-                m_processor.loadStateFromFile(File(pf.getFullPathName()));
+                File presetFile = File(pf.getFullPathName());
+                m_processor.loadStateFromFile(presetFile);
 
                 setPresetIdx();
                 resetGui();
