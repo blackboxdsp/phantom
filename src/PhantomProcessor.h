@@ -76,6 +76,14 @@ public:
     std::unique_ptr<XmlElement> saveMetadataToXml(std::unique_ptr<XmlElement> xml);
 
     /**
+     * Saves all plugin metadata data to the XML element (i.e. version, preset name).
+     * @param xml The reference to the XML object to save to.
+     * @param presetName The preset name to use.
+     * @returns The same pointer provided to the method.
+     */
+    std::unique_ptr<XmlElement> saveMetadataToXml(std::unique_ptr<XmlElement> xml, String& presetName);
+
+    /**
      * Saves XML data in string format to memory at specified reference.
      * @returns Pointer to the `String` object containing all of the state data.
      */ 
@@ -93,11 +101,33 @@ public:
      * @returns `true` if the file was saved successfully.
      */
     bool saveStateToFile(File& file);
+
+    /**
+     * Creates or overwrites preset file data from XML.
+     * @param xml The pointer to the XmlElement to write as a file.
+     * @param dir The reference to the directory to save the file.
+     * @returns `true` if the file was saved successfully.
+     */
+    bool saveXmlToFile(std::unique_ptr<XmlElement> xml, File& dir);
     
     /**
      * Loads the plugin state data from a preset file.
      */
     void loadStateFromFile(File& file);
+
+    /**
+     * Retrieves the appropriate preset directory for the user, and 
+     * creates it if it is not found.
+     * @returns The file object representing the preset folder on the user's machine.
+     */
+    File getPresetDirectory();
+
+    /**
+     * Writes all of the (XML) binary data resources
+     * to files the app data directory on the user's computer
+     * @returns `true` if the file was saved successfully.
+     */
+    void writePresetFiles(); 
 
     /**
      * Re-initializes variables relevant variables for

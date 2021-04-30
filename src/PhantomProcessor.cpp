@@ -24,6 +24,8 @@ PhantomAudioProcessor::PhantomAudioProcessor()
 {
     m_synth.reset(new PhantomSynth(m_parameters));
     m_amp.reset(new PhantomAmplifier(m_parameters));
+
+    writePresetFiles();
 }
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
@@ -577,11 +579,17 @@ std::unique_ptr<XmlElement> PhantomAudioProcessor::loadStateFromXml(std::unique_
 
 std::unique_ptr<XmlElement> PhantomAudioProcessor::saveMetadataToXml(std::unique_ptr<XmlElement> xml)
 {
+    return saveMetadataToXml(std::move(xml), m_presetName);
+}
+
+std::unique_ptr<XmlElement> PhantomAudioProcessor::saveMetadataToXml(std::unique_ptr<XmlElement> xml, String& presetName)
+{
     xml->setAttribute("pluginVersion", Consts::_PLUGIN_VERSION);
-    xml->setAttribute("presetName", m_presetName);
+    xml->setAttribute("presetName", presetName);
 
     return xml;
 }
+
 
 std::unique_ptr<String> PhantomAudioProcessor::saveStateToText()
 {
@@ -606,11 +614,45 @@ bool PhantomAudioProcessor::saveStateToFile(File& file)
     return saveMetadataToXml(std::move(xml))->writeTo(file);
 }
 
+bool PhantomAudioProcessor::saveXmlToFile(std::unique_ptr<XmlElement> xml, File& dir)
+{
+    DBG(xml->toString());
+
+    jassert(dir.isDirectory());
+
+    String presetName = xml->getStringAttribute("presetName");
+    File file = File(dir.getFullPathName() + "/" + presetName + ".xml");
+
+    return saveMetadataToXml(std::move(xml), presetName)->writeTo(file);
+}
+
 void PhantomAudioProcessor::loadStateFromFile(File& file)
 {
     std::unique_ptr<XmlElement> xml = juce::parseXML(file);
     if(xml && xml->hasTagName(Consts::_PLUGIN_NAME))
         loadStateFromXml(std::move(xml));
+}
+
+File PhantomAudioProcessor::getPresetDirectory()
+{
+    String presetDirPath = File::getSpecialLocation(File::userApplicationDataDirectory).getFullPathName()
+        + "/Black Box DSP/Phantom/Presets";
+
+    File file = File(presetDirPath);
+
+    if(!file.exists())
+        file.createDirectory();
+
+    return file;
+}
+
+void PhantomAudioProcessor::writePresetFiles()
+{
+    File presetDir = getPresetDirectory();
+
+    saveXmlToFile(juce::parseXML(PhantomData::noisebass_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::siren_xml), presetDir);
+    saveXmlToFile(juce::parseXML(PhantomData::thestack_xml), presetDir);
 }
 
 void PhantomAudioProcessor::resetState()
