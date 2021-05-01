@@ -28,7 +28,7 @@ then
     echo -e "\t[✘] Branch is set to \"dist\"\n"
     echo -e "If dist branch already exists remotely, please use:\n\n\tgit fetch --all && git checkout dist --\n"
     echo -e "If dist branch does NOT already exist remotely, please the following:\n"
-    echo -e "\tgit checkout -b dist ${BRANCH} && sed '/dist\//d' .gitignore && git add . && git commit -m 'UPDATE: Remove dist from gitignore' && git push -u origin dist"
+    echo -e "\tgit checkout -b dist ${BRANCH} && git push -u origin dist"
 
     exit 1;
 else
