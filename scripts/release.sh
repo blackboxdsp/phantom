@@ -26,8 +26,7 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 if [ "$BRANCH" != "dist" ];
 then
     echo -e "\t[✘] Branch is set to \"dist\"\n"
-    echo -e "If the dist branch already exists, please use:\n\n\tgit checkout dist\n"
-    echo -e "If the dist branch does NOT exist remotely then please use:\n\n\tgit checkout -b dist ${BRANCH} && git push -u origin dist"
+    echo -e "To set the correct branch, please use:\n\n\tgit checkout dist --\n"
 
     exit 1;
 else
