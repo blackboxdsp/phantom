@@ -41,20 +41,23 @@ public:
 
     /**
      * Inserts data into the buffer to use for the display.
+     * CAUTION: This method is called from within the audio thread so it must be real-time safe.
      * @param buffer A reference to the buffer data that will be inserted.
      */
-    void pushBuffer(AudioSampleBuffer &buffer);
+    void pushBuffer(AudioSampleBuffer &buffer) noexcept;
+
+    inline void pushNextSample(float sample) noexcept;
 
     /**
      * Enumerator with data for the size of the buffer to use 
      * in the component's display.
-     * @property BUFFER_ORDER The amount to bitshift the FFT_SIZE.
-     * @property BUFFER_SIZE The value of 1 bitshifted by the FFT_ORDER
+     * @property BUFFER_SIZE The size of the buffer, which is 1 bitshifted by n bits (or 2^n) where n = 10.
+     * @property OUTPUT_SIZE Exactly half of the buffer size.
      */
     enum
     {
-        BUFFER_ORDER = 11,
-        BUFFER_SIZE = 1 << BUFFER_ORDER, // 2048
+        BUFFER_SIZE = 1 << 10,
+        OUTPUT_SIZE = BUFFER_SIZE / 2
     };
 
 private:
@@ -63,7 +66,11 @@ private:
     /**
      * The buffer containing samples for the oscilloscope.
      */
-    Array<float> m_buffer;
+    // Array<float> m_buffer;
+
+    float m_outputData[OUTPUT_SIZE];
+
+    unsigned int m_outputDataIdx = 0;
 
     /**
      * The index value corresponding to the buffer.

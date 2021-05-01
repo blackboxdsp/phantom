@@ -24,8 +24,8 @@ PhantomOscilloscope::~PhantomOscilloscope()
 
 void PhantomOscilloscope::paint(Graphics& graphics)
 {
-    const float width = getWidth();
-    const float height = getHeight();
+    const float width = (float) getWidth();
+    const float height = (float) getHeight();
 
     graphics.setColour(Colours::transparentBlack);
     graphics.fillAll();
@@ -34,13 +34,10 @@ void PhantomOscilloscope::paint(Graphics& graphics)
 
     samplePath.startNewSubPath(m_point.x , m_point.y);
 
-    for(int i = 0; i < m_buffer.size(); i++)
+    for(int i = 0; i < OUTPUT_SIZE; i++)
     {
-        m_point.x = i * width / m_buffer.size();
-        m_point.y = height / 2.0f + PhantomWaveshaper::clip(m_buffer[i], -1.0f, 1.0f) * height * 0.48f;
-
-        if(m_point.y < -1.0f || m_point.y > 1.0f)
-            DBG(m_point.x << m_point.y);
+        m_point.x = (float) i * width / (float) OUTPUT_SIZE;
+        m_point.y = height / 2.0f + PhantomWaveshaper::clip(m_outputData[i], -1.0f, 1.0f) * height * 0.5f;
 
         if(i == 0)
             samplePath.startNewSubPath(m_point.x, m_point.y);
@@ -64,18 +61,35 @@ void PhantomOscilloscope::resized()
 
 void PhantomOscilloscope::timerCallback()
 {
+    for(int i = 0; i < OUTPUT_SIZE; i++)
+        m_outputData[i] *= 0.9f;
+
     repaint();
 }
 
-void PhantomOscilloscope::pushBuffer(AudioSampleBuffer& buffer)
+void PhantomOscilloscope::pushBuffer(AudioSampleBuffer& buffer) noexcept
 {
-    if(m_bufferIndex == 0)
-        m_buffer.clearQuick();
+    // if(m_bufferIndex == 0)
+    //     m_buffer.clearQuick();
 
-    for(int i = 0; i < buffer.getNumSamples(); i++)
+    // for(int i = 0; i < buffer.getNumSamples(); i++)
+    // {
+    //     m_buffer.insert(m_bufferIndex, buffer.getSample(0, i));
+
+    //     m_bufferIndex = (int) fmod((float) m_bufferIndex++, (float) BUFFER_SIZE);
+    // }
+
+    if(buffer.getNumChannels() > 0)
     {
-        m_buffer.insert(m_bufferIndex, buffer.getSample(0, i));
+        const float* channelData = buffer.getReadPointer(0);
 
-        m_bufferIndex = (int) fmod((float) m_bufferIndex++, (float) BUFFER_SIZE);
+        for(int i = 0; i < buffer.getNumSamples(); i++)
+            pushNextSample(channelData[i]);
     }
+}
+
+inline void PhantomOscilloscope::pushNextSample(float sample) noexcept 
+{
+    m_outputData[m_outputDataIdx++] = sample;
+    m_outputDataIdx %= OUTPUT_SIZE;
 }
