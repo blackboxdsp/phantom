@@ -26,7 +26,7 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 if [ "$BRANCH" != "dist" ];
 then
     echo -e "\t[✘] Branch is set to \"dist\"\n"
-    echo -e "To set the correct branch, please use:\n\n\tgit checkout dist --\n"
+    echo -e "To set the correct branch, please use:\n\n\tgit fetch --all && git checkout dist --\n"
 
     exit 1;
 else
