@@ -531,7 +531,7 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
 
 bool PhantomAudioProcessor::hasEditor() const
 {
-    return true; //(change this to false if you choose to not supply an editor)
+    return true;
 }
 
 AudioProcessorEditor* PhantomAudioProcessor::createEditor()
