@@ -9,12 +9,13 @@ _NOTE: Phantom is still in development, so it is possible that there could be bu
 Most users will not have changed the system's default directory for installing plugins, which is typically:
 
 - __Windows__
-    - `C:\Program Files\Steinberg\Vst3Plugins\`*
+    - `C:\Program Files\Common Files\Plugins\VST3\`*
+    - `C:\Program Files\Steinberg\Vst3Plugins\`
 - __MacOS__
-    - `/Library/Audio/Plug-Ins/VST3/`
-    - `/Library/Audio/Plug-Ins/Components/`
+    - `/Library/Audio/Plug-Ins/(VST3 | Components)/`*
+    - `~/Library/Audio/Plug-Ins/(VST3 | Components)/`
 
-\* I recommend the directory `C:\Program Files\Common Files\Plugins\VST3\` instead as the Steinberg one may not be installed on every machine.
+\* This directory is recommended as its usage is more common among audio software manufacturers.
 
 ## Troubleshooting
 
