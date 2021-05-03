@@ -16,7 +16,6 @@ PhantomAnalyzer::PhantomAnalyzer()
         m_window(FFT_SIZE, dsp::WindowingFunction<float>::hann)
 {
     zeromem(m_outputData, sizeof(m_outputData));
-    setSize(240, 360);
     startTimerHz(30);
 }
 

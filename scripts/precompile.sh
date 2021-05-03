@@ -22,8 +22,6 @@ done
 
 echo -e "Precompiling ${PLUGIN_NAME} resources...\n"
 
-rm -rf ./bin
-
 cmake -B bin .
 echo -e "\n[Success] Configured ${PLUGIN_NAME} for CMake build!\n"
 

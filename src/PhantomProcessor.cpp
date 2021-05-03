@@ -669,13 +669,14 @@ void PhantomAudioProcessor::writePresetFiles()
 
     presetDir.createDirectory();
 
-    saveXmlToFile(juce::parseXML(PhantomData::algo_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::analog_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::feather_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::noisetap_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::overlord_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::siren_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::thestack_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::algo_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::analog_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::feather_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::noisetap_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::overlord_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::richochet_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::siren_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::thestack_xml), presetDir);
 }
 
 void PhantomAudioProcessor::resetState()
