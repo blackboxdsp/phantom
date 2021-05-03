@@ -22,36 +22,51 @@ PhantomOscilloscope::~PhantomOscilloscope()
 
 }
 
+void PhantomOscilloscope::init(float sampleRate, int samplesPerBlock)
+{
+    m_sampleRate = sampleRate;
+
+    m_buffer.setSize(1, (int) m_sampleRate);
+    m_buffer.clear();
+
+    m_bufferIdx.store(0);
+}
+
 void PhantomOscilloscope::paint(Graphics& graphics)
 {
-    const float width = (float) getWidth();
-    const float height = (float) getHeight();
+    const float width = getWidth();
+    const float height = getHeight();
+
+    int bufferIndex = m_bufferIdx.load();
 
     graphics.setColour(Colours::transparentBlack);
     graphics.fillAll();
 
-    Path samplePath;
+    Path path;
+    path.startNewSubPath(m_drawPoint);
 
-    samplePath.startNewSubPath(m_point.x , m_point.y);
-
-    for(int i = 0; i < OUTPUT_SIZE; i++)
+    for(int i = 0; i < k_drawSize; i++)
     {
-        m_point.x = (float) i * width / (float) OUTPUT_SIZE;
-        m_point.y = height / 2.0f + PhantomWaveshaper::clip(m_outputData[i], -1.0f, 1.0f) * height * 0.5f;
+        int idx = (bufferIndex + m_buffer.getNumSamples() - (k_drawSize - i)) % m_buffer.getNumSamples();
 
-        if(i == 0)
-            samplePath.startNewSubPath(m_point.x, m_point.y);
-        else
-            samplePath.lineTo(m_point.x, m_point.y);
+        float x = (float) (i + 1) / k_drawSize * width;
+        float y = (m_buffer.getSample(0, idx) * height * 0.5f) + (height * 0.5f);
+
+        m_drawPoint.setXY(
+            x,
+            PhantomWaveshaper::clip(
+                (y + m_drawPoint.getY()) / 2.0f,
+                0.0f, height * 0.9f
+            )
+        );
+
+        path.lineTo(m_drawPoint);
     }
 
-    // NOTE: Only the x value is reset here because we have reached the end of the buffer,
-    // meaning that we must reset to the beginning again however keeping the y value allows
-    // the visual to be drawn continuously from the previous buffer.
-    m_point.x = 0.0f;
+    m_drawPoint.setX(0.0f);
 
     graphics.setColour(Consts::_FILL_START_COLOUR);
-    graphics.strokePath(samplePath, PathStrokeType(m_strokeWidth));
+    graphics.strokePath(path, PathStrokeType(k_strokeWidth));
 }
 
 void PhantomOscilloscope::resized()
@@ -61,35 +76,28 @@ void PhantomOscilloscope::resized()
 
 void PhantomOscilloscope::timerCallback()
 {
-    for(int i = 0; i < OUTPUT_SIZE; i++)
-        m_outputData[i] *= 0.9f;
-
     repaint();
 }
 
-void PhantomOscilloscope::pushBuffer(AudioSampleBuffer& buffer) noexcept
+void PhantomOscilloscope::pushBuffer(AudioBuffer<float>& buffer)
 {
-    // if(m_bufferIndex == 0)
-    //     m_buffer.clearQuick();
+    const int writeIdx = m_bufferIdx.load();
+    const int numTotalSamples = buffer.getNumSamples();
+    const int numAvailableSamples = m_buffer.getNumSamples() - writeIdx;
 
-    // for(int i = 0; i < buffer.getNumSamples(); i++)
-    // {
-    //     m_buffer.insert(m_bufferIndex, buffer.getSample(0, i));
-
-    //     m_bufferIndex = (int) fmod((float) m_bufferIndex++, (float) BUFFER_SIZE);
-    // }
-
-    if(buffer.getNumChannels() > 0)
+    if(numAvailableSamples >= numTotalSamples)
     {
-        const float* channelData = buffer.getReadPointer(0);
-
-        for(int i = 0; i < buffer.getNumSamples(); i++)
-            pushNextSample(channelData[i]);
+        m_buffer.copyFrom(0, m_bufferIdx, buffer.getReadPointer(0), numTotalSamples);
     }
-}
+    else
+    {
+        m_buffer.copyFrom(0, m_bufferIdx, buffer.getReadPointer(0), numAvailableSamples);
+        m_buffer.copyFrom(0, 0, buffer.getReadPointer(0, numAvailableSamples), numTotalSamples - numAvailableSamples);
+    }
 
-inline void PhantomOscilloscope::pushNextSample(float sample) noexcept 
-{
-    m_outputData[m_outputDataIdx++] = sample;
-    m_outputDataIdx %= OUTPUT_SIZE;
+    if(numAvailableSamples > numTotalSamples)
+        m_bufferIdx.store(writeIdx + numTotalSamples);
+    else
+        m_bufferIdx.store(numTotalSamples - numAvailableSamples);
+
 }

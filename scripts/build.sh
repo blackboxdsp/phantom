@@ -67,14 +67,14 @@ if [ ! -d "./juce/build" ]; then
 
     echo -e "Building JUCE...\n"
     cmake --build bin
-    echo -e "\n[Success] Built JUCE libraries and targets!\n"
+    echo -e "\n[Success] Built JUCE targets!\n"
 
     cd ../
 fi
 
 if [ ${PRECOMPILE_STEP} = true ]; then
     scripts/precompile.sh -b=${BUILD_TYPE}
-    echo -e "\n[Success] Precompiled binary resources!\n"
+    echo -e "\n[Success] Precompiled resource data!\n"
 fi
 
 echo -e "Configuring ${PLUGIN_NAME}...\n"
@@ -83,7 +83,7 @@ echo -e "\n[Success] Configured plugin build!\n"
 
 echo -e "Building ${PLUGIN_NAME}...\n"
 cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All"
-echo -e "\n[Success] Built plugin executable(s)!\n"
+echo -e "\n[Success] Built plugin binaries!\n"
 
 if [ ! -z ${DAW_TO_OPEN} ]; then
     start ${DAW_TO_OPEN}

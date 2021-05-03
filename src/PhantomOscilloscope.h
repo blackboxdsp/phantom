@@ -23,6 +23,8 @@ public:
     PhantomOscilloscope();
     ~PhantomOscilloscope();
 
+    void init(float sampleRate, int samplesPerBlock);
+
     /**
      * Determines the GUI display of the oscilloscope component.
      * @param graphics The reference to the `Graphics` object.
@@ -41,24 +43,9 @@ public:
 
     /**
      * Inserts data into the buffer to use for the display.
-     * CAUTION: This method is called from within the audio thread so it must be real-time safe.
      * @param buffer A reference to the buffer data that will be inserted.
      */
-    void pushBuffer(AudioSampleBuffer &buffer) noexcept;
-
-    inline void pushNextSample(float sample) noexcept;
-
-    /**
-     * Enumerator with data for the size of the buffer to use 
-     * in the component's display.
-     * @property BUFFER_SIZE The size of the buffer, which is 1 bitshifted by n bits (or 2^n) where n = 10.
-     * @property OUTPUT_SIZE Exactly half of the buffer size.
-     */
-    enum
-    {
-        BUFFER_SIZE = 1 << 10,
-        OUTPUT_SIZE = BUFFER_SIZE / 2
-    };
+    void pushBuffer(AudioBuffer<float>& buffer);
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscilloscope)
@@ -66,30 +53,30 @@ private:
     /**
      * The buffer containing samples for the oscilloscope.
      */
-    // Array<float> m_buffer;
-
-    float m_outputData[OUTPUT_SIZE];
-
-    unsigned int m_outputDataIdx = 0;
+    AudioBuffer<float> m_buffer;
 
     /**
-     * The index value corresponding to the buffer.
+     * The current buffer position, which is atomic since it is updated by the audio thread and read by the GUI thread.
      */
-    int m_bufferIndex = 0;
+    std::atomic<int> m_bufferIdx = 0;
+
+    /**
+     * The sample rate, useful for configuring the buffer.
+     */
+    float m_sampleRate = 0.0f;
+
+    /**
+     * A constant integer for the component canvas size (2 ^ n).
+     */
+    const int k_drawSize = 1 << 9;
+
+    /**
+     * The point representing the most recently drawn sample.
+     */
+    Point<float> m_drawPoint = Point<float>(0.0f, 0.0f);
 
     /**
      * The width of the stroke path.
      */
-    const float m_strokeWidth = 3.0f;
-
-    Point<float> m_point = { 0.0f, 0.0f };
-};
-
-/**
- * Small utility struct for easier coordinate data.
- */
-template<class T>
-struct Point
-{
-    T x, y;
+    const float k_strokeWidth = 3.0f;
 };

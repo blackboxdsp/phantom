@@ -480,6 +480,10 @@ void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock
 
     int numChannels = jmin(getMainBusNumInputChannels(), getMainBusNumOutputChannels());
     m_synth->init((float) sampleRate, samplesPerBlock, numChannels);
+    
+    PhantomAudioProcessorEditor* editor = static_cast<PhantomAudioProcessorEditor*>(getActiveEditor());
+    if(editor)
+        editor->m_oscilloscope->init((float) sampleRate, samplesPerBlock);
 }
 
 void PhantomAudioProcessor::releaseResources()
