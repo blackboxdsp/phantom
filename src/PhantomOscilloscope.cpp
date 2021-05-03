@@ -14,59 +14,59 @@
 
 PhantomOscilloscope::PhantomOscilloscope()
 {
-    startTimerHz(30);
+    init();
 }
 
 PhantomOscilloscope::~PhantomOscilloscope()
 {
+    stopTimer();
 
+    m_buffer = nullptr;
 }
 
-void PhantomOscilloscope::init(float sampleRate, int samplesPerBlock)
+void PhantomOscilloscope::init()
 {
-    m_sampleRate = sampleRate;
+    m_buffer = std::make_unique<AudioBuffer<float>>(1, k_bufferSize);
+    m_buffer->clear();
 
-    m_buffer.setSize(1, (int) m_sampleRate);
-    m_buffer.clear();
-
-    m_bufferIdx.store(0);
+    startTimerHz(50);
 }
 
 void PhantomOscilloscope::paint(Graphics& graphics)
 {
-    const float width = getWidth();
-    const float height = getHeight();
+    m_isPainting = true;
 
-    int bufferIndex = m_bufferIdx.load();
+    graphics.fillAll(Colours::transparentBlack);
+    graphics.setColour(Consts::_STROKE_COLOUR);
 
-    graphics.setColour(Colours::transparentBlack);
-    graphics.fillAll();
+    const float* reader = m_buffer->getReadPointer(0, 0);
 
-    Path path;
-    path.startNewSubPath(m_drawPoint);
+    const float xScale = (float) getWidth() / (float) k_bufferSize * 2.0f;
+    const float yScale = (float) getHeight() * 0.5f;
 
-    for(int i = 0; i < k_drawSize; i++)
+    const int length = k_bufferSize - 1;
+
+    float x1, y1, x2, y2;
+    for(int i = 0; i < length; i++)
     {
-        int idx = (bufferIndex + m_buffer.getNumSamples() - (k_drawSize - i)) % m_buffer.getNumSamples();
+        x1 = i * xScale;
+        y1 = PhantomWaveshaper::clip(
+            (reader[i] + 1.0f) * yScale,
+            0.0f,
+            (float) getHeight()
+        ) * 0.975f;
 
-        float x = (float) (i + 1) / k_drawSize * width;
-        float y = (m_buffer.getSample(0, idx) * height * 0.5f) + (height * 0.5f);
+        x2 = (i + 1) * xScale;
+        y2 = PhantomWaveshaper::clip(
+            (reader[i + 1] + 1.0f) * yScale,
+            0.0f,
+            (float) getHeight()
+        ) * 0.975f;
 
-        m_drawPoint.setXY(
-            x,
-            PhantomWaveshaper::clip(
-                (y + m_drawPoint.getY()) / 2.0f,
-                0.0f, height * 0.9f
-            )
-        );
-
-        path.lineTo(m_drawPoint);
+        graphics.drawLine(x1, y1, x2, y2, k_strokeWidth);
     }
 
-    m_drawPoint.setX(0.0f);
-
-    graphics.setColour(Consts::_FILL_START_COLOUR);
-    graphics.strokePath(path, PathStrokeType(k_strokeWidth));
+    m_isPainting = false;
 }
 
 void PhantomOscilloscope::resized()
@@ -81,23 +81,13 @@ void PhantomOscilloscope::timerCallback()
 
 void PhantomOscilloscope::pushBuffer(AudioBuffer<float>& buffer)
 {
-    const int writeIdx = m_bufferIdx.load();
-    const int numTotalSamples = buffer.getNumSamples();
-    const int numAvailableSamples = m_buffer.getNumSamples() - writeIdx;
+    if(m_isPainting)
+        return;
 
-    if(numAvailableSamples >= numTotalSamples)
-    {
-        m_buffer.copyFrom(0, m_bufferIdx, buffer.getReadPointer(0), numTotalSamples);
-    }
-    else
-    {
-        m_buffer.copyFrom(0, m_bufferIdx, buffer.getReadPointer(0), numAvailableSamples);
-        m_buffer.copyFrom(0, 0, buffer.getReadPointer(0, numAvailableSamples), numTotalSamples - numAvailableSamples);
-    }
+    const float* reader = buffer.getReadPointer(0, 0);
+    const int numToCopy = buffer.getNumSamples();
+    m_buffer->copyFrom(0, m_bufferIdx, reader, numToCopy);
 
-    if(numAvailableSamples > numTotalSamples)
-        m_bufferIdx.store(writeIdx + numTotalSamples);
-    else
-        m_bufferIdx.store(numTotalSamples - numAvailableSamples);
-
+    m_bufferIdx += numToCopy;
+    m_bufferIdx %= k_bufferSize;
 }

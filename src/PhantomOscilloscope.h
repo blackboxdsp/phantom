@@ -23,7 +23,7 @@ public:
     PhantomOscilloscope();
     ~PhantomOscilloscope();
 
-    void init(float sampleRate, int samplesPerBlock);
+    void init();
 
     /**
      * Determines the GUI display of the oscilloscope component.
@@ -50,33 +50,19 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscilloscope)
 
-    /**
-     * The buffer containing samples for the oscilloscope.
-     */
-    AudioBuffer<float> m_buffer;
+    /** The unique pointer to the buffer containing samples for the oscilloscope. */
+    std::unique_ptr<AudioBuffer<float>> m_buffer;
 
-    /**
-     * The current buffer position, which is atomic since it is updated by the audio thread and read by the GUI thread.
-     */
-    std::atomic<int> m_bufferIdx = 0;
 
-    /**
-     * The sample rate, useful for configuring the buffer.
-     */
-    float m_sampleRate = 0.0f;
+    /** The current buffer position, which is atomic since it is updated by the audio thread and read by the GUI thread. */
+    unsigned int m_bufferIdx = 0;
 
-    /**
-     * A constant integer for the component canvas size (2 ^ n).
-     */
-    const int k_drawSize = 1 << 9;
+    /** The buffer size to use in containing sample data. */
+    const int k_bufferSize = 1 << 10;
 
-    /**
-     * The point representing the most recently drawn sample.
-     */
-    Point<float> m_drawPoint = Point<float>(0.0f, 0.0f);
+    /** The width of the stroke to use in painting the samples. */
+    const float k_strokeWidth = 2.0f;
 
-    /**
-     * The width of the stroke path.
-     */
-    const float k_strokeWidth = 3.0f;
+    /** Lock for when the component is painting the samples. */
+    bool m_isPainting = false;
 };
