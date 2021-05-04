@@ -8,7 +8,7 @@
 start_time=$(date +%s)
 
 PLUGIN_NAME=Phantom
-BUILD_TYPE=Debug
+BUILD_TYPE=Release
 FILENAME=${PLUGIN_NAME}Data.h
 
 for i in "$@"; do
@@ -22,15 +22,17 @@ done
 
 echo -e "Precompiling ${PLUGIN_NAME} resources...\n"
 
-cmake -B bin .
-echo -e "\n[Success] Configured ${PLUGIN_NAME} for CMake build!\n"
+echo -e "Configuring ${PLUGIN_NAME}...\n"
+cmake -B bin . || { echo -e "\n[Error] Failed to configure plugin build\n" && exit 1 ; }
+echo -e "\n[Success] Configured plugin build!\n"
 
-cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All"
-echo -e "\n[Success] Built ${PLUGIN_NAME}!\n"
+echo -e "Building ${PLUGIN_NAME}...\n"
+cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All" || { echo -e "\n[Error] Failed to build plugin binaries\n" && exit 1 ; }
+echo -e "\n[Success] Built plugin binaries!\n"
 
 rm -f src/${FILENAME}
 
-cp -f bin/juce_binarydata_${PLUGIN_NAME}Data/JuceLibraryCode/${FILENAME} src/${FILENAME}
+cp -f bin/juce_binarydata_${PLUGIN_NAME}Data/JuceLibraryCode/${FILENAME} src/${FILENAME} || { echo -e "\n[Error] Failed to copy header file\n" && exit 1 ; }
 echo -e "[Success] Copied generated header file to src directory!\n"
 
 convertsecs() {
@@ -43,5 +45,5 @@ end_time=$(date +%s)
 execution_time=$(expr $end_time - $start_time)
 echo -e "Total time elapsed:    $(convertsecs $execution_time)"\
 
-me=`basename "$0"`
+me=$(basename "$0")
 echo -e "Script name:           ${me}"

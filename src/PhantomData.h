@@ -14,8 +14,8 @@ namespace PhantomData
     extern const char*   analog_xml;
     const int            analog_xmlSize = 1982;
 
-    extern const char*   feather_xml;
-    const int            feather_xmlSize = 1983;
+    extern const char*   buzzboy_xml;
+    const int            buzzboy_xmlSize = 2511;
 
     extern const char*   noisetap_xml;
     const int            noisetap_xmlSize = 2530;

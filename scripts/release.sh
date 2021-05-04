@@ -30,7 +30,7 @@ then
     echo -e "If dist branch does NOT already exist remotely, please the following:\n"
     echo -e "\tgit checkout -b dist ${BRANCH} && git push -u origin dist"
 
-    exit 1;
+    exit 1
 else
     echo -e "\t[✔] Branch is set to \"dist\""
 fi
@@ -53,7 +53,7 @@ package_binaries() {
 
     git pull
 
-    scripts/build.sh -b=${BUILD_TYPE}
+    scripts/build.sh -b=${BUILD_TYPE} || { echo -e "\n[Error] Failed to build plugin\n" && exit 1 ; }
 
     if [[ ${OSTYPE} == "darwin"* ]]; then
         OPER_SYS=MacOS
@@ -61,8 +61,8 @@ package_binaries() {
         rm -rf "${DIST_DIR}/macos"
         mkdir "${DIST_DIR}/macos" 
 
-        cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "${DIST_DIR}/macos/${PLUGIN_NAME}.vst3"
-        cp -r "./bin/${PLUGIN_NAME}_artefacts/AU/${PLUGIN_NAME}.component" "${DIST_DIR}/macos/${PLUGIN_NAME}.component"
+        cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "${DIST_DIR}/macos/${PLUGIN_NAME}.vst3" || { echo -e "\n[Error] Failed to copy plugin binaries (VST3)\n" && exit 1 ; }
+        cp -r "./bin/${PLUGIN_NAME}_artefacts/AU/${PLUGIN_NAME}.component" "${DIST_DIR}/macos/${PLUGIN_NAME}.component" || { echo -e "\n[Error] Failed to copy plugin binaries (AU)\n" && exit 1 ; }
 
     else
         OPER_SYS=Windows
@@ -70,7 +70,7 @@ package_binaries() {
         rm -rf "${DIST_DIR}/windows" 
         mkdir "${DIST_DIR}/windows"
 
-        cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "${DIST_DIR}/windows/${PLUGIN_NAME}.vst3"
+        cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "${DIST_DIR}/windows/${PLUGIN_NAME}.vst3"  || { echo -e "\n[Error] Failed to copy plugin binaries (VST3)\n" && exit 1 ; }
     fi
 
     git add -f dist
@@ -81,7 +81,7 @@ package_binaries() {
 }
 
 if [ "$PACKAGE_STEP" = true ]; then
-    package_binaries
+    package_binaries || { echo -e "\n[Error] Failed to package plugin binaries\n" && exit 1 ; }
 fi
 
 if [ "$DISTRIBUTE_STEP" = true ]; then
@@ -91,7 +91,7 @@ if [ "$DISTRIBUTE_STEP" = true ]; then
         echo -e "\t[✘] Cloud SDK's configuration is set for $GCP_PROJECT_ID\n"
         echo -e "To properly configure the SDK for this project, use:\n\n\tgcloud config configurations activate $GCP_CONFIGURATION"
 
-        exit 1;
+        exit 1
     else
         echo -e "\t[✔] Cloud SDK's configuration is set for $GCP_PROJECT_ID"
     fi
@@ -104,30 +104,28 @@ if [ "$DISTRIBUTE_STEP" = true ]; then
         echo -e "and"
         echo -e "\tgcloud auth activate-service-account $GCP_SERVICE_ACCOUNT --key-file=$GCP_AUTH_KEY_FILE"
 
-        exit 1;
+        exit 1
     else
         echo -e "\t[✔] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
     fi
 
-    package_binaries
+    package_binaries || { echo -e "\n[Error] Failed to package plugin binaries\n" && exit 1 ; }
 
     if [[ ${OSTYPE} == "darwin"* ]]; then
-        zip -r ${DIST_ZIP} dist/
+        zip -r ${DIST_ZIP} dist/ || { echo -e "\n[Error] Failed to zip plugin binaries\n" && exit 1 ; }
     else
-        7z a -tzip ${DIST_ZIP} dist/
+        7z a -tzip ${DIST_ZIP} dist/ || { echo -e "\n[Error] Failed to zip plugin binaries\n" && exit 1 ; }
     fi
     echo -e "\n[Success] Zipped plugin binaries!"
 
-    gsutil cp ${DIST_ZIP} gs://${DIST_BUCKET}
+    gsutil cp ${DIST_ZIP} gs://${DIST_BUCKET} || { echo -e "\n[Error] Failed to copy ${DIST_ZIP} to Cloud Storage\n" && exit 1 ; }
     echo -e "\n[Success] Uploaded plugin binaries!"
 
     rm -f ./${DIST_ZIP}
 
-    git push -d origin dist
-    echo -e "\n[Success] Deleted remote branch!"
+    git push -d origin dist || { echo -e "\n[Error] Failed to delete remote dist branch\n" && exit 1 ; }
+    echo -e "\n[Success] Deleted remote branch!\n"
 fi
-
-echo -e ""
 
 convertsecs() {
     ((m = (${1} % 3600) / 60))
@@ -139,5 +137,5 @@ end_time=$(date +%s)
 execution_time=$(expr $end_time - $start_time)
 echo -e "Total time elapsed:    $(convertsecs $execution_time)"
 
-me=`basename "$0"`
+me=$(basename "$0")
 echo -e "Script name:           ${me}"

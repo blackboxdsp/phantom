@@ -665,9 +665,14 @@ void PhantomAudioProcessor::writePresetFiles()
 
     presetDir.createDirectory();
 
+    /**
+     * NOTE: If you wish to add a preset to the stock group, be sure to run precompile.sh first
+     * so that the binary resources shows in PhantomData.
+     */ 
+    
     saveXmlToFile(parseXML(PhantomData::algo_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::analog_xml), presetDir);
-    saveXmlToFile(parseXML(PhantomData::feather_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::buzzboy_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::noisetap_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::overlord_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::richochet_xml), presetDir);

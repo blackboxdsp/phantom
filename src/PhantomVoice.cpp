@@ -59,34 +59,35 @@ bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
 
 void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {
+    clearCurrentNote();
+
     m_isNoteOn = true;
     m_velocity = velocity;
 
+    const float sampleRate = (float) getSampleRate();
+
     m_midiNoteNumber = midiNoteNumber;
-    m_primaryOsc->update(m_midiNoteNumber, getSampleRate());
-    m_secondaryOsc->update(m_midiNoteNumber, getSampleRate());
+    m_primaryOsc->update(m_midiNoteNumber, sampleRate);
+    m_secondaryOsc->update(m_midiNoteNumber, sampleRate);
     
-    m_ampEg->setSampleRate(getSampleRate());
+    m_ampEg->setSampleRate(sampleRate);
+    m_phaseEg->setSampleRate(sampleRate);
+    m_filterEg->setSampleRate(sampleRate);
+    m_modEg->setSampleRate(sampleRate);
+    
     m_ampEg->update();
-    m_ampEg->noteOn();
-
-    m_phaseEg->setSampleRate(getSampleRate());
     m_phaseEg->update();
-    m_phaseEg->noteOn();
-
-    m_filterEg->setSampleRate(getSampleRate());
     m_filterEg->update();
-    m_filterEg->noteOn();
-
-    m_modEg->setSampleRate(getSampleRate());
     m_modEg->update();
+    
+    m_ampEg->noteOn();
+    m_phaseEg->noteOn();
+    m_filterEg->noteOn();
     m_modEg->noteOn();
 }
 
 void PhantomVoice::stopNote(float velocity, bool allowTailOff)
 {
-    clearCurrentNote();
-
     m_isNoteOn = false;
     m_velocity = velocity;
 
@@ -106,11 +107,13 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
     m_filterEg->update();
     m_modEg->update();
 
-    m_lfo01->update(getSampleRate());
-    m_lfo02->update(getSampleRate());
+    const float sampleRate = (float) getSampleRate();
 
-    m_primaryOsc->update(m_midiNoteNumber, getSampleRate());
-    m_secondaryOsc->update(m_midiNoteNumber, getSampleRate());
+    m_lfo01->update(sampleRate);
+    m_lfo02->update(sampleRate);
+
+    m_primaryOsc->update(m_midiNoteNumber, sampleRate);
+    m_secondaryOsc->update(m_midiNoteNumber, sampleRate);
     
     m_filter->update();
 

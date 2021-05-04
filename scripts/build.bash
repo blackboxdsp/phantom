@@ -43,7 +43,7 @@ if [ ! -d "./juce" ]; then
     git clone https://github.com/juce-framework/JUCE.git
     mv JUCE/ juce/
 
-    cd ./juce || exit 1
+    cd ./juce
 
     git checkout develop
     git pull
@@ -54,44 +54,44 @@ if [ ! -d "./juce" ]; then
 fi
 
 if [ ! -d "./juce/build" ]; then
-    cd ./juce || exit 1
+    cd ./juce
 
     echo -e "Configuring JUCE...\n"
-    cmake -B bin . || { echo -e "\n[Error] Failed to configure JUCE build" && exit 1 ; }
+    cmake -B bin . || { echo -e "\n[Error] Failed to configure JUCE build" && exit 1 }
     echo -e "\n[Success] Configured JUCE build!\n"
 
     echo -e "Building JUCE...\n"
-    cmake --build bin || { echo -e "\n[Error] Failed to build JUCE target(s)" && exit 1 ; }
+    cmake --build bin || { echo -e "\n[Error] Failed to build JUCE target(s)" && exit 1 }
     echo -e "\n[Success] Built JUCE targets!\n"
 
     cd ../
 fi
 
 if [ ${PRECOMPILE_STEP} = true ]; then
-    scripts/precompile.sh -b=${BUILD_TYPE} || { echo -e "\n[Error] Failed to precompile binary resources" && exit 1 ; }
+    scripts/precompile.sh -b=${BUILD_TYPE} || ( echo -e "\n[Error] Failed to precompile binary resources" ) && exit 1
     echo -e "\n[Success] Precompiled resource data!\n"
-else
-    echo -e "Configuring ${PLUGIN_NAME}...\n"
-    cmake -B bin . || { echo -e "\n[Error] Failed to configure plugin build" && exit 1 ; }
-    echo -e "\n[Success] Configured plugin build!\n"
-
-    echo -e "Building ${PLUGIN_NAME}...\n"
-    cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All" || { echo -e "\n[Error] Failed to build plugin binaries" && exit 1 ; }
-    echo -e "\n[Success] Built plugin binaries!\n"
 fi
+
+echo -e "Configuring ${PLUGIN_NAME}...\n"
+cmake -B bin . || ( echo -e "\n[Error] Failed to configure plugin build" ) && exit 1
+echo -e "\n[Success] Configured plugin build!\n"
+
+echo -e "Building ${PLUGIN_NAME}...\n"
+cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All" || ( echo -e "\n[Error] Failed to build plugin binaries" ) && exit 1
+echo -e "\n[Success] Built plugin binaries!\n"
 
 if [ ${COPY_BUILD_STEP} = true ]; then
     if [[ ${OSTYPE} == "darwin"* ]]; then
         rm -rf "/Library/Audio/Plug-Ins/VST3/${PLUGIN_NAME}.vst3"
-        cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "/Library/Audio/Plug-Ins/VST3/${PLUGIN_NAME}.vst3" || { echo -e "\n[Error] Failed to copy plugin binaries (VST3)" && exit 1 ; }
+        cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "/Library/Audio/Plug-Ins/VST3/${PLUGIN_NAME}.vst3" || ( echo -e "\n[Error] Failed to copy plugin binaries (VST3)" ) && exit 1
         echo -e "[Success] Copied VST3 bundle to plugins directory!\n"
 
         rm -rf "/Library/Audio/Plug-Ins/Components/${PLUGIN_NAME}.component"
-        cp -r "./bin/${PLUGIN_NAME}_artefacts/AU/${PLUGIN_NAME}.component" "/Library/Audio/Plug-Ins/Components/${PLUGIN_NAME}.component" || { echo -e "\n[Error] Failed to copy plugin binaries (AU)" && exit 1 ; }
+        cp -r "./bin/${PLUGIN_NAME}_artefacts/AU/${PLUGIN_NAME}.component" "/Library/Audio/Plug-Ins/Components/${PLUGIN_NAME}.component" || ( echo -e "\n[Error] Failed to copy plugin binaries (AU)" ) && exit 1
         echo -e "[Success] Copied AU bundle to plugins directory!\n"
     else
         rm -f "/c/Program Files/Steinberg/Vst3Plugins/${PLUGIN_NAME}.vst3"
-        cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "/c/Program Files/Steinberg/Vst3Plugins/${PLUGIN_NAME}.vst3" || { echo -e "\n[Error] Failed to copy plugin binaries (VST3)" && exit 1 ; }
+        cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "/c/Program Files/Steinberg/Vst3Plugins/${PLUGIN_NAME}.vst3" || ( echo -e "\n[Error] Failed to copy plugin binaries (VST3)" ) && exit 1
         echo -e "[Success] Copied VST3 bundle to plugins directory!\n"
     fi
 fi
@@ -106,5 +106,5 @@ end_time=$(date +%s)
 execution_time=$(expr $end_time - $start_time)
 echo -e "Total time elapsed:    $(convertsecs $execution_time)"
 
-me=$(basename "$0")
+me=`basename "$0"`
 echo -e "Script name:           ${me}"
