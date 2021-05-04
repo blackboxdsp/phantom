@@ -59,26 +59,14 @@ bool PhantomVoice::canPlaySound(SynthesiserSound* sound)
 
 void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-    clearCurrentNote();
-
     m_isNoteOn = true;
-    m_velocity = velocity;
+    m_isNoteCleared = false;
 
     const float sampleRate = (float) getSampleRate();
 
     m_midiNoteNumber = midiNoteNumber;
     m_primaryOsc->update(m_midiNoteNumber, sampleRate);
     m_secondaryOsc->update(m_midiNoteNumber, sampleRate);
-    
-    m_ampEg->setSampleRate(sampleRate);
-    m_phaseEg->setSampleRate(sampleRate);
-    m_filterEg->setSampleRate(sampleRate);
-    m_modEg->setSampleRate(sampleRate);
-    
-    m_ampEg->update();
-    m_phaseEg->update();
-    m_filterEg->update();
-    m_modEg->update();
     
     m_ampEg->noteOn();
     m_phaseEg->noteOn();
@@ -89,7 +77,6 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 void PhantomVoice::stopNote(float velocity, bool allowTailOff)
 {
     m_isNoteOn = false;
-    m_velocity = velocity;
 
     m_ampEg->noteOff();
     m_phaseEg->noteOff();
@@ -97,17 +84,32 @@ void PhantomVoice::stopNote(float velocity, bool allowTailOff)
     m_modEg->noteOff();
 }
 
+void PhantomVoice::clear()
+{
+    clearCurrentNote();
+
+    m_ampEg->reset();
+    m_phaseEg->reset();
+    m_filterEg->reset();
+    m_modEg->reset();
+
+    m_primaryOsc->reset();
+    m_secondaryOsc->reset();
+
+    m_isNoteCleared = true;
+}
+
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
     if(m_isNoteOn && !isKeyDown())
-        stopNote(-1.0f, false);
-
-    m_ampEg->update();
-    m_phaseEg->update();
-    m_filterEg->update();
-    m_modEg->update();
+        stopNote(0.0f, true);
 
     const float sampleRate = (float) getSampleRate();
+
+    m_ampEg->update(sampleRate);
+    m_phaseEg->update(sampleRate);
+    m_filterEg->update(sampleRate);
+    m_modEg->update(sampleRate);
 
     m_lfo01->update(sampleRate);
     m_lfo02->update(sampleRate);
@@ -134,8 +136,15 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float filterVal = m_filter->evaluate(oscVal, filterEgMod, lfo01Mod);
         float ampVal = filterVal * ampEgMod;
 
+        if(m_ampEg->isActive()) m_tailOff = 1.0f;
+        float finalVal = ampVal * m_tailOff;
+
+        m_tailOff *= 0.99f;
+        if(m_tailOff < 0.00001f && !m_isNoteCleared)
+            clear();
+
         for (int channelIdx = 0; channelIdx < buffer.getNumChannels(); channelIdx++)
-            buffer.setSample(channelIdx, sampleIdx, ampVal);
+            buffer.addSample(channelIdx, sampleIdx, finalVal);
     }
 }
 

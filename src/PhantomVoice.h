@@ -65,6 +65,8 @@ public:
      */
     void stopNote(float velocity, bool allowTailOff) override;
 
+    void clear();
+
     /**
      * Applies all components of the `PhantomSynth` engine to the audio buffer.
      * @param buffer A reference to the audio buffer to write to.
@@ -159,13 +161,17 @@ private:
      */
     const float k_oscSyncPhaseThreshold = 0.000001f;
 
-    /**
-     * Boolean value for if the voice is currently playing a note.
-     */
     bool m_isNoteOn = false;
+
+    bool m_isNoteCleared = true;
     
     /**
      * Float value for velocity of a note, useful in calling `stopNote()` at any time.
      */
     float m_velocity = -1.0f;
+
+    /**
+     * Multiplier for smoothing abrupt releases of notes.
+     */
+    float m_tailOff = 0.0f;
 };

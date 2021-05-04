@@ -36,6 +36,15 @@ PhantomOscillator::~PhantomOscillator()
     m_wavetable.clear();
 }
 
+void PhantomOscillator::reset()
+{
+    m_phase = 0.0f;
+    m_phaseDelta = 0.0f;
+
+    m_midiNoteNumber = -1;
+    m_frequency = 0.0f;
+}
+
 void PhantomOscillator::initParameters()
 {
     switch(m_oscNumber)

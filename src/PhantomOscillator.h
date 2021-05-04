@@ -28,6 +28,11 @@ public:
     ~PhantomOscillator();
 
     /**
+     * Resets the oscillator parameters back to default state.
+     */
+    void reset();
+
+    /**
      * Updates the oscillators parameters.
      * @param midiNoteNumber The pitch value from the note MIDI data.
      * @param sampleRate The sample rate to use in determining the frequency.
@@ -92,14 +97,10 @@ private:
      */
     void updatePhaseDelta(float frequency) noexcept;
 
-    /**
-     * The wavetable object, which is just an array of floats.
-     */
+    /** The wavetable object, which is just an array of floats. */
     Array<float> m_wavetable;
 
-    /**
-     * The unique pointer to the oscillator's phasor, for applying phase distortion.
-     */
+    /** The unique pointer to the oscillator's phasor, for applying phase distortion. */
     std::unique_ptr<PhantomPhasor> m_phasor;
 
     /**
@@ -110,34 +111,22 @@ private:
     
     AudioProcessorValueTreeState& m_parameters;
 
-    /**
-     * The atomic parameter pointer for the oscillator's range.
-     */
+    /** The atomic parameter pointer for the oscillator's range. */
     std::atomic<float>* p_oscRange;
 
-    /**
-     * The atomic parameter pointer for the oscillator's coarse tune.
-     */
+    /** The atomic parameter pointer for the oscillator's coarse tune. */
     std::atomic<float>* p_oscCoarseTune;
 
-    /**
-     * The atomic parameter pointer for the oscillator's fine tune.
-     */
+    /** The atomic parameter pointer for the oscillator's fine tune. */
     std::atomic<float>* p_oscFineTune;
 
-    /**
-     * The atomic parameter pointer for the oscillator's modulation depth.
-     */
+    /** The atomic parameter pointer for the oscillator's modulation depth. */
     std::atomic<float>* p_modDepth;
 
-    /**
-     * The atomic parameter pointer for the oscillator's modulation source.
-     */
+    /** The atomic parameter pointer for the oscillator's modulation source. */
     std::atomic<float>* p_modSource;
 
-    /**
-     * The atomic parameter pointer for the oscillator's shape intensity.
-     */
+    /** The atomic parameter pointer for the oscillator's shape intensity. */
     std::atomic<float>* p_shapeInt;
 
     /**
@@ -146,14 +135,13 @@ private:
      */
     int m_oscNumber;
 
-    /**
-     * The maximum exponent value for pitch modulation.
-     */
+    /** The sampling rate, useful for determining the phase delta / frequency. */
+    float m_sampleRate;
+
+    /** The maximum exponent value for pitch modulation. */
     const int k_modExpoThreshold = 5;
 
-    /**
-     * The phase value which determines the index to read the wavetable at.
-     */
+    /** The phase value which determines the index to read the wavetable at. */
     float m_phase = 0.0f;
 
     /**
@@ -162,18 +150,9 @@ private:
      */
     float m_phaseDelta = 0.0f;
 
-    /**
-     * The MIDI pitch value for the last played (possibly current) note.
-     */
-    int m_midiNoteNumber;
+    /** The MIDI pitch value for the last played (possibly current) note. */
+    int m_midiNoteNumber = -1;
 
-    /**
-     * The frequency value for the last played (possibly current) note.
-     */
-    float m_frequency;
-
-    /**
-     * The sampling rate, useful for determining the phase delta / frequency.
-     */
-    float m_sampleRate;
+    /** The frequency value for the last played (possibly current) note. */
+    float m_frequency = 0.0f;
 };

@@ -476,8 +476,6 @@ void PhantomAudioProcessor::changeProgramName(int index, const String& newName)
 
 void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    ignoreUnused(samplesPerBlock);
-
     int numChannels = jmin(getMainBusNumInputChannels(), getMainBusNumOutputChannels());
     m_synth->init((float) sampleRate, samplesPerBlock, numChannels);
 }
