@@ -6,7 +6,9 @@ _NOTE: Phantom is still in development, so it is possible that there could be bu
 
 ## How To
 
-Most users will not have changed the system's default directory for installing plugins, which is typically:
+Make sure that your DAW can host plugins that are both 64-bit and VST3 / AU. Sadly I do not have any builds for legacy VST, and I also do not have the means to compile the plugin for a 32-bit architecture.
+
+The actual installation is easy - you just need to copy the appropriate binaries (.vst3, .component) to the system folder where you typically store them. Most users will not have changed this directory, which is typically:
 
 - __Windows__
     - `C:\Program Files\Common Files\Plugins\VST3\`*

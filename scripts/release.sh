@@ -2,6 +2,11 @@
 
 # Collects the builds and uploads the package to the Google Cloud Storage bucket.
 
+log_exit() {
+    echo -e "$1"
+    exit 1
+}
+
 PLUGIN_NAME=Phantom
 BUILD_TYPE=Release
 OPER_SYS=Windows
@@ -53,7 +58,7 @@ package_binaries() {
 
     git pull
 
-    scripts/build.sh -b=${BUILD_TYPE} || { echo -e "\n[Error] Failed to build plugin\n" && exit 1 ; }
+    scripts/build.sh -b=${BUILD_TYPE} || log_exit "\n[Error] Failed to build plugin\n"
 
     if [[ ${OSTYPE} == "darwin"* ]]; then
         OPER_SYS=MacOS
@@ -61,8 +66,8 @@ package_binaries() {
         rm -rf "${DIST_DIR}/macos"
         mkdir "${DIST_DIR}/macos" 
 
-        cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "${DIST_DIR}/macos/${PLUGIN_NAME}.vst3" || { echo -e "\n[Error] Failed to copy plugin binaries (VST3)\n" && exit 1 ; }
-        cp -r "./bin/${PLUGIN_NAME}_artefacts/AU/${PLUGIN_NAME}.component" "${DIST_DIR}/macos/${PLUGIN_NAME}.component" || { echo -e "\n[Error] Failed to copy plugin binaries (AU)\n" && exit 1 ; }
+        cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "${DIST_DIR}/macos/${PLUGIN_NAME}.vst3" || log_exit "\n[Error] Failed to copy plugin binaries (VST3)\n"
+        cp -r "./bin/${PLUGIN_NAME}_artefacts/AU/${PLUGIN_NAME}.component" "${DIST_DIR}/macos/${PLUGIN_NAME}.component" || log_exit "\n[Error] Failed to copy plugin binaries (AU)\n"
 
     else
         OPER_SYS=Windows
@@ -70,7 +75,7 @@ package_binaries() {
         rm -rf "${DIST_DIR}/windows" 
         mkdir "${DIST_DIR}/windows"
 
-        cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "${DIST_DIR}/windows/${PLUGIN_NAME}.vst3"  || { echo -e "\n[Error] Failed to copy plugin binaries (VST3)\n" && exit 1 ; }
+        cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "${DIST_DIR}/windows/${PLUGIN_NAME}.vst3"  || log_exit "\n[Error] Failed to copy plugin binaries (VST3)\n"
     fi
 
     git add -f dist
@@ -81,7 +86,7 @@ package_binaries() {
 }
 
 if [ "$PACKAGE_STEP" = true ]; then
-    package_binaries || { echo -e "\n[Error] Failed to package plugin binaries\n" && exit 1 ; }
+    package_binaries || log_exit "\n[Error] Failed to package plugin binaries\n"
 fi
 
 if [ "$DISTRIBUTE_STEP" = true ]; then
@@ -109,21 +114,21 @@ if [ "$DISTRIBUTE_STEP" = true ]; then
         echo -e "\t[✔] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
     fi
 
-    package_binaries || { echo -e "\n[Error] Failed to package plugin binaries\n" && exit 1 ; }
+    package_binaries || log_exit "\n[Error] Failed to package plugin binaries\n"
 
     if [[ ${OSTYPE} == "darwin"* ]]; then
-        zip -r ${DIST_ZIP} dist/ || { echo -e "\n[Error] Failed to zip plugin binaries\n" && exit 1 ; }
+        zip -r ${DIST_ZIP} dist/ || log_exit "\n[Error] Failed to zip plugin binaries\n"
     else
-        7z a -tzip ${DIST_ZIP} dist/ || { echo -e "\n[Error] Failed to zip plugin binaries\n" && exit 1 ; }
+        7z a -tzip ${DIST_ZIP} dist/ || log_exit "\n[Error] Failed to zip plugin binaries\n"
     fi
     echo -e "\n[Success] Zipped plugin binaries!"
 
-    gsutil cp ${DIST_ZIP} gs://${DIST_BUCKET} || { echo -e "\n[Error] Failed to copy ${DIST_ZIP} to Cloud Storage\n" && exit 1 ; }
+    gsutil cp ${DIST_ZIP} gs://${DIST_BUCKET} || log_exit "\n[Error] Failed to copy ${DIST_ZIP} to Cloud Storage\n"
     echo -e "\n[Success] Uploaded plugin binaries!"
 
     rm -f ./${DIST_ZIP}
 
-    git push -d origin dist || { echo -e "\n[Error] Failed to delete remote dist branch\n" && exit 1 ; }
+    git push -d origin dist || log_exit "\n[Error] Failed to delete remote dist branch\n"
     echo -e "\n[Success] Deleted remote branch!\n"
 fi
 

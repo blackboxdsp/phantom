@@ -62,10 +62,11 @@ void PhantomOscilloscope::paint(Graphics& graphics)
             (float) getHeight()
         ) * 0.975f;
 
-        float effectIntensity = (std::abs(reader[i]) * 0.25f) + 0.75f;
+        float brightness = (std::abs(reader[i]) * 0.25f) + 0.75f;
+        float saturation = (std::abs(reader[i]) * 0.35f) + 0.65f;
         Colour colour = Consts::_STROKE_COLOUR
-                                .withBrightness(effectIntensity)
-                                .withLightness(effectIntensity);
+                                .withBrightness(brightness)
+                                .withSaturation(saturation);
 
         graphics.setColour(colour);
         graphics.drawLine(x1, y1, x2, y2, k_strokeWidth);

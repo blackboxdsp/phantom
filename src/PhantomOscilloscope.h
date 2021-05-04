@@ -61,7 +61,7 @@ private:
     const int k_bufferSize = 1 << 10;
 
     /** The width of the stroke to use in painting the samples. */
-    const float k_strokeWidth = 2.0f;
+    const float k_strokeWidth = 1.8f;
 
     /** Lock for when the component is painting the samples. */
     bool m_isPainting = false;
