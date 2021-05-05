@@ -32,7 +32,7 @@ Should you discover any bugs or undesirable behavior, please feel free to [open 
 
 ## Documentation
 
-I have written a number of markdown files in the `docs/` folder to serve as documentation for a number of things including bash script tools and Phantom itself. Check it out if you're interested in reading more!
+I have written a number of markdown files in the [docs](./docs/README.md) folder to serve as documentation for a number of things including bash script tools and Phantom itself. Check it out if you're interested in reading more!
 
 ## License
 
