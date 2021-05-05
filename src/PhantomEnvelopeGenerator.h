@@ -57,7 +57,7 @@ private:
     ADSR::Parameters m_envelope;
 
     /** The envelope generator type (enum value). */
-    EnvelopeGeneratorType m_type;
+    EnvelopeGeneratorType m_type = (EnvelopeGeneratorType) -1;
 
     AudioProcessorValueTreeState& m_parameters;
 
@@ -82,6 +82,4 @@ private:
 
     /** The previous envelope value to avoid discontinuities. */
     float m_previousSample = 0.0f;
-
-    int count = 0;
 };

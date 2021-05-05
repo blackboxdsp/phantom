@@ -33,17 +33,15 @@ void PhantomEnvelopeGenerator::update(float sampleRate) noexcept
 
 float PhantomEnvelopeGenerator::evaluate() noexcept
 {
-    // TODO: Linear interpolation to help with discontinuities
-    float result = getNextSample();
+    float result = (getNextSample() + m_previousSample) / 2.0f;
+    m_previousSample = result;
     
-    if(m_type != AMP) return result;
-
     return result;
 }
 
 void PhantomEnvelopeGenerator::setEnvelopeType()
 {
-    // jassert(m_type);
+    jassert((int) m_type != -1);
 
     char* atkParamId;
     char* decParamId;
