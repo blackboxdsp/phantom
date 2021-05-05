@@ -8,6 +8,9 @@
 
 namespace PhantomData
 {
+    extern const char*   montserrat_ttf;
+    const int            montserrat_ttfSize = 245708;
+
     extern const char*   algo_xml;
     const int            algo_xmlSize = 1979;
 
@@ -33,7 +36,7 @@ namespace PhantomData
     const int            thestack_xmlSize = 1984;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 8;
+    const int namedResourceListSize = 9;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

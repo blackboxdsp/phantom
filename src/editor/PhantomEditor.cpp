@@ -29,12 +29,13 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
     loadPresetFilePaths();
 
-    setResizable(true, true);
-    setSize(1280, 720);
+    initEditor();
 }
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
+    setLookAndFeel(nullptr);
+
     m_oscilloscope = nullptr;
     m_analyzer = nullptr;
 
@@ -701,6 +702,17 @@ void PhantomAudioProcessorEditor::initPresetMenu()
         m_presetIdx++;
         loadPresetFileAtIndex();
     };
+}
+
+void PhantomAudioProcessorEditor::initEditor()
+{
+    setLookAndFeel(&m_lookAndFeel);
+
+    float ratio = 16.0f / 9.0f;
+    setResizable(true, true);
+    setResizeLimits(720 * ratio, 720, 1280 * ratio, 1280);
+    getConstrainer()->setFixedAspectRatio(ratio);
+    setSize(720 * ratio, 720);
 }
 
 void PhantomAudioProcessorEditor::addPresetsToMenu(PopupMenu& menu)

@@ -9,6 +9,7 @@
 
 #include "JuceHeader.h"
 
+#include "PhantomLookAndFeel.h"
 #include "../components/PhantomAnalyzer.h"
 #include "../components/PhantomOscilloscope.h"
 #include "../processor/PhantomProcessor.h"
@@ -157,6 +158,9 @@ private:
      */
     void initPresetMenu();
 
+    /** Initializes the editor component. */
+    void initEditor();
+
     /**
      * This index keeps track of the currently selected preset's
      * filepath, using for navigating quickly between them.
@@ -177,6 +181,8 @@ private:
     //================
     // GUI COMPONENTS
     //================
+
+    PhantomLookAndFeel m_lookAndFeel;
 
     Slider m_levelSlider;
     Label m_levelLabel;
