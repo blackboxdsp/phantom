@@ -174,4 +174,6 @@ private:
      * Multiplier for smoothing abrupt releases of notes.
      */
     float m_tailOff = 0.0f;
+
+    int count = 0;
 };

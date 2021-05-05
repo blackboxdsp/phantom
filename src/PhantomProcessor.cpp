@@ -308,7 +308,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto ampEgSus = std::make_unique<AudioParameterFloat>(
         Consts::_AMP_EG_SUS_PARAM_ID, Consts::_AMP_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-90.0f, 0.0f, -15.0f), false),
         Consts::_AMP_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgSus));
@@ -338,7 +338,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto phasorEgSus = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_EG_SUS_PARAM_ID, Consts::_PHASOR_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-90.0f, 0.0f, -15.0f), false),
         Consts::_PHASOR_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(phasorEgSus));
@@ -368,7 +368,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto filterEgSus = std::make_unique<AudioParameterFloat>(
         Consts::_FLTR_EG_SUS_PARAM_ID, Consts::_FLTR_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-90.0f, 0.0f, -15.0f), false),
         Consts::_FLTR_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(filterEgSus));
@@ -398,7 +398,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto modEgSus = std::make_unique<AudioParameterFloat>(
         Consts::_MOD_EG_SUS_PARAM_ID, Consts::_MOD_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-90.0f, 0.0f, -15.0f), false),
         Consts::_MOD_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(modEgSus));

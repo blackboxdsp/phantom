@@ -76,7 +76,13 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 
 void PhantomVoice::stopNote(float velocity, bool allowTailOff)
 {
-    DBG("note OFF!");
+    if(!allowTailOff)
+    {
+        clear();
+        return;
+    }
+
+    DBG("Note OFF!" << " ... " << velocity);
 
     m_isNoteOn = false;
 
@@ -123,7 +129,7 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
     
     m_filter->update();
 
-    for (int sampleIdx = startSample; sampleIdx < numSamples; sampleIdx++)
+    for (int sampleIdx = 0; sampleIdx < numSamples; sampleIdx++)
     {
         float ampEgMod = m_ampEg->evaluate();
         float phaseEgMod = m_phaseEg->evaluate();
@@ -142,15 +148,15 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float filterVal = m_filter->evaluate(oscVal, filterEgMod, lfo01Mod);
         float ampVal = filterVal * ampEgMod;
 
-        if(m_ampEg->isActive()) m_tailOff = 1.0f;
+        if(isVoiceActive()) m_tailOff = 1.0f;
         float finalVal = ampVal * m_tailOff;
 
         m_tailOff *= 0.99f;
-        if(m_tailOff < 0.00001f && !m_isNoteCleared)
+        if(!m_isNoteCleared && m_tailOff < 0.001f)
             clear();
 
         for (int channelIdx = 0; channelIdx < buffer.getNumChannels(); channelIdx++)
-            buffer.addSample(channelIdx, sampleIdx, finalVal);
+            buffer.addSample(channelIdx, sampleIdx + startSample, finalVal);
     }
 }
 

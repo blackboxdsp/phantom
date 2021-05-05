@@ -680,7 +680,7 @@ void PhantomAudioProcessorEditor::initPresetMenu()
 
         addPresetsToMenu(menu);
 
-        menu.show();
+        menu.showMenu(PopupMenu::Options().withParentComponent(this));
     };
 
     m_presetLeftButton.setButtonText("<");
@@ -763,8 +763,6 @@ void PhantomAudioProcessorEditor::loadPresetFileAtIndex()
                 m_presetIdx++;
     }
 
-    DBG("Before: " << m_presetIdx);
-
     if(m_presetIdx < 0)
         m_presetIdx = m_presetFilePaths.size() - 1;
     else if(m_presetIdx >= m_presetFilePaths.size())
@@ -774,8 +772,6 @@ void PhantomAudioProcessorEditor::loadPresetFileAtIndex()
     m_processor.loadStateFromFile(file);
 
     resetGui();
-
-    DBG(m_presetIdx << ": " << m_presetFilePaths[m_presetIdx]);
 }
 
 bool PhantomAudioProcessorEditor::setPresetIdx()

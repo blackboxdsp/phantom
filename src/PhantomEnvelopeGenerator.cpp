@@ -35,12 +35,8 @@ float PhantomEnvelopeGenerator::evaluate() noexcept
 {
     // TODO: Linear interpolation to help with discontinuities
     float result = getNextSample();
-
-    if(count++ == 10000)
-    {
-        count = 0;
-        DBG("Sustain: " << *p_sustain << ", Sample: " << result);
-    }
+    
+    if(m_type != AMP) return result;
 
     return result;
 }
