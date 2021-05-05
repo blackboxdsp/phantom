@@ -9,7 +9,8 @@
 */
 
 #include "PhantomAmplifier.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 PhantomAmplifier::PhantomAmplifier(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)

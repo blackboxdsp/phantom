@@ -9,7 +9,8 @@
 */
 
 #include "PhantomMixer.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 PhantomMixer::PhantomMixer(AudioProcessorValueTreeState& vts)
     :   m_parameters(vts)

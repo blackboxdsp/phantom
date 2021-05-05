@@ -9,8 +9,9 @@
 */
 
 #include "PhantomOscilloscope.h"
-#include "PhantomUtils.h"
-#include "PhantomWaveshaper.h"
+
+#include "../effects/PhantomWaveshaper.h"
+#include "../utils/PhantomUtils.h"
 
 PhantomOscilloscope::PhantomOscilloscope()
 {

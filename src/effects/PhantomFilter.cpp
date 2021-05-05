@@ -9,7 +9,8 @@
 */
 
 #include "PhantomFilter.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
     :   m_parameters(vts)

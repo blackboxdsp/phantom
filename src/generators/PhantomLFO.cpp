@@ -9,7 +9,8 @@
 */
 
 #include "PhantomLFO.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 PhantomLFO::PhantomLFO(AudioProcessorValueTreeState& vts, int lfoNumber)
     :   m_parameters(vts), m_lfoNumber(lfoNumber)

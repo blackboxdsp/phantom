@@ -12,8 +12,8 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomPhasor.h"
-#include "PhantomWaveshaper.h"
+#include "../effects/PhantomPhasor.h"
+#include "../effects/PhantomWaveshaper.h"
 
 /**
  * The audio component for an oscillator, the main "sound generator" 

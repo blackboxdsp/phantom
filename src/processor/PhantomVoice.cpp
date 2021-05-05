@@ -9,8 +9,9 @@
 */
 
 #include "PhantomVoice.h"
+
 #include "PhantomSound.h"
-#include "PhantomUtils.h"
+#include "../utils/PhantomUtils.h"
 
 PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
     :   m_parameters(vts)

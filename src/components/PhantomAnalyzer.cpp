@@ -9,7 +9,8 @@
 */
 
 #include "PhantomAnalyzer.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 PhantomAnalyzer::PhantomAnalyzer()
     :   m_forwardFFT(FFT_ORDER),

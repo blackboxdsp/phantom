@@ -9,7 +9,8 @@
 */
 
 #include "PhantomOscillator.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscNumber)
     : m_parameters(vts), m_oscNumber(oscNumber)

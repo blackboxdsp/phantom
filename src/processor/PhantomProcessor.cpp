@@ -5,9 +5,10 @@
   ==============================================================================
 */
 
-#include "PhantomData.h"
-#include "PhantomEditor.h"
 #include "PhantomProcessor.h"
+
+#include "../editor/PhantomEditor.h"
+#include "../utils/PhantomData.h"
 
 PhantomAudioProcessor::PhantomAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations

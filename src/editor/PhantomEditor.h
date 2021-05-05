@@ -9,9 +9,9 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomAnalyzer.h"
-#include "PhantomOscilloscope.h"
-#include "PhantomProcessor.h"
+#include "../components/PhantomAnalyzer.h"
+#include "../components/PhantomOscilloscope.h"
+#include "../processor/PhantomProcessor.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 

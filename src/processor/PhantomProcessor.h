@@ -9,9 +9,9 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomAmplifier.h"
+#include "../effects/PhantomAmplifier.h"
 #include "PhantomSynth.h"
-#include "PhantomUtils.h"
+#include "../utils/PhantomUtils.h"
 
 /**
  * The audio processor component, containing the important JUCE boilerplate 

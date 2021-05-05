@@ -12,11 +12,11 @@
 
 #include "JuceHeader.h"
 
-#include "PhantomEnvelopeGenerator.h"
-#include "PhantomFilter.h"
-#include "PhantomLFO.h"
-#include "PhantomMixer.h"
-#include "PhantomOscillator.h"
+#include "../effects/PhantomFilter.h"
+#include "../effects/PhantomMixer.h"
+#include "../generators/PhantomEnvelopeGenerator.h"
+#include "../generators/PhantomLFO.h"
+#include "../generators/PhantomOscillator.h"
 
 /**
  * The class overriding JUCE's `SynthesiserVoice`, which is necessary for creating

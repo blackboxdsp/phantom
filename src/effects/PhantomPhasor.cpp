@@ -9,7 +9,8 @@
 */
 
 #include "PhantomPhasor.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 PhantomPhasor::PhantomPhasor(AudioProcessorValueTreeState& vts, int phasorNumber)
     :   m_parameters(vts), m_phasorNumber(phasorNumber)

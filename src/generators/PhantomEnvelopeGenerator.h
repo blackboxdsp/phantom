@@ -11,7 +11,8 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 /**
  * The audio component for generating envelopes, useful in shaping

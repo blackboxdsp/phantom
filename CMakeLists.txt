@@ -30,21 +30,21 @@ juce_generate_juce_header(Phantom)
 
 # Declare necessary source files to include into the target
 target_sources(Phantom PRIVATE
-        src/PhantomAmplifier.cpp
-        src/PhantomAnalyzer.cpp
-        src/PhantomEditor.cpp
-        src/PhantomEnvelopeGenerator.cpp
-        src/PhantomFilter.cpp
-        src/PhantomLFO.cpp
-        src/PhantomMixer.cpp
-        src/PhantomOscillator.cpp
-        src/PhantomOscilloscope.cpp
-        src/PhantomPhasor.cpp
-        src/PhantomProcessor.cpp
-        src/PhantomSound.cpp
-        src/PhantomSynth.cpp
-        src/PhantomVoice.cpp
-        src/PhantomWaveshaper.cpp)
+        src/components/PhantomAnalyzer.cpp
+        src/components/PhantomOscilloscope.cpp
+        src/editor/PhantomEditor.cpp
+        src/effects/PhantomAmplifier.cpp
+        src/effects/PhantomFilter.cpp
+        src/effects/PhantomMixer.cpp
+        src/effects/PhantomPhasor.cpp
+        src/effects/PhantomWaveshaper.cpp
+        src/generators/PhantomEnvelopeGenerator.cpp
+        src/generators/PhantomLFO.cpp
+        src/generators/PhantomOscillator.cpp
+        src/processor/PhantomProcessor.cpp
+        src/processor/PhantomSound.cpp
+        src/processor/PhantomSynth.cpp
+        src/processor/PhantomVoice.cpp)
 
 # Preprocessor definitions for our target
 target_compile_definitions(Phantom PUBLIC
@@ -54,7 +54,7 @@ target_compile_definitions(Phantom PUBLIC
         JUCE_DISPLAY_SPLASH_SCREEN=0)
 
 # Add binary data from resources folder
-juce_add_binary_data(PhantomData HEADER_NAME "PhantomData.h" NAMESPACE PhantomData SOURCES
+juce_add_binary_data(PhantomData HEADER_NAME PhantomData.h NAMESPACE PhantomData SOURCES
         resources/presets/algo.xml
         resources/presets/analog.xml
         resources/presets/buzz-boy.xml

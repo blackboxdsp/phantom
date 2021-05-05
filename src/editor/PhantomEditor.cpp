@@ -6,7 +6,8 @@
 */
 
 #include "PhantomEditor.h"
-#include "PhantomUtils.h"
+
+#include "../utils/PhantomUtils.h"
 
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts)
     : AudioProcessorEditor(&p), m_processor(p), m_parameters(vts)
