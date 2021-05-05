@@ -65,6 +65,8 @@ public:
      */
     void stopNote(float velocity, bool allowTailOff) override;
 
+    void clear();
+
     /**
      * Applies all components of the `PhantomSynth` engine to the audio buffer.
      * @param buffer A reference to the audio buffer to write to.
@@ -79,9 +81,8 @@ private:
     /**
      * Resets phase of secondary oscillator if given value is less than or equal to `k_oscSyncPhaseThreshold`.
      * @param valueToRead The value to check for phase equality.
-     * @returns The given value that was passed in, unchanged.
      */
-    float handleOscSync(float valueToRead) noexcept;
+    void handleOscSync(float valueToRead) noexcept;
 
     /**
      * The unique pointer for the amplifier envelope generator.
@@ -155,17 +156,24 @@ private:
     bool m_oscSyncToggle = false;
 
     /**
-     * Constant float value for checking zero-crossings in phase.
+     * Constant float value for checking zero-crossings in phase. This value is based on the wavetable implementation 
+     * meaning that this variables range is within the size of that wavetable.
      */
-    const float k_oscSyncPhaseThreshold = 0.000001f;
+    const float k_oscSyncPhaseThreshold = 0.2f;
 
-    /**
-     * Boolean value for if the voice is currently playing a note.
-     */
     bool m_isNoteOn = false;
+
+    bool m_isNoteCleared = true;
     
     /**
      * Float value for velocity of a note, useful in calling `stopNote()` at any time.
      */
     float m_velocity = -1.0f;
+
+    /**
+     * Multiplier for smoothing abrupt releases of notes.
+     */
+    float m_tailOff = 0.0f;
+
+    int count = 0;
 };

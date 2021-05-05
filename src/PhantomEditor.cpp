@@ -680,7 +680,7 @@ void PhantomAudioProcessorEditor::initPresetMenu()
 
         addPresetsToMenu(menu);
 
-        menu.show();
+        menu.showMenu(PopupMenu::Options().withParentComponent(this));
     };
 
     m_presetLeftButton.setButtonText("<");
@@ -763,8 +763,6 @@ void PhantomAudioProcessorEditor::loadPresetFileAtIndex()
                 m_presetIdx++;
     }
 
-    DBG("Before: " << m_presetIdx);
-
     if(m_presetIdx < 0)
         m_presetIdx = m_presetFilePaths.size() - 1;
     else if(m_presetIdx >= m_presetFilePaths.size())
@@ -774,8 +772,6 @@ void PhantomAudioProcessorEditor::loadPresetFileAtIndex()
     m_processor.loadStateFromFile(file);
 
     resetGui();
-
-    DBG(m_presetIdx << ": " << m_presetFilePaths[m_presetIdx]);
 }
 
 bool PhantomAudioProcessorEditor::setPresetIdx()
@@ -928,9 +924,9 @@ void PhantomAudioProcessorEditor::resized()
     Rectangle<int> middleTopArea = canvas.removeFromTop(sectionHeight + (margin * 2));
     canvas.removeFromTop(margin);
 
-    Rectangle<int> oscilloscopeArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
+    Rectangle<int> analyzerArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
     middleTopArea.removeFromLeft(margin);
-    m_oscilloscope->setBounds(oscilloscopeArea);
+    m_analyzer->setBounds(analyzerArea);
 
     Rectangle<int> phasorArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
     middleTopArea.removeFromLeft(margin);
@@ -953,9 +949,9 @@ void PhantomAudioProcessorEditor::resized()
     m_phasor02ShapeSlider.setBounds(phasor02Area.removeFromLeft(middleTopKnobWidth));
     m_phasor02EgIntSlider.setBounds(phasor02Area.removeFromLeft(middleTopKnobWidth));
     m_phasor02LfoIntSlider.setBounds(phasor02Area);
-
-    Rectangle<int> analyzerArea = middleTopArea;
-    m_analyzer->setBounds(analyzerArea);
+    
+    Rectangle<int> oscilloscopeArea = middleTopArea;
+    m_oscilloscope->setBounds(oscilloscopeArea);
 
     const int middleBottomKnobWidth = (width - (margin * 2)) / 7;
     Rectangle<int> middleBottomArea = canvas.removeFromTop(sectionHeight);

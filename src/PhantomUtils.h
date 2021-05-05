@@ -151,7 +151,7 @@ namespace Consts
     constexpr float _AMP_EG_DEC_DEFAULT_VAL = 0.2f;
     constexpr char *_AMP_EG_SUS_PARAM_ID = "ampEgSus";
     constexpr char *_AMP_EG_SUS_PARAM_NAME = "Amp EG Sustain";
-    constexpr float _AMP_EG_SUS_DEFAULT_VAL = -30.0f;
+    constexpr float _AMP_EG_SUS_DEFAULT_VAL = -15.0f;
     constexpr char *_AMP_EG_REL_PARAM_ID = "ampEgRel";
     constexpr char *_AMP_EG_REL_PARAM_NAME = "Amp EG Release";
     constexpr float _AMP_EG_REL_DEFAULT_VAL = 0.6f;
@@ -164,7 +164,7 @@ namespace Consts
     constexpr float _PHASOR_EG_DEC_DEFAULT_VAL = 0.25f;
     constexpr char *_PHASOR_EG_SUS_PARAM_ID = "phaseEgSus";
     constexpr char *_PHASOR_EG_SUS_PARAM_NAME = "Phase EG Sustain";
-    constexpr float _PHASOR_EG_SUS_DEFAULT_VAL = -30.0f;
+    constexpr float _PHASOR_EG_SUS_DEFAULT_VAL = -15.0f;
     constexpr char *_PHASOR_EG_REL_PARAM_ID = "phaseEgRel";
     constexpr char *_PHASOR_EG_REL_PARAM_NAME = "Phase EG Release";
     constexpr float _PHASOR_EG_REL_DEFAULT_VAL = 1.2f;
@@ -177,7 +177,7 @@ namespace Consts
     constexpr float _FLTR_EG_DEC_DEFAULT_VAL = 0.4f;
     constexpr char *_FLTR_EG_SUS_PARAM_ID = "fltrEgSus";
     constexpr char *_FLTR_EG_SUS_PARAM_NAME = "Filter EG Sustain";
-    constexpr float _FLTR_EG_SUS_DEFAULT_VAL = -30.0f;
+    constexpr float _FLTR_EG_SUS_DEFAULT_VAL = -15.0f;
     constexpr char *_FLTR_EG_REL_PARAM_ID = "fltrEgRel";
     constexpr char *_FLTR_EG_REL_PARAM_NAME = "Filter EG Release";
     constexpr float _FLTR_EG_REL_DEFAULT_VAL = 0.8f;
@@ -190,7 +190,7 @@ namespace Consts
     constexpr float _MOD_EG_DEC_DEFAULT_VAL = 0.15f;
     constexpr char *_MOD_EG_SUS_PARAM_ID = "modEgSus";
     constexpr char *_MOD_EG_SUS_PARAM_NAME = "Mod EG Sustain";
-    constexpr float _MOD_EG_SUS_DEFAULT_VAL = -60.0f;
+    constexpr float _MOD_EG_SUS_DEFAULT_VAL = -15.0f;
     constexpr char *_MOD_EG_REL_PARAM_ID = "modEgRel";
     constexpr char *_MOD_EG_REL_PARAM_NAME = "Mod EG Release";
     constexpr float _MOD_EG_REL_DEFAULT_VAL = 0.2f;

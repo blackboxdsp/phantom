@@ -25,20 +25,23 @@ PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
     p_release = nullptr;
 }
 
-void PhantomEnvelopeGenerator::update() noexcept
+void PhantomEnvelopeGenerator::update(float sampleRate) noexcept
 {
     setEnvelopeParameters();
-    setParameters(m_envelope);
+    setSampleRate(sampleRate);
 }
 
 float PhantomEnvelopeGenerator::evaluate() noexcept
 {
-    return getNextSample();
+    float result = (getNextSample() + m_previousSample) / 2.0f;
+    m_previousSample = result;
+    
+    return result;
 }
 
 void PhantomEnvelopeGenerator::setEnvelopeType()
 {
-    // jassert(m_type);
+    jassert((int) m_type != -1);
 
     char* atkParamId;
     char* decParamId;
@@ -89,7 +92,14 @@ void PhantomEnvelopeGenerator::setEnvelopeParameters() noexcept
     m_envelope.decay = *p_decay;
     m_envelope.release = *p_release;
 
-    float sustain = powf(2, *p_sustain / 6);
-    if(m_envelope.sustain != sustain)
-        m_envelope.sustain = (m_envelope.sustain + sustain) / 2.0f;
+    if(m_previousSustain != *p_sustain)
+    {
+        float sustain = (m_previousSustain + *p_sustain) / 2.0f;
+        m_previousSustain = sustain;
+
+        float gain = powf(2.0f, sustain / 6.0f);
+        m_envelope.sustain = gain; 
+    }
+
+    setParameters(m_envelope);
 }

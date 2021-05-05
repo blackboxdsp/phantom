@@ -308,7 +308,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto ampEgSus = std::make_unique<AudioParameterFloat>(
         Consts::_AMP_EG_SUS_PARAM_ID, Consts::_AMP_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-90.0f, 0.0f, -15.0f), false),
         Consts::_AMP_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(ampEgSus));
@@ -338,7 +338,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto phasorEgSus = std::make_unique<AudioParameterFloat>(
         Consts::_PHASOR_EG_SUS_PARAM_ID, Consts::_PHASOR_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-90.0f, 0.0f, -15.0f), false),
         Consts::_PHASOR_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(phasorEgSus));
@@ -368,7 +368,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto filterEgSus = std::make_unique<AudioParameterFloat>(
         Consts::_FLTR_EG_SUS_PARAM_ID, Consts::_FLTR_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-90.0f, 0.0f, -15.0f), false),
         Consts::_FLTR_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(filterEgSus));
@@ -398,7 +398,7 @@ AudioProcessorValueTreeState::ParameterLayout PhantomAudioProcessor::createParam
 
     auto modEgSus = std::make_unique<AudioParameterFloat>(
         Consts::_MOD_EG_SUS_PARAM_ID, Consts::_MOD_EG_SUS_PARAM_NAME,
-        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-60.0f, 0.0f, -30.0f), false),
+        NormalisableRange<float>(-60.0f, 0.0f, 0.1f, getSkewFactor(-90.0f, 0.0f, -15.0f), false),
         Consts::_MOD_EG_SUS_DEFAULT_VAL
     );
     params.push_back(std::move(modEgSus));
@@ -476,8 +476,6 @@ void PhantomAudioProcessor::changeProgramName(int index, const String& newName)
 
 void PhantomAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    ignoreUnused(samplesPerBlock);
-
     int numChannels = jmin(getMainBusNumInputChannels(), getMainBusNumOutputChannels());
     m_synth->init((float) sampleRate, samplesPerBlock, numChannels);
 }
@@ -531,7 +529,7 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
 
 bool PhantomAudioProcessor::hasEditor() const
 {
-    return true; //(change this to false if you choose to not supply an editor)
+    return true;
 }
 
 AudioProcessorEditor* PhantomAudioProcessor::createEditor()
@@ -665,13 +663,19 @@ void PhantomAudioProcessor::writePresetFiles()
 
     presetDir.createDirectory();
 
-    saveXmlToFile(juce::parseXML(PhantomData::algo_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::analog_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::feather_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::noisetap_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::overlord_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::siren_xml), presetDir);
-    saveXmlToFile(juce::parseXML(PhantomData::thestack_xml), presetDir);
+    /**
+     * NOTE: If you wish to add a preset to the stock group, be sure to run precompile.sh first
+     * so that the binary resources shows in PhantomData.
+     */ 
+    
+    saveXmlToFile(parseXML(PhantomData::algo_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::analog_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::buzzboy_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::noisetap_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::overlord_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::richochet_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::siren_xml), presetDir);
+    saveXmlToFile(parseXML(PhantomData::thestack_xml), presetDir);
 }
 
 void PhantomAudioProcessor::resetState()

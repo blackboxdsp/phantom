@@ -16,7 +16,6 @@ PhantomAnalyzer::PhantomAnalyzer()
         m_window(FFT_SIZE, dsp::WindowingFunction<float>::hann)
 {
     zeromem(m_outputData, sizeof(m_outputData));
-    setSize(240, 360);
     startTimerHz(30);
 }
 
@@ -67,27 +66,23 @@ void PhantomAnalyzer::timerCallback()
     }
 
     for(int i = 0; i < OUTPUT_SIZE; i++)
-    {
-        m_outputData[i] *= 0.7f;
-    }
+        m_outputData[i] *= 0.75f;
 
     repaint();
 }
 
-void PhantomAnalyzer::pushBuffer(AudioSampleBuffer& buffer)
+void PhantomAnalyzer::pushBuffer(AudioSampleBuffer& buffer) noexcept
 {
     if(buffer.getNumChannels() > 0)
     {
         const float* channelData = buffer.getReadPointer(0);
 
         for(int i = 0; i < buffer.getNumSamples(); i++)
-        {
             pushNextSample(channelData[i]);
-        }
     }
 }
 
-void PhantomAnalyzer::pushNextSample(float sample) 
+inline void PhantomAnalyzer::pushNextSample(float sample) noexcept
 {
     if(m_FFTQueueIndex == FFT_SIZE)
     {

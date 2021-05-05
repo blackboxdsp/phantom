@@ -40,15 +40,17 @@ public:
 
     /**
      * Inserts data into the buffer to use for the display.
+     * CAUTION: This method is called from within the audio thread so it must be real-time safe.
      * @param buffer A reference to the buffer data that will be inserted.
      */
-    void pushBuffer(AudioSampleBuffer& buffer);
+    void pushBuffer(AudioSampleBuffer& buffer) noexcept;
 
     /**
      * Inserts single sample point into the buffer.
+     * CAUTION: This method is called from within the audio thread so it must be real-time safe.
      * @param sample The sample point value, ideally in the range of [-1.0f, 1.0f].
      */
-    inline void pushNextSample(float sample);
+    inline void pushNextSample(float sample) noexcept;
 
     /**
      * Enumerator with data for the size of the buffer to use 

@@ -57,9 +57,10 @@ target_compile_definitions(Phantom PUBLIC
 juce_add_binary_data(PhantomData HEADER_NAME "PhantomData.h" NAMESPACE PhantomData SOURCES
         resources/presets/algo.xml
         resources/presets/analog.xml
-        resources/presets/feather.xml
+        resources/presets/buzz-boy.xml
         resources/presets/noise-tap.xml
         resources/presets/overlord.xml
+        resources/presets/richochet.xml
         resources/presets/siren.xml
         resources/presets/the-stack.xml)
 

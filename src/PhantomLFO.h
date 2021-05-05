@@ -61,21 +61,15 @@ private:
      */
     void updatePhaseDelta() noexcept;
 
-    /**
-     * The wavetable, which is an array of float values.
-     */
+    /** The wavetable, which is an array of float values. */
     Array<float> m_wavetable;
 
     AudioProcessorValueTreeState& m_parameters;
 
-    /**
-     * The atomic parameter pointer for the LFO's rate.
-     */
+    /** The atomic parameter pointer for the LFO's rate. */
     std::atomic<float>* p_rate;
 
-    /**
-     * The atomic parameter pointer for the LFO's shape.
-     */
+    /** The atomic parameter pointer for the LFO's shape. */
     std::atomic<float>* p_shape;
 
     /**
@@ -83,6 +77,12 @@ private:
      * `AudioProcessorValueTreeState` paramteres.
      */
     int m_lfoNumber;
+
+    /**
+     * The sample rate, useful in computing the correct phase delta 
+     * value for a given frequency.
+     */
+    float m_sampleRate;
 
     /**
      * The previous shape value, which helps to reduce the
@@ -102,14 +102,6 @@ private:
      */
     float m_phaseDelta = 0.0f;
 
-    /**
-     * The sample rate, useful in computing the correct phase delta 
-     * value for a given frequency.
-     */
-    float m_sampleRate;
-
-    /**
-     * The last read sample value.
-     */
+    /** The last read sample value. */
     float m_sampleValue = 0.0f;
 };

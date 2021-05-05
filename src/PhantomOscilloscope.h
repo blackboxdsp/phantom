@@ -23,6 +23,8 @@ public:
     PhantomOscilloscope();
     ~PhantomOscilloscope();
 
+    void init();
+
     /**
      * Determines the GUI display of the oscilloscope component.
      * @param graphics The reference to the `Graphics` object.
@@ -43,46 +45,24 @@ public:
      * Inserts data into the buffer to use for the display.
      * @param buffer A reference to the buffer data that will be inserted.
      */
-    void pushBuffer(AudioSampleBuffer &buffer);
-
-    /**
-     * Enumerator with data for the size of the buffer to use 
-     * in the component's display.
-     * @property BUFFER_ORDER The amount to bitshift the FFT_SIZE.
-     * @property BUFFER_SIZE The value of 1 bitshifted by the FFT_ORDER
-     */
-    enum
-    {
-        BUFFER_ORDER = 11,
-        BUFFER_SIZE = 1 << BUFFER_ORDER, // 2048
-    };
+    void pushBuffer(AudioBuffer<float>& buffer);
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscilloscope)
 
-    /**
-     * The buffer containing samples for the oscilloscope.
-     */
-    Array<float> m_buffer;
+    /** The unique pointer to the buffer containing samples for the oscilloscope. */
+    std::unique_ptr<AudioBuffer<float>> m_buffer;
 
-    /**
-     * The index value corresponding to the buffer.
-     */
-    int m_bufferIndex = 0;
 
-    /**
-     * The width of the stroke path.
-     */
-    const float m_strokeWidth = 3.0f;
+    /** The current buffer position, which is atomic since it is updated by the audio thread and read by the GUI thread. */
+    unsigned int m_bufferIdx = 0;
 
-    Point<float> m_point = { 0.0f, 0.0f };
-};
+    /** The buffer size to use in containing sample data. */
+    const int k_bufferSize = 1 << 10;
 
-/**
- * Small utility struct for easier coordinate data.
- */
-template<class T>
-struct Point
-{
-    T x, y;
+    /** The width of the stroke to use in painting the samples. */
+    const float k_strokeWidth = 1.8f;
+
+    /** Lock for when the component is painting the samples. */
+    bool m_isPainting = false;
 };
