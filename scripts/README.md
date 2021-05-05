@@ -4,7 +4,7 @@ This directory contains bash scripts that each exist to help in the general deve
 
 Each script relies on [CMake](https://cmake.org/) for compiling the source code and building the plugin binaries, so be sure to download and install it in order to run them.
 
-To run a script, use this formats:
+To run a script, use this format:
 
 ```
 $ ./scripts/script_name.sh -f
