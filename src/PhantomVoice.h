@@ -81,9 +81,8 @@ private:
     /**
      * Resets phase of secondary oscillator if given value is less than or equal to `k_oscSyncPhaseThreshold`.
      * @param valueToRead The value to check for phase equality.
-     * @returns The given value that was passed in, unchanged.
      */
-    float handleOscSync(float valueToRead) noexcept;
+    void handleOscSync(float valueToRead) noexcept;
 
     /**
      * The unique pointer for the amplifier envelope generator.
@@ -157,9 +156,10 @@ private:
     bool m_oscSyncToggle = false;
 
     /**
-     * Constant float value for checking zero-crossings in phase.
+     * Constant float value for checking zero-crossings in phase. This value is based on the wavetable implementation 
+     * meaning that this variables range is within the size of that wavetable.
      */
-    const float k_oscSyncPhaseThreshold = 0.000001f;
+    const float k_oscSyncPhaseThreshold = 0.2f;
 
     bool m_isNoteOn = false;
 

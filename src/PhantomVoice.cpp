@@ -67,7 +67,7 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
     m_midiNoteNumber = midiNoteNumber;
     m_primaryOsc->update(m_midiNoteNumber, sampleRate);
     m_secondaryOsc->update(m_midiNoteNumber, sampleRate);
-    
+
     m_ampEg->noteOn();
     m_phaseEg->noteOn();
     m_filterEg->noteOn();
@@ -76,6 +76,8 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
 
 void PhantomVoice::stopNote(float velocity, bool allowTailOff)
 {
+    DBG("note OFF!");
+
     m_isNoteOn = false;
 
     m_ampEg->noteOff();
@@ -101,6 +103,8 @@ void PhantomVoice::clear()
 
 void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, int numSamples)
 {
+    if(numSamples == 0) return;
+
     if(m_isNoteOn && !isKeyDown())
         stopNote(0.0f, true);
 
@@ -129,7 +133,9 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
         float lfo01Mod = m_lfo01->evaluate();
         float lfo02Mod = m_lfo02->evaluate();
 
-        float primaryOscVal = handleOscSync(m_primaryOsc->evaluate(modEgMod, lfo02Mod, phaseEgMod, lfo02Mod));
+        handleOscSync(m_primaryOsc->readPhase());
+
+        float primaryOscVal = m_primaryOsc->evaluate(modEgMod, lfo02Mod, phaseEgMod, lfo02Mod);
         float secondaryOscVal = m_secondaryOsc->evaluate(modEgMod, lfo02Mod, phaseEgMod, lfo02Mod);
         float oscVal = m_mixer->evaluate(primaryOscVal, secondaryOscVal);
 
@@ -148,16 +154,10 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
     }
 }
 
-float PhantomVoice::handleOscSync(const float valueToRead) noexcept
+void PhantomVoice::handleOscSync(const float valueToRead) noexcept
 {
-    if(!*p_oscSync) return valueToRead;
+    if(!*p_oscSync) return;
 
-    if(std::abs(valueToRead) <= k_oscSyncPhaseThreshold) {
-        if(m_oscSyncToggle)
-            m_secondaryOsc->updatePhase(valueToRead);
-
-        m_oscSyncToggle = !m_oscSyncToggle;
-    }
-
-    return valueToRead;
+    if(valueToRead <= k_oscSyncPhaseThreshold)
+        m_secondaryOsc->updatePhase(valueToRead);
 }
