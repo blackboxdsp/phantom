@@ -2,6 +2,8 @@
 
 This directory contains bash scripts that each exist to help in the general development of audio plugins. This refers to things like building the source code, copying plugin binaries, pre-compiling resource data, and packaging / distributing the plugin build to a Cloud Storage bucket. Listed below are the scripts found in this directory along with a description on what they do and the flag arguments to execute specific functionality.
 
+_NOTE: All of these scripts rely on [CMake](https://cmake.org/) for compiling the source code and building the plugin binaries, so be sure to download it if interested in building the source code._
+
 ## `build.sh`
 
 This script is responsible for building the plugin from the source code, including gathering the resources necessary to do so (i.e. cloning the JUCE repository). It also has other functionality, which one activates by passing flags when running. See more below...
@@ -21,7 +23,7 @@ _NOTE: In order to build the plugin, the environment variables, `CMAKE_C_COMPILE
 
 ## `precompile.sh`
 
-This script is responsible for precompiling files in the `resources/` directory in order to generate a new data header file (for the purpose of overwriting the old one). This is important for when adding a new binary resource (i.e. images, fonts, other resource files) and needs to access it programmatically. 
+This script is responsible for precompiling files in the `../resources/` directory in order to generate a new data header file (for the purpose of overwriting the old one). This is important for when adding a new binary resource (i.e. images, fonts, other resource files) and needs to access it programmatically. 
 
 _NOTE: When adding new resources, one __MUST NOT__ forget to add the file to the `CMakeLists.txt` in the root directory. Without this step, the new resource will not be added into the source code compilation when building the plugin._
 

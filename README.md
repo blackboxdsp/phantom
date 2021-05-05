@@ -28,17 +28,15 @@ Phantom is capable of running with any plugin host as long as it supports VST3 o
 
 ## Contributing
 
-Should you discover any bugs or undesirable behavior, please feel free to open an issue or submit a pull request. I am happy to accept them as long as they don't alter product direction, otherwise I am completely open to discuss any ideas that you may have regarding Phantom.
+Should you discover any bugs or undesirable behavior, please feel free to [open an issue](https://github.com/blackboxdsp/phantom/issues/new) or [submit a pull request](https://github.com/blackboxdsp/phantom/compare). I am happy to accept them as long as they don't alter product direction, otherwise I am completely open to discuss any ideas that you may have regarding Phantom.
 
-### Building
+## Documentation
 
-Phantom is built using the JUCE framework, which graciously provides project files for various IDEs. To compile the source code into usable plugin binaries, please download [CMake](https://cmake.org/) and run the `build.sh` script located at the root-directory of the repository.
-
-If you have any issues building the plugin, please contact me or file an issue.
+I have written a number of markdown files in the `docs/` folder to serve as documentation for a number of things including bash script tools and Phantom itself. Check it out if you're interested in reading more!
 
 ## License
 
-Copyright (C) 2020 Matthew Maxwell
+Copyright (C) 2021 Matthew Maxwell
 
 This program is free software: you can redistribute it and / or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
