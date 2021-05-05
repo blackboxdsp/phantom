@@ -25,20 +25,24 @@ DISTRIBUTE_STEP=false
 
 start_time=$(date +%s)
 
+check_for_release() {
+    BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+    if [ "$BRANCH" != "dist" ];
+    then
+        echo -e "\t[✘] Branch is set to \"dist\"\n"
+        echo -e "If dist branch already exists remotely, please use:\n\n\tgit fetch --all && git checkout dist --\n"
+        echo -e "If dist branch does NOT already exist remotely, please the following:\n"
+        echo -e "\tgit checkout -b dist ${BRANCH} && git push -u origin dist"
+
+        exit 1
+    else
+        echo -e "\t[✔] Branch is set to \"dist\""
+    fi
+}
+
 echo -e "Doing preparation checks...\n"
 
-BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-if [ "$BRANCH" != "dist" ];
-then
-    echo -e "\t[✘] Branch is set to \"dist\"\n"
-    echo -e "If dist branch already exists remotely, please use:\n\n\tgit fetch --all && git checkout dist --\n"
-    echo -e "If dist branch does NOT already exist remotely, please the following:\n"
-    echo -e "\tgit checkout -b dist ${BRANCH} && git push -u origin dist"
-
-    exit 1
-else
-    echo -e "\t[✔] Branch is set to \"dist\""
-fi
+check_for_release
 
 for i in "$@"; do
     case $i in
@@ -53,13 +57,13 @@ for i in "$@"; do
     esac
 done
 
-package_binaries() {
+prep_for_packaging() {
     rm -rf ./bin
 
     git pull
+}
 
-    scripts/build.sh -b=${BUILD_TYPE} || log_exit "\n[Error] Failed to build plugin\n"
-
+copy_plugin_binaries() {
     if [[ ${OSTYPE} == "darwin"* ]]; then
         OPER_SYS=MacOS
 
@@ -77,19 +81,31 @@ package_binaries() {
 
         cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "${DIST_DIR}/windows/${PLUGIN_NAME}.vst3"  || log_exit "\n[Error] Failed to copy plugin binaries (VST3)\n"
     fi
+}
 
+push_plugin_build() {
     git add -f dist
     git commit -m "BUILD: ${OPER_SYS} - $(date)"
     git push
+}
+
+package_binaries() {
+    prep_for_packaging || log_exit "\n[Error] Failed to prepare for packaging"
+
+    scripts/build.sh -b=${BUILD_TYPE} || log_exit "\n[Error] Failed to build plugin\n"
+
+    copy_plugin_binaries || log_exit "\n[Error] Failed to copy plugin binaries"
+
+    push_plugin_build || log_exit "\n[Error] Failed to push plugin binaries to GitHub"
 
     echo -e "\n[Success] Packaged plugin for distribution!"
 }
 
 if [ "$PACKAGE_STEP" = true ]; then
-    package_binaries || log_exit "\n[Error] Failed to package plugin binaries\n"
+    package_binaries
 fi
 
-if [ "$DISTRIBUTE_STEP" = true ]; then
+check_for_distribution() {
     CURRENT_GCP_PROJECT=$(gcloud config get-value project)
     if [ "$CURRENT_GCP_PROJECT" != "$GCP_PROJECT_ID" ]
     then
@@ -113,23 +129,45 @@ if [ "$DISTRIBUTE_STEP" = true ]; then
     else
         echo -e "\t[✔] Cloud IAM service account is set to $GCP_SERVICE_ACCOUNT\n"
     fi
+}
 
-    package_binaries || log_exit "\n[Error] Failed to package plugin binaries\n"
-
+compress_plugin_binaries() {
     if [[ ${OSTYPE} == "darwin"* ]]; then
         zip -r ${DIST_ZIP} dist/ || log_exit "\n[Error] Failed to zip plugin binaries\n"
     else
         7z a -tzip ${DIST_ZIP} dist/ || log_exit "\n[Error] Failed to zip plugin binaries\n"
     fi
     echo -e "\n[Success] Zipped plugin binaries!"
+}
 
+upload_plugin_zip() {
     gsutil cp ${DIST_ZIP} gs://${DIST_BUCKET} || log_exit "\n[Error] Failed to copy ${DIST_ZIP} to Cloud Storage\n"
-    echo -e "\n[Success] Uploaded plugin binaries!"
+    echo -e "\n[Success] Uploaded plugin zip to Cloud Storage bucket \"${DIST_BUCKET}\"!"
+}
 
+cleanup_distribution() {
     rm -f ./${DIST_ZIP}
 
     git push -d origin dist || log_exit "\n[Error] Failed to delete remote dist branch\n"
-    echo -e "\n[Success] Deleted remote branch!\n"
+    echo -e "\n[Success] Deleted remote branch!"
+}
+
+distribute_binaries() {
+    check_for_distribution
+
+    package_binaries
+
+    compress_plugin_binaries || log_exit "\n[Error] Failed to compress plugin binaries"
+
+    upload_plugin_zip || log_exit "\n[Error] Failed to upload to Cloud Storage bucket"
+
+    cleanup_distribution || log_exit "\n[Error] Failed to cleanup files from plugin distribution"
+
+    echo -e "\n[Success] Distributed plugin binaries!\n"
+}
+
+if [ "$DISTRIBUTE_STEP" = true ]; then
+    distribute_binaries
 fi
 
 convertsecs() {

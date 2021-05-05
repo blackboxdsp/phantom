@@ -27,18 +27,26 @@ done
 
 echo -e "Precompiling ${PLUGIN_NAME} resources...\n"
 
-echo -e "Configuring ${PLUGIN_NAME}...\n"
-cmake -B bin . || log_exit "\n[Error] Failed to configure plugin build\n"
-echo -e "\n[Success] Configured plugin build!\n"
+build_plugin_binaries() {
+    echo -e "Configuring ${PLUGIN_NAME}...\n"
+    cmake -B bin . || log_exit "\n[Error] Failed to configure plugin build\n"
+    echo -e "\n[Success] Configured plugin build!\n"
 
-echo -e "Building ${PLUGIN_NAME}...\n"
-cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All" || log_exit "\n[Error] Failed to build plugin binaries\n"
-echo -e "\n[Success] Built plugin binaries!\n"
+    echo -e "Building ${PLUGIN_NAME}...\n"
+    cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All" || log_exit "\n[Error] Failed to build plugin binaries\n"
+    echo -e "\n[Success] Built plugin binaries!\n"
+}
 
-rm -f src/${FILENAME}
+build_plugin_binaries
 
-cp -f bin/juce_binarydata_${PLUGIN_NAME}Data/JuceLibraryCode/${FILENAME} src/${FILENAME} || log_exit "\n[Error] Failed to copy header file\n"
-echo -e "[Success] Copied generated header file to src directory!\n"
+copy_header_file() {
+    rm -f src/${FILENAME}
+
+    cp -f bin/juce_binarydata_${PLUGIN_NAME}Data/JuceLibraryCode/${FILENAME} src/${FILENAME} || log_exit "\n[Error] Failed to copy header file\n"
+    echo -e "[Success] Copied generated header file to src directory!\n"
+}
+
+copy_header_file
 
 convertsecs() {
     ((m = (${1} % 3600) / 60))

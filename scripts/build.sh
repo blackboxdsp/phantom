@@ -38,13 +38,17 @@ for i in "$@"; do
     esac
 done
 
-if [ ${REMOVE_PREV_BUILD} = true ]; then
+remove_previous_build() {
     rm -rf ./bin
     rm -rf ./juce/bin
     echo -e "[Success] Removed previous build's folders!\n"
+}
+
+if [ ${REMOVE_PREV_BUILD} = true ]; then
+    remove_previous_build || log_exit "\n[Error] Failed to remove previous build's folders"
 fi
 
-if [ ! -d "./juce" ]; then
+clone_juce_repo() {
     git clone https://github.com/juce-framework/JUCE.git
     mv JUCE/ juce/
 
@@ -56,9 +60,9 @@ if [ ! -d "./juce" ]; then
     cd ../
 
     echo -e "\n[Success] Cloned JUCE repository!\n"
-fi
+}
 
-if [ ! -d "./juce/build" ]; then
+build_juce_targets() {
     cd ./juce || exit 1
 
     echo -e "Configuring JUCE...\n"
@@ -70,12 +74,30 @@ if [ ! -d "./juce/build" ]; then
     echo -e "\n[Success] Built JUCE targets!\n"
 
     cd ../
-fi
+}
 
-if [ ${PRECOMPILE_STEP} = true ]; then
+check_for_juce() {
+    if [ ! -d "./juce" ]; then
+        clone_juce_repo
+    else
+        if [ ! -d "./juce/build" ]; then
+            build_juce_targets
+        fi
+    fi
+}
+
+check_for_juce
+
+precompile_plugin_resources() {
     scripts/precompile.sh -b=${BUILD_TYPE} || log_exit "\n[Error] Failed to precompile binary resources"
     echo -e "\n[Success] Precompiled resource data!\n"
-else
+}
+
+if [ ${PRECOMPILE_STEP} = true ]; then
+    precompile_plugin_resources
+fi
+
+build_plugin_binaries() {
     echo -e "Configuring ${PLUGIN_NAME}...\n"
     cmake -B bin . || log_exit "\n[Error] Failed to configure plugin build"
     echo -e "\n[Success] Configured plugin build!\n"
@@ -83,9 +105,11 @@ else
     echo -e "Building ${PLUGIN_NAME}...\n"
     cmake --build bin --config ${BUILD_TYPE} --target "${PLUGIN_NAME}_All" || log_exit "\n[Error] Failed to build plugin binaries"
     echo -e "\n[Success] Built plugin binaries!\n"
-fi
+}
 
-if [ ${COPY_BUILD_STEP} = true ]; then
+build_plugin_binaries
+
+copy_plugin_binaries() {
     if [[ ${OSTYPE} == "darwin"* ]]; then
         rm -rf "/Library/Audio/Plug-Ins/VST3/${PLUGIN_NAME}.vst3"
         cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "/Library/Audio/Plug-Ins/VST3/${PLUGIN_NAME}.vst3" || log_exit "\n[Error] Failed to copy plugin binaries (VST3)"
@@ -99,6 +123,10 @@ if [ ${COPY_BUILD_STEP} = true ]; then
         cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "/c/Program Files/Steinberg/Vst3Plugins/${PLUGIN_NAME}.vst3" || log_exit "\n[Error] Failed to copy plugin binaries (VST3)"
         echo -e "[Success] Copied VST3 bundle to plugins directory!\n"
     fi
+}
+
+if [ ${COPY_BUILD_STEP} = true ]; then
+    copy_plugin_binaries
 fi
 
 convertsecs() {
