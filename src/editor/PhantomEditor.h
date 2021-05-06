@@ -13,6 +13,7 @@
 #include "PhantomLookAndFeel.h"
 #include "../components/PhantomAmplifier.h"
 #include "../components/PhantomAnalyzer.h"
+#include "../components/PhantomOscillator.h"
 #include "../components/PhantomOscilloscope.h"
 #include "../processor/PhantomProcessor.h"
 
@@ -111,16 +112,6 @@ private:
     void initLayoutVariables();
 
     /**
-     * Initializes the GUI for the amplifier.
-     */
-    void initAmpGui();
-
-    /**
-     * Initializes the GUI for the oscillators.
-     */
-    void initOscillatorGui();
-
-    /**
      * Initializes the GUI for the phasors.
      */
     void initPhasorGui();
@@ -144,16 +135,6 @@ private:
      * Initializes the GUI for the envelope generators.
      */
     void initEgGui();
-
-    /**
-     * Initializes the oscilloscope GUI component.
-     */
-    void initOscilloscope();
-
-    /**
-     * Initializes the analyzer GUI component.
-     */
-    void initAnalyzer();
 
     /**
      * Initializes the GUI for the preset menu.
@@ -180,48 +161,12 @@ private:
      */
     int m_textBoxHeight;
 
-    //================
-    // GUI COMPONENTS
-    //================
-
+    /** The custom look and feel for the plugin. */
     PhantomLookAndFeel m_lookAndFeel;
 
+    /** GUI components */
     std::unique_ptr<PhantomAmplifierComponent> m_phantomAmplifier;
-
-    Label m_oscLabel;
-    Slider m_oscSyncSlider;
-    Label m_oscSyncLabel;
-    std::unique_ptr<SliderAttachment> m_oscSyncSliderAttachment;
-    Slider m_osc01RangeSlider;
-    Label m_osc01RangeLabel;
-    std::unique_ptr<SliderAttachment> m_osc01RangeSliderAttachment;
-    Slider m_osc01CoarseTuneSlider;
-    Label m_osc01CoarseTuneLabel;
-    std::unique_ptr<SliderAttachment> m_osc01CoarseTuneSliderAttachment;
-    Slider m_osc01FineTuneSlider;
-    Label m_osc01FineTuneLabel;
-    std::unique_ptr<SliderAttachment> m_osc01FineTuneSliderAttachment;
-    Slider m_osc01ShapeIntSlider;
-    Label m_osc01ShapeIntLabel;
-    std::unique_ptr<SliderAttachment> m_osc01ShapeIntSliderAttachment;
-    Slider m_osc01ModDepthSlider;
-    Label m_osc01ModDepthLabel;
-    std::unique_ptr<SliderAttachment> m_osc01ModDepthSliderAttachment;
-    Slider m_osc01ModSourceSlider;
-    Label m_osc01ModSourceLabel;
-    std::unique_ptr<SliderAttachment> m_osc01ModSourceSliderAttachment;
-    Slider m_osc02RangeSlider;
-    std::unique_ptr<SliderAttachment> m_osc02RangeSliderAttachment;
-    Slider m_osc02CoarseTuneSlider;
-    std::unique_ptr<SliderAttachment> m_osc02ModSourceSliderAttachment;
-    Slider m_osc02ShapeIntSlider;
-    std::unique_ptr<SliderAttachment> m_osc02ShapeIntSliderAttachment;
-    std::unique_ptr<SliderAttachment> m_osc02CoarseTuneSliderAttachment;
-    Slider m_osc02FineTuneSlider;
-    std::unique_ptr<SliderAttachment> m_osc02FineTuneSliderAttachment;
-    Slider m_osc02ModDepthSlider;
-    std::unique_ptr<SliderAttachment> m_osc02ModDepthSliderAttachment;
-    Slider m_osc02ModSourceSlider;
+    std::unique_ptr<PhantomOscillatorComponent> m_phantomOscillator;
 
     Label m_phasorLabel;
     Slider m_phasor01ShapeSlider;

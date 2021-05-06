@@ -9,6 +9,7 @@
 */
 
 #include "PhantomAmplifier.h"
+#include "../utils/PhantomUtils.h"
 
 PhantomAmplifierComponent::PhantomAmplifierComponent(AudioProcessorValueTreeState& vts) : IComponent(vts)
 {
@@ -19,7 +20,6 @@ PhantomAmplifierComponent::~PhantomAmplifierComponent()
 {
     m_levelSliderAttachment = nullptr;
     m_levelSlider = nullptr;
-    m_levelLabel = nullptr;
 }
 
 void PhantomAmplifierComponent::init()
@@ -31,12 +31,11 @@ void PhantomAmplifierComponent::init()
     m_levelSlider->setDoubleClickReturnValue(true, Consts::_LEVEL_DEFAULT_VAL);
     m_levelSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_LEVEL_PARAM_ID, *m_levelSlider));
     addAndMakeVisible(m_levelSlider.get());
+}
 
-    m_levelLabel = std::make_unique<Label>();
-    m_levelLabel->setText("Level", dontSendNotification);
-    m_levelLabel->setJustificationType(Justification::centred);
-    m_levelLabel->attachToComponent(m_levelSlider.get(), false);
-    addAndMakeVisible(m_levelLabel.get());
+void PhantomAmplifierComponent::reset()
+{
+    m_levelSlider->setValue(Consts::_LEVEL_DEFAULT_VAL);
 }
 
 void PhantomAmplifierComponent::paint(Graphics& g)
@@ -50,7 +49,7 @@ void PhantomAmplifierComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    canvas.removeFromTop(m_margin / 2);
+    canvas.removeFromTop(m_margin);
     canvas.removeFromLeft(m_margin * 2);
     canvas.removeFromRight(m_margin * 2);
 

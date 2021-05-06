@@ -1,0 +1,198 @@
+/*
+  ==============================================================================
+
+    PhnatomOscillator.cpp
+    Created: 06 May 2021 08:20:43
+    Author:  Matthew Maxwell
+
+  ==============================================================================
+*/
+
+#include "PhantomOscillator.h"
+#include "../utils/PhantomUtils.h"
+
+PhantomOscillatorComponent::PhantomOscillatorComponent(AudioProcessorValueTreeState& vts) : IComponent(vts)
+{
+    init();
+}
+
+PhantomOscillatorComponent::~PhantomOscillatorComponent()
+{
+    m_oscSyncSliderAttachment = nullptr;
+
+    m_osc01RangeSliderAttachment = nullptr;
+    m_osc01RangeSlider = nullptr;
+    m_osc01CoarseTuneSliderAttachment = nullptr;
+    m_osc01CoarseTuneSlider = nullptr;
+    m_osc01FineTuneSliderAttachment = nullptr;
+    m_osc01FineTuneSlider = nullptr;
+    m_osc01ShapeIntSliderAttachment = nullptr;
+    m_osc01ShapeIntSlider = nullptr;
+    m_osc01ModDepthSliderAttachment = nullptr;
+    m_osc01ModDepthSlider = nullptr;
+    m_osc01ModSourceSliderAttachment = nullptr;
+    m_osc01ModSourceSlider = nullptr;
+
+    m_osc02RangeSliderAttachment = nullptr;
+    m_osc02RangeSlider = nullptr;
+    m_osc02CoarseTuneSliderAttachment = nullptr;
+    m_osc02CoarseTuneSlider = nullptr;
+    m_osc02FineTuneSliderAttachment = nullptr;
+    m_osc02FineTuneSlider = nullptr;
+    m_osc02ShapeIntSliderAttachment = nullptr;
+    m_osc02ShapeIntSlider = nullptr;
+    m_osc02ModDepthSliderAttachment = nullptr;
+    m_osc02ModDepthSlider = nullptr;
+    m_osc02ModSourceSliderAttachment = nullptr;
+    m_osc02ModSourceSlider = nullptr;
+}
+
+void PhantomOscillatorComponent::init()
+{
+    m_oscSyncSlider = std::make_unique<Slider>();
+    m_oscSyncSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_oscSyncSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_oscSyncSlider->setDoubleClickReturnValue(true, Consts::_OSC_SYNC_DEFAULT_VAL);
+    m_oscSyncSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_SYNC_PARAM_ID, *m_oscSyncSlider));
+    addAndMakeVisible(m_oscSyncSlider.get());
+
+    // OSCILLATOR 01
+    m_osc01RangeSlider = std::make_unique<Slider>();
+    m_osc01RangeSlider->setSliderStyle(Slider::LinearHorizontal);
+    m_osc01RangeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01RangeSlider->setTextValueSuffix("'");
+    m_osc01RangeSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_RANGE_DEFAULT_VAL);
+    m_osc01RangeSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_01_RANGE_PARAM_ID, *m_osc01RangeSlider));
+    addAndMakeVisible(m_osc01RangeSlider.get());
+
+    m_osc01CoarseTuneSlider = std::make_unique<Slider>();
+    m_osc01CoarseTuneSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc01CoarseTuneSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01CoarseTuneSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_COARSE_TUNE_DEFAULT_VAL);
+    m_osc01CoarseTuneSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_01_COARSE_TUNE_PARAM_ID, *m_osc01CoarseTuneSlider));
+    addAndMakeVisible(m_osc01CoarseTuneSlider.get());
+
+    m_osc01FineTuneSlider = std::make_unique<Slider>();
+    m_osc01FineTuneSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc01FineTuneSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01FineTuneSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_FINE_TUNE_DEFAULT_VAL);
+    m_osc01FineTuneSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_01_FINE_TUNE_PARAM_ID, *m_osc01FineTuneSlider));
+    addAndMakeVisible(m_osc01FineTuneSlider.get());
+
+    m_osc01ModDepthSlider = std::make_unique<Slider>();
+    m_osc01ModDepthSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc01ModDepthSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01ModDepthSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_MOD_DEPTH_DEFAULT_VAL);
+    m_osc01ModDepthSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_01_MOD_DEPTH_PARAM_ID, *m_osc01ModDepthSlider));
+    addAndMakeVisible(m_osc01ModDepthSlider.get());
+
+    m_osc01ModSourceSlider = std::make_unique<Slider>();
+    m_osc01ModSourceSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc01ModSourceSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01ModSourceSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_MOD_SOURCE_DEFAULT_VAL);
+    m_osc01ModSourceSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_01_MOD_SOURCE_PARAM_ID, *m_osc01ModSourceSlider));
+    addAndMakeVisible(m_osc01ModSourceSlider.get());
+
+    m_osc01ShapeIntSlider = std::make_unique<Slider>();
+    m_osc01ShapeIntSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc01ShapeIntSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01ShapeIntSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_SHAPE_INT_DEFAULT_VAL);
+    m_osc01ShapeIntSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_01_SHAPE_INT_PARAM_ID, *m_osc01ShapeIntSlider));
+    addAndMakeVisible(m_osc01ShapeIntSlider.get());
+
+
+    // OSCILLATOR 02
+    m_osc02RangeSlider = std::make_unique<Slider>();
+    m_osc02RangeSlider->setSliderStyle(Slider::LinearHorizontal);
+    m_osc02RangeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02RangeSlider->setTextValueSuffix("'");
+    m_osc02RangeSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_RANGE_DEFAULT_VAL);
+    m_osc02RangeSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_02_RANGE_PARAM_ID, *m_osc02RangeSlider));
+    addAndMakeVisible(m_osc02RangeSlider.get());
+
+    m_osc02CoarseTuneSlider = std::make_unique<Slider>();
+    m_osc02CoarseTuneSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc02CoarseTuneSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02CoarseTuneSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_COARSE_TUNE_DEFAULT_VAL);
+    m_osc02CoarseTuneSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_02_COARSE_TUNE_PARAM_ID, *m_osc02CoarseTuneSlider));
+    addAndMakeVisible(m_osc02CoarseTuneSlider.get());
+
+    m_osc02FineTuneSlider = std::make_unique<Slider>();
+    m_osc02FineTuneSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc02FineTuneSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02FineTuneSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_FINE_TUNE_DEFAULT_VAL);
+    m_osc02FineTuneSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_02_FINE_TUNE_PARAM_ID, *m_osc02FineTuneSlider));
+    addAndMakeVisible(m_osc02FineTuneSlider.get());
+
+    m_osc02ModDepthSlider = std::make_unique<Slider>();
+    m_osc02ModDepthSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc02ModDepthSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02ModDepthSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_MOD_DEPTH_DEFAULT_VAL);
+    m_osc02ModDepthSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_02_MOD_DEPTH_PARAM_ID, *m_osc02ModDepthSlider));
+    addAndMakeVisible(m_osc02ModDepthSlider.get());
+
+    m_osc02ModSourceSlider = std::make_unique<Slider>();
+    m_osc02ModSourceSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc02ModSourceSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02ModSourceSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_MOD_SOURCE_DEFAULT_VAL);
+    m_osc02ModSourceSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_02_MOD_SOURCE_PARAM_ID, *m_osc02ModSourceSlider));
+    addAndMakeVisible(m_osc02ModSourceSlider.get());
+
+    m_osc02ShapeIntSlider = std::make_unique<Slider>();
+    m_osc02ShapeIntSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_osc02ShapeIntSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02ShapeIntSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_SHAPE_INT_DEFAULT_VAL);
+    m_osc02ShapeIntSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_OSC_02_SHAPE_INT_PARAM_ID, *m_osc02ShapeIntSlider));
+    addAndMakeVisible(m_osc02ShapeIntSlider.get());
+}
+
+void PhantomOscillatorComponent::reset()
+{
+    m_oscSyncSlider->setValue(Consts::_OSC_SYNC_DEFAULT_VAL);
+    
+    m_osc01RangeSlider->setValue(Consts::_OSC_01_RANGE_DEFAULT_VAL);
+    m_osc01CoarseTuneSlider->setValue(Consts::_OSC_01_COARSE_TUNE_DEFAULT_VAL);
+    m_osc01FineTuneSlider->setValue(Consts::_OSC_01_FINE_TUNE_DEFAULT_VAL);
+    m_osc01ShapeIntSlider->setValue(Consts::_OSC_01_SHAPE_INT_DEFAULT_VAL);
+    m_osc01ModDepthSlider->setValue(Consts::_OSC_01_MOD_DEPTH_DEFAULT_VAL);
+    m_osc01ModSourceSlider->setValue(Consts::_OSC_01_MOD_SOURCE_DEFAULT_VAL);
+
+    m_osc02RangeSlider->setValue(Consts::_OSC_02_RANGE_DEFAULT_VAL);
+    m_osc02CoarseTuneSlider->setValue(Consts::_OSC_02_COARSE_TUNE_DEFAULT_VAL);
+    m_osc02FineTuneSlider->setValue(Consts::_OSC_02_FINE_TUNE_DEFAULT_VAL);
+    m_osc02ShapeIntSlider->setValue(Consts::_OSC_02_SHAPE_INT_DEFAULT_VAL);
+    m_osc02ModDepthSlider->setValue(Consts::_OSC_02_MOD_DEPTH_DEFAULT_VAL);
+    m_osc02ModSourceSlider->setValue(Consts::_OSC_02_MOD_SOURCE_DEFAULT_VAL);
+}
+
+void PhantomOscillatorComponent::paint(Graphics& g)
+{
+    g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
+    g.setColour(Colours::white);
+    g.setFont(12.0f);
+}
+
+void PhantomOscillatorComponent::resized()
+{
+    Rectangle<int> canvas = getLocalBounds();
+
+    Rectangle<int> oscillatorRangeArea = canvas.removeFromLeft(m_knobWidth);
+    const int oscillatorAreaSixthHeight = canvas.getHeight() / 6;
+    m_osc01RangeSlider->setBounds(oscillatorRangeArea.removeFromTop(oscillatorAreaSixthHeight * 1.5));
+    m_oscSyncSlider->setBounds(oscillatorRangeArea.removeFromTop(oscillatorAreaSixthHeight * 3));
+    m_osc02RangeSlider->setBounds(oscillatorRangeArea);
+
+    Rectangle<int> oscillator01Area = canvas.removeFromTop(canvas.getHeight() / 2);
+    m_osc01CoarseTuneSlider->setBounds(oscillator01Area.removeFromLeft(m_knobWidth));
+    m_osc01FineTuneSlider->setBounds(oscillator01Area.removeFromLeft(m_knobWidth));
+    m_osc01ShapeIntSlider->setBounds(oscillator01Area.removeFromLeft(m_knobWidth));
+    m_osc01ModDepthSlider->setBounds(oscillator01Area.removeFromLeft(m_knobWidth));
+    m_osc01ModSourceSlider->setBounds(oscillator01Area);
+
+    Rectangle<int> oscillator02Area = canvas;
+    m_osc02CoarseTuneSlider->setBounds(oscillator02Area.removeFromLeft(m_knobWidth));
+    m_osc02FineTuneSlider->setBounds(oscillator02Area.removeFromLeft(m_knobWidth));
+    m_osc02ShapeIntSlider->setBounds(oscillator02Area.removeFromLeft(m_knobWidth));
+    m_osc02ModDepthSlider->setBounds(oscillator02Area.removeFromLeft(m_knobWidth));
+    m_osc02ModSourceSlider->setBounds(oscillator02Area);
+}

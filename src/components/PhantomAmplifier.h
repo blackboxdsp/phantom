@@ -12,7 +12,6 @@
 #define _PHANTOM_AMPLIFIER_COMPONENT_H
 
 #include "../interfaces/IComponent.h"
-#include "../utils/PhantomUtils.h"
 
 /**
  * This component class contains the parameter sliders for the amplifier section.
@@ -24,6 +23,7 @@ public:
     ~PhantomAmplifierComponent();
 
     void init() override;
+    void reset() override;
 
     void paint(Graphics& g) override;
     void resized() override;
@@ -32,7 +32,6 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAmplifierComponent)
 
     std::unique_ptr<Slider> m_levelSlider;
-    std::unique_ptr<Label> m_levelLabel;
     std::unique_ptr<SliderAttachment> m_levelSliderAttachment;
 };
 

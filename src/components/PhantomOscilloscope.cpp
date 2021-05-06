@@ -39,32 +39,33 @@ void PhantomOscilloscopeComponent::paint(Graphics& graphics)
 
     graphics.fillAll(Colours::transparentBlack);
 
+    const int numSamples = m_buffer->getNumSamples();
     const float* reader = m_buffer->getReadPointer(0, 0);
 
     const float xScale = (float) getWidth() / (float) k_bufferSize * 2.0f;
     const float yScale = (float) getHeight() * 0.5f;
 
-    const int length = k_bufferSize - 1;
-
     float x1, y1, x2, y2;
-    for(int i = 0; i < length; i++)
+    for(int i = 0; i < k_bufferSize - 1; i++)
     {
+        const int idx = (m_bufferIdx + i) % (numSamples - 1);
+
         x1 = i * xScale;
         y1 = PhantomWaveshaper::clip(
-            (reader[i] + 1.0f) * yScale,
+            (reader[idx] + 1.0f) * yScale,
             0.0f,
             (float) getHeight()
         ) * 0.975f;
 
         x2 = (i + 1) * xScale;
         y2 = PhantomWaveshaper::clip(
-            (reader[i + 1] + 1.0f) * yScale,
+            (reader[idx + 1] + 1.0f) * yScale,
             0.0f,
             (float) getHeight()
         ) * 0.975f;
 
-        float brightness = (std::abs(reader[i]) * 0.25f) + 0.75f;
-        float saturation = (std::abs(reader[i]) * 0.35f) + 0.65f;
+        float brightness = (std::abs(reader[idx]) * 0.25f) + 0.75f;
+        float saturation = (std::abs(reader[idx]) * 0.35f) + 0.65f;
         Colour colour = Consts::_STROKE_COLOUR
                                 .withBrightness(brightness)
                                 .withSaturation(saturation);

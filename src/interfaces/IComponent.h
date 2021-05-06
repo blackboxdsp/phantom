@@ -33,6 +33,11 @@ public:
     virtual void init() = 0;
 
     /**
+     * For resetting the component sliders (useful for initializing patches).
+     */
+    virtual void reset() { };
+
+    /**
      * For updating the component's visual layout, usually called by its parent.
      * @param bounds The reference to the `Rectangle` object to use in sectioning this component.
      */
@@ -49,6 +54,11 @@ public:
     /**
      * NOTE: Each individual component must override and define its own `paint(Graphics& g)` and `resized()`
      * methods in order to be drawn to the screen.
+     */
+
+    /**
+     * CAUTION: For each parameter with a slider attachment, you MUST
+     * delete the attachment before deleting the slider.
      */
 
 protected:
