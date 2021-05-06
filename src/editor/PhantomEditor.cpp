@@ -25,7 +25,9 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_phantomMixer = std::make_unique<PhantomMixerComponent>(vts);
     addAndMakeVisible(m_phantomMixer.get());
 
-    initFilterGui();
+    m_phantomFilter = std::make_unique<PhantomFilterComponent>(vts);
+    addAndMakeVisible(m_phantomFilter.get());
+
     initLfoGui();
     initEgGui();
 
@@ -49,18 +51,13 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_phantomAmplifier = nullptr;
     m_phantomOscillators = nullptr;
     m_phantomPhasors = nullptr;
+    m_phantomMixer = nullptr;
+    m_phantomFilter = nullptr;
 
     m_phantomAnalyzer = nullptr;
     m_phantomOscilloscope = nullptr;
 
     // TODO: Put these in respective component classes!
-
-    m_filterCutoffSliderAttachment = nullptr;
-    m_filterResoSliderAttachment = nullptr;
-    m_filterDriveSliderAttachment = nullptr;
-    m_filterModeSliderAttachment = nullptr;
-    m_filterEgModDepthSliderAttachment = nullptr;
-    m_filterLfoModDepthSliderAttachment = nullptr;
 
     m_lfo01RateSliderAttachment = nullptr;
     m_lfo01ShapeSliderAttachment = nullptr;
@@ -92,75 +89,6 @@ void PhantomAudioProcessorEditor::initLayoutVariables()
 {    
     m_textBoxWidth = 80;
     m_textBoxHeight = 20;
-}
-
-void PhantomAudioProcessorEditor::initFilterGui() 
-{
-    m_filterCutoffSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterCutoffSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterCutoffSlider.setTextValueSuffix(" Hz");
-    m_filterCutoffSlider.setDoubleClickReturnValue(true, Consts::_FLTR_CUTOFF_DEFAULT_VAL);
-    m_filterCutoffSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_CUTOFF_PARAM_ID, m_filterCutoffSlider));
-    addAndMakeVisible(&m_filterCutoffSlider);
-    m_filterCutoffLabel.setText("Cutoff", dontSendNotification);
-    m_filterCutoffLabel.setJustificationType(Justification::centred);
-    m_filterCutoffLabel.attachToComponent(&m_filterCutoffSlider, false);
-    addAndMakeVisible(&m_filterCutoffLabel);
-    m_filterLabel.setText("Filter", dontSendNotification);
-    m_filterLabel.setJustificationType(Justification::topLeft);
-    m_filterLabel.attachToComponent(&m_filterCutoffSlider, false);
-    addAndMakeVisible(&m_filterLabel);
-
-    m_filterResoSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterResoSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterResoSlider.setTextValueSuffix(" Q");
-    m_filterResoSlider.setDoubleClickReturnValue(true, Consts::_FLTR_RESO_DEFAULT_VAL);
-    m_filterResoSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_RESO_PARAM_ID, m_filterResoSlider));
-    addAndMakeVisible(&m_filterResoSlider);
-    m_filterResoLabel.setText("Resonance", dontSendNotification);
-    m_filterResoLabel.setJustificationType(Justification::centred);
-    m_filterResoLabel.attachToComponent(&m_filterResoSlider, false);
-    addAndMakeVisible(&m_filterResoLabel);
-
-    m_filterDriveSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterDriveSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterDriveSlider.setDoubleClickReturnValue(true, Consts::_FLTR_DRIVE_DEFAULT_VAL);
-    m_filterDriveSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_DRIVE_PARAM_ID, m_filterDriveSlider));
-    addAndMakeVisible(&m_filterDriveSlider);
-    m_filterDriveLabel.setText("Drive", dontSendNotification);
-    m_filterDriveLabel.setJustificationType(Justification::centred);
-    m_filterDriveLabel.attachToComponent(&m_filterDriveSlider, false);
-    addAndMakeVisible(&m_filterDriveLabel);
-
-    m_filterModeSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterModeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterModeSlider.setDoubleClickReturnValue(true, Consts::_FLTR_MODE_DEFAULT_VAL);
-    m_filterModeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_MODE_PARAM_ID, m_filterModeSlider));
-    addAndMakeVisible(&m_filterModeSlider);
-    m_filterModeLabel.setText("Mode", dontSendNotification);
-    m_filterModeLabel.setJustificationType(Justification::centred);
-    m_filterModeLabel.attachToComponent(&m_filterModeSlider, false);
-    addAndMakeVisible(&m_filterModeLabel);
-
-    m_filterEgModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterEgModDepthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterEgModDepthSlider.setDoubleClickReturnValue(true, Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL);
-    m_filterEgModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_MOD_DEPTH_PARAM_ID, m_filterEgModDepthSlider));
-    addAndMakeVisible(&m_filterEgModDepthSlider);
-    m_filterEgModDepthLabel.setText("EG Depth", dontSendNotification);
-    m_filterEgModDepthLabel.setJustificationType(Justification::bottomLeft);
-    m_filterEgModDepthLabel.attachToComponent(&m_filterEgModDepthSlider, false);
-    addAndMakeVisible(&m_filterEgModDepthLabel);
-
-    m_filterLfoModDepthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterLfoModDepthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterLfoModDepthSlider.setDoubleClickReturnValue(true, Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL);
-    m_filterLfoModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_LFO_MOD_DEPTH_PARAM_ID, m_filterLfoModDepthSlider));
-    addAndMakeVisible(&m_filterLfoModDepthSlider);
-    m_filterLfoModDepthLabel.setText("LFO 1 Depth", dontSendNotification);
-    m_filterLfoModDepthLabel.setJustificationType(Justification::bottomLeft);
-    m_filterLfoModDepthLabel.attachToComponent(&m_filterLfoModDepthSlider, false);
-    addAndMakeVisible(&m_filterLfoModDepthLabel);
 }
 
 void PhantomAudioProcessorEditor::initLfoGui()
@@ -563,13 +491,7 @@ void PhantomAudioProcessorEditor::resetParameters()
     m_phantomOscillators->reset();
     m_phantomPhasors->reset();
     m_phantomMixer->reset();
-
-    m_filterCutoffSlider.setValue(Consts::_FLTR_CUTOFF_DEFAULT_VAL);
-    m_filterResoSlider.setValue(Consts::_FLTR_RESO_DEFAULT_VAL);
-    m_filterDriveSlider.setValue(Consts::_FLTR_DRIVE_DEFAULT_VAL);
-    m_filterModeSlider.setValue(Consts::_FLTR_MODE_DEFAULT_VAL);
-    m_filterEgModDepthSlider.setValue(Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL);
-    m_filterLfoModDepthSlider.setValue(Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL);
+    m_phantomFilter->reset();
 
     m_lfo01RateSlider.setValue(Consts::_LFO_01_RATE_DEFAULT_VAL);
     m_lfo01ShapeSlider.setValue(Consts::_LFO_01_SHAPE_DEFAULT_VAL);
@@ -662,17 +584,8 @@ void PhantomAudioProcessorEditor::resized()
     middleBottomArea.removeFromLeft(margin);
 
     Rectangle<int> filterArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
+    m_phantomFilter->update(margin, middleBottomKnobWidth, filterArea);
     middleBottomArea.removeFromLeft(margin);
-
-    Rectangle<int> filterTopArea = filterArea.removeFromTop(filterArea.getHeight() / 2);
-    m_filterCutoffSlider.setBounds(filterTopArea.removeFromLeft(middleBottomKnobWidth));
-    m_filterResoSlider.setBounds(filterTopArea.removeFromLeft(middleBottomKnobWidth));
-    m_filterDriveSlider.setBounds(filterTopArea);
-
-    Rectangle<int> filterBottomArea = filterArea;
-    m_filterModeSlider.setBounds(filterBottomArea.removeFromLeft(middleBottomKnobWidth));
-    m_filterEgModDepthSlider.setBounds(filterBottomArea.removeFromLeft(middleBottomKnobWidth));
-    m_filterLfoModDepthSlider.setBounds(filterBottomArea);
 
     Rectangle<int> lfoArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 2);
     Rectangle<int> lfoTopArea = lfoArea.removeFromTop(lfoArea.getHeight() / 2);

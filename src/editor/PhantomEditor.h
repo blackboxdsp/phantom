@@ -13,6 +13,7 @@
 #include "PhantomLookAndFeel.h"
 #include "../components/PhantomAmplifier.h"
 #include "../components/PhantomAnalyzer.h"
+#include "../components/PhantomFilter.h"
 #include "../components/PhantomMixer.h"
 #include "../components/PhantomOscillator.h"
 #include "../components/PhantomOscilloscope.h"
@@ -114,11 +115,6 @@ private:
     void initLayoutVariables();
 
     /**
-     * Initializes the GUI for the filter.
-     */
-    void initFilterGui();
-
-    /**
      * Initializes the GUI for the LFO.
      */
     void initLfoGui();
@@ -161,26 +157,7 @@ private:
     std::unique_ptr<PhantomOscillatorComponent> m_phantomOscillators;
     std::unique_ptr<PhantomPhasorComponent> m_phantomPhasors;
     std::unique_ptr<PhantomMixerComponent> m_phantomMixer;
-
-    Label m_filterLabel;
-    Slider m_filterCutoffSlider;
-    Label m_filterCutoffLabel;
-    std::unique_ptr<SliderAttachment> m_filterCutoffSliderAttachment;
-    Slider m_filterResoSlider;
-    Label m_filterResoLabel;
-    std::unique_ptr<SliderAttachment> m_filterResoSliderAttachment;
-    Slider m_filterDriveSlider;
-    Label m_filterDriveLabel;
-    std::unique_ptr<SliderAttachment> m_filterDriveSliderAttachment;
-    Slider m_filterModeSlider;
-    Label m_filterModeLabel;
-    std::unique_ptr<SliderAttachment> m_filterModeSliderAttachment;
-    Slider m_filterEgModDepthSlider;
-    Label m_filterEgModDepthLabel;
-    std::unique_ptr<SliderAttachment> m_filterEgModDepthSliderAttachment;
-    Slider m_filterLfoModDepthSlider;
-    Label m_filterLfoModDepthLabel;
-    std::unique_ptr<SliderAttachment> m_filterLfoModDepthSliderAttachment;
+    std::unique_ptr<PhantomFilterComponent> m_phantomFilter;
 
     Label m_lfoLabel;
     Slider m_lfo01RateSlider;
