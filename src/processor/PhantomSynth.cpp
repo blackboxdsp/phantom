@@ -12,8 +12,7 @@
 #include "PhantomSound.h"
 #include "PhantomVoice.h"
 
-PhantomSynth::PhantomSynth(AudioProcessorValueTreeState& vts)
-    :   m_parameters(vts)
+PhantomSynth::PhantomSynth(AudioProcessorValueTreeState& vts) : m_parameters(vts)
 {
 
 }

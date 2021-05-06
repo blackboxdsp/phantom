@@ -12,8 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
-    :   m_parameters(vts)
+PhantomFilter::PhantomFilter(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps) : m_parameters(vts)
 {
     m_filter.reset(new dsp::StateVariableTPTFilter<float>());
     m_filter->prepare(ps);

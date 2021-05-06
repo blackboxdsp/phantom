@@ -13,8 +13,7 @@
 #include "PhantomSound.h"
 #include "../utils/PhantomUtils.h"
 
-PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps)
-    :   m_parameters(vts)
+PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& ps) : m_parameters(vts)
 {
     p_oscSync = m_parameters.getRawParameterValue(Consts::_OSC_SYNC_PARAM_ID);
     

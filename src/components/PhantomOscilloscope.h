@@ -11,30 +11,22 @@
 #ifndef _PHANTOM_OSCILLOSCOPE_COMPONENT_H
 #define _PHANTOM_OSCILLOSCOPE_COMPONENT_H
 
-#include "JuceHeader.h"
+#include "../interfaces/IComponent.h"
 
 /**
  * The GUI component for displaying the amplitude information for the synthesizer
  * output.
  */
-class PhantomOscilloscopeComponent : public Component,
+class PhantomOscilloscopeComponent : public IComponent,
                                      private Timer
 {
 public:
     PhantomOscilloscopeComponent();
     ~PhantomOscilloscopeComponent();
 
-    void init();
+    void init() override;
 
-    /**
-     * Determines the GUI display of the oscilloscope component.
-     * @param graphics The reference to the `Graphics` object.
-     */
-    void paint(Graphics &graphics) override;
-
-    /**
-     * Determines the layout of the oscilloscopes GUI components.
-     */
+    void paint(Graphics& g) override;
     void resized() override;
 
     /**

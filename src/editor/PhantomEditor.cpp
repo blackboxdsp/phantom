@@ -9,12 +9,10 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts)
-    : AudioProcessorEditor(&p), m_processor(p), m_parameters(vts)
+PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts) : AudioProcessorEditor(&p), m_processor(p), m_parameters(vts)
 {
     initLayoutVariables();
 
-    // initAmpGui();
     m_phantomAmplifier = std::make_unique<PhantomAmplifierComponent>(vts);
     addAndMakeVisible(m_phantomAmplifier.get());
 
@@ -25,8 +23,11 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     initLfoGui();
     initEgGui();
 
-    initAnalyzer();
-    initOscilloscope();
+    m_phantomAnalyzer = std::make_unique<PhantomAnalyzerComponent>();
+    addAndMakeVisible(m_phantomAnalyzer.get());
+
+    m_phantomOscilloscope = std::make_unique<PhantomOscilloscopeComponent>();
+    addAndMakeVisible(m_phantomOscilloscope.get());
 
     initPresetMenu();
 
@@ -41,8 +42,8 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 
     m_phantomAmplifier = nullptr;
 
-    m_oscilloscope = nullptr;
-    m_analyzer = nullptr;
+    m_phantomAnalyzer = nullptr;
+    m_phantomOscilloscope = nullptr;
 
     // m_levelSliderAttachment = nullptr;
 
@@ -615,16 +616,16 @@ void PhantomAudioProcessorEditor::initEgGui()
 
 void PhantomAudioProcessorEditor::initOscilloscope()
 {
-    m_oscilloscope = std::make_unique<PhantomOscilloscopeComponent>();
+    // m_oscilloscope = std::make_unique<PhantomOscilloscopeComponent>();
 
-    addAndMakeVisible(m_oscilloscope.get());
+    // addAndMakeVisible(m_oscilloscope.get());
 }
 
 void PhantomAudioProcessorEditor::initAnalyzer() 
 {
-    m_analyzer = std::make_unique<PhantomAnalyzerComponent>();
+    // m_analyzer = std::make_unique<PhantomAnalyzerComponent>();
 
-    addAndMakeVisible(m_analyzer.get());
+    // addAndMakeVisible(m_analyzer.get());
 }
 
 void PhantomAudioProcessorEditor::initPresetMenu()
@@ -940,8 +941,8 @@ void PhantomAudioProcessorEditor::resized()
     canvas.removeFromTop(margin);
 
     Rectangle<int> analyzerArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 2);
+    m_phantomAnalyzer->update(analyzerArea);
     middleTopArea.removeFromLeft(margin);
-    m_analyzer->setBounds(analyzerArea);
 
     Rectangle<int> phasorArea = middleTopArea.removeFromLeft(middleTopKnobWidth * 3);
     middleTopArea.removeFromLeft(margin);
@@ -966,7 +967,7 @@ void PhantomAudioProcessorEditor::resized()
     m_phasor02LfoIntSlider.setBounds(phasor02Area);
     
     Rectangle<int> oscilloscopeArea = middleTopArea;
-    m_oscilloscope->setBounds(oscilloscopeArea);
+    m_phantomOscilloscope->update(oscilloscopeArea);
 
     const int middleBottomKnobWidth = (width - (margin * 2)) / 7;
     Rectangle<int> middleBottomArea = canvas.removeFromTop(sectionHeight);

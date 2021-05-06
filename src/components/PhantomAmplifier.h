@@ -24,7 +24,6 @@ public:
     ~PhantomAmplifierComponent();
 
     void init() override;
-    void update(const int margin, const int knobWidth, Rectangle<int>& bounds) override;
 
     void paint(Graphics& g) override;
     void resized() override;

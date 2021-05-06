@@ -29,7 +29,7 @@ void PhantomAmplifierComponent::init()
     m_levelSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_levelSlider->setTextValueSuffix(" dB");
     m_levelSlider->setDoubleClickReturnValue(true, Consts::_LEVEL_DEFAULT_VAL);
-    m_levelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LEVEL_PARAM_ID, *m_levelSlider));
+    m_levelSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_LEVEL_PARAM_ID, *m_levelSlider));
     addAndMakeVisible(m_levelSlider.get());
 
     m_levelLabel = std::make_unique<Label>();
@@ -37,14 +37,6 @@ void PhantomAmplifierComponent::init()
     m_levelLabel->setJustificationType(Justification::centred);
     m_levelLabel->attachToComponent(m_levelSlider.get(), false);
     addAndMakeVisible(m_levelLabel.get());
-}
-
-void PhantomAmplifierComponent::update(const int margin, const int knobWidth, Rectangle<int>& bounds)
-{
-    m_margin = margin;
-    m_knobWidth = knobWidth;
-
-    setBounds(bounds);
 }
 
 void PhantomAmplifierComponent::paint(Graphics& g)

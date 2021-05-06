@@ -12,8 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomAmplifier::PhantomAmplifier(AudioProcessorValueTreeState& vts)
-    :   m_parameters(vts)
+PhantomAmplifier::PhantomAmplifier(AudioProcessorValueTreeState& vts) : m_parameters(vts)
 {
     p_level = m_parameters.getRawParameterValue(Consts::_LEVEL_PARAM_ID);
 }

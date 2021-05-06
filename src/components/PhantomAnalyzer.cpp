@@ -12,9 +12,12 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomAnalyzerComponent::PhantomAnalyzerComponent()
-    :   m_forwardFFT(FFT_ORDER),
-        m_window(FFT_SIZE, dsp::WindowingFunction<float>::hann)
+PhantomAnalyzerComponent::PhantomAnalyzerComponent() : IComponent(), m_forwardFFT(FFT_ORDER), m_window(FFT_SIZE, dsp::WindowingFunction<float>::hann)
+{
+    init();
+}
+
+void PhantomAnalyzerComponent::init()
 {
     zeromem(m_outputData, sizeof(m_outputData));
     startTimerHz(30);

@@ -12,8 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomEnvelope::PhantomEnvelope(AudioProcessorValueTreeState& vts, EnvelopeType type)
-    :   m_parameters(vts), m_type(type)
+PhantomEnvelope::PhantomEnvelope(AudioProcessorValueTreeState& vts, EnvelopeType type) : m_parameters(vts), m_type(type)
 {
     setEnvelopeType();
     setEnvelopeParameters();

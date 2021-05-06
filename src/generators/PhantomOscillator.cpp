@@ -12,8 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscNumber)
-    : m_parameters(vts), m_oscNumber(oscNumber)
+PhantomOscillator::PhantomOscillator(AudioProcessorValueTreeState& vts, int oscNumber) : m_parameters(vts), m_oscNumber(oscNumber)
 {
     m_phasor.reset(new PhantomPhasor(m_parameters, m_oscNumber));
     m_waveshaper.reset(new PhantomWaveshaper());

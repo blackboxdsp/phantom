@@ -11,27 +11,21 @@
 #ifndef _PHANTOM_ANALYZER_COMPONENT_H
 #define _PHANTOM_ANALYZER_COMPONENT_H
 
-#include "JuceHeader.h"
+#include "../interfaces/IComponent.h"
 
 /**
  * The GUI component for displaying the frequency information of the signal.
  */
-class PhantomAnalyzerComponent : public Component,
+class PhantomAnalyzerComponent : public IComponent,
                                  private Timer
 {
 public:
     PhantomAnalyzerComponent();
     ~PhantomAnalyzerComponent();
 
-    /**
-     * Determines the appearance of the analyzer component.
-     * @param graphics A reference to the `Graphics` object for the plugin.
-     */
-    void paint(Graphics& graphics) override;
+    void init() override;
 
-    /**
-     * Determines the layout of the inner analyzer GUI display.
-     */
+    void paint(Graphics& g) override;
     void resized() override;
 
     /**

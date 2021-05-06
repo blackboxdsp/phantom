@@ -12,8 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomMixer::PhantomMixer(AudioProcessorValueTreeState& vts)
-    :   m_parameters(vts)
+PhantomMixer::PhantomMixer(AudioProcessorValueTreeState& vts) : m_parameters(vts)
 {
     m_rng.reset(new Random());
 

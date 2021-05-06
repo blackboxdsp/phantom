@@ -18,8 +18,8 @@
 class PhantomLookAndFeel : public LookAndFeel_V4
 {
 public:
-    PhantomLookAndFeel()    { };
-    ~PhantomLookAndFeel()   { };
+    PhantomLookAndFeel() { };
+    ~PhantomLookAndFeel() { };
 
 private:
     const float k_strokeWidth = 1.8f;

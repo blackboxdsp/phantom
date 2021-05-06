@@ -523,8 +523,8 @@ void PhantomAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer&
     PhantomAudioProcessorEditor* editor = static_cast<PhantomAudioProcessorEditor*>(getActiveEditor());
     if(editor)
     {
-        editor->m_oscilloscope->pushBuffer(buffer);
-        editor->m_analyzer->pushBuffer(buffer);
+        editor->m_phantomOscilloscope->pushBuffer(buffer);
+        editor->m_phantomAnalyzer->pushBuffer(buffer);
     }
 }
 

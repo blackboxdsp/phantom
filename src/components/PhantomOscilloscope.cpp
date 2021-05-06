@@ -13,7 +13,7 @@
 #include "../effects/PhantomWaveshaper.h"
 #include "../utils/PhantomUtils.h"
 
-PhantomOscilloscopeComponent::PhantomOscilloscopeComponent()
+PhantomOscilloscopeComponent::PhantomOscilloscopeComponent() : IComponent()
 {
     init();
 }

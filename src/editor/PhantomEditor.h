@@ -76,25 +76,25 @@ public:
     void resetParameters();
 
     /**
+     * This reference is provided as a quick way for your editor to
+     * access the processor object that created it.
+     */
+    PhantomAudioProcessor &m_processor;
+
+    /**
      * The unique pointer to the analyzer, used by the processor.
      */
-    std::unique_ptr<PhantomAnalyzerComponent> m_analyzer;
+    std::unique_ptr<PhantomAnalyzerComponent> m_phantomAnalyzer;
 
     /**
      * The unique pointer to the oscilloscope, used by the processor.
      */
-    std::unique_ptr<PhantomOscilloscopeComponent> m_oscilloscope;
+    std::unique_ptr<PhantomOscilloscopeComponent> m_phantomOscilloscope;
 
     /** The reference to the value tree state useful in retrieving or 
      * storing parameter information.
      */
     AudioProcessorValueTreeState &m_parameters;
-
-    /**
-     * This reference is provided as a quick way for your editor to
-     * access the processor object that created it.
-     */
-    PhantomAudioProcessor &m_processor;
 
     /**
      * This array holds all of the relative paths to the presets in 
@@ -185,10 +185,6 @@ private:
     //================
 
     PhantomLookAndFeel m_lookAndFeel;
-
-    // Slider m_levelSlider;
-    // Label m_levelLabel;
-    // std::unique_ptr<SliderAttachment> m_levelSliderAttachment;
 
     std::unique_ptr<PhantomAmplifierComponent> m_phantomAmplifier;
 
