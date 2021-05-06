@@ -15,6 +15,7 @@
 #include "../components/PhantomAnalyzer.h"
 #include "../components/PhantomOscillator.h"
 #include "../components/PhantomOscilloscope.h"
+#include "../components/PhantomPhasor.h"
 #include "../processor/PhantomProcessor.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
@@ -112,11 +113,6 @@ private:
     void initLayoutVariables();
 
     /**
-     * Initializes the GUI for the phasors.
-     */
-    void initPhasorGui();
-
-    /**
      * Initializes the GUI for the mixer.
      */
     void initMixerGui();
@@ -166,24 +162,8 @@ private:
 
     /** GUI components */
     std::unique_ptr<PhantomAmplifierComponent> m_phantomAmplifier;
-    std::unique_ptr<PhantomOscillatorComponent> m_phantomOscillator;
-
-    Label m_phasorLabel;
-    Slider m_phasor01ShapeSlider;
-    Label m_phasor01ShapeLabel;
-    std::unique_ptr<SliderAttachment> m_phasor01ShapeSliderAttachment;
-    Slider m_phasor01EgIntSlider;
-    Label m_phasor01EgIntLabel;
-    std::unique_ptr<SliderAttachment> m_phasor01EgIntSliderAttachment;
-    Slider m_phasor01LfoIntSlider;
-    Label m_phasor01LfoIntLabel;
-    std::unique_ptr<SliderAttachment> m_phasor01LfoIntSliderAttachment;
-    Slider m_phasor02ShapeSlider;
-    std::unique_ptr<SliderAttachment> m_phasor02ShapeSliderAttachment;
-    Slider m_phasor02EgIntSlider;
-    std::unique_ptr<SliderAttachment> m_phasor02EgIntSliderAttachment;
-    Slider m_phasor02LfoIntSlider;
-    std::unique_ptr<SliderAttachment> m_phasor02LfoIntSliderAttachment;
+    std::unique_ptr<PhantomOscillatorComponent> m_phantomOscillators;
+    std::unique_ptr<PhantomPhasorComponent> m_phantomPhasors;
 
     Label m_mixerLabel;
     Slider m_mixerOscBalanceSlider;

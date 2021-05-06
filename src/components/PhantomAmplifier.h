@@ -14,7 +14,7 @@
 #include "../interfaces/IComponent.h"
 
 /**
- * This component class contains the parameter sliders for the amplifier section.
+ * The GUI component class for the synth amplifier.
  */
 class PhantomAmplifierComponent : public IComponent
 {

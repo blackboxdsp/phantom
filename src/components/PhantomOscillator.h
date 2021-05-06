@@ -14,7 +14,7 @@
 #include "../interfaces/IComponent.h"
 
 /**
- * The component class for the oscillator section.
+ * The GUI component class for the synth oscillators.
  */
 class PhantomOscillatorComponent : public IComponent
 {

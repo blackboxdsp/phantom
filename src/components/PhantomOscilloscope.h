@@ -14,8 +14,7 @@
 #include "../interfaces/IComponent.h"
 
 /**
- * The GUI component for displaying the amplitude information for the synthesizer
- * output.
+ * The GUI component class for displaying the synth waveforms.
  */
 class PhantomOscilloscopeComponent : public IComponent,
                                      private Timer

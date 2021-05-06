@@ -14,7 +14,7 @@
 #include "../interfaces/IComponent.h"
 
 /**
- * The GUI component for displaying the frequency information of the signal.
+ * The GUI component class for displaying the synth frequency spectrum.
  */
 class PhantomAnalyzerComponent : public IComponent,
                                  private Timer

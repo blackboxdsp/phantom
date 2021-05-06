@@ -34,6 +34,7 @@ target_sources(Phantom PRIVATE
         src/components/PhantomAnalyzer.cpp
         src/components/PhantomOscillator.cpp
         src/components/PhantomOscilloscope.cpp
+        src/components/PhantomPhasor.cpp
         src/editor/PhantomEditor.cpp
         src/effects/PhantomAmplifier.cpp
         src/effects/PhantomFilter.cpp
