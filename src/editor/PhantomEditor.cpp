@@ -22,7 +22,9 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
     m_phantomPhasors = std::make_unique<PhantomPhasorComponent>(vts);
     addAndMakeVisible(m_phantomPhasors.get());
 
-    initMixerGui();
+    m_phantomMixer = std::make_unique<PhantomMixerComponent>(vts);
+    addAndMakeVisible(m_phantomMixer.get());
+
     initFilterGui();
     initLfoGui();
     initEgGui();
@@ -52,10 +54,6 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     m_phantomOscilloscope = nullptr;
 
     // TODO: Put these in respective component classes!
-
-    m_mixerOscBalanceSliderAttachment = nullptr;
-    m_mixerRingModSliderAttachment = nullptr;
-    m_mixerNoiseSliderAttachment = nullptr;
 
     m_filterCutoffSliderAttachment = nullptr;
     m_filterResoSliderAttachment = nullptr;
@@ -94,53 +92,6 @@ void PhantomAudioProcessorEditor::initLayoutVariables()
 {    
     m_textBoxWidth = 80;
     m_textBoxHeight = 20;
-}
-
-void PhantomAudioProcessorEditor::initMixerGui() 
-{
-    m_mixerOscBalanceSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_mixerOscBalanceSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_mixerOscBalanceSlider.setDoubleClickReturnValue(true, Consts::_MIXER_OSC_BAL_DEFAULT_VAL);
-    m_mixerOscBalanceSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_OSC_BAL_PARAM_ID, m_mixerOscBalanceSlider));
-    addAndMakeVisible(&m_mixerOscBalanceSlider);
-    m_mixerOscBalanceLabel.setText("Osc Balance", dontSendNotification);
-    m_mixerOscBalanceLabel.setJustificationType(Justification::centred);
-    m_mixerOscBalanceLabel.attachToComponent(&m_mixerOscBalanceSlider, false);
-    addAndMakeVisible(&m_mixerOscBalanceLabel);
-    m_mixerLabel.setText("Mixer", dontSendNotification);
-    m_mixerLabel.setJustificationType(Justification::topLeft);
-    m_mixerLabel.attachToComponent(&m_mixerOscBalanceSlider, false);
-    addAndMakeVisible(&m_mixerLabel);
-
-    m_mixerAmpGainSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_mixerAmpGainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_mixerAmpGainSlider.setDoubleClickReturnValue(true, Consts::_MIXER_AMP_GAIN_DEFAULT_VAL);
-    m_mixerAmpGainSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_AMP_GAIN_PARAM_ID, m_mixerAmpGainSlider));
-    addAndMakeVisible(&m_mixerAmpGainSlider);
-    m_mixerAmpGainLabel.setText("Amp Gain", dontSendNotification);
-    m_mixerAmpGainLabel.setJustificationType(Justification::centred);
-    m_mixerAmpGainLabel.attachToComponent(&m_mixerAmpGainSlider, false);
-    addAndMakeVisible(&m_mixerAmpGainLabel);
-
-    m_mixerRingModSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_mixerRingModSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_mixerRingModSlider.setDoubleClickReturnValue(true, Consts::_MIXER_RING_MOD_DEFAULT_VAL);
-    m_mixerRingModSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_RING_MOD_PARAM_ID, m_mixerRingModSlider));
-    addAndMakeVisible(&m_mixerRingModSlider);
-    m_mixerRingModLabel.setText("Ring Mod", dontSendNotification);
-    m_mixerRingModLabel.setJustificationType(Justification::centred);
-    m_mixerRingModLabel.attachToComponent(&m_mixerRingModSlider, false);
-    addAndMakeVisible(&m_mixerRingModLabel);
-
-    m_mixerNoiseSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_mixerNoiseSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_mixerNoiseSlider.setDoubleClickReturnValue(true, Consts::_MIXER_NOISE_DEFAULT_VAL);
-    m_mixerNoiseSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_NOISE_PARAM_ID, m_mixerNoiseSlider));
-    addAndMakeVisible(&m_mixerNoiseSlider);
-    m_mixerNoiseLabel.setText("Noise", dontSendNotification);
-    m_mixerNoiseLabel.setJustificationType(Justification::bottomLeft);
-    m_mixerNoiseLabel.attachToComponent(&m_mixerNoiseSlider, false);
-    addAndMakeVisible(&m_mixerNoiseLabel);
 }
 
 void PhantomAudioProcessorEditor::initFilterGui() 
@@ -598,8 +549,6 @@ bool PhantomAudioProcessorEditor::setPresetIdx()
         count++;
     }
 
-    DBG(m_presetIdx);
-
     return false;
 }
 
@@ -613,11 +562,7 @@ void PhantomAudioProcessorEditor::resetParameters()
     m_phantomAmplifier->reset();
     m_phantomOscillators->reset();
     m_phantomPhasors->reset();
-
-    m_mixerOscBalanceSlider.setValue(Consts::_MIXER_OSC_BAL_DEFAULT_VAL);
-    m_mixerAmpGainSlider.setValue(Consts::_MIXER_AMP_GAIN_DEFAULT_VAL);
-    m_mixerRingModSlider.setValue(Consts::_MIXER_RING_MOD_DEFAULT_VAL);
-    m_mixerNoiseSlider.setValue(Consts::_MIXER_NOISE_DEFAULT_VAL);
+    m_phantomMixer->reset();
 
     m_filterCutoffSlider.setValue(Consts::_FLTR_CUTOFF_DEFAULT_VAL);
     m_filterResoSlider.setValue(Consts::_FLTR_RESO_DEFAULT_VAL);
@@ -713,15 +658,8 @@ void PhantomAudioProcessorEditor::resized()
     canvas.removeFromTop(margin);
 
     Rectangle<int> mixerArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 2);
+    m_phantomMixer->update(margin, middleBottomKnobWidth, mixerArea);
     middleBottomArea.removeFromLeft(margin);
-
-    Rectangle<int> mixerTopArea = mixerArea.removeFromTop(mixerArea.getHeight() / 2);
-    m_mixerOscBalanceSlider.setBounds(mixerTopArea.removeFromLeft(middleTopKnobWidth));
-    m_mixerRingModSlider.setBounds(mixerTopArea);
-
-    Rectangle<int> mixerBottomArea = mixerArea;
-    m_mixerAmpGainSlider.setBounds(mixerBottomArea.removeFromLeft(middleTopKnobWidth));
-    m_mixerNoiseSlider.setBounds(mixerBottomArea);
 
     Rectangle<int> filterArea = middleBottomArea.removeFromLeft(middleBottomKnobWidth * 3);
     middleBottomArea.removeFromLeft(margin);

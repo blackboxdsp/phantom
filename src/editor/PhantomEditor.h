@@ -13,6 +13,7 @@
 #include "PhantomLookAndFeel.h"
 #include "../components/PhantomAmplifier.h"
 #include "../components/PhantomAnalyzer.h"
+#include "../components/PhantomMixer.h"
 #include "../components/PhantomOscillator.h"
 #include "../components/PhantomOscilloscope.h"
 #include "../components/PhantomPhasor.h"
@@ -113,11 +114,6 @@ private:
     void initLayoutVariables();
 
     /**
-     * Initializes the GUI for the mixer.
-     */
-    void initMixerGui();
-
-    /**
      * Initializes the GUI for the filter.
      */
     void initFilterGui();
@@ -164,20 +160,7 @@ private:
     std::unique_ptr<PhantomAmplifierComponent> m_phantomAmplifier;
     std::unique_ptr<PhantomOscillatorComponent> m_phantomOscillators;
     std::unique_ptr<PhantomPhasorComponent> m_phantomPhasors;
-
-    Label m_mixerLabel;
-    Slider m_mixerOscBalanceSlider;
-    Label m_mixerOscBalanceLabel;
-    std::unique_ptr<SliderAttachment> m_mixerOscBalanceSliderAttachment;
-    Slider m_mixerAmpGainSlider;
-    Label m_mixerAmpGainLabel;
-    std::unique_ptr<SliderAttachment> m_mixerAmpGainSliderAttachment;
-    Slider m_mixerRingModSlider;
-    Label m_mixerRingModLabel;
-    std::unique_ptr<SliderAttachment> m_mixerRingModSliderAttachment;
-    Slider m_mixerNoiseSlider;
-    Label m_mixerNoiseLabel;
-    std::unique_ptr<SliderAttachment> m_mixerNoiseSliderAttachment;
+    std::unique_ptr<PhantomMixerComponent> m_phantomMixer;
 
     Label m_filterLabel;
     Slider m_filterCutoffSlider;
