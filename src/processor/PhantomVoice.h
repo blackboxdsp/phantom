@@ -8,13 +8,14 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_VOICE_H
+#define _PHANTOM_VOICE_H
 
 #include "JuceHeader.h"
 
 #include "../effects/PhantomFilter.h"
 #include "../effects/PhantomMixer.h"
-#include "../generators/PhantomEnvelopeGenerator.h"
+#include "../generators/PhantomEnvelope.h"
 #include "../generators/PhantomLFO.h"
 #include "../generators/PhantomOscillator.h"
 
@@ -87,22 +88,22 @@ private:
     /**
      * The unique pointer for the amplifier envelope generator.
      */
-    std::unique_ptr<PhantomEnvelopeGenerator> m_ampEg;
+    std::unique_ptr<PhantomEnvelope> m_ampEnv;
 
     /**
      * The unique pointer for the phasor envelope generator.
      */
-    std::unique_ptr<PhantomEnvelopeGenerator> m_phaseEg;
+    std::unique_ptr<PhantomEnvelope> m_phaseEnv;
 
     /**
      * The unique pointer for the filter envelope generator.
      */
-    std::unique_ptr<PhantomEnvelopeGenerator> m_filterEg;
+    std::unique_ptr<PhantomEnvelope> m_filterEnv;
 
     /**
      * The unique pointer for the mod envelope generator.
      */
-    std::unique_ptr<PhantomEnvelopeGenerator> m_modEg;
+    std::unique_ptr<PhantomEnvelope> m_modEnv;
 
     /**
      * The unique pointer for the first LFO.
@@ -177,3 +178,5 @@ private:
 
     int count = 0;
 };
+
+#endif

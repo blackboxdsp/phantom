@@ -610,14 +610,14 @@ void PhantomAudioProcessorEditor::initEgGui()
 
 void PhantomAudioProcessorEditor::initOscilloscope()
 {
-    m_oscilloscope = std::make_unique<PhantomOscilloscope>();
+    m_oscilloscope = std::make_unique<PhantomOscilloscopeComponent>();
 
     addAndMakeVisible(m_oscilloscope.get());
 }
 
 void PhantomAudioProcessorEditor::initAnalyzer() 
 {
-    m_analyzer = std::make_unique<PhantomAnalyzer>();
+    m_analyzer = std::make_unique<PhantomAnalyzerComponent>();
 
     addAndMakeVisible(m_analyzer.get());
 }

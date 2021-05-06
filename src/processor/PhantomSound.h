@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_SOUND_H
+#define _PHANTOM_SOUND_H
 
 #include "JuceHeader.h"
 
@@ -28,3 +29,5 @@ public:
      */
     bool appliesToChannel(int midiChannelNumber) override;
 };
+
+#endif

@@ -8,12 +8,11 @@
   ==============================================================================
 */
 
-#pragma once
+
+#ifndef PHANTOM_UTILS_H
+#define PHANTOM_UTILS_H
 
 #include "JuceHeader.h"
-
-#ifndef PHANTOM_CONSTS
-#define PHANTOM_CONSTS
 
 /**
  * The global constants to use in Phantom, largely used for 
@@ -205,21 +204,5 @@ namespace Consts
     constexpr char *_PLUGIN_NAME = "Phantom";
     constexpr char *_PLUGIN_VERSION = "1.0.0-beta";
 }
-
-#endif
-
-#ifndef EG_TYPE_ENUM
-#define EG_TYPE_ENUM
-
-/**
- * The enum specifying different envelope generator types.
- */
-enum EnvelopeGeneratorType
-{
-    AMP = 0,
-    FLTR = 1,
-    PHASE = 2,
-    MOD = 3
-};
 
 #endif

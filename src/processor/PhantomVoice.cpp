@@ -18,10 +18,10 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
 {
     p_oscSync = m_parameters.getRawParameterValue(Consts::_OSC_SYNC_PARAM_ID);
     
-    m_ampEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::AMP));
-    m_phaseEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::PHASE));
-    m_filterEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::FLTR));
-    m_modEg.reset(new PhantomEnvelopeGenerator(m_parameters, EnvelopeGeneratorType::MOD));
+    m_ampEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::AMP));
+    m_phaseEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::PHASE));
+    m_filterEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::FLTR));
+    m_modEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::MOD));
 
     m_lfo01.reset(new PhantomLFO(m_parameters, 1));
     m_lfo02.reset(new PhantomLFO(m_parameters, 2));
@@ -37,10 +37,10 @@ PhantomVoice::~PhantomVoice()
 {
     p_oscSync = nullptr;
 
-    m_ampEg = nullptr;
-    m_phaseEg = nullptr;
-    m_filterEg = nullptr;
-    m_modEg = nullptr;
+    m_ampEnv = nullptr;
+    m_phaseEnv = nullptr;
+    m_filterEnv = nullptr;
+    m_modEnv = nullptr;
 
     m_lfo01 = nullptr;
     m_lfo02 = nullptr;
@@ -69,10 +69,10 @@ void PhantomVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSoun
     m_primaryOsc->update(m_midiNoteNumber, sampleRate);
     m_secondaryOsc->update(m_midiNoteNumber, sampleRate);
 
-    m_ampEg->noteOn();
-    m_phaseEg->noteOn();
-    m_filterEg->noteOn();
-    m_modEg->noteOn();
+    m_ampEnv->noteOn();
+    m_phaseEnv->noteOn();
+    m_filterEnv->noteOn();
+    m_modEnv->noteOn();
 }
 
 void PhantomVoice::stopNote(float velocity, bool allowTailOff)
@@ -87,20 +87,20 @@ void PhantomVoice::stopNote(float velocity, bool allowTailOff)
 
     m_isNoteOn = false;
 
-    m_ampEg->noteOff();
-    m_phaseEg->noteOff();
-    m_filterEg->noteOff();
-    m_modEg->noteOff();
+    m_ampEnv->noteOff();
+    m_phaseEnv->noteOff();
+    m_filterEnv->noteOff();
+    m_modEnv->noteOff();
 }
 
 void PhantomVoice::clear()
 {
     clearCurrentNote();
 
-    m_ampEg->reset();
-    m_phaseEg->reset();
-    m_filterEg->reset();
-    m_modEg->reset();
+    m_ampEnv->reset();
+    m_phaseEnv->reset();
+    m_filterEnv->reset();
+    m_modEnv->reset();
 
     m_primaryOsc->reset();
     m_secondaryOsc->reset();
@@ -117,10 +117,10 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
     const float sampleRate = (float) getSampleRate();
 
-    m_ampEg->update(sampleRate);
-    m_phaseEg->update(sampleRate);
-    m_filterEg->update(sampleRate);
-    m_modEg->update(sampleRate);
+    m_ampEnv->update(sampleRate);
+    m_phaseEnv->update(sampleRate);
+    m_filterEnv->update(sampleRate);
+    m_modEnv->update(sampleRate);
 
     m_lfo01->update(sampleRate);
     m_lfo02->update(sampleRate);
@@ -132,22 +132,22 @@ void PhantomVoice::renderNextBlock(AudioBuffer<float>& buffer, int startSample, 
 
     for (int sampleIdx = 0; sampleIdx < numSamples; sampleIdx++)
     {
-        float ampEgMod = m_ampEg->evaluate();
-        float phaseEgMod = m_phaseEg->evaluate();
-        float filterEgMod = m_filterEg->evaluate();
-        float modEgMod = m_modEg->evaluate();
+        float ampEnvMod = m_ampEnv->evaluate();
+        float phaseEnvMod = m_phaseEnv->evaluate();
+        float filterEnvMod = m_filterEnv->evaluate();
+        float modEnvMod = m_modEnv->evaluate();
 
         float lfo01Mod = m_lfo01->evaluate();
         float lfo02Mod = m_lfo02->evaluate();
 
         handleOscSync(m_primaryOsc->readPhase());
 
-        float primaryOscVal = m_primaryOsc->evaluate(modEgMod, lfo02Mod, phaseEgMod, lfo02Mod);
-        float secondaryOscVal = m_secondaryOsc->evaluate(modEgMod, lfo02Mod, phaseEgMod, lfo02Mod);
+        float primaryOscVal = m_primaryOsc->evaluate(modEnvMod, lfo02Mod, phaseEnvMod, lfo02Mod);
+        float secondaryOscVal = m_secondaryOsc->evaluate(modEnvMod, lfo02Mod, phaseEnvMod, lfo02Mod);
         float oscVal = m_mixer->evaluate(primaryOscVal, secondaryOscVal);
 
-        float filterVal = m_filter->evaluate(oscVal, filterEgMod, lfo01Mod);
-        float ampVal = filterVal * ampEgMod;
+        float filterVal = m_filter->evaluate(oscVal, filterEnvMod, lfo01Mod);
+        float ampVal = filterVal * ampEnvMod;
 
         if(isVoiceActive()) m_tailOff = 1.0f;
         float finalVal = ampVal * m_tailOff;

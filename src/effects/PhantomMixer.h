@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_MIXER_EFFECT_H
+#define _PHANTOM_MIXER_EFFECT_H
 
 #include "JuceHeader.h"
 
@@ -70,3 +71,5 @@ private:
      */
     float m_previousNoise;
 };
+
+#endif

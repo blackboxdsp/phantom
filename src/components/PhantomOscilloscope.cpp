@@ -13,19 +13,19 @@
 #include "../effects/PhantomWaveshaper.h"
 #include "../utils/PhantomUtils.h"
 
-PhantomOscilloscope::PhantomOscilloscope()
+PhantomOscilloscopeComponent::PhantomOscilloscopeComponent()
 {
     init();
 }
 
-PhantomOscilloscope::~PhantomOscilloscope()
+PhantomOscilloscopeComponent::~PhantomOscilloscopeComponent()
 {
     stopTimer();
 
     m_buffer = nullptr;
 }
 
-void PhantomOscilloscope::init()
+void PhantomOscilloscopeComponent::init()
 {
     m_buffer = std::make_unique<AudioBuffer<float>>(1, k_bufferSize);
     m_buffer->clear();
@@ -33,7 +33,7 @@ void PhantomOscilloscope::init()
     startTimerHz(50);
 }
 
-void PhantomOscilloscope::paint(Graphics& graphics)
+void PhantomOscilloscopeComponent::paint(Graphics& graphics)
 {
     m_isPainting = true;
 
@@ -76,17 +76,17 @@ void PhantomOscilloscope::paint(Graphics& graphics)
     m_isPainting = false;
 }
 
-void PhantomOscilloscope::resized()
+void PhantomOscilloscopeComponent::resized()
 {
 
 }
 
-void PhantomOscilloscope::timerCallback()
+void PhantomOscilloscopeComponent::timerCallback()
 {
     repaint();
 }
 
-void PhantomOscilloscope::pushBuffer(AudioBuffer<float>& buffer)
+void PhantomOscilloscopeComponent::pushBuffer(AudioBuffer<float>& buffer)
 {
     if(m_isPainting)
         return;

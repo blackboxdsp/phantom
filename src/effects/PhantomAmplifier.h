@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_AMPLIFIER_EFFECT_H
+#define _PHANTOM_AMPLIFIER_EFFECT_H
 
 #include "JuceHeader.h"
 
@@ -49,3 +50,5 @@ private:
      */
     float m_previousGain;
 };
+
+#endif

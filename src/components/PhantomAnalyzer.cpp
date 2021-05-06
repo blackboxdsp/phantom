@@ -12,7 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomAnalyzer::PhantomAnalyzer()
+PhantomAnalyzerComponent::PhantomAnalyzerComponent()
     :   m_forwardFFT(FFT_ORDER),
         m_window(FFT_SIZE, dsp::WindowingFunction<float>::hann)
 {
@@ -20,12 +20,12 @@ PhantomAnalyzer::PhantomAnalyzer()
     startTimerHz(30);
 }
 
-PhantomAnalyzer::~PhantomAnalyzer()
+PhantomAnalyzerComponent::~PhantomAnalyzerComponent()
 {
     stopTimer();
 }
 
-void PhantomAnalyzer::paint(Graphics& graphics)
+void PhantomAnalyzerComponent::paint(Graphics& graphics)
 {
     const float width = (float) getWidth();
     const float height = (float) getHeight();
@@ -49,12 +49,12 @@ void PhantomAnalyzer::paint(Graphics& graphics)
     }
 }
 
-void PhantomAnalyzer::resized()
+void PhantomAnalyzerComponent::resized()
 {
 
 }
 
-void PhantomAnalyzer::timerCallback()
+void PhantomAnalyzerComponent::timerCallback()
 {
     if(m_isNextFFTBlockReady)
     {
@@ -72,7 +72,7 @@ void PhantomAnalyzer::timerCallback()
     repaint();
 }
 
-void PhantomAnalyzer::pushBuffer(AudioSampleBuffer& buffer) noexcept
+void PhantomAnalyzerComponent::pushBuffer(AudioSampleBuffer& buffer) noexcept
 {
     if(buffer.getNumChannels() > 0)
     {
@@ -83,7 +83,7 @@ void PhantomAnalyzer::pushBuffer(AudioSampleBuffer& buffer) noexcept
     }
 }
 
-inline void PhantomAnalyzer::pushNextSample(float sample) noexcept
+inline void PhantomAnalyzerComponent::pushNextSample(float sample) noexcept
 {
     if(m_FFTQueueIndex == FFT_SIZE)
     {

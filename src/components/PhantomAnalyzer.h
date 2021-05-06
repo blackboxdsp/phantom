@@ -8,19 +8,20 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_ANALYZER_COMPONENT_H
+#define _PHANTOM_ANALYZER_COMPONENT_H
 
 #include "JuceHeader.h"
 
 /**
  * The GUI component for displaying the frequency information of the signal.
  */
-class PhantomAnalyzer : public Component,
-                        private Timer
+class PhantomAnalyzerComponent : public Component,
+                                 private Timer
 {
 public:
-    PhantomAnalyzer();
-    ~PhantomAnalyzer();
+    PhantomAnalyzerComponent();
+    ~PhantomAnalyzerComponent();
 
     /**
      * Determines the appearance of the analyzer component.
@@ -67,7 +68,7 @@ public:
     };
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAnalyzer)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAnalyzerComponent)
   
     /**
      * The `FFT` object, specifically a _forward_ one meaning that
@@ -105,3 +106,5 @@ private:
      */
     bool m_isNextFFTBlockReady = false;
 };
+
+#endif

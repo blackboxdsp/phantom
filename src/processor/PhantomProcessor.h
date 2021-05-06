@@ -5,7 +5,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_PROCESSOR_H
+#define _PHANTOM_PROCESSOR_H
 
 #include "JuceHeader.h"
 
@@ -229,3 +230,5 @@ private:
      */
     std::unique_ptr<PhantomAmplifier> m_amp;
 };
+
+#endif

@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_OSCILLATOR_GENERATOR_H
+#define _PHANTOM_OSCILLATOR_GENERATOR_H
 
 #include "JuceHeader.h"
 
@@ -156,3 +157,5 @@ private:
     /** The frequency value for the last played (possibly current) note. */
     float m_frequency = 0.0f;
 };
+
+#endif

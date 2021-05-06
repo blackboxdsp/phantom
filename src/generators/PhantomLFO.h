@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_LFO_GENERATOR_H
+#define _PHANTOM_LFO_GENERATOR_H
 
 #include "JuceHeader.h"
 
@@ -105,3 +106,5 @@ private:
     /** The last read sample value. */
     float m_sampleValue = 0.0f;
 };
+
+#endif

@@ -1,23 +1,25 @@
 /*
   ==============================================================================
 
-    PhantomEnvelopeGenerator.cpp
+    PhantomEnvelope.cpp
     Created: 22 Jan 2021 10:41:40
     Author:  Matthew Maxwell
 
   ==============================================================================
 */
 
-#include "PhantomEnvelopeGenerator.h"
+#include "PhantomEnvelope.h"
 
-PhantomEnvelopeGenerator::PhantomEnvelopeGenerator(AudioProcessorValueTreeState& vts, EnvelopeGeneratorType type)
+#include "../utils/PhantomUtils.h"
+
+PhantomEnvelope::PhantomEnvelope(AudioProcessorValueTreeState& vts, EnvelopeType type)
     :   m_parameters(vts), m_type(type)
 {
     setEnvelopeType();
     setEnvelopeParameters();
 }
 
-PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
+PhantomEnvelope::~PhantomEnvelope()
 {
     p_attack = nullptr;
     p_decay = nullptr;
@@ -25,13 +27,13 @@ PhantomEnvelopeGenerator::~PhantomEnvelopeGenerator()
     p_release = nullptr;
 }
 
-void PhantomEnvelopeGenerator::update(float sampleRate) noexcept
+void PhantomEnvelope::update(float sampleRate) noexcept
 {
     setEnvelopeParameters();
     setSampleRate(sampleRate);
 }
 
-float PhantomEnvelopeGenerator::evaluate() noexcept
+float PhantomEnvelope::evaluate() noexcept
 {
     float result = (getNextSample() + m_previousSample) / 2.0f;
     m_previousSample = result;
@@ -39,7 +41,7 @@ float PhantomEnvelopeGenerator::evaluate() noexcept
     return result;
 }
 
-void PhantomEnvelopeGenerator::setEnvelopeType()
+void PhantomEnvelope::setEnvelopeType()
 {
     jassert((int) m_type != -1);
 
@@ -86,7 +88,7 @@ void PhantomEnvelopeGenerator::setEnvelopeType()
     p_release = m_parameters.getRawParameterValue(relParamId);
 }
 
-void PhantomEnvelopeGenerator::setEnvelopeParameters() noexcept
+void PhantomEnvelope::setEnvelopeParameters() noexcept
 {
     m_envelope.attack = *p_attack;
     m_envelope.decay = *p_decay;

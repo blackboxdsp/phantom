@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_SYNTH_H
+#define _PHANTOM_SYNTH_H
 
 #include "JuceHeader.h"
 
@@ -60,3 +61,5 @@ private:
      */
     const int k_numVoices = 1;
 };
+
+#endif

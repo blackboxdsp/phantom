@@ -38,7 +38,7 @@ target_sources(Phantom PRIVATE
         src/effects/PhantomMixer.cpp
         src/effects/PhantomPhasor.cpp
         src/effects/PhantomWaveshaper.cpp
-        src/generators/PhantomEnvelopeGenerator.cpp
+        src/generators/PhantomEnvelope.cpp
         src/generators/PhantomLFO.cpp
         src/generators/PhantomOscillator.cpp
         src/processor/PhantomProcessor.cpp

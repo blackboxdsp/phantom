@@ -5,7 +5,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_EDITOR_H
+#define _PHANTOM_EDITOR_H
 
 #include "JuceHeader.h"
 
@@ -76,12 +77,12 @@ public:
     /**
      * The unique pointer to the analyzer, used by the processor.
      */
-    std::unique_ptr<PhantomAnalyzer> m_analyzer;
+    std::unique_ptr<PhantomAnalyzerComponent> m_analyzer;
 
     /**
      * The unique pointer to the oscilloscope, used by the processor.
      */
-    std::unique_ptr<PhantomOscilloscope> m_oscilloscope;
+    std::unique_ptr<PhantomOscilloscopeComponent> m_oscilloscope;
 
     /** The reference to the value tree state useful in retrieving or 
      * storing parameter information.
@@ -339,3 +340,5 @@ private:
     TextButton m_presetLeftButton;
     TextButton m_presetRightButton;
 };
+
+#endif

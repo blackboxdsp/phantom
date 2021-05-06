@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_OSCILLOSCOPE_COMPONENT_H
+#define _PHANTOM_OSCILLOSCOPE_COMPONENT_H
 
 #include "JuceHeader.h"
 
@@ -16,12 +17,12 @@
  * The GUI component for displaying the amplitude information for the synthesizer
  * output.
  */
-class PhantomOscilloscope : public Component,
-                            private Timer
+class PhantomOscilloscopeComponent : public Component,
+                                     private Timer
 {
 public:
-    PhantomOscilloscope();
-    ~PhantomOscilloscope();
+    PhantomOscilloscopeComponent();
+    ~PhantomOscilloscopeComponent();
 
     void init();
 
@@ -48,7 +49,7 @@ public:
     void pushBuffer(AudioBuffer<float>& buffer);
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscilloscope)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomOscilloscopeComponent)
 
     /** The unique pointer to the buffer containing samples for the oscilloscope. */
     std::unique_ptr<AudioBuffer<float>> m_buffer;
@@ -66,3 +67,5 @@ private:
     /** Lock for when the component is painting the samples. */
     bool m_isPainting = false;
 };
+
+#endif

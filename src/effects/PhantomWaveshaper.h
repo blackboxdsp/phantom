@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_WAVESHAPER_EFFECT_H
+#define _PHANTOM_WAVESHAPER_EFFECT_H
 
 #include "JuceHeader.h"
 
@@ -72,3 +73,5 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomWaveshaper)
 };
+
+#endif

@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_LOOK_AND_FEEL_H
+#define _PHANTOM_LOOK_AND_FEEL_H
 
 #include "JuceHeader.h"
 
@@ -26,3 +27,5 @@ private:
     const float k_fontSize = 9.0f;
     const Font& getSliderReadoutFont();
 };
+
+#endif

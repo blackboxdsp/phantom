@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_PHASOR_EFFECT_H
+#define _PHANTOM_PHASOR_EFFECT_H
 
 #include "JuceHeader.h"
 
@@ -77,3 +78,5 @@ private:
      */
     int m_phasorNumber;
 };
+
+#endif

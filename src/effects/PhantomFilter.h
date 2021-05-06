@@ -10,7 +10,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_FILTER_EFFECT_H
+#define _PHANTOM_FILTER_EFFECT_H
 
 #include "JuceHeader.h"
 
@@ -114,3 +115,5 @@ private:
      */
     const float k_cutoffUpperCounds = 11000.0f;
 };
+
+#endif

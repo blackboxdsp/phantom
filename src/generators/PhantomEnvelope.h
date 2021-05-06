@@ -1,28 +1,36 @@
 /*
   ==============================================================================
 
-    PhantomEnvelopeGenerator.h
+    PhantomEnvelope.h
     Created: 22 Jan 2021 10:41:40
     Author:  Matthew Maxwell
 
   ==============================================================================
 */
 
-#pragma once
+#ifndef _PHANTOM_ENVELOPE_GENERATOR_H
+#define _PHANTOM_ENVELOPE_GENERATOR_H
 
 #include "JuceHeader.h"
 
-#include "../utils/PhantomUtils.h"
+/** The enum specifying different envelope generator types. */
+enum EnvelopeType
+{
+    AMP     = 0,
+    FLTR    = 1,
+    PHASE   = 2,
+    MOD     = 3
+};
 
 /**
  * The audio component for generating envelopes, useful in shaping
  * a real-time signal to specific ADSR parameters.
  */
-class PhantomEnvelopeGenerator : public ADSR
+class PhantomEnvelope : public ADSR
 {
 public:
-    PhantomEnvelopeGenerator(AudioProcessorValueTreeState&, EnvelopeGeneratorType);
-    ~PhantomEnvelopeGenerator();
+    PhantomEnvelope(AudioProcessorValueTreeState& vts, EnvelopeType type);
+    ~PhantomEnvelope();
 
     /**
      * Updates the envelope's parameters (ADSR).
@@ -40,7 +48,7 @@ public:
     std::atomic<float>* p_sustain;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomEnvelopeGenerator)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomEnvelope)
 
     /**
      * Sets the envelope type, relevant for binding to
@@ -58,7 +66,7 @@ private:
     ADSR::Parameters m_envelope;
 
     /** The envelope generator type (enum value). */
-    EnvelopeGeneratorType m_type = (EnvelopeGeneratorType) -1;
+    EnvelopeType m_type = (EnvelopeType) -1;
 
     AudioProcessorValueTreeState& m_parameters;
 
@@ -84,3 +92,5 @@ private:
     /** The previous envelope value to avoid discontinuities. */
     float m_previousSample = 0.0f;
 };
+
+#endif
