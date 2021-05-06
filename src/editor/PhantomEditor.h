@@ -11,6 +11,7 @@
 #include "JuceHeader.h"
 
 #include "PhantomLookAndFeel.h"
+#include "../components/PhantomAmplifier.h"
 #include "../components/PhantomAnalyzer.h"
 #include "../components/PhantomOscilloscope.h"
 #include "../processor/PhantomProcessor.h"
@@ -24,7 +25,7 @@ typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 class PhantomAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
-    PhantomAudioProcessorEditor(PhantomAudioProcessor &, AudioProcessorValueTreeState &);
+    PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts);
     ~PhantomAudioProcessorEditor() override;
 
     /**
@@ -185,9 +186,11 @@ private:
 
     PhantomLookAndFeel m_lookAndFeel;
 
-    Slider m_levelSlider;
-    Label m_levelLabel;
-    std::unique_ptr<SliderAttachment> m_levelSliderAttachment;
+    // Slider m_levelSlider;
+    // Label m_levelLabel;
+    // std::unique_ptr<SliderAttachment> m_levelSliderAttachment;
+
+    std::unique_ptr<PhantomAmplifierComponent> m_phantomAmplifier;
 
     Label m_oscLabel;
     Slider m_oscSyncSlider;

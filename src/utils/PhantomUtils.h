@@ -200,6 +200,9 @@ namespace Consts
     const Colour _FILL_START_COLOUR = Colour::fromRGBA(77, 202, 227, 205);
     const Colour _FILL_END_COLOUR = Colour::fromRGBA(42, 178, 209, 205);
 
+    const int _TEXT_BOX_WIDTH = 80;
+    const int _TEXT_BOX_HEIGHT = 20;
+
     constexpr char *_COMPANY_NAME = "Black Box DSP";
     constexpr char *_PLUGIN_NAME = "Phantom";
     constexpr char *_PLUGIN_VERSION = "1.0.0-beta";

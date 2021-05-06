@@ -30,6 +30,7 @@ juce_generate_juce_header(Phantom)
 
 # Declare necessary source files to include into the target
 target_sources(Phantom PRIVATE
+        src/components/PhantomAmplifier.cpp
         src/components/PhantomAnalyzer.cpp
         src/components/PhantomOscilloscope.cpp
         src/editor/PhantomEditor.cpp

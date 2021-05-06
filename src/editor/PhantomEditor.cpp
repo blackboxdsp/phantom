@@ -14,7 +14,10 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 {
     initLayoutVariables();
 
-    initAmpGui();
+    // initAmpGui();
+    m_phantomAmplifier = std::make_unique<PhantomAmplifierComponent>(vts);
+    addAndMakeVisible(m_phantomAmplifier.get());
+
     initOscillatorGui();
     initPhasorGui();
     initMixerGui();
@@ -36,10 +39,12 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
     setLookAndFeel(nullptr);
 
+    m_phantomAmplifier = nullptr;
+
     m_oscilloscope = nullptr;
     m_analyzer = nullptr;
 
-    m_levelSliderAttachment = nullptr;
+    // m_levelSliderAttachment = nullptr;
 
     m_oscSyncSliderAttachment = nullptr;
     m_osc01RangeSliderAttachment = nullptr;
@@ -106,16 +111,16 @@ void PhantomAudioProcessorEditor::initLayoutVariables()
 }
 
 void PhantomAudioProcessorEditor::initAmpGui() {
-    m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_levelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_levelSlider.setTextValueSuffix(" dB");
-    m_levelSlider.setDoubleClickReturnValue(true, Consts::_LEVEL_DEFAULT_VAL);
-    m_levelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LEVEL_PARAM_ID, m_levelSlider));
-    addAndMakeVisible(&m_levelSlider);
-    m_levelLabel.setText("Level", dontSendNotification);
-    m_levelLabel.setJustificationType(Justification::centred);
-    m_levelLabel.attachToComponent(&m_levelSlider, false);
-    addAndMakeVisible(&m_levelLabel);
+    // m_levelSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    // m_levelSlider.setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    // m_levelSlider.setTextValueSuffix(" dB");
+    // m_levelSlider.setDoubleClickReturnValue(true, Consts::_LEVEL_DEFAULT_VAL);
+    // m_levelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LEVEL_PARAM_ID, m_levelSlider));
+    // addAndMakeVisible(&m_levelSlider);
+    // m_levelLabel.setText("Level", dontSendNotification);
+    // m_levelLabel.setJustificationType(Justification::centred);
+    // m_levelLabel.attachToComponent(&m_levelSlider, false);
+    // addAndMakeVisible(&m_levelLabel);
 }
 
 void PhantomAudioProcessorEditor::initOscillatorGui() 
@@ -816,7 +821,7 @@ void PhantomAudioProcessorEditor::resetGui()
 
 void PhantomAudioProcessorEditor::resetParameters()
 {
-    m_levelSlider.setValue(Consts::_LEVEL_DEFAULT_VAL);
+    // m_levelSlider.setValue(Consts::_LEVEL_DEFAULT_VAL);
 
     m_oscSyncSlider.setValue(Consts::_OSC_SYNC_DEFAULT_VAL);
     m_osc01RangeSlider.setValue(Consts::_OSC_01_RANGE_DEFAULT_VAL);
@@ -905,11 +910,8 @@ void PhantomAudioProcessorEditor::resized()
     canvas.removeFromTop(margin);
 
     Rectangle<int> ampArea = topArea.removeFromLeft(topKnobWidth);
+    m_phantomAmplifier->update(margin, topKnobWidth, ampArea);
     topArea.removeFromLeft(margin);
-    ampArea.removeFromLeft(margin * 2);
-    ampArea.removeFromRight(margin * 2);
-
-    m_levelSlider.setBounds(ampArea);
 
     Rectangle<int> oscillatorArea = topArea;
 
