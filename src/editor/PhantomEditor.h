@@ -14,6 +14,7 @@
 #include "../components/PhantomAmplifier.h"
 #include "../components/PhantomAnalyzer.h"
 #include "../components/PhantomFilter.h"
+#include "../components/PhantomLFO.h"
 #include "../components/PhantomMixer.h"
 #include "../components/PhantomOscillator.h"
 #include "../components/PhantomOscilloscope.h"
@@ -115,11 +116,6 @@ private:
     void initLayoutVariables();
 
     /**
-     * Initializes the GUI for the LFO.
-     */
-    void initLfoGui();
-
-    /**
      * Initializes the GUI for the envelope generators.
      */
     void initEgGui();
@@ -158,18 +154,7 @@ private:
     std::unique_ptr<PhantomPhasorComponent> m_phantomPhasors;
     std::unique_ptr<PhantomMixerComponent> m_phantomMixer;
     std::unique_ptr<PhantomFilterComponent> m_phantomFilter;
-
-    Label m_lfoLabel;
-    Slider m_lfo01RateSlider;
-    Label m_lfo01RateLabel;
-    std::unique_ptr<SliderAttachment> m_lfo01RateSliderAttachment;
-    Slider m_lfo01ShapeSlider;
-    Label m_lfo01ShapeLabel;
-    std::unique_ptr<SliderAttachment> m_lfo01ShapeSliderAttachment;
-    Slider m_lfo02RateSlider;
-    std::unique_ptr<SliderAttachment> m_lfo02RateSliderAttachment;
-    Slider m_lfo02ShapeSlider;
-    std::unique_ptr<SliderAttachment> m_lfo02ShapeSliderAttachment;
+    std::unique_ptr<PhantomLFOComponent> m_phantomLFOs;
 
     Label m_ampEgLabel;
     Slider m_ampEgAtkSlider;
