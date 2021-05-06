@@ -39,17 +39,17 @@ public:
 
     /**
      * For updating the component's visual layout, usually called by its parent.
-     * @param bounds The reference to the `Rectangle` object to use in sectioning this component.
+     * @param bounds The `Rectangle` object to use in sectioning this component.
      */
-    void update(Rectangle<int>& bounds) { setBounds(bounds); };
+    void update(Rectangle<int> bounds) { setBounds(bounds); };
     
     /**
      * For updating the component's visual layout, usually called by its parent.
      * @param margin The margin to use in spacing the inner components of this component.
      * @param knobWidth The width to use for an individual slider.
-     * @param bounds The reference to the `Rectangle` object to use in sectioning this component.
+     * @param bounds The `Rectangle` object to use in sectioning this component.
      */
-    void update(const int margin, const int knobWidth, Rectangle<int>& bounds) { m_margin = margin; m_knobWidth = knobWidth; setBounds(bounds); };
+    void update(const int margin, const int knobWidth, Rectangle<int> bounds) { m_margin = margin; m_knobWidth = knobWidth; setBounds(bounds); };
 
     /**
      * NOTE: Each individual component must override and define its own `paint(Graphics& g)` and `resized()`
