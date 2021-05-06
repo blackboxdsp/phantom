@@ -13,6 +13,7 @@
 #include "PhantomLookAndFeel.h"
 #include "../components/PhantomAmplifier.h"
 #include "../components/PhantomAnalyzer.h"
+#include "../components/PhantomEnvelope.h"
 #include "../components/PhantomFilter.h"
 #include "../components/PhantomLFO.h"
 #include "../components/PhantomMixer.h"
@@ -111,16 +112,6 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
 
     /**
-     * Initializes the variables for the GUI's layout.
-     */
-    void initLayoutVariables();
-
-    /**
-     * Initializes the GUI for the envelope generators.
-     */
-    void initEgGui();
-
-    /**
      * Initializes the GUI for the preset menu.
      */
     void initPresetMenu();
@@ -135,16 +126,6 @@ private:
      */
     int m_presetIdx = -3;
 
-    /**
-     * The width for a text box.
-     */
-    int m_textBoxWidth;
-
-    /**
-     * The height for a text box;
-     */
-    int m_textBoxHeight;
-
     /** The custom look and feel for the plugin. */
     PhantomLookAndFeel m_lookAndFeel;
 
@@ -155,54 +136,7 @@ private:
     std::unique_ptr<PhantomMixerComponent> m_phantomMixer;
     std::unique_ptr<PhantomFilterComponent> m_phantomFilter;
     std::unique_ptr<PhantomLFOComponent> m_phantomLFOs;
-
-    Label m_ampEgLabel;
-    Slider m_ampEgAtkSlider;
-    Label m_ampEgAtkLabel;
-    std::unique_ptr<SliderAttachment> m_ampEgAtkSliderAttachment;
-    Slider m_ampEgDecSlider;
-    Label m_ampEgDecLabel;
-    std::unique_ptr<SliderAttachment> m_ampEgDecSliderAttachment;
-    Slider m_ampEgSusSlider;
-    Label m_ampEgSusLabel;
-    std::unique_ptr<SliderAttachment> m_ampEgSusSliderAttachment;
-    Slider m_ampEgRelSlider;
-    Label m_ampEgRelLabel;
-    std::unique_ptr<SliderAttachment> m_ampEgRelSliderAttachment;
-
-    Label m_phasorEgLabel;
-    Slider m_phasorEgAtkSlider;
-    Label m_phasorEgAtkLabel;
-    std::unique_ptr<SliderAttachment> m_phasorEgAtkSliderAttachment;
-    Slider m_phasorEgDecSlider;
-    Label m_phasorEgDecLabel;
-    std::unique_ptr<SliderAttachment> m_phasorEgDecSliderAttachment;
-    Slider m_phasorEgSusSlider;
-    Label m_phasorEgSusLabel;
-    std::unique_ptr<SliderAttachment> m_phasorEgSusSliderAttachment;
-    Slider m_phasorEgRelSlider;
-    Label m_phasorEgRelLabel;
-    std::unique_ptr<SliderAttachment> m_phasorEgRelSliderAttachment;
-
-    Label m_filterEgLabel;
-    Slider m_filterEgAtkSlider;
-    std::unique_ptr<SliderAttachment> m_filterEgAtkSliderAttachment;
-    Slider m_filterEgDecSlider;
-    std::unique_ptr<SliderAttachment> m_filterEgDecSliderAttachment;
-    Slider m_filterEgSusSlider;
-    std::unique_ptr<SliderAttachment> m_filterEgSusSliderAttachment;
-    Slider m_filterEgRelSlider;
-    std::unique_ptr<SliderAttachment> m_filterEgRelSliderAttachment;
-
-    Label m_modEgLabel;
-    Slider m_modEgAtkSlider;
-    std::unique_ptr<SliderAttachment> m_modEgAtkSliderAttachment;
-    Slider m_modEgDecSlider;
-    std::unique_ptr<SliderAttachment> m_modEgDecSliderAttachment;
-    Slider m_modEgSusSlider;
-    std::unique_ptr<SliderAttachment> m_modEgSusSliderAttachment;
-    Slider m_modEgRelSlider;
-    std::unique_ptr<SliderAttachment> m_modEgRelSliderAttachment;
+    std::unique_ptr<PhantomEnvelopeComponent> m_phantomEnvelopes;
 
     Label m_presetLabel;
     TextButton m_presetButton;

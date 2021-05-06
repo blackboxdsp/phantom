@@ -32,6 +32,7 @@ juce_generate_juce_header(Phantom)
 target_sources(Phantom PRIVATE
         src/components/PhantomAmplifier.cpp
         src/components/PhantomAnalyzer.cpp
+        src/components/PhantomEnvelope.cpp
         src/components/PhantomFilter.cpp
         src/components/PhantomLFO.cpp
         src/components/PhantomMixer.cpp
