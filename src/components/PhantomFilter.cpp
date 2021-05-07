@@ -9,6 +9,7 @@
 */
 
 #include "PhantomFilter.h"
+
 #include "../utils/PhantomUtils.h"
 
 PhantomFilterComponent::PhantomFilterComponent(AudioProcessorValueTreeState& vts): IComponent(vts)

@@ -9,6 +9,7 @@
 */
 
 #include "PhantomEnvelope.h"
+
 #include "../utils/PhantomUtils.h"
 
 PhantomEnvelopeComponent::PhantomEnvelopeComponent(AudioProcessorValueTreeState& vts) : IComponent(vts)

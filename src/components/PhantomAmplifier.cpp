@@ -9,6 +9,7 @@
 */
 
 #include "PhantomAmplifier.h"
+
 #include "../utils/PhantomUtils.h"
 
 PhantomAmplifierComponent::PhantomAmplifierComponent(AudioProcessorValueTreeState& vts) : IComponent(vts)

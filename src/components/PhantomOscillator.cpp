@@ -9,6 +9,7 @@
 */
 
 #include "PhantomOscillator.h"
+
 #include "../utils/PhantomUtils.h"
 
 PhantomOscillatorComponent::PhantomOscillatorComponent(AudioProcessorValueTreeState& vts) : IComponent(vts)

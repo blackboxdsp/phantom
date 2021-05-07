@@ -208,4 +208,16 @@ namespace Consts
     constexpr char *_PLUGIN_VERSION = "1.0.0-beta";
 }
 
+/**
+ * Calculates the skew factor given a start, end, and desired center point.
+ * @param start The start value to use.
+ * @param end The end value to use.
+ * @param center The value to skew to the middle.
+ * @returns The calculated skew value to accomodate a non-linear slider.
+ */
+static float calculateSkewFactor(float start, float end, float center)
+{
+    return std::log(0.5f) / std::log((center - start) / (end - start));
+}
+
 #endif

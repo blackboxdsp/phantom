@@ -20,6 +20,7 @@
 #include "../components/PhantomOscillator.h"
 #include "../components/PhantomOscilloscope.h"
 #include "../components/PhantomPhasor.h"
+#include "../components/PhantomPreset.h"
 #include "../processor/PhantomProcessor.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
@@ -34,6 +35,8 @@ public:
     PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts);
     ~PhantomAudioProcessorEditor() override;
 
+    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
     /**
      * Determines the appearance of the main plugin component.
      */
@@ -46,46 +49,10 @@ public:
     void resized() override;
 
     /**
-     * Adds presets from presets folder to popup menu.
-     * @param menu The reference to the menu to add the presets to.
-     */
-    void addPresetsToMenu(PopupMenu &menu);
-
-    /**
-     * Loads the presets' filepaths from the presets 
-     * directory.
-     */
-    void loadPresetFilePaths();
-
-    /**
-     * Loads the file in the filepaths array at the specified index.
-     */
-    void loadPresetFileAtIndex();
-
-    /**
-     * Sets the preset index based on the preset files 
-     * in the presets folder and the current name according 
-     * to the processor.
-     * @returns `true` if a preset was matched.
-     */
-    bool setPresetIdx();
-
-    /**
-     * Resets components of the GUI.
-     */
-    void resetGui();
-
-    /**
      * Resets all of the sliders to their default values, useful for 
      * initializing new synth patches.
      */
-    void resetParameters();
-
-    /**
-     * This reference is provided as a quick way for your editor to
-     * access the processor object that created it.
-     */
-    PhantomAudioProcessor &m_processor;
+    void reset();
 
     /**
      * The unique pointer to the analyzer, used by the processor.
@@ -97,34 +64,22 @@ public:
      */
     std::unique_ptr<PhantomOscilloscopeComponent> m_phantomOscilloscope;
 
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
+
+    /** Initializes the editor component. */
+    void init();
+
+    /**
+     * This reference is provided as a quick way for your editor to
+     * access the processor object that created it.
+     */
+    PhantomAudioProcessor &m_processor;
+
     /** The reference to the value tree state useful in retrieving or 
      * storing parameter information.
      */
     AudioProcessorValueTreeState &m_parameters;
-
-    /**
-     * This array holds all of the relative paths to the presets in 
-     * the same order they were added to the preset menu (alphabetically).
-     */
-    Array<String> m_presetFilePaths;
-
-private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessorEditor)
-
-    /**
-     * Initializes the GUI for the preset menu.
-     */
-    void initPresetMenu();
-
-    /** Initializes the editor component. */
-    void initEditor();
-
-    /**
-     * This index keeps track of the currently selected preset's
-     * filepath, using for navigating quickly between them.
-     * WARNING: Do NOT change the initialization value.
-     */
-    int m_presetIdx = -3;
 
     /** The custom look and feel for the plugin. */
     PhantomLookAndFeel m_lookAndFeel;
@@ -137,11 +92,7 @@ private:
     std::unique_ptr<PhantomFilterComponent> m_phantomFilter;
     std::unique_ptr<PhantomLFOComponent> m_phantomLFOs;
     std::unique_ptr<PhantomEnvelopeComponent> m_phantomEnvelopes;
-
-    Label m_presetLabel;
-    TextButton m_presetButton;
-    TextButton m_presetLeftButton;
-    TextButton m_presetRightButton;
+    std::unique_ptr<PhantomPresetComponent> m_phantomPreset;
 };
 
 #endif

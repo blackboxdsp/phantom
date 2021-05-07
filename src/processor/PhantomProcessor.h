@@ -12,6 +12,7 @@
 
 #include "../effects/PhantomAmplifier.h"
 #include "PhantomSynth.h"
+#include "PhantomPresetManager.h"
 #include "../utils/PhantomUtils.h"
 
 /**
@@ -122,102 +123,23 @@ public:
     void setStateInformation(const void *data, int sizeInBytes) override;
 
     /**
-     * Loads plugin state from the XML element.
-     * @param xml The XML object to load state data from.
-     * @returns The same pointer provided to the method.
+     * Corresponds to the current preset manager of the processor.
+     * @returns A reference of the current preset manager object.
      */
-    std::unique_ptr<XmlElement> loadStateFromXml(std::unique_ptr<XmlElement> xml);
-
-    /**
-     * Saves all plugin metadata data to the XML element (i.e. version, preset name).
-     * @param xml The reference to the XML object to save to.
-     * @returns The same pointer provided to the method.
-     */
-    std::unique_ptr<XmlElement> saveMetadataToXml(std::unique_ptr<XmlElement> xml);
-
-    /**
-     * Saves all plugin metadata data to the XML element (i.e. version, preset name).
-     * @param xml The reference to the XML object to save to.
-     * @param presetName The preset name to use.
-     * @returns The same pointer provided to the method.
-     */
-    std::unique_ptr<XmlElement> saveMetadataToXml(std::unique_ptr<XmlElement> xml, String& presetName);
-
-    /**
-     * Saves XML data in string format to memory at specified reference.
-     * @returns Pointer to the `String` object containing all of the state data.
-     */ 
-    std::unique_ptr<String> saveStateToText();
-    
-    /**
-     * Loads XML data in string format from memory at specified reference.
-     * @param stateStr The reference to the memory of the string-formatted XML data.
-     */ 
-    void loadStateFromText(const String& stateStr);
-
-    /**
-     * Creates or overwrites preset file containing the plugin state data in XML format.
-     * @param file The reference to the file to save data to.
-     * @returns `true` if the file was saved successfully.
-     */
-    bool saveStateToFile(File& file);
-
-    /**
-     * Creates or overwrites preset file data from XML.
-     * @param xml The pointer to the XmlElement to write as a file.
-     * @param dir The reference to the directory to save the file.
-     * @returns `true` if the file was saved successfully.
-     */
-    bool saveXmlToFile(std::unique_ptr<XmlElement> xml, File& dir);
-    
-    /**
-     * Loads the plugin state data from a preset file.
-     */
-    void loadStateFromFile(File& file);
-
-    /**
-     * Retrieves the appropriate preset directory for the user, whether it exists or not.
-     * @returns The file object representing the preset folder on the user's machine.
-     */
-    File getPresetDirectory();
-
-    /**
-     * Retrieves all of the preset files (*.xml) within the presets folder.
-     */
-    Array<File> getPresetFiles();
-
-    /**
-     * Writes all of the (XML) binary data resources
-     * to files the app data directory on the user's computer.
-     * CAUTION: Be sure to precompile the binary resources if you've added more stock presets.
-     * @returns `true` if the file was saved successfully.
-     */
-    void writePresetFiles(); 
-
-    /**
-     * Re-initializes variables relevant variables for
-     * plugin state data.
-     */
-    void resetState();
-
-    /**
-     * Calculates the skew factor given a start, end, and desired center point.
-     * @param start The start value to use.
-     * @param end The end value to use.
-     * @param center The value to skew to the middle.
-     */
-    float getSkewFactor(float start, float end, float center);
-
-    /**
-     * The name of the currently selected preset.
-     */
-    String m_presetName = String("Init");
+    PhantomPresetManager& getPresetManager();
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomAudioProcessor)
 
+    /**
+     * The object holding all of the plugin state date (aka parameter values).
+     */
     AudioProcessorValueTreeState m_parameters;
-    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
+    /**
+     * The preset manager responsible for all things preset-related (non-GUI).
+     */
+    std::unique_ptr<PhantomPresetManager> m_presetManager;
 
     /**
      * The synthesizer object pointer that renders blocks from the processor.

@@ -9,6 +9,7 @@
 */
 
 #include "PhantomMixer.h"
+
 #include "../utils/PhantomUtils.h"
 
 PhantomMixerComponent::PhantomMixerComponent(AudioProcessorValueTreeState& vts): IComponent(vts)

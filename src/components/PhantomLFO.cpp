@@ -9,6 +9,7 @@
 */
 
 #include "PhantomLFO.h"
+
 #include "../utils/PhantomUtils.h"
 
 PhantomLFOComponent::PhantomLFOComponent(AudioProcessorValueTreeState& vts) : IComponent(vts)

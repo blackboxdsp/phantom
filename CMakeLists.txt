@@ -39,6 +39,7 @@ target_sources(Phantom PRIVATE
         src/components/PhantomOscillator.cpp
         src/components/PhantomOscilloscope.cpp
         src/components/PhantomPhasor.cpp
+        src/components/PhantomPreset.cpp
         src/editor/PhantomEditor.cpp
         src/effects/PhantomAmplifier.cpp
         src/effects/PhantomFilter.cpp
@@ -48,6 +49,7 @@ target_sources(Phantom PRIVATE
         src/generators/PhantomEnvelope.cpp
         src/generators/PhantomLFO.cpp
         src/generators/PhantomOscillator.cpp
+        src/processor/PhantomPresetManager.cpp
         src/processor/PhantomProcessor.cpp
         src/processor/PhantomSound.cpp
         src/processor/PhantomSynth.cpp
