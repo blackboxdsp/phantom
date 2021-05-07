@@ -13,7 +13,7 @@
 #include "../utils/PhantomData.h"
 #include "../utils/PhantomUtils.h"
 
-PhantomPresetManager::PhantomPresetManager(AudioProcessorValueTreeState& vts) : m_parameters(&vts)
+PhantomPresetManager::PhantomPresetManager(AudioProcessorValueTreeState& vts) : m_parameters(vts)
 {
     init();
 
@@ -23,7 +23,7 @@ PhantomPresetManager::PhantomPresetManager(AudioProcessorValueTreeState& vts) : 
 
 PhantomPresetManager::~PhantomPresetManager()
 {
-    m_parameters = nullptr;
+
 }
 
 void PhantomPresetManager::init()
@@ -104,12 +104,11 @@ std::unique_ptr<XmlElement> PhantomPresetManager::loadStateFromXml(std::unique_p
                  * CAUTION: Preset has already been loaded and plugin is called to load either the same
                  * or another XMl data object.
                  */
-
                 return xml;
         else
             m_presetName = presetName;
 
-        m_parameters->replaceState(ValueTree::fromXml(*xml));
+        m_parameters.replaceState(ValueTree::fromXml(*xml));
     }
 
     return xml;
@@ -130,7 +129,7 @@ std::unique_ptr<XmlElement> PhantomPresetManager::saveMetadataToXml(std::unique_
 
 std::unique_ptr<String> PhantomPresetManager::saveStateToText()
 {
-    std::unique_ptr<XmlElement> xml(m_parameters->state.createXml());
+    std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
     
     return std::make_unique<String>(saveMetadataToXml(std::move(xml))->toString());
 }
@@ -144,7 +143,7 @@ void PhantomPresetManager::loadStateFromText(const String& stateStr)
 
 bool PhantomPresetManager::saveStateToFile(File& file) 
 {
-    std::unique_ptr<XmlElement> xml(m_parameters->state.createXml());
+    std::unique_ptr<XmlElement> xml(m_parameters.state.createXml());
 
     m_presetName = file.getFileNameWithoutExtension();
 
@@ -208,10 +207,9 @@ void PhantomPresetManager::writePresetFiles()
     presetDir.createDirectory();
 
     /**
-     * NOTE: If you wish to add a preset to the stock group, be sure to run precompile.sh first
-     * so that the binary resources shows in PhantomData.
+     * NOTE: If you wish to add a preset to the stock group, be sure to precompile the data 
+     * so that it is available in the PhantomData header file.
      */ 
-    
     saveXmlToFile(parseXML(PhantomData::algo_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::analog_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::buzzboy_xml), presetDir);

@@ -33,7 +33,7 @@ public:
     void addPresetsToMenu(PopupMenu &menu);
 
     /** The reference to the preset manager object. */
-    std::unique_ptr<PhantomPresetManager> m_presetManager;
+    PhantomPresetManager& m_presetManager;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomPresetComponent)

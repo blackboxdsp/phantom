@@ -138,7 +138,7 @@ private:
      * The unique pointer to the `AudioProcessorValueTreeState` object, containing all of the plugin
      * state data.
      */
-    std::unique_ptr<AudioProcessorValueTreeState> m_parameters;
+    AudioProcessorValueTreeState& m_parameters;
 
     /**
      * The name of the currently selected preset.

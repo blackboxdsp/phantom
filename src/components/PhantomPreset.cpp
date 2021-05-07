@@ -13,7 +13,7 @@
 #include "../editor/PhantomEditor.h"
 #include "../utils/PhantomUtils.h"
 
-PhantomPresetComponent::PhantomPresetComponent(PhantomPresetManager& pm) : IComponent(), m_presetManager(&pm)
+PhantomPresetComponent::PhantomPresetComponent(PhantomPresetManager& pm) : IComponent(), m_presetManager(pm)
 {
     init();
 }
@@ -25,8 +25,6 @@ PhantomPresetComponent::~PhantomPresetComponent()
 
     m_presetLeftButton = nullptr;
     m_presetRightButton = nullptr;
-
-    m_presetManager.release();
 }
 
 void PhantomPresetComponent::init()
@@ -37,7 +35,7 @@ void PhantomPresetComponent::init()
     addAndMakeVisible(m_presetLabel.get());
 
     m_presetButton = std::make_unique<TextButton>();
-    m_presetButton->setButtonText(m_presetManager->getCurrentPresetName());
+    m_presetButton->setButtonText(m_presetManager.getCurrentPresetName());
     m_presetButton->setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
     m_presetButton->setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
     addAndMakeVisible(m_presetButton.get());
@@ -46,12 +44,12 @@ void PhantomPresetComponent::init()
 
         menu.addItem(PopupMenu::Item("Copy to clipboard")
             .setAction([this](){
-                SystemClipboard::copyTextToClipboard(*m_presetManager->saveStateToText());
+                SystemClipboard::copyTextToClipboard(*m_presetManager.saveStateToText());
             })
         );
         menu.addItem(PopupMenu::Item("Paste from clipboard")
             .setAction([this](){
-                m_presetManager->loadStateFromText(SystemClipboard::getTextFromClipboard());
+                m_presetManager.loadStateFromText(SystemClipboard::getTextFromClipboard());
             })
         );
 
@@ -59,7 +57,7 @@ void PhantomPresetComponent::init()
 
         menu.addItem(PopupMenu::Item("Initialize")
             .setAction([this](){
-                m_presetManager->init();
+                m_presetManager.init();
 
                 PhantomAudioProcessorEditor* editor = findParentComponentOfClass<PhantomAudioProcessorEditor>();
                 editor->reset();           
@@ -74,10 +72,10 @@ void PhantomPresetComponent::init()
                 if(browser.browseForFileToSave(true))
                 {
                     File res = browser.getResult();
-                    m_presetManager->saveStateToFile(res);
+                    m_presetManager.saveStateToFile(res);
 
-                    m_presetManager->loadPresetFilePaths();
-                    m_presetManager->setPresetIdx();
+                    m_presetManager.loadPresetFilePaths();
+                    m_presetManager.setPresetIdx();
                 }
             })
         );
@@ -98,7 +96,7 @@ void PhantomPresetComponent::init()
     m_presetLeftButton->setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
     addAndMakeVisible(m_presetLeftButton.get());
     m_presetLeftButton->onClick = [this](){
-        m_presetManager->loadPresetFile(false);
+        m_presetManager.loadPresetFile(false);
     };
 
     m_presetRightButton = std::make_unique<TextButton>();
@@ -107,13 +105,13 @@ void PhantomPresetComponent::init()
     m_presetRightButton->setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
     addAndMakeVisible(m_presetRightButton.get());
     m_presetRightButton->onClick = [this](){
-        m_presetManager->loadPresetFile(true);
+        m_presetManager.loadPresetFile(true);
     };
 }
 
 void PhantomPresetComponent::reset()
 {
-    m_presetButton->setButtonText(m_presetManager->getCurrentPresetName());
+    m_presetButton->setButtonText(m_presetManager.getCurrentPresetName());
 }
 
 void PhantomPresetComponent::paint(Graphics& g)
@@ -144,7 +142,7 @@ void PhantomPresetComponent::addPresetsToMenu(PopupMenu& menu)
     String previousTypeDir = String("");
     PopupMenu typeDirSubMenu;
 
-    for(File pf : m_presetManager->getPresetFiles())
+    for(File pf : m_presetManager.getPresetFiles())
     {
         if(previousTypeDir.isEmpty())
             previousTypeDir = pf.getParentDirectory().getFileName();
@@ -161,11 +159,11 @@ void PhantomPresetComponent::addPresetsToMenu(PopupMenu& menu)
         String presetName = String(pf.getFileNameWithoutExtension());
         typeDirSubMenu.addItem(
             PopupMenu::Item(presetName)
-            .setEnabled(!presetName.equalsIgnoreCase(m_presetManager->getCurrentPresetName()))
+            .setEnabled(!presetName.equalsIgnoreCase(m_presetManager.getCurrentPresetName()))
             .setAction([this, pf](){
                 File presetFile = File(pf.getFullPathName());
-                m_presetManager->loadStateFromFile(presetFile);
-                m_presetManager->setPresetIdx();
+                m_presetManager.loadStateFromFile(presetFile);
+                m_presetManager.setPresetIdx();
             })
         );
     }

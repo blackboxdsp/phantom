@@ -31,10 +31,10 @@ PhantomAudioProcessor::PhantomAudioProcessor()
 
 PhantomAudioProcessor::~PhantomAudioProcessor()
 {
+    m_presetManager = nullptr;
+
     m_synth = nullptr;
     m_amp = nullptr;
-
-    m_presetManager.release();
 }
 
 const String PhantomAudioProcessor::getName() const
