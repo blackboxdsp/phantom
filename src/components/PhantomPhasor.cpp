@@ -9,10 +9,9 @@
 */
 
 #include "PhantomPhasor.h"
-
 #include "../utils/PhantomUtils.h"
 
-PhantomPhasorComponent::PhantomPhasorComponent(AudioProcessorValueTreeState& vts) : IComponent(vts)
+PhantomPhasorComponent::PhantomPhasorComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : IComponent(plf, vts)
 {
     init();
 }

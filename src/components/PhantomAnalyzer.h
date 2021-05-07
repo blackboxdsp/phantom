@@ -20,7 +20,7 @@ class PhantomAnalyzerComponent : public IComponent,
                                  private Timer
 {
 public:
-    PhantomAnalyzerComponent();
+    PhantomAnalyzerComponent(PhantomLookAndFeel& plf);
     ~PhantomAnalyzerComponent();
 
     void init() override;

@@ -20,7 +20,7 @@ class PhantomOscilloscopeComponent : public IComponent,
                                      private Timer
 {
 public:
-    PhantomOscilloscopeComponent();
+    PhantomOscilloscopeComponent(PhantomLookAndFeel& plf);
     ~PhantomOscilloscopeComponent();
 
     void init() override;

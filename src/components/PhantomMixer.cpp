@@ -12,7 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomMixerComponent::PhantomMixerComponent(AudioProcessorValueTreeState& vts): IComponent(vts)
+PhantomMixerComponent::PhantomMixerComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts): IComponent(plf, vts)
 {
     init();
 }

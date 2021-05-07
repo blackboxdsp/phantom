@@ -19,7 +19,7 @@
 class PhantomFilterComponent : public IComponent
 {
 public:
-    PhantomFilterComponent(AudioProcessorValueTreeState& vts);
+    PhantomFilterComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts);
     ~PhantomFilterComponent();
 
     void init() override;

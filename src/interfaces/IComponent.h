@@ -13,6 +13,8 @@
 
 #include "JuceHeader.h"
 
+#include "../editor/PhantomLookAndFeel.h"
+
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
 /**
@@ -22,10 +24,10 @@ typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 class IComponent : public Component
 {
 public:
-    IComponent() : m_parameters() { };
-    IComponent(AudioProcessorValueTreeState& vts) : m_parameters(&vts) { };
+    IComponent(PhantomLookAndFeel& plf) : m_parameters() { setLookAndFeel(&plf); };
+    IComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : m_parameters(&vts) { setLookAndFeel(&plf); };
     
-    ~IComponent() { m_parameters.release(); };
+    ~IComponent() { m_parameters.release(); setLookAndFeel(nullptr); };
 
     /**
      * For initializing the component (i.e. configuring sliders, clearing data)

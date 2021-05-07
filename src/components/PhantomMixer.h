@@ -19,7 +19,7 @@
 class PhantomMixerComponent : public IComponent
 {
 public:
-    PhantomMixerComponent(AudioProcessorValueTreeState& vts);
+    PhantomMixerComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts);
     ~PhantomMixerComponent();
 
     void init() override;

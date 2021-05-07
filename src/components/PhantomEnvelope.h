@@ -19,7 +19,7 @@
 class PhantomEnvelopeComponent : public IComponent
 {
 public:
-    PhantomEnvelopeComponent(AudioProcessorValueTreeState& vts);
+    PhantomEnvelopeComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts);
     ~PhantomEnvelopeComponent();
 
     void init() override;

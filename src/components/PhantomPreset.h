@@ -17,7 +17,7 @@
 class PhantomPresetComponent : public IComponent
 {
 public:
-    PhantomPresetComponent(PhantomPresetManager& pm);
+    PhantomPresetComponent(PhantomLookAndFeel& plf, PhantomPresetManager& pm);
     ~PhantomPresetComponent();
 
     void init() override;

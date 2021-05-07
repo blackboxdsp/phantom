@@ -11,34 +11,34 @@
 
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts) : AudioProcessorEditor(&p), m_processor(p), m_parameters(vts)
 {
-    m_phantomAmplifier = std::make_unique<PhantomAmplifierComponent>(vts);
+    m_phantomAmplifier = std::make_unique<PhantomAmplifierComponent>(m_lookAndFeel, vts);
     addAndMakeVisible(m_phantomAmplifier.get());
 
-    m_phantomOscillators = std::make_unique<PhantomOscillatorComponent>(vts);
+    m_phantomOscillators = std::make_unique<PhantomOscillatorComponent>(m_lookAndFeel, vts);
     addAndMakeVisible(m_phantomOscillators.get());
 
-    m_phantomPhasors = std::make_unique<PhantomPhasorComponent>(vts);
+    m_phantomPhasors = std::make_unique<PhantomPhasorComponent>(m_lookAndFeel, vts);
     addAndMakeVisible(m_phantomPhasors.get());
 
-    m_phantomMixer = std::make_unique<PhantomMixerComponent>(vts);
+    m_phantomMixer = std::make_unique<PhantomMixerComponent>(m_lookAndFeel, vts);
     addAndMakeVisible(m_phantomMixer.get());
 
-    m_phantomFilter = std::make_unique<PhantomFilterComponent>(vts);
+    m_phantomFilter = std::make_unique<PhantomFilterComponent>(m_lookAndFeel, vts);
     addAndMakeVisible(m_phantomFilter.get());
 
-    m_phantomLFOs = std::make_unique<PhantomLFOComponent>(vts);
+    m_phantomLFOs = std::make_unique<PhantomLFOComponent>(m_lookAndFeel, vts);
     addAndMakeVisible(m_phantomLFOs.get());
 
-    m_phantomEnvelopes = std::make_unique<PhantomEnvelopeComponent>(vts);
+    m_phantomEnvelopes = std::make_unique<PhantomEnvelopeComponent>(m_lookAndFeel, vts);
     addAndMakeVisible(m_phantomEnvelopes.get());
 
-    m_phantomAnalyzer = std::make_unique<PhantomAnalyzerComponent>();
+    m_phantomAnalyzer = std::make_unique<PhantomAnalyzerComponent>(m_lookAndFeel);
     addAndMakeVisible(m_phantomAnalyzer.get());
 
-    m_phantomOscilloscope = std::make_unique<PhantomOscilloscopeComponent>();
+    m_phantomOscilloscope = std::make_unique<PhantomOscilloscopeComponent>(m_lookAndFeel);
     addAndMakeVisible(m_phantomOscilloscope.get());
 
-    m_phantomPreset = std::make_unique<PhantomPresetComponent>(m_processor.getPresetManager());
+    m_phantomPreset = std::make_unique<PhantomPresetComponent>(m_lookAndFeel, m_processor.getPresetManager());
     addAndMakeVisible(m_phantomPreset.get());
 
     init();

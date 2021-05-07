@@ -13,7 +13,7 @@
 #include "../editor/PhantomEditor.h"
 #include "../utils/PhantomUtils.h"
 
-PhantomPresetComponent::PhantomPresetComponent(PhantomPresetManager& pm) : IComponent(), m_presetManager(pm)
+PhantomPresetComponent::PhantomPresetComponent(PhantomLookAndFeel& plf, PhantomPresetManager& pm) : IComponent(plf), m_presetManager(pm)
 {
     init();
 }

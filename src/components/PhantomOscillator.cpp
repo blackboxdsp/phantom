@@ -12,7 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomOscillatorComponent::PhantomOscillatorComponent(AudioProcessorValueTreeState& vts) : IComponent(vts)
+PhantomOscillatorComponent::PhantomOscillatorComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : IComponent(plf, vts)
 {
     init();
 }
