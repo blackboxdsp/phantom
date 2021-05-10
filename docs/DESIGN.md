@@ -14,11 +14,11 @@ The layout of the GUI can be defined in a hierarchical, tree-like structure so t
     - has 4 sections with section spaces between
 - __Section__:
     - pertains to horizontal pieces of the plugin
+    - has 1 title space (for component titles)
     - has 2+ components
 - __Component__:
     - pertains to modular units containing parts of the synthesizer (e.g. oscillator, filter, EG)
     - has padding
-    - has 1 component title space
     - has 1+ param row(s) with param row spaces between (equal to the padding)
 - __Param row__:
     - pertains to horizontal groups of parameters 
@@ -33,7 +33,8 @@ The layout of the GUI can be defined in a hierarchical, tree-like structure so t
 - `sectionGap`:
     - pertains to the amount of space (px) between sections
     - is not needed by components*
-    - is equal to the component gap (see below)
+    - is equal to (1/48) * window height
+    - is equal to (3/256) * window width
 - `knobWidth`:
     - pertains to the width (px) of a param
     - depends on the number of total params in the same param row across all components of the same section
@@ -43,19 +44,16 @@ The layout of the GUI can be defined in a hierarchical, tree-like structure so t
 - `componentGap`:
     - pertains to the amount of space (px) between components (within a section)
     - is not needed by components* (except the EGs)
-    - is equal to (1/48) * window width
+    - is equal to the section gap
 - `componentPadding`:
     - pertains to the side-padding of components
     - should be in the base component class
-    - is equal to 
 - `componentTitleSpaceHeight`:
     - pertains to the height (px) of a component's title (plus more for padding)
     - should be in the base component class
-    - is equal to 
 - `paramTitleSpaceHeight`:
     - pertains to the height (px) of a param's title (plus more for padding)
     - should be in the base component class
-    - is equal to 
 
 \* These variables will have no need in the components therefore they can be removed from any class definitions. 
 
