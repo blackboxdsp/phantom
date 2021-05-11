@@ -118,7 +118,6 @@ void PhantomPresetComponent::paint(Graphics& g)
 {
     reset();
 
-    g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
     g.setColour(Colours::white);
     g.setFont(12.0f);
 }

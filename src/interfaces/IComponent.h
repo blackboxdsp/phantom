@@ -24,10 +24,22 @@ typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 class IComponent : public Component
 {
 public:
-    IComponent(PhantomLookAndFeel& plf) : m_parameters() { setLookAndFeel(&plf); };
-    IComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : m_parameters(&vts) { setLookAndFeel(&plf); };
+    IComponent(PhantomLookAndFeel& plf) : m_parameters()
+    {
+        setLookAndFeel(&plf);
+    };
+
+    IComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : m_parameters(&vts)
+    {
+        setLookAndFeel(&plf);
+    };
     
-    ~IComponent() { m_parameters.release(); setLookAndFeel(nullptr); };
+    ~IComponent()
+    {
+        m_parameters.release();
+        
+        setLookAndFeel(nullptr);
+    };
 
     /**
      * For initializing the component (i.e. configuring sliders, clearing data)
@@ -43,15 +55,44 @@ public:
      * For updating the component's visual layout, usually called by its parent.
      * @param bounds The `Rectangle` object to use in sectioning this component.
      */
-    void update(Rectangle<int> bounds) { setBounds(bounds); };
+    void update(Rectangle<int> bounds)
+    {
+        setBounds(bounds);
+    };
     
     /**
      * For updating the component's visual layout, usually called by its parent.
      * @param margin The margin to use in spacing the inner components of this component.
-     * @param knobWidth The width to use for an individual slider.
+     * @param sliderDiameter The diameter (px) to use for an individual slider.
      * @param bounds The `Rectangle` object to use in sectioning this component.
      */
-    void update(const int margin, const int knobWidth, Rectangle<int> bounds) { m_margin = margin; m_knobWidth = knobWidth; setBounds(bounds); };
+    void update(const int margin, const int sliderDiameter, Rectangle<int> bounds)
+    {
+        m_margin = margin;
+        m_knobWidth = sliderDiameter;
+
+        setBounds(bounds);
+    };
+
+    int getLargeSliderDiameter()
+    {
+        return m_knobWidth * (1.0f + (5.0f / 16.0f));
+    };
+
+    Rectangle<int> removeMarginFrom(Rectangle<int> rectangle)
+    {
+        return removeMarginFrom(m_margin, rectangle);
+    }
+
+    Rectangle<int> removeMarginFrom(const int margin, Rectangle<int> rectangle)
+    {
+        rectangle.removeFromTop(margin);
+        rectangle.removeFromRight(margin);
+        rectangle.removeFromBottom(margin);
+        rectangle.removeFromLeft(margin);
+
+        return rectangle;
+    }
 
     /**
      * NOTE: Each individual component must override and define its own `paint(Graphics& g)` and `resized()`

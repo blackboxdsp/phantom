@@ -41,7 +41,6 @@ void PhantomAmplifierComponent::reset()
 
 void PhantomAmplifierComponent::paint(Graphics& g)
 {
-    g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
     g.setColour(Colours::white);
     g.setFont(12.0f);
 }
@@ -49,10 +48,8 @@ void PhantomAmplifierComponent::paint(Graphics& g)
 void PhantomAmplifierComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
+    canvas.removeFromLeft(canvas.getWidth() / 2.0f);
 
-    canvas.removeFromTop(m_margin);
-    canvas.removeFromLeft(m_margin * 2);
-    canvas.removeFromRight(m_margin * 2);
-
-    m_levelSlider->setBounds(canvas);
+    const int sliderMargin = (canvas.getHeight() - getLargeSliderDiameter()) / 2.0f;
+    m_levelSlider->setBounds(removeMarginFrom(sliderMargin, canvas));
 }

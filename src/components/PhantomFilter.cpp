@@ -97,7 +97,6 @@ void PhantomFilterComponent::reset()
 
 void PhantomFilterComponent::paint(Graphics& g)
 {
-    g.fillAll(Colour::fromRGBA(2, 8, 8, 255));
     g.setColour(Colours::white);
     g.setFont(12.0f);
 }
