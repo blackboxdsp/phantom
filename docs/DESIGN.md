@@ -59,6 +59,9 @@ The layout of the GUI can be defined in a hierarchical, tree-like structure so t
 - `largeSliderDiameter`:
     - pertains to the diameter (px) of the few larger sliders
     - is equal to (7/128) * window width
+- `buttonHeight`:
+    - pertains to the height (px) of a button component
+    - is equal to (1/36) * window height
 
 \* These variables will have no need in the components therefore they can be removed from any class definitions. 
 
