@@ -35,12 +35,7 @@ The layout of the GUI can be defined in a hierarchical, tree-like structure so t
     - is not needed by components*
     - is equal to (1/48) * window height
     - is equal to (3/256) * window width
-- `knobWidth`:
-    - pertains to the width (px) of a param
-    - depends on the number of total params in the same param row across all components of the same section
-    - is not needed by components*
-    - is used to allocate areas for components (e.g. the filter is allocated an area the width of three knob widths)
-    - is calculated in the editor (not passed to components though)
+        - 45px at 4k (3840 x 2160)
 - `componentGap`:
     - pertains to the amount of space (px) between components (within a section)
     - is not needed by components* (except the EGs)
@@ -54,6 +49,16 @@ The layout of the GUI can be defined in a hierarchical, tree-like structure so t
 - `paramTitleSpaceHeight`:
     - pertains to the height (px) of a param's title (plus more for padding)
     - should be in the base component class
+- `sliderDiameter`:
+    - pertains to the diameter (px) of a slider
+    - depends on the number of total params in the same param row across all components of the same section
+    - is used to allocate areas for components (e.g. the filter is allocated an area the width of three knob widths)
+    - is calculated in the editor (not passed to components though)
+    - is equal to (1/24) * window width
+        - 160px at 4k (3840 x 2160)
+- `largeSliderDiameter`:
+    - pertains to the diameter (px) of the few larger sliders
+    - is equal to (7/128) * window width
 
 \* These variables will have no need in the components therefore they can be removed from any class definitions. 
 
