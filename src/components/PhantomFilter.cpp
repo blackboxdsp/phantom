@@ -105,8 +105,8 @@ void PhantomFilterComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    removeTitleSpaceFrom(m_margin * 0.5f, canvas);
-
+    canvas.removeFromBottom(m_margin * 0.5f);
+    
     const int height = canvas.getHeight();
     const int width = canvas.getWidth();
 
@@ -114,29 +114,29 @@ void PhantomFilterComponent::resized()
     Rectangle<int> topArea = canvas.removeFromTop(height / 2);
 
     Rectangle<int> modeArea = topArea.removeFromLeft(width / 3);
-    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, modeArea);
+    prepareForSlider(true, m_margin, modeArea);
     m_filterModeSlider->setBounds(modeArea);
 
     Rectangle<int> cutoffArea = topArea.removeFromLeft(width / 3);
-    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, cutoffArea);
+    prepareForSlider(true, m_margin, cutoffArea);
     m_filterCutoffSlider->setBounds(cutoffArea);
 
     Rectangle<int> resoArea = topArea.removeFromLeft(width / 3);
-    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, resoArea);
+    prepareForSlider(true, m_margin, resoArea);
     m_filterResoSlider->setBounds(resoArea);
 
     // BOTTOM
     Rectangle<int> bottomArea = canvas.removeFromBottom(height / 2);
 
     Rectangle<int> driveArea = bottomArea.removeFromLeft(width / 3);
-    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, driveArea);
+    prepareForSlider(true, m_margin, driveArea);
     m_filterDriveSlider->setBounds(driveArea);
 
     Rectangle<int> egModDepthArea = bottomArea.removeFromLeft(width / 3);
-    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, egModDepthArea);
+    prepareForSlider(true, m_margin, egModDepthArea);
     m_filterEgModDepthSlider->setBounds(egModDepthArea);
 
     Rectangle<int> lfoModDepthArea = bottomArea.removeFromLeft(width / 3);
-    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, lfoModDepthArea);
+    prepareForSlider(true, m_margin, lfoModDepthArea);
     m_filterLfoModDepthSlider->setBounds(lfoModDepthArea);
 }

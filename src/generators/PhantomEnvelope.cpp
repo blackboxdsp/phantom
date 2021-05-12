@@ -10,8 +10,6 @@
 
 #include "PhantomEnvelope.h"
 
-#include "../utils/PhantomUtils.h"
-
 PhantomEnvelope::PhantomEnvelope(AudioProcessorValueTreeState& vts, EnvelopeType type) : m_parameters(vts), m_type(type)
 {
     setEnvelopeType();
@@ -52,28 +50,28 @@ void PhantomEnvelope::setEnvelopeType()
     switch(m_type)
     {
         default:
-        case AMP:
+        case EnvelopeType::AMP:
             atkParamId = Consts::_AMP_EG_ATK_PARAM_ID;
             decParamId = Consts::_AMP_EG_DEC_PARAM_ID;
             susParamId = Consts::_AMP_EG_SUS_PARAM_ID;
             relParamId = Consts::_AMP_EG_REL_PARAM_ID;
             break;
 
-        case FLTR:
-            atkParamId = Consts::_FLTR_EG_ATK_PARAM_ID;
-            decParamId = Consts::_FLTR_EG_DEC_PARAM_ID;
-            susParamId = Consts::_FLTR_EG_SUS_PARAM_ID;
-            relParamId = Consts::_FLTR_EG_REL_PARAM_ID;
-            break;
-
-        case PHASE:
+        case EnvelopeType::PHASOR:
             atkParamId = Consts::_PHASOR_EG_ATK_PARAM_ID;
             decParamId = Consts::_PHASOR_EG_DEC_PARAM_ID;
             susParamId = Consts::_PHASOR_EG_SUS_PARAM_ID;
             relParamId = Consts::_PHASOR_EG_REL_PARAM_ID;
             break;
 
-        case MOD:
+        case EnvelopeType::FILTER:
+            atkParamId = Consts::_FLTR_EG_ATK_PARAM_ID;
+            decParamId = Consts::_FLTR_EG_DEC_PARAM_ID;
+            susParamId = Consts::_FLTR_EG_SUS_PARAM_ID;
+            relParamId = Consts::_FLTR_EG_REL_PARAM_ID;
+            break;
+
+        case EnvelopeType::MOD:
             atkParamId = Consts::_MOD_EG_ATK_PARAM_ID;
             decParamId = Consts::_MOD_EG_DEC_PARAM_ID;
             susParamId = Consts::_MOD_EG_SUS_PARAM_ID;

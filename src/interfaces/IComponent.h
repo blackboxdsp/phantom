@@ -52,6 +52,19 @@ public:
     {
         setBounds(bounds);
     };
+
+    /**
+     * For updating the component's visual layout, usually called by its parent.
+     * @param margin The margin to use in spacing the inner components of this component.
+     * @param sliderDiameter The diameter (px) to use for an individual slider.
+     * @param bounds The `Rectangle` object to use in sectioning this component.
+     */
+    void update(const int margin, Rectangle<int>& bounds)
+    {
+        m_margin = margin;
+
+        update(bounds);
+    };
     
     /**
      * For updating the component's visual layout, usually called by its parent.
@@ -61,10 +74,9 @@ public:
      */
     void update(const int margin, const int sliderDiameter, Rectangle<int>& bounds)
     {
-        m_margin = margin;
         m_sliderDiameter = sliderDiameter;
 
-        update(bounds);
+        update(margin, bounds);
     };
 
     /**

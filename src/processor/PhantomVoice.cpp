@@ -18,8 +18,8 @@ PhantomVoice::PhantomVoice(AudioProcessorValueTreeState& vts, dsp::ProcessSpec& 
     p_oscSync = m_parameters.getRawParameterValue(Consts::_OSC_SYNC_PARAM_ID);
     
     m_ampEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::AMP));
-    m_phaseEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::PHASE));
-    m_filterEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::FLTR));
+    m_phaseEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::PHASOR));
+    m_filterEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::FILTER));
     m_modEnv.reset(new PhantomEnvelope(m_parameters, EnvelopeType::MOD));
 
     m_lfo01.reset(new PhantomLFO(m_parameters, 1));

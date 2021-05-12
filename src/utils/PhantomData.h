@@ -12,7 +12,7 @@ namespace PhantomData
     const int            montserrat_ttfSize = 245708;
 
     extern const char*   background_png;
-    const int            background_pngSize = 609612;
+    const int            background_pngSize = 204825;
 
     extern const char*   algo_xml;
     const int            algo_xmlSize = 1979;

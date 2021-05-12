@@ -12,219 +12,165 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomEnvelopeComponent::PhantomEnvelopeComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : IComponent(plf, vts)
+PhantomEnvelopeComponent::PhantomEnvelopeComponent(EnvelopeType et, PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : m_type(et), IComponent(plf, vts)
 {
     init();
 }
 
 PhantomEnvelopeComponent::~PhantomEnvelopeComponent()
 {
-    m_ampEgAtkSliderAttachment = nullptr;
-    m_ampEgAtkSlider = nullptr;
-    m_ampEgDecSliderAttachment = nullptr;
-    m_ampEgDecSlider = nullptr;
-    m_ampEgSusSliderAttachment = nullptr;
-    m_ampEgSusSlider = nullptr;
-    m_ampEgRelSliderAttachment = nullptr;
-    m_ampEgRelSlider = nullptr;
-
-    m_phasorEgAtkSliderAttachment = nullptr;
-    m_phasorEgAtkSlider = nullptr;
-    m_phasorEgDecSliderAttachment = nullptr;
-    m_phasorEgDecSlider = nullptr;
-    m_phasorEgSusSliderAttachment = nullptr;
-    m_phasorEgSusSlider = nullptr;
-    m_phasorEgRelSliderAttachment = nullptr;
-    m_phasorEgRelSlider = nullptr;
-
-    m_filterEgAtkSliderAttachment = nullptr;
-    m_filterEgAtkSlider = nullptr;
-    m_filterEgDecSliderAttachment = nullptr;
-    m_filterEgDecSlider = nullptr;
-    m_filterEgSusSliderAttachment = nullptr;
-    m_filterEgSusSlider = nullptr;
-    m_filterEgRelSliderAttachment = nullptr;
-    m_filterEgRelSlider = nullptr;
-
-    m_modEgAtkSliderAttachment = nullptr;
-    m_modEgAtkSlider = nullptr;
-    m_modEgDecSliderAttachment = nullptr;
-    m_modEgDecSlider = nullptr;
-    m_modEgSusSliderAttachment = nullptr;
-    m_modEgSusSlider = nullptr;
-    m_modEgRelSliderAttachment = nullptr;
-    m_modEgRelSlider = nullptr;
+    m_egAtkSliderAttachment = nullptr;
+    m_egAtkSlider = nullptr;
+    m_egDecSliderAttachment = nullptr;
+    m_egDecSlider = nullptr;
+    m_egSusSliderAttachment = nullptr;
+    m_egSusSlider = nullptr;
+    m_egRelSliderAttachment = nullptr;
+    m_egRelSlider = nullptr;
 }
 
 void PhantomEnvelopeComponent::init()
 {
-    initAmpEnvelope();
-    initPhasorEnvelope();
-    initFilterEnvelope();
-    initModEnvelope();
-}
+    char* atkParamId;
+    char* decParamId;
+    char* susParamId;
+    char* relParamId;
 
-void PhantomEnvelopeComponent::initAmpEnvelope()
-{
-    m_ampEgAtkSlider = std::make_unique<Slider>();
-    m_ampEgAtkSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_ampEgAtkSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_ampEgAtkSlider->setTextValueSuffix(" s");
-    m_ampEgAtkSlider->setDoubleClickReturnValue(true, Consts::_AMP_EG_ATK_DEFAULT_VAL);
-    m_ampEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_AMP_EG_ATK_PARAM_ID, *m_ampEgAtkSlider));
-    addAndMakeVisible(m_ampEgAtkSlider.get());
+    float atkDefaultVal, decDefaultVal, susDefaultVal, relDefaultVal;
 
-    m_ampEgDecSlider = std::make_unique<Slider>();
-    m_ampEgDecSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_ampEgDecSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_ampEgDecSlider->setTextValueSuffix(" s");
-    m_ampEgDecSlider->setDoubleClickReturnValue(true, Consts::_AMP_EG_DEC_DEFAULT_VAL);
-    m_ampEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_AMP_EG_DEC_PARAM_ID, *m_ampEgDecSlider));
-    addAndMakeVisible(m_ampEgDecSlider.get());
+    switch(m_type)
+    {
+        default:
+        case EnvelopeType::AMP:
+            atkParamId = Consts::_AMP_EG_ATK_PARAM_ID;
+            atkDefaultVal = Consts::_AMP_EG_ATK_DEFAULT_VAL;
 
-    m_ampEgSusSlider = std::make_unique<Slider>();
-    m_ampEgSusSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_ampEgSusSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_ampEgSusSlider->setTextValueSuffix(" dB");
-    m_ampEgSusSlider->setDoubleClickReturnValue(true, Consts::_AMP_EG_SUS_DEFAULT_VAL);
-    m_ampEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_AMP_EG_SUS_PARAM_ID, *m_ampEgSusSlider));
-    addAndMakeVisible(m_ampEgSusSlider.get());
+            decParamId = Consts::_AMP_EG_DEC_PARAM_ID;
+            decDefaultVal = Consts::_AMP_EG_DEC_DEFAULT_VAL;
 
-    m_ampEgRelSlider = std::make_unique<Slider>();
-    m_ampEgRelSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_ampEgRelSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_ampEgRelSlider->setTextValueSuffix(" s");
-    m_ampEgRelSlider->setDoubleClickReturnValue(true, Consts::_AMP_EG_REL_DEFAULT_VAL);
-    m_ampEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_AMP_EG_REL_PARAM_ID, *m_ampEgRelSlider));
-    addAndMakeVisible(m_ampEgRelSlider.get());
-}
+            susParamId = Consts::_AMP_EG_SUS_PARAM_ID;
+            susDefaultVal = Consts::_AMP_EG_SUS_DEFAULT_VAL;
 
-void PhantomEnvelopeComponent::initPhasorEnvelope()
-{
-    m_phasorEgAtkSlider = std::make_unique<Slider>();
-    m_phasorEgAtkSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_phasorEgAtkSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_phasorEgAtkSlider->setTextValueSuffix(" s");
-    m_phasorEgAtkSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_EG_ATK_DEFAULT_VAL);
-    m_phasorEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_ATK_PARAM_ID, *m_phasorEgAtkSlider));
-    addAndMakeVisible(m_phasorEgAtkSlider.get());
+            relParamId = Consts::_AMP_EG_REL_PARAM_ID;
+            relDefaultVal = Consts::_AMP_EG_REL_DEFAULT_VAL;
+            break;
 
-    m_phasorEgDecSlider = std::make_unique<Slider>();
-    m_phasorEgDecSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_phasorEgDecSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_phasorEgDecSlider->setTextValueSuffix(" s");
-    m_phasorEgDecSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_EG_DEC_DEFAULT_VAL);
-    m_phasorEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_DEC_PARAM_ID, *m_phasorEgDecSlider));
-    addAndMakeVisible(m_phasorEgDecSlider.get());
+        case EnvelopeType::PHASOR:
+            atkParamId = Consts::_PHASOR_EG_ATK_PARAM_ID;
+            atkDefaultVal = Consts::_PHASOR_EG_ATK_DEFAULT_VAL;
 
-    m_phasorEgSusSlider = std::make_unique<Slider>();
-    m_phasorEgSusSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_phasorEgSusSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_phasorEgSusSlider->setTextValueSuffix(" dB");
-    m_phasorEgSusSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_EG_SUS_DEFAULT_VAL);
-    m_phasorEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_SUS_PARAM_ID, *m_phasorEgSusSlider));
-    addAndMakeVisible(m_phasorEgSusSlider.get());
+            decParamId = Consts::_PHASOR_EG_DEC_PARAM_ID;
+            decDefaultVal = Consts::_PHASOR_EG_DEC_DEFAULT_VAL;
 
-    m_phasorEgRelSlider = std::make_unique<Slider>();
-    m_phasorEgRelSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_phasorEgRelSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_phasorEgRelSlider->setTextValueSuffix(" s");
-    m_phasorEgRelSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_EG_REL_DEFAULT_VAL);
-    m_phasorEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_EG_REL_PARAM_ID, *m_phasorEgRelSlider));
-    addAndMakeVisible(m_phasorEgRelSlider.get());
-}
+            susParamId = Consts::_PHASOR_EG_SUS_PARAM_ID;
+            susDefaultVal = Consts::_PHASOR_EG_SUS_DEFAULT_VAL;
 
-void PhantomEnvelopeComponent::initFilterEnvelope()
-{
-    m_filterEgAtkSlider = std::make_unique<Slider>();
-    m_filterEgAtkSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterEgAtkSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterEgAtkSlider->setTextValueSuffix(" s");
-    m_filterEgAtkSlider->setDoubleClickReturnValue(true, Consts::_FLTR_EG_ATK_DEFAULT_VAL);
-    m_filterEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_ATK_PARAM_ID, *m_filterEgAtkSlider));
-    addAndMakeVisible(m_filterEgAtkSlider.get());
+            relParamId = Consts::_PHASOR_EG_REL_PARAM_ID;
+            relDefaultVal = Consts::_PHASOR_EG_REL_DEFAULT_VAL;
+            break;
 
-    m_filterEgDecSlider = std::make_unique<Slider>();
-    m_filterEgDecSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterEgDecSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterEgDecSlider->setTextValueSuffix(" s");
-    m_filterEgDecSlider->setDoubleClickReturnValue(true, Consts::_FLTR_EG_DEC_DEFAULT_VAL);
-    m_filterEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_DEC_PARAM_ID, *m_filterEgDecSlider));
-    addAndMakeVisible(m_filterEgDecSlider.get());
+        case EnvelopeType::FILTER:
+            atkParamId = Consts::_FLTR_EG_ATK_PARAM_ID;
+            atkDefaultVal = Consts::_FLTR_EG_ATK_DEFAULT_VAL;
 
-    m_filterEgSusSlider = std::make_unique<Slider>();
-    m_filterEgSusSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterEgSusSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterEgSusSlider->setTextValueSuffix(" dB");
-    m_filterEgSusSlider->setDoubleClickReturnValue(true, Consts::_FLTR_EG_SUS_DEFAULT_VAL);
-    m_filterEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_SUS_PARAM_ID, *m_filterEgSusSlider));
-    addAndMakeVisible(m_filterEgSusSlider.get());
+            decParamId = Consts::_FLTR_EG_DEC_PARAM_ID;
+            decDefaultVal = Consts::_FLTR_EG_DEC_DEFAULT_VAL;
 
-    m_filterEgRelSlider = std::make_unique<Slider>();
-    m_filterEgRelSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_filterEgRelSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_filterEgRelSlider->setTextValueSuffix(" s");
-    m_filterEgRelSlider->setDoubleClickReturnValue(true, Consts::_FLTR_EG_REL_DEFAULT_VAL);
-    m_filterEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_REL_PARAM_ID, *m_filterEgRelSlider));
-    addAndMakeVisible(m_filterEgRelSlider.get());
-}
+            susParamId = Consts::_FLTR_EG_SUS_PARAM_ID;
+            susDefaultVal = Consts::_FLTR_EG_SUS_DEFAULT_VAL;
 
-void PhantomEnvelopeComponent::initModEnvelope()
-{
-    m_modEgAtkSlider = std::make_unique<Slider>();
-    m_modEgAtkSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_modEgAtkSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_modEgAtkSlider->setTextValueSuffix(" s");
-    m_modEgAtkSlider->setDoubleClickReturnValue(true, Consts::_MOD_EG_ATK_DEFAULT_VAL);
-    m_modEgAtkSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_ATK_PARAM_ID, *m_modEgAtkSlider));
-    addAndMakeVisible(m_modEgAtkSlider.get());
+            relParamId = Consts::_FLTR_EG_REL_PARAM_ID;
+            relDefaultVal = Consts::_FLTR_EG_REL_DEFAULT_VAL;
+            break;
 
-    m_modEgDecSlider = std::make_unique<Slider>();
-    m_modEgDecSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_modEgDecSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_modEgDecSlider->setTextValueSuffix(" s");
-    m_modEgDecSlider->setDoubleClickReturnValue(true, Consts::_MOD_EG_DEC_DEFAULT_VAL);
-    m_modEgDecSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_DEC_PARAM_ID, *m_modEgDecSlider));
-    addAndMakeVisible(m_modEgDecSlider.get());
+        case EnvelopeType:: MOD:
+            atkParamId = Consts::_MOD_EG_ATK_PARAM_ID;
+            atkDefaultVal = Consts::_MOD_EG_ATK_DEFAULT_VAL;
 
-    m_modEgSusSlider = std::make_unique<Slider>();
-    m_modEgSusSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_modEgSusSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_modEgSusSlider->setTextValueSuffix(" dB");
-    m_modEgSusSlider->setDoubleClickReturnValue(true, Consts::_MOD_EG_SUS_DEFAULT_VAL);
-    m_modEgSusSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_SUS_PARAM_ID, *m_modEgSusSlider));
-    addAndMakeVisible(m_modEgSusSlider.get());
+            decParamId = Consts::_MOD_EG_DEC_PARAM_ID;
+            decDefaultVal = Consts::_MOD_EG_DEC_DEFAULT_VAL;
 
-    m_modEgRelSlider = std::make_unique<Slider>();
-    m_modEgRelSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_modEgRelSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
-    m_modEgRelSlider->setTextValueSuffix(" s");
-    m_modEgRelSlider->setDoubleClickReturnValue(true, Consts::_MOD_EG_REL_DEFAULT_VAL);
-    m_modEgRelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MOD_EG_REL_PARAM_ID, *m_modEgRelSlider));
-    addAndMakeVisible(m_modEgRelSlider.get());
+            susParamId = Consts::_MOD_EG_SUS_PARAM_ID;
+            susDefaultVal = Consts::_MOD_EG_SUS_DEFAULT_VAL;
+
+            relParamId = Consts::_MOD_EG_REL_PARAM_ID;
+            relDefaultVal = Consts::_MOD_EG_REL_DEFAULT_VAL;
+            break;
+    }
+
+    m_egAtkSlider = std::make_unique<Slider>();
+    m_egAtkSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_egAtkSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_egAtkSlider->setTextValueSuffix(" s");
+    m_egAtkSlider->setDoubleClickReturnValue(true, atkDefaultVal);
+    m_egAtkSliderAttachment.reset(new SliderAttachment(m_parameters, atkParamId, *m_egAtkSlider));
+    addAndMakeVisible(m_egAtkSlider.get());
+
+    m_egDecSlider = std::make_unique<Slider>();
+    m_egDecSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_egDecSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_egDecSlider->setTextValueSuffix(" s");
+    m_egDecSlider->setDoubleClickReturnValue(true, decDefaultVal);
+    m_egDecSliderAttachment.reset(new SliderAttachment(m_parameters, decParamId, *m_egDecSlider));
+    addAndMakeVisible(m_egDecSlider.get());
+
+    m_egSusSlider = std::make_unique<Slider>();
+    m_egSusSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_egSusSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_egSusSlider->setTextValueSuffix(" dB");
+    m_egSusSlider->setDoubleClickReturnValue(true, susDefaultVal);
+    m_egSusSliderAttachment.reset(new SliderAttachment(m_parameters, susParamId, *m_egSusSlider));
+    addAndMakeVisible(m_egSusSlider.get());
+
+    m_egRelSlider = std::make_unique<Slider>();
+    m_egRelSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_egRelSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_egRelSlider->setTextValueSuffix(" s");
+    m_egRelSlider->setDoubleClickReturnValue(true, relDefaultVal);
+    m_egRelSliderAttachment.reset(new SliderAttachment(m_parameters, relParamId, *m_egRelSlider));
+    addAndMakeVisible(m_egRelSlider.get());
 }
 
 void PhantomEnvelopeComponent::reset()
 {
-    m_ampEgAtkSlider->setValue(Consts::_AMP_EG_ATK_DEFAULT_VAL);
-    m_ampEgDecSlider->setValue(Consts::_AMP_EG_DEC_DEFAULT_VAL);
-    m_ampEgSusSlider->setValue(Consts::_AMP_EG_SUS_DEFAULT_VAL);
-    m_ampEgRelSlider->setValue(Consts::_AMP_EG_REL_DEFAULT_VAL);
+    float atkParamVal, decParamVal, susParamVal, relParamVal;
 
-    m_filterEgAtkSlider->setValue(Consts::_FLTR_EG_ATK_DEFAULT_VAL);
-    m_filterEgDecSlider->setValue(Consts::_FLTR_EG_DEC_DEFAULT_VAL);
-    m_filterEgSusSlider->setValue(Consts::_FLTR_EG_SUS_DEFAULT_VAL);
-    m_filterEgRelSlider->setValue(Consts::_FLTR_EG_REL_DEFAULT_VAL);
+    switch(m_type)
+    {
+        default:
+        case EnvelopeType::AMP:
+            atkParamVal = Consts::_AMP_EG_ATK_DEFAULT_VAL;
+            decParamVal = Consts::_AMP_EG_DEC_DEFAULT_VAL;
+            susParamVal = Consts::_AMP_EG_SUS_DEFAULT_VAL;
+            relParamVal = Consts::_AMP_EG_REL_DEFAULT_VAL;
+            break;
 
-    m_phasorEgAtkSlider->setValue(Consts::_PHASOR_EG_ATK_DEFAULT_VAL);
-    m_phasorEgDecSlider->setValue(Consts::_PHASOR_EG_DEC_DEFAULT_VAL);
-    m_phasorEgSusSlider->setValue(Consts::_PHASOR_EG_SUS_DEFAULT_VAL);
-    m_phasorEgRelSlider->setValue(Consts::_PHASOR_EG_REL_DEFAULT_VAL);
+        case EnvelopeType::PHASOR:
+            atkParamVal = Consts::_PHASOR_EG_ATK_DEFAULT_VAL;
+            decParamVal = Consts::_PHASOR_EG_DEC_DEFAULT_VAL;
+            susParamVal = Consts::_PHASOR_EG_SUS_DEFAULT_VAL;
+            relParamVal = Consts::_PHASOR_EG_REL_DEFAULT_VAL;
+            break;
 
-    m_modEgAtkSlider->setValue(Consts::_MOD_EG_ATK_DEFAULT_VAL);
-    m_modEgDecSlider->setValue(Consts::_MOD_EG_DEC_DEFAULT_VAL);
-    m_modEgSusSlider->setValue(Consts::_MOD_EG_SUS_DEFAULT_VAL);
-    m_modEgRelSlider->setValue(Consts::_MOD_EG_REL_DEFAULT_VAL);
+        case EnvelopeType::FILTER:
+            atkParamVal = Consts::_FLTR_EG_ATK_DEFAULT_VAL;
+            decParamVal = Consts::_FLTR_EG_DEC_DEFAULT_VAL;
+            susParamVal = Consts::_FLTR_EG_SUS_DEFAULT_VAL;
+            relParamVal = Consts::_FLTR_EG_REL_DEFAULT_VAL;
+            break;
+
+        case EnvelopeType::MOD:
+            atkParamVal = Consts::_MOD_EG_ATK_DEFAULT_VAL;
+            decParamVal = Consts::_MOD_EG_DEC_DEFAULT_VAL;
+            susParamVal = Consts::_MOD_EG_SUS_DEFAULT_VAL;
+            relParamVal = Consts::_MOD_EG_REL_DEFAULT_VAL;
+            break;
+    }
+
+    m_egAtkSlider->setValue(atkParamVal);
+    m_egDecSlider->setValue(decParamVal);
+    m_egSusSlider->setValue(susParamVal);
+    m_egRelSlider->setValue(relParamVal);
 }
 
 void PhantomEnvelopeComponent::paint(Graphics& g)
@@ -237,31 +183,49 @@ void PhantomEnvelopeComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    Rectangle<int> bottomTopArea = canvas.removeFromTop(canvas.getHeight() / 2);
-    Rectangle<int> ampEgArea = bottomTopArea.removeFromLeft(m_sliderDiameter * 4);
-    bottomTopArea.removeFromLeft(m_margin);
-    m_ampEgAtkSlider->setBounds(ampEgArea.removeFromLeft(m_sliderDiameter));
-    m_ampEgDecSlider->setBounds(ampEgArea.removeFromLeft(m_sliderDiameter));
-    m_ampEgSusSlider->setBounds(ampEgArea.removeFromLeft(m_sliderDiameter));
-    m_ampEgRelSlider->setBounds(ampEgArea.removeFromLeft(m_sliderDiameter));
+    removeTitleSpaceFrom(m_margin * 0.35f, canvas);
 
-    Rectangle<int> phasorEgArea = bottomTopArea;
-    m_phasorEgAtkSlider->setBounds(phasorEgArea.removeFromLeft(m_sliderDiameter));
-    m_phasorEgDecSlider->setBounds(phasorEgArea.removeFromLeft(m_sliderDiameter));
-    m_phasorEgSusSlider->setBounds(phasorEgArea.removeFromLeft(m_sliderDiameter));
-    m_phasorEgRelSlider->setBounds(phasorEgArea.removeFromLeft(m_sliderDiameter));
+    const int paramWidth = (m_windowWidth + m_margin) * (4631.0f / 38400.0f);
 
-    Rectangle<int> bottomBottomArea = canvas;
-    Rectangle<int> filterEgArea = bottomBottomArea.removeFromLeft(m_sliderDiameter * 4);
-    bottomBottomArea.removeFromLeft(m_margin);
-    m_filterEgAtkSlider->setBounds(filterEgArea.removeFromLeft(m_sliderDiameter));
-    m_filterEgDecSlider->setBounds(filterEgArea.removeFromLeft(m_sliderDiameter));
-    m_filterEgSusSlider->setBounds(filterEgArea.removeFromLeft(m_sliderDiameter));
-    m_filterEgRelSlider->setBounds(filterEgArea.removeFromLeft(m_sliderDiameter));
+    Rectangle<int> egAtkArea = canvas.removeFromLeft(paramWidth);
+    prepareForEgSlider(true, m_margin * 0.35f, egAtkArea);
+    m_egAtkSlider->setBounds(egAtkArea);
 
-    Rectangle<int> modEgArea = bottomBottomArea;
-    m_modEgAtkSlider->setBounds(modEgArea.removeFromLeft(m_sliderDiameter));
-    m_modEgDecSlider->setBounds(modEgArea.removeFromLeft(m_sliderDiameter));
-    m_modEgSusSlider->setBounds(modEgArea.removeFromLeft(m_sliderDiameter));
-    m_modEgRelSlider->setBounds(modEgArea.removeFromLeft(m_sliderDiameter));
+    Rectangle<int> egDecArea = canvas.removeFromLeft(paramWidth);
+    prepareForEgSlider(true, m_margin * 0.35f, egDecArea);
+    egDecArea.expand(m_margin * 0.5f, 0);
+    egDecArea.removeFromRight(m_margin * 0.5f);
+    m_egDecSlider->setBounds(egDecArea);
+    
+    Rectangle<int> egSusArea = canvas.removeFromLeft(paramWidth);
+    prepareForEgSlider(true, m_margin * 0.35f, egSusArea);
+    egSusArea.expand(m_margin * 0.5f, 0);
+    egSusArea.removeFromRight(m_margin * 0.5f);
+    m_egSusSlider->setBounds(egSusArea);
+    
+    Rectangle<int> egRelArea = canvas.removeFromLeft(paramWidth);
+    prepareForEgSlider(true, m_margin * 0.35f, egRelArea);
+    egRelArea.expand(m_margin * 0.5f, 0);
+    egRelArea.removeFromLeft(m_margin * 0.5f);
+    m_egRelSlider->setBounds(egRelArea);
+}
+
+void PhantomEnvelopeComponent::prepareForEgSlider(const bool removeOtherHalf, const int expandBy, Rectangle <int>& bounds)
+{
+    if(removeOtherHalf)
+            bounds.removeFromLeft(bounds.getWidth() / 2.0f);
+
+    const int padding = (bounds.getWidth() - m_sliderDiameter) * 0.5f;
+
+    bounds.removeFromRight(padding);
+    bounds.removeFromLeft(padding);
+
+    bounds.removeFromBottom(m_margin * 0.35f);
+
+    if(expandBy > 0)
+    {
+        bounds.expand(0, expandBy);
+
+        bounds.removeFromTop(expandBy);
+    }
 }

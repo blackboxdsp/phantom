@@ -79,11 +79,7 @@ void PhantomOscilloscopeComponent::paint(Graphics& graphics)
 
 void PhantomOscilloscopeComponent::resized()
 {
-    Rectangle<int> canvas = getLocalBounds();
-
-    removeTitleSpaceFrom(m_margin, canvas);
-
-    this->setBounds(canvas);
+    
 }
 
 void PhantomOscilloscopeComponent::timerCallback()

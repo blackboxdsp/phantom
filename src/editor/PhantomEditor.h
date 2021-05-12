@@ -90,8 +90,14 @@ private:
     std::unique_ptr<PhantomPhasorComponent> m_phantomPhasors;
     std::unique_ptr<PhantomMixerComponent> m_phantomMixer;
     std::unique_ptr<PhantomFilterComponent> m_phantomFilter;
+
     std::unique_ptr<PhantomLFOComponent> m_phantomLFOs;
-    std::unique_ptr<PhantomEnvelopeComponent> m_phantomEnvelopes;
+    
+    std::unique_ptr<PhantomEnvelopeComponent> m_phantomAmpEg;
+    std::unique_ptr<PhantomEnvelopeComponent> m_phantomPhasorEg;
+    std::unique_ptr<PhantomEnvelopeComponent> m_phantomFilterEg;
+    std::unique_ptr<PhantomEnvelopeComponent> m_phantomModEg;
+
     std::unique_ptr<PhantomPresetComponent> m_phantomPreset;
 };
 

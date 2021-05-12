@@ -80,7 +80,7 @@ void PhantomLFOComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    removeTitleSpaceFrom(m_margin, canvas);
+    canvas.removeFromBottom(m_margin * 0.5f);
 
     const int height = canvas.getHeight();
     const int width = canvas.getWidth() - (m_margin * 0.25f);

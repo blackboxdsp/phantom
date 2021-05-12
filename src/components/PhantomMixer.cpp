@@ -34,7 +34,6 @@ PhantomMixerComponent::~PhantomMixerComponent()
 
 void PhantomMixerComponent::init()
 {
-
     m_mixerOscBalanceSlider = std::make_unique<Slider>();
     m_mixerOscBalanceSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_mixerOscBalanceSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
@@ -82,7 +81,7 @@ void PhantomMixerComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    removeTitleSpaceFrom(m_margin, canvas);
+    canvas.removeFromBottom(m_margin * 0.5f);
 
     const int height = canvas.getHeight();
     const int width = canvas.getWidth();
@@ -91,11 +90,11 @@ void PhantomMixerComponent::resized()
     Rectangle<int> topArea = canvas.removeFromTop(height / 2);
 
     Rectangle<int> oscBalanceArea = topArea.removeFromLeft(width / 2);
-    prepareForSlider(true, m_margin * 0.9, oscBalanceArea);
+    prepareForSlider(true, m_margin, oscBalanceArea);
     m_mixerOscBalanceSlider->setBounds(oscBalanceArea);
 
     Rectangle<int> ampGainArea = topArea.removeFromRight(width / 2);
-    prepareForSlider(true, m_margin * 0.9, ampGainArea);
+    prepareForSlider(true, m_margin, ampGainArea);
     m_mixerAmpGainSlider->setBounds(ampGainArea);
 
     // BOTTOM

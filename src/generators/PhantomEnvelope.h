@@ -13,14 +13,8 @@
 
 #include "JuceHeader.h"
 
-/** The enum specifying different envelope generator types. */
-enum EnvelopeType
-{
-    AMP     = 0,
-    FLTR    = 1,
-    PHASE   = 2,
-    MOD     = 3
-};
+#include "../utils/PhantomData.h"
+#include "../utils/PhantomUtils.h"
 
 /**
  * The audio component for generating envelopes, useful in shaping

@@ -208,6 +208,15 @@ namespace Consts
     constexpr char *_PLUGIN_VERSION = "1.0.0-beta";
 }
 
+/** The enum specifying different envelope generator types. */
+enum EnvelopeType
+{
+    AMP     = 0,
+    PHASOR  = 1,
+    FILTER  = 2,
+    MOD     = 3
+};
+
 /**
  * Calculates the skew factor given a start, end, and desired center point.
  * @param start The start value to use.
