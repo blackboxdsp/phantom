@@ -49,8 +49,8 @@ void PhantomAmplifierComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    removeTitleSpaceFrom(m_margin * 0.5f, canvas);
+    canvas.removeFromBottom(m_margin);
 
-    prepareForSlider(getLargeSliderDiameter(), true, false, canvas);
+    prepareForSlider(getLargeSliderDiameter(), true, 0, canvas);
     m_levelSlider->setBounds(canvas);
 }

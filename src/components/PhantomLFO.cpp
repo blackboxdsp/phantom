@@ -80,7 +80,7 @@ void PhantomLFOComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    canvas.removeFromBottom(m_margin * 0.5f);
+    canvas.removeFromBottom(m_margin);
 
     const int height = canvas.getHeight();
     const int width = canvas.getWidth() - (m_margin * 0.25f);
@@ -90,20 +90,26 @@ void PhantomLFOComponent::resized()
 
     Rectangle<int> lfo01RateArea = topArea.removeFromLeft(width / 2);
     prepareForSlider(true, m_margin * 0.9, lfo01RateArea);
+    lfo01RateArea.removeFromRight(m_margin * 0.25f);
     m_lfo01RateSlider->setBounds(lfo01RateArea);
 
     Rectangle<int> lfo02RateArea = topArea.removeFromRight(width / 2);
     prepareForSlider(true, m_margin * 0.9, lfo02RateArea);
+    lfo02RateArea.removeFromLeft(m_margin * 0.25f);
     m_lfo02RateSlider->setBounds(lfo02RateArea);
 
     // BOTTOM
     Rectangle<int> bottomArea = canvas.removeFromBottom(height / 2);
 
+    bottomArea.removeFromTop(m_margin * 0.25f);
+
     Rectangle<int> lfo01ShapeArea = bottomArea.removeFromLeft(width / 2);
     prepareForSlider(true, m_margin, lfo01ShapeArea);
+    lfo01ShapeArea.removeFromRight(m_margin * 0.25f);
     m_lfo01ShapeSlider->setBounds(lfo01ShapeArea);
 
     Rectangle<int> lfo02ShapeArea = bottomArea.removeFromRight(width / 2);
     prepareForSlider(true, m_margin, lfo02ShapeArea);
+    lfo02ShapeArea.removeFromLeft(m_margin * 0.25f);
     m_lfo02ShapeSlider->setBounds(lfo02ShapeArea);
 }

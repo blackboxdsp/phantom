@@ -151,7 +151,7 @@ void PhantomAudioProcessorEditor::resized()
     m_phantomPhasors->update(margin, sliderDiameter, width, height, phasorArea);
 
     presetArea.expand(0, margin);
-    presetArea.removeFromBottom(margin * 0.5f);
+    presetArea.removeFromBottom(margin * 0.75f);
     m_phantomPreset->update(margin, presetArea.removeFromBottom(margin * 2));
 
     Rectangle<int> graphArea = middleTopSection.removeFromLeft(width * (61.0f / 256.0f) - 4);
@@ -180,16 +180,15 @@ void PhantomAudioProcessorEditor::resized()
     // BOTTOM
     Rectangle<int> bottomSection = canvas.removeFromBottom(sectionHeight);
 
-    int egHeight = (bottomSection.getHeight() - margin) / 2;
+    int egHeight = bottomSection.getHeight() / 2;
+    int egWidth = (bottomSection.getWidth() - margin) / 2;
 
-    Rectangle<int> bottomLeftSection = bottomSection.removeFromLeft((bottomSection.getWidth() / 2) - margin);
+    Rectangle<int> bottomLeftSection = bottomSection.removeFromLeft(egWidth);
     m_phantomAmpEg->update(margin, sliderDiameter, width, height, bottomLeftSection.removeFromTop(egHeight));
     bottomLeftSection.removeFromTop(margin);
     m_phantomPhasorEg->update(margin, sliderDiameter, width, height, bottomLeftSection);
 
-    bottomSection.removeFromLeft(margin);
-
-    Rectangle<int> bottomRightSection = bottomSection;
+    Rectangle<int> bottomRightSection = bottomSection.removeFromRight(egWidth);
     m_phantomFilterEg->update(margin, sliderDiameter, width, height, bottomRightSection.removeFromTop(egHeight));
     bottomRightSection.removeFromTop(margin);
     m_phantomModEg->update(margin, sliderDiameter, width, height, bottomRightSection);

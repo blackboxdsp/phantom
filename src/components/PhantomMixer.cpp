@@ -81,13 +81,16 @@ void PhantomMixerComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    canvas.removeFromBottom(m_margin * 0.5f);
+    canvas.removeFromBottom(m_margin);
 
     const int height = canvas.getHeight();
     const int width = canvas.getWidth();
 
     // TOP
     Rectangle<int> topArea = canvas.removeFromTop(height / 2);
+
+    topArea.removeFromTop(m_margin * 0.125f);
+    topArea.removeFromBottom(m_margin * 0.125f);
 
     Rectangle<int> oscBalanceArea = topArea.removeFromLeft(width / 2);
     prepareForSlider(true, m_margin, oscBalanceArea);
@@ -99,6 +102,8 @@ void PhantomMixerComponent::resized()
 
     // BOTTOM
     Rectangle<int> bottomArea = canvas.removeFromBottom(height / 2);
+
+    bottomArea.removeFromTop(m_margin * 0.25f);
 
     Rectangle<int> ringModArea = bottomArea.removeFromLeft(width / 2);
     prepareForSlider(true, m_margin, ringModArea);

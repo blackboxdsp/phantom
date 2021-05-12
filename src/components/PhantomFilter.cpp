@@ -105,13 +105,15 @@ void PhantomFilterComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    canvas.removeFromBottom(m_margin * 0.5f);
+    canvas.removeFromBottom(m_margin);
     
     const int height = canvas.getHeight();
     const int width = canvas.getWidth();
 
     // TOP
     Rectangle<int> topArea = canvas.removeFromTop(height / 2);
+
+    topArea.removeFromTop(m_margin * 0.15f);
 
     Rectangle<int> modeArea = topArea.removeFromLeft(width / 3);
     prepareForSlider(true, m_margin, modeArea);
@@ -127,6 +129,8 @@ void PhantomFilterComponent::resized()
 
     // BOTTOM
     Rectangle<int> bottomArea = canvas.removeFromBottom(height / 2);
+
+    bottomArea.removeFromTop(m_margin * 0.25f);
 
     Rectangle<int> driveArea = bottomArea.removeFromLeft(width / 3);
     prepareForSlider(true, m_margin, driveArea);
