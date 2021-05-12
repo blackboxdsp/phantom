@@ -105,13 +105,38 @@ void PhantomFilterComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    Rectangle<int> filterTopArea = canvas.removeFromTop(canvas.getHeight() / 2);
-    m_filterCutoffSlider->setBounds(filterTopArea.removeFromLeft(m_sliderDiameter));
-    m_filterResoSlider->setBounds(filterTopArea.removeFromLeft(m_sliderDiameter));
-    m_filterDriveSlider->setBounds(filterTopArea);
+    removeTitleSpaceFrom(m_margin * 0.5f, canvas);
 
-    Rectangle<int> filterBottomArea = canvas;
-    m_filterModeSlider->setBounds(filterBottomArea.removeFromLeft(m_sliderDiameter));
-    m_filterEgModDepthSlider->setBounds(filterBottomArea.removeFromLeft(m_sliderDiameter));
-    m_filterLfoModDepthSlider->setBounds(filterBottomArea);
+    const int height = canvas.getHeight();
+    const int width = canvas.getWidth();
+
+    // TOP
+    Rectangle<int> topArea = canvas.removeFromTop(height / 2);
+
+    Rectangle<int> modeArea = topArea.removeFromLeft(width / 3);
+    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, modeArea);
+    m_filterModeSlider->setBounds(modeArea);
+
+    Rectangle<int> cutoffArea = topArea.removeFromLeft(width / 3);
+    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, cutoffArea);
+    m_filterCutoffSlider->setBounds(cutoffArea);
+
+    Rectangle<int> resoArea = topArea.removeFromLeft(width / 3);
+    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, resoArea);
+    m_filterResoSlider->setBounds(resoArea);
+
+    // BOTTOM
+    Rectangle<int> bottomArea = canvas.removeFromBottom(height / 2);
+
+    Rectangle<int> driveArea = bottomArea.removeFromLeft(width / 3);
+    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, driveArea);
+    m_filterDriveSlider->setBounds(driveArea);
+
+    Rectangle<int> egModDepthArea = bottomArea.removeFromLeft(width / 3);
+    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, egModDepthArea);
+    m_filterEgModDepthSlider->setBounds(egModDepthArea);
+
+    Rectangle<int> lfoModDepthArea = bottomArea.removeFromLeft(width / 3);
+    prepareForSlider(m_sliderDiameter * 0.95, true, m_margin * 1.35, lfoModDepthArea);
+    m_filterLfoModDepthSlider->setBounds(lfoModDepthArea);
 }

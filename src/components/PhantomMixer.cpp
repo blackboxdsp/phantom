@@ -85,26 +85,27 @@ void PhantomMixerComponent::resized()
     removeTitleSpaceFrom(m_margin, canvas);
 
     const int height = canvas.getHeight();
+    const int width = canvas.getWidth();
 
     // TOP
     Rectangle<int> topArea = canvas.removeFromTop(height / 2);
 
-    Rectangle<int> oscBalanceArea = topArea.removeFromLeft(topArea.getWidth() / 2);
-    prepareForSlider(true, m_margin * 0.9f, oscBalanceArea);
+    Rectangle<int> oscBalanceArea = topArea.removeFromLeft(width / 2);
+    prepareForSlider(true, m_margin * 0.9, oscBalanceArea);
     m_mixerOscBalanceSlider->setBounds(oscBalanceArea);
 
-    Rectangle<int> ampGainArea = topArea;
-    prepareForSlider(true, m_margin * 0.9f, ampGainArea);
+    Rectangle<int> ampGainArea = topArea.removeFromRight(width / 2);
+    prepareForSlider(true, m_margin * 0.9, ampGainArea);
     m_mixerAmpGainSlider->setBounds(ampGainArea);
 
     // BOTTOM
     Rectangle<int> bottomArea = canvas.removeFromBottom(height / 2);
 
-    Rectangle<int> ringModArea = bottomArea.removeFromLeft(bottomArea.getWidth() / 2);
-    prepareForSlider(true, m_margin * 0.9f, ringModArea);
+    Rectangle<int> ringModArea = bottomArea.removeFromLeft(width / 2);
+    prepareForSlider(true, m_margin, ringModArea);
     m_mixerRingModSlider->setBounds(ringModArea);
 
-    Rectangle<int> noiseArea = bottomArea;
-    prepareForSlider(true, m_margin * 0.9f, noiseArea);
+    Rectangle<int> noiseArea = bottomArea.removeFromRight(width / 2);
+    prepareForSlider(true, m_margin, noiseArea);
     m_mixerNoiseSlider->setBounds(noiseArea);
 }
