@@ -12,7 +12,7 @@
 
 #include "../utils/PhantomUtils.h"
 
-PhantomAnalyzerComponent::PhantomAnalyzerComponent(PhantomLookAndFeel& plf) : IComponent(plf), m_forwardFFT(FFT_ORDER), m_window(FFT_SIZE, dsp::WindowingFunction<float>::hann)
+PhantomAnalyzerComponent::PhantomAnalyzerComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : IComponent(plf, vts), m_forwardFFT(FFT_ORDER), m_window(FFT_SIZE, dsp::WindowingFunction<float>::hann)
 {
     init();
 }

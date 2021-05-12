@@ -30,7 +30,7 @@ void PhantomAmplifierComponent::init()
     m_levelSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_levelSlider->setTextValueSuffix(" dB");
     m_levelSlider->setDoubleClickReturnValue(true, Consts::_LEVEL_DEFAULT_VAL);
-    m_levelSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_LEVEL_PARAM_ID, *m_levelSlider));
+    m_levelSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LEVEL_PARAM_ID, *m_levelSlider));
     addAndMakeVisible(m_levelSlider.get());
 }
 
@@ -48,8 +48,9 @@ void PhantomAmplifierComponent::paint(Graphics& g)
 void PhantomAmplifierComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
-    canvas.removeFromLeft(canvas.getWidth() / 2.0f);
 
-    const int sliderMargin = (canvas.getHeight() - getLargeSliderDiameter()) / 2.0f;
-    m_levelSlider->setBounds(removeMarginFrom(sliderMargin, canvas));
+    removeTitleSpaceFrom(canvas);
+
+    prepareForSlider(getLargeSliderDiameter(), true, false, canvas);
+    m_levelSlider->setBounds(canvas);
 }

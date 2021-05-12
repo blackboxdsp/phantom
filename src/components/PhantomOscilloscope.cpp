@@ -13,7 +13,7 @@
 #include "../effects/PhantomWaveshaper.h"
 #include "../utils/PhantomUtils.h"
 
-PhantomOscilloscopeComponent::PhantomOscilloscopeComponent(PhantomLookAndFeel& plf) : IComponent(plf)
+PhantomOscilloscopeComponent::PhantomOscilloscopeComponent(PhantomLookAndFeel& plf, AudioProcessorValueTreeState& vts) : IComponent(plf, vts)
 {
     init();
 }

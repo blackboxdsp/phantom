@@ -40,21 +40,21 @@ void PhantomPhasorComponent::init()
     m_phasor01ShapeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasor01ShapeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_phasor01ShapeSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_01_SHAPE_DEFAULT_VAL);
-    m_phasor01ShapeSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_PHASOR_01_SHAPE_PARAM_ID, *m_phasor01ShapeSlider));
+    m_phasor01ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_01_SHAPE_PARAM_ID, *m_phasor01ShapeSlider));
     addAndMakeVisible(m_phasor01ShapeSlider.get());
 
     m_phasor01EgIntSlider = std::make_unique<Slider>();
     m_phasor01EgIntSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasor01EgIntSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_phasor01EgIntSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_01_EG_INT_DEFAULT_VAL);
-    m_phasor01EgIntSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_PHASOR_01_EG_INT_PARAM_ID, *m_phasor01EgIntSlider));
+    m_phasor01EgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_01_EG_INT_PARAM_ID, *m_phasor01EgIntSlider));
     addAndMakeVisible(m_phasor01EgIntSlider.get());
 
     m_phasor01LfoIntSlider = std::make_unique<Slider>();
     m_phasor01LfoIntSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasor01LfoIntSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_phasor01LfoIntSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_01_LFO_INT_DEFAULT_VAL);
-    m_phasor01LfoIntSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_PHASOR_01_LFO_INT_PARAM_ID, *m_phasor01LfoIntSlider));
+    m_phasor01LfoIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_01_LFO_INT_PARAM_ID, *m_phasor01LfoIntSlider));
     addAndMakeVisible(m_phasor01LfoIntSlider.get());
 
     // PHASOR 01
@@ -62,21 +62,21 @@ void PhantomPhasorComponent::init()
     m_phasor02ShapeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasor02ShapeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_phasor02ShapeSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_02_SHAPE_DEFAULT_VAL);
-    m_phasor02ShapeSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_PHASOR_02_SHAPE_PARAM_ID, *m_phasor02ShapeSlider));
+    m_phasor02ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_02_SHAPE_PARAM_ID, *m_phasor02ShapeSlider));
     addAndMakeVisible(m_phasor02ShapeSlider.get());
 
     m_phasor02EgIntSlider = std::make_unique<Slider>();
     m_phasor02EgIntSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasor02EgIntSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_phasor02EgIntSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_02_EG_INT_DEFAULT_VAL);
-    m_phasor02EgIntSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_PHASOR_02_EG_INT_PARAM_ID, *m_phasor02EgIntSlider));
+    m_phasor02EgIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_02_EG_INT_PARAM_ID, *m_phasor02EgIntSlider));
     addAndMakeVisible(m_phasor02EgIntSlider.get());
 
     m_phasor02LfoIntSlider = std::make_unique<Slider>();
     m_phasor02LfoIntSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_phasor02LfoIntSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_phasor02LfoIntSlider->setDoubleClickReturnValue(true, Consts::_PHASOR_02_LFO_INT_DEFAULT_VAL);
-    m_phasor02LfoIntSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_PHASOR_02_LFO_INT_PARAM_ID, *m_phasor02LfoIntSlider));
+    m_phasor02LfoIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_PHASOR_02_LFO_INT_PARAM_ID, *m_phasor02LfoIntSlider));
     addAndMakeVisible(m_phasor02LfoIntSlider.get());
 }
 
@@ -102,12 +102,12 @@ void PhantomPhasorComponent::resized()
     Rectangle<int> canvas = getLocalBounds();
 
     Rectangle<int> phasor01Area = canvas.removeFromTop(canvas.getHeight() / 2);
-    m_phasor01ShapeSlider->setBounds(phasor01Area.removeFromLeft(m_knobWidth));
-    m_phasor01EgIntSlider->setBounds(phasor01Area.removeFromLeft(m_knobWidth));
+    m_phasor01ShapeSlider->setBounds(phasor01Area.removeFromLeft(m_sliderDiameter));
+    m_phasor01EgIntSlider->setBounds(phasor01Area.removeFromLeft(m_sliderDiameter));
     m_phasor01LfoIntSlider->setBounds(phasor01Area);
 
     Rectangle<int> phasor02Area = canvas;
-    m_phasor02ShapeSlider->setBounds(phasor02Area.removeFromLeft(m_knobWidth));
-    m_phasor02EgIntSlider->setBounds(phasor02Area.removeFromLeft(m_knobWidth));
+    m_phasor02ShapeSlider->setBounds(phasor02Area.removeFromLeft(m_sliderDiameter));
+    m_phasor02EgIntSlider->setBounds(phasor02Area.removeFromLeft(m_sliderDiameter));
     m_phasor02LfoIntSlider->setBounds(phasor02Area);
 }

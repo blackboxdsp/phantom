@@ -34,14 +34,14 @@ void PhantomLFOComponent::init()
     m_lfo01RateSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_lfo01RateSlider->setTextValueSuffix(" Hz");
     m_lfo01RateSlider->setDoubleClickReturnValue(true, Consts::_LFO_01_RATE_DEFAULT_VAL);
-    m_lfo01RateSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_LFO_01_RATE_PARAM_ID, *m_lfo01RateSlider));
+    m_lfo01RateSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_01_RATE_PARAM_ID, *m_lfo01RateSlider));
     addAndMakeVisible(m_lfo01RateSlider.get());
 
     m_lfo01ShapeSlider = std::make_unique<Slider>();
     m_lfo01ShapeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_lfo01ShapeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_lfo01ShapeSlider->setDoubleClickReturnValue(true, Consts::_LFO_01_SHAPE_DEFAULT_VAL);
-    m_lfo01ShapeSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_LFO_01_SHAPE_PARAM_ID, *m_lfo01ShapeSlider));
+    m_lfo01ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_01_SHAPE_PARAM_ID, *m_lfo01ShapeSlider));
     addAndMakeVisible(m_lfo01ShapeSlider.get());
 
     // LFO 02
@@ -50,14 +50,14 @@ void PhantomLFOComponent::init()
     m_lfo02RateSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_lfo02RateSlider->setTextValueSuffix(" Hz");
     m_lfo02RateSlider->setDoubleClickReturnValue(true, Consts::_LFO_01_RATE_DEFAULT_VAL);
-    m_lfo02RateSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_LFO_02_RATE_PARAM_ID, *m_lfo02RateSlider));
+    m_lfo02RateSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_02_RATE_PARAM_ID, *m_lfo02RateSlider));
     addAndMakeVisible(m_lfo02RateSlider.get());
 
     m_lfo02ShapeSlider = std::make_unique<Slider>();
     m_lfo02ShapeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_lfo02ShapeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_lfo02ShapeSlider->setDoubleClickReturnValue(true, Consts::_LFO_01_SHAPE_DEFAULT_VAL);
-    m_lfo02ShapeSliderAttachment.reset(new SliderAttachment(*m_parameters, Consts::_LFO_02_SHAPE_PARAM_ID, *m_lfo02ShapeSlider));
+    m_lfo02ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_02_SHAPE_PARAM_ID, *m_lfo02ShapeSlider));
     addAndMakeVisible(m_lfo02ShapeSlider.get());
 }
 
@@ -81,10 +81,10 @@ void PhantomLFOComponent::resized()
     Rectangle<int> canvas = getLocalBounds();
 
     Rectangle<int> lfoTopArea = canvas.removeFromTop(canvas.getHeight() / 2);
-    m_lfo01RateSlider->setBounds(lfoTopArea.removeFromLeft(m_knobWidth));
+    m_lfo01RateSlider->setBounds(lfoTopArea.removeFromLeft(m_sliderDiameter));
     m_lfo01ShapeSlider->setBounds(lfoTopArea);
 
     Rectangle<int> lfoBottomArea = canvas;
-    m_lfo02RateSlider->setBounds(lfoBottomArea.removeFromLeft(m_knobWidth));
+    m_lfo02RateSlider->setBounds(lfoBottomArea.removeFromLeft(m_sliderDiameter));
     m_lfo02ShapeSlider->setBounds(lfoBottomArea);
 }

@@ -17,7 +17,7 @@
 class PhantomPresetComponent : public IComponent
 {
 public:
-    PhantomPresetComponent(PhantomLookAndFeel& plf, PhantomPresetManager& pm);
+    PhantomPresetComponent(PhantomLookAndFeel& plf, PhantomPresetManager& pm, AudioProcessorValueTreeState& vts);
     ~PhantomPresetComponent();
 
     void init() override;
