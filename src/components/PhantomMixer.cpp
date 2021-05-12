@@ -82,11 +82,29 @@ void PhantomMixerComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    Rectangle<int> mixerTopArea = canvas.removeFromTop(canvas.getHeight() / 2);
-    m_mixerOscBalanceSlider->setBounds(mixerTopArea.removeFromLeft(m_sliderDiameter));
-    m_mixerAmpGainSlider->setBounds(mixerTopArea);
+    removeTitleSpaceFrom(m_margin, canvas);
 
-    Rectangle<int> mixerBottomArea = canvas;
-    m_mixerRingModSlider->setBounds(mixerBottomArea.removeFromLeft(m_sliderDiameter));
-    m_mixerNoiseSlider->setBounds(mixerBottomArea);
+    const int height = canvas.getHeight();
+
+    // TOP
+    Rectangle<int> topArea = canvas.removeFromTop(height / 2);
+
+    Rectangle<int> oscBalanceArea = topArea.removeFromLeft(topArea.getWidth() / 2);
+    prepareForSlider(true, m_margin * 0.9f, oscBalanceArea);
+    m_mixerOscBalanceSlider->setBounds(oscBalanceArea);
+
+    Rectangle<int> ampGainArea = topArea;
+    prepareForSlider(true, m_margin * 0.9f, ampGainArea);
+    m_mixerAmpGainSlider->setBounds(ampGainArea);
+
+    // BOTTOM
+    Rectangle<int> bottomArea = canvas.removeFromBottom(height / 2);
+
+    Rectangle<int> ringModArea = bottomArea.removeFromLeft(bottomArea.getWidth() / 2);
+    prepareForSlider(true, m_margin * 0.9f, ringModArea);
+    m_mixerRingModSlider->setBounds(ringModArea);
+
+    Rectangle<int> noiseArea = bottomArea;
+    prepareForSlider(true, m_margin * 0.9f, noiseArea);
+    m_mixerNoiseSlider->setBounds(noiseArea);
 }

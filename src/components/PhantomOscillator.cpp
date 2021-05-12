@@ -176,7 +176,9 @@ void PhantomOscillatorComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    removeTitleSpaceFrom(canvas);
+    removeTitleSpaceFrom(m_margin * 0.5f, canvas);
+
+    const int height = canvas.getHeight();
 
     // OSC 01
     Rectangle<int> oscillator01Area = canvas.removeFromLeft(m_windowWidth * (6553.0f / 19200.0f));
@@ -184,31 +186,31 @@ void PhantomOscillatorComponent::resized()
 
     Rectangle<int> oscillator01LeftArea = oscillator01Area.removeFromLeft(paramWidth);
 
-    Rectangle<int> oscillator01RangeArea = oscillator01LeftArea.removeFromTop(oscillator01LeftArea.getHeight() / 2.0f);
-    prepareForSlider(true, m_margin, oscillator01RangeArea);
+    Rectangle<int> oscillator01RangeArea = oscillator01LeftArea.removeFromTop(height / 2);
+    prepareForSlider(true, m_margin * 1.5, oscillator01RangeArea);
     m_osc01RangeSlider->setBounds(oscillator01RangeArea);
     
-    Rectangle<int> oscillator01ShapeArea = oscillator01LeftArea;
+    Rectangle<int> oscillator01ShapeArea = oscillator01LeftArea.removeFromBottom(height / 2);
     prepareForSlider(true, m_margin * 1.5, oscillator01ShapeArea);
     m_osc01ShapeIntSlider->setBounds(oscillator01ShapeArea);
 
     Rectangle<int> oscillator01MiddleArea = oscillator01Area.removeFromLeft(paramWidth);
 
-    Rectangle<int> oscillator01CoarseTuneArea = oscillator01MiddleArea.removeFromTop(oscillator01MiddleArea.getHeight() / 2.0f);
-    prepareForSlider(true, m_margin, oscillator01CoarseTuneArea);
+    Rectangle<int> oscillator01CoarseTuneArea = oscillator01MiddleArea.removeFromTop(height / 2);
+    prepareForSlider(true, m_margin * 1.5, oscillator01CoarseTuneArea);
     m_osc01CoarseTuneSlider->setBounds(oscillator01CoarseTuneArea);
     
-    Rectangle<int> oscillator01ModSourceArea = oscillator01MiddleArea;
+    Rectangle<int> oscillator01ModSourceArea = oscillator01MiddleArea.removeFromBottom(height / 2);
     prepareForSlider(true, m_margin * 1.5, oscillator01ModSourceArea);
     m_osc01ModSourceSlider->setBounds(oscillator01ModSourceArea);
 
     Rectangle<int> oscillator01RightArea = oscillator01Area;
 
-    Rectangle<int> oscillator01FineTuneArea = oscillator01RightArea.removeFromTop(oscillator01RightArea.getHeight() / 2.0f);
-    prepareForSlider(true, m_margin, oscillator01FineTuneArea);
+    Rectangle<int> oscillator01FineTuneArea = oscillator01RightArea.removeFromTop(height / 2);
+    prepareForSlider(true, m_margin * 1.5, oscillator01FineTuneArea);
     m_osc01FineTuneSlider->setBounds(oscillator01FineTuneArea);
     
-    Rectangle<int> oscillator01ModDepthArea = oscillator01RightArea;
+    Rectangle<int> oscillator01ModDepthArea = oscillator01RightArea.removeFromBottom(height / 2);
     prepareForSlider(true, m_margin * 1.5, oscillator01ModDepthArea);
     m_osc01ModDepthSlider->setBounds(oscillator01ModDepthArea);
 
@@ -219,34 +221,35 @@ void PhantomOscillatorComponent::resized()
 
     Rectangle<int> oscillator02LeftArea = oscillator02Area.removeFromLeft(paramWidth);
 
-    Rectangle<int> oscillator02RangeArea = oscillator02LeftArea.removeFromTop(oscillator02LeftArea.getHeight() / 2.0f);
-    prepareForSlider(true, m_margin, oscillator02RangeArea);
+    Rectangle<int> oscillator02RangeArea = oscillator02LeftArea.removeFromTop(height / 2);
+    prepareForSlider(true, m_margin * 1.5, oscillator02RangeArea);
     m_osc02RangeSlider->setBounds(oscillator02RangeArea);
     
-    Rectangle<int> oscillator02ShapeArea = oscillator02LeftArea;
+    Rectangle<int> oscillator02ShapeArea = oscillator02LeftArea.removeFromBottom(height / 2);
     prepareForSlider(true, m_margin * 1.5, oscillator02ShapeArea);
     m_osc02ShapeIntSlider->setBounds(oscillator02ShapeArea);
 
     Rectangle<int> oscillator02MiddleArea = oscillator02Area.removeFromLeft(paramWidth);
 
-    Rectangle<int> oscillator02CoarseTuneArea = oscillator02MiddleArea.removeFromTop(oscillator02MiddleArea.getHeight() / 2.0f);
-    prepareForSlider(true, m_margin, oscillator02CoarseTuneArea);
+    Rectangle<int> oscillator02CoarseTuneArea = oscillator02MiddleArea.removeFromTop(height / 2);
+    prepareForSlider(true, m_margin * 1.5, oscillator02CoarseTuneArea);
     m_osc02CoarseTuneSlider->setBounds(oscillator02CoarseTuneArea);
     
-    Rectangle<int> oscillator02ModSourceArea = oscillator02MiddleArea;
+    Rectangle<int> oscillator02ModSourceArea = oscillator02MiddleArea.removeFromBottom(height / 2);
     prepareForSlider(true, m_margin * 1.5, oscillator02ModSourceArea);
     m_osc02ModSourceSlider->setBounds(oscillator02ModSourceArea);
 
     Rectangle<int> oscillator02RightArea = oscillator02Area;
 
-    Rectangle<int> oscillator02FineTuneArea = oscillator02RightArea.removeFromTop(oscillator02RightArea.getHeight() / 2.0f);
-    prepareForSlider(true, m_margin, oscillator02FineTuneArea);
+    Rectangle<int> oscillator02FineTuneArea = oscillator02RightArea.removeFromTop(height / 2);
+    prepareForSlider(true, m_margin * 1.5, oscillator02FineTuneArea);
     m_osc02FineTuneSlider->setBounds(oscillator02FineTuneArea);
     
-    Rectangle<int> oscillator02ModDepthArea = oscillator02RightArea;
+    Rectangle<int> oscillator02ModDepthArea = oscillator02RightArea.removeFromBottom(height / 2);
     prepareForSlider(true, m_margin * 1.5, oscillator02ModDepthArea);
     m_osc02ModDepthSlider->setBounds(oscillator02ModDepthArea);
 
+    // OSC SYNC
     canvas.expand(m_margin, m_margin);
     canvas.removeFromLeft(m_margin);
     canvas.removeFromTop(m_margin * 2.0f);

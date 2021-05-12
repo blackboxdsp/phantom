@@ -144,9 +144,14 @@ public:
         rectangle.removeFromLeft(margin);
     }
 
+    void removeTitleSpaceFrom(const int margin, Rectangle<int>& rectangle)
+    {
+        rectangle.removeFromTop(margin);
+    }
+
     void removeTitleSpaceFrom(Rectangle<int>& rectangle)
     {
-        rectangle.removeFromTop(m_margin);
+        removeTitleSpaceFrom(m_margin, rectangle);
     }
 
     /**
@@ -184,10 +189,10 @@ protected:
     int m_windowHeight = 720;
 
     /** The margin to use in spacing the inner components of this component. */
-    int m_margin = 1280 * (3 / 256);
+    int m_margin = 1280 * (7 / 238);
 
     /** The slider diameter to use in spacing the sliders of this component. */
-    int m_sliderDiameter = 1280 * (1 / 24);
+    int m_sliderDiameter = 1280 * (1 / 20);
 };
 
 #endif
