@@ -41,6 +41,7 @@ target_sources(Phantom PRIVATE
         src/components/PhantomPhasor.cpp
         src/components/PhantomPreset.cpp
         src/editor/PhantomEditor.cpp
+        src/editor/PhantomLookAndFeel.cpp
         src/effects/PhantomAmplifier.cpp
         src/effects/PhantomFilter.cpp
         src/effects/PhantomMixer.cpp
@@ -79,4 +80,5 @@ juce_add_binary_data(PhantomData HEADER_NAME PhantomData.h NAMESPACE PhantomData
 target_link_libraries(Phantom PRIVATE
         PhantomData
         juce::juce_audio_utils
-        juce::juce_dsp)
+        juce::juce_dsp
+        juce::juce_opengl)

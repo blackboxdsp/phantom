@@ -38,8 +38,8 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PhantomPresetComponent)
 
-    /** The label object for this component. */
-    std::unique_ptr<Label> m_presetLabel;
+    const float k_idleButtonAlpha = 0.0f;
+    const float k_hoverButtonAlpha = 0.25f;
 
     /** The button object triggering the preset menu. */
     std::unique_ptr<TextButton> m_presetButton;

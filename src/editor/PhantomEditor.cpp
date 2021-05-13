@@ -56,8 +56,6 @@ PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& 
 
 PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 {
-    setLookAndFeel(nullptr);
-
     m_phantomAmplifier = nullptr;
     m_phantomOscillators = nullptr;
     m_phantomPhasors = nullptr;
@@ -75,17 +73,24 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
     
     m_phantomAnalyzer = nullptr;
     m_phantomOscilloscope = nullptr;
+
+    setLookAndFeel(nullptr);
+
+    m_openGlContext.detach();
 }
 
 void PhantomAudioProcessorEditor::init()
 {
-    setLookAndFeel(&m_lookAndFeel);
-
     float ratio = 16.0f / 9.0f;
     setResizable(true, true);
     setResizeLimits(720 * ratio, 720, 1440 * ratio, 1440); // 720p - 1440p
     getConstrainer()->setFixedAspectRatio(ratio);
     setSize(960 * ratio, 960);
+
+    setLookAndFeel(&m_lookAndFeel);
+
+    m_openGlContext.setComponentPaintingEnabled(true);
+    m_openGlContext.attachTo(*this);
 }
 
 void PhantomAudioProcessorEditor::reset()
@@ -124,6 +129,9 @@ void PhantomAudioProcessorEditor::resized()
     const int sliderDiameter = width * PhantomLookAndFeel::_SLIDER_PER_WIDTH;
 
     const int buttonHeight = height * PhantomLookAndFeel::_BUTTON_PER_HEIGHT;
+
+    m_lookAndFeel.setFontSize(width);
+    m_lookAndFeel.setStrokeWidth(width);
 
     canvas.removeFromTop(margin);
     canvas.removeFromRight(margin);

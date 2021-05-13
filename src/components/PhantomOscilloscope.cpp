@@ -55,22 +55,16 @@ void PhantomOscilloscopeComponent::paint(Graphics& graphics)
             (reader[idx] + 1.0f) * yScale,
             0.0f,
             (float) getHeight()
-        ) * 0.9f;
+        ) * 0.975f;
 
         x2 = (i + 1) * xScale;
         y2 = PhantomWaveshaper::clip(
             (reader[idx + 1] + 1.0f) * yScale,
             0.0f,
             (float) getHeight()
-        ) * 0.9f;
+        ) * 0.975f;
 
-        float brightness = (std::abs(reader[idx]) * 0.25f) + 0.75f;
-        float saturation = (std::abs(reader[idx]) * 0.35f) + 0.65f;
-        Colour colour = Consts::_STROKE_COLOUR
-                                .withBrightness(brightness)
-                                .withSaturation(saturation);
-
-        graphics.setColour(colour);
+        graphics.setColour(Consts::_SECONDARY_COLOUR);
         graphics.drawLine(x1, y1, x2, y2, k_strokeWidth);
     }
 

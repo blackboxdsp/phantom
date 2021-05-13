@@ -21,6 +21,19 @@ public:
     PhantomLookAndFeel() { };
     ~PhantomLookAndFeel() { };
 
+    void drawRotarySlider(
+        Graphics& g,
+        int x, int y,
+        int width, int height,
+        float sliderPos, float rotaryStartAngle, float rotaryEndAngle,
+        Slider& s
+    ) override;
+
+    Font getTextButtonFont(TextButton& tb, int buttonHeight) override;
+    
+    void setFontSize(int windowWidth);
+    void setStrokeWidth(int windowWidth);
+
     /**
      * NOTE: Every hard-coded value and ratio here is calculated from the corresponding area
      * on the design file. For example, the oscillator section is 2,790px in width, 
@@ -33,12 +46,17 @@ public:
     static constexpr float _SLIDER_PER_WIDTH = 1.0f / 20.0f;
     static constexpr float _LARGE_SLIDER_PER_WIDTH = 7.0f / 238.0f;
     static constexpr float _BUTTON_PER_HEIGHT = 1.0f / 36.0f;
+    static constexpr float _FONT_PER_WIDTH = 1.0f / 105.0f;
+    static constexpr float _STROKE_PER_WIDTH = 3.0f / 6400.0f;
 
 private:
-    const float k_strokeWidth = 1.8f;
+    String getSliderReadout(Slider& slider, StringArray& nameTokens);
 
-    const float k_fontSize = 9.0f;
-    const Font& getSliderReadoutFont();
+    Font getFont() const;
+    Font getFont(float fontSize) const;
+
+    float m_fontSize = 12.0f;
+    float m_strokeWidth = 1.8f;
 };
 
 #endif

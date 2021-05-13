@@ -84,6 +84,9 @@ private:
     /** The custom look and feel for the plugin. */
     PhantomLookAndFeel m_lookAndFeel;
 
+    /** OpenGL context object for faster rendering. */
+    OpenGLContext m_openGlContext; 
+
     /** GUI components */
     std::unique_ptr<PhantomAmplifierComponent> m_phantomAmplifier;
     std::unique_ptr<PhantomOscillatorComponent> m_phantomOscillators;

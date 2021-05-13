@@ -34,32 +34,36 @@ PhantomMixerComponent::~PhantomMixerComponent()
 
 void PhantomMixerComponent::init()
 {
-    m_mixerOscBalanceSlider = std::make_unique<Slider>();
+    m_mixerOscBalanceSlider = std::make_unique<Slider>("PRI_MIXER_OSC_BALANCE");
     m_mixerOscBalanceSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_mixerOscBalanceSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_mixerOscBalanceSlider->setDoubleClickReturnValue(true, Consts::_MIXER_OSC_BAL_DEFAULT_VAL);
     m_mixerOscBalanceSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_OSC_BAL_PARAM_ID, *m_mixerOscBalanceSlider));
+    m_mixerOscBalanceSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_mixerOscBalanceSlider.get());
 
-    m_mixerAmpGainSlider = std::make_unique<Slider>();
+    m_mixerAmpGainSlider = std::make_unique<Slider>("PRI_MIXER_AMP_GAIN");
     m_mixerAmpGainSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_mixerAmpGainSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_mixerAmpGainSlider->setDoubleClickReturnValue(true, Consts::_MIXER_AMP_GAIN_DEFAULT_VAL);
     m_mixerAmpGainSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_AMP_GAIN_PARAM_ID, *m_mixerAmpGainSlider));
+    m_mixerAmpGainSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_mixerAmpGainSlider.get());
 
-    m_mixerRingModSlider = std::make_unique<Slider>();
+    m_mixerRingModSlider = std::make_unique<Slider>("PRI_MIXER_RING_MOD");
     m_mixerRingModSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_mixerRingModSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_mixerRingModSlider->setDoubleClickReturnValue(true, Consts::_MIXER_RING_MOD_DEFAULT_VAL);
     m_mixerRingModSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_RING_MOD_PARAM_ID, *m_mixerRingModSlider));
+    m_mixerRingModSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_mixerRingModSlider.get());
 
-    m_mixerNoiseSlider = std::make_unique<Slider>();
+    m_mixerNoiseSlider = std::make_unique<Slider>("PRI_MIXER_NOISE");
     m_mixerNoiseSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_mixerNoiseSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_mixerNoiseSlider->setDoubleClickReturnValue(true, Consts::_MIXER_NOISE_DEFAULT_VAL);
     m_mixerNoiseSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_MIXER_NOISE_PARAM_ID, *m_mixerNoiseSlider));
+    m_mixerNoiseSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_mixerNoiseSlider.get());
 }
 
@@ -73,8 +77,7 @@ void PhantomMixerComponent::reset()
 
 void PhantomMixerComponent::paint(Graphics& g)
 {
-    g.setColour(Colours::white);
-    g.setFont(12.0f);
+    
 }
 
 void PhantomMixerComponent::resized()

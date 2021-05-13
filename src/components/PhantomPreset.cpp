@@ -20,7 +20,6 @@ PhantomPresetComponent::PhantomPresetComponent(PhantomLookAndFeel& plf, PhantomP
 
 PhantomPresetComponent::~PhantomPresetComponent()
 {
-    m_presetLabel = nullptr;
     m_presetButton = nullptr;
 
     m_presetLeftButton = nullptr;
@@ -29,15 +28,14 @@ PhantomPresetComponent::~PhantomPresetComponent()
 
 void PhantomPresetComponent::init()
 {
-    m_presetLabel = std::make_unique<Label>();
-    m_presetLabel->setText("PRESET: ", dontSendNotification);
-    m_presetLabel->setJustificationType(Justification::centred);
-    // addAndMakeVisible(m_presetLabel.get());
-
     m_presetButton = std::make_unique<TextButton>();
     m_presetButton->setButtonText(m_presetManager.getCurrentPresetName());
-    m_presetButton->setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
-    m_presetButton->setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
+    m_presetButton->setColour(TextButton::buttonColourId, Consts::_BLACK_COLOUR.withAlpha(k_idleButtonAlpha));
+    m_presetButton->setColour(TextButton::buttonOnColourId, Consts::_BLACK_COLOUR.withAlpha(k_hoverButtonAlpha));
+    m_presetButton->setColour(ComboBox::outlineColourId, Consts::_BLACK_COLOUR);
+    m_presetButton->setColour(TextButton::textColourOnId, Consts::_SECONDARY_COLOUR);
+    m_presetButton->setColour(TextButton::textColourOffId, Consts::_SECONDARY_COLOUR);
+    m_presetButton->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_presetButton.get());
     m_presetButton->onClick = [this](){
         PopupMenu menu;
@@ -91,18 +89,22 @@ void PhantomPresetComponent::init()
     };
 
     m_presetLeftButton = std::make_unique<TextButton>();
-    m_presetLeftButton->setButtonText("<");
-    m_presetLeftButton->setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
-    m_presetLeftButton->setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
+    m_presetLeftButton->setButtonText(" ");
+    m_presetLeftButton->setColour(TextButton::buttonColourId, Consts::_BLACK_COLOUR.withAlpha(k_idleButtonAlpha));
+    m_presetLeftButton->setColour(TextButton::buttonOnColourId, Consts::_BLACK_COLOUR.withAlpha(k_hoverButtonAlpha));
+    m_presetLeftButton->setColour(ComboBox::outlineColourId, Consts::_BLACK_COLOUR);
+    m_presetLeftButton->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_presetLeftButton.get());
     m_presetLeftButton->onClick = [this](){
         m_presetManager.loadPresetFile(false);
     };
 
     m_presetRightButton = std::make_unique<TextButton>();
-    m_presetRightButton->setButtonText(">");
-    m_presetRightButton->setColour(TextButton::buttonColourId, Consts::_STROKE_COLOUR);
-    m_presetRightButton->setColour(TextButton::buttonOnColourId, Consts::_FILL_START_COLOUR);
+    m_presetRightButton->setButtonText(" ");
+    m_presetRightButton->setColour(TextButton::buttonColourId, Consts::_BLACK_COLOUR.withAlpha(k_idleButtonAlpha));
+    m_presetRightButton->setColour(TextButton::buttonOnColourId, Consts::_BLACK_COLOUR.withAlpha(k_hoverButtonAlpha));
+    m_presetRightButton->setColour(ComboBox::outlineColourId, Consts::_BLACK_COLOUR);
+    m_presetRightButton->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_presetRightButton.get());
     m_presetRightButton->onClick = [this](){
         m_presetManager.loadPresetFile(true);
@@ -117,9 +119,6 @@ void PhantomPresetComponent::reset()
 void PhantomPresetComponent::paint(Graphics& g)
 {
     reset();
-
-    g.setColour(Colours::white);
-    g.setFont(12.0f);
 }
 
 void PhantomPresetComponent::resized()
@@ -139,7 +138,7 @@ void PhantomPresetComponent::resized()
 
     Rectangle<int> presetNavArea = canvas.removeFromRight(width * 0.3f);
     m_presetRightButton->setBounds(presetNavArea.removeFromRight(m_margin * 1.75f));
-    presetNavArea.removeFromRight(m_margin * 1.25f);
+    presetNavArea.removeFromRight(m_margin * 1.3f);
     m_presetLeftButton->setBounds(presetNavArea.removeFromRight(m_margin * 1.75f));
 
     canvas.expand(m_margin * 0.25f, 0);

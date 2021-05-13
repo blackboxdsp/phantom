@@ -39,7 +39,7 @@ void PhantomAnalyzerComponent::paint(Graphics& graphics)
     Range<float> maxRange = FloatVectorOperations::findMinAndMax(m_outputData, OUTPUT_SIZE);
     const float scale = 1.0f / jmax((float) FFT_SIZE, maxRange.getEnd());
 
-    graphics.setColour(Consts::_FILL_END_COLOUR);
+    graphics.setColour(Consts::_SECONDARY_COLOUR);
     for(int i = 0; i < OUTPUT_SIZE; i++) 
     {
         float x = std::log10f(1.0f + 39.0f * ((i + 1.0f) / OUTPUT_SIZE)) / std::log10f(40.0f) * width;
