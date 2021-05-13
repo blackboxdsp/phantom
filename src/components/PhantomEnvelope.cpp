@@ -185,7 +185,7 @@ void PhantomEnvelopeComponent::resized()
 
     removeTitleSpaceFrom(m_margin * 0.35f, canvas);
 
-    const int paramWidth = (m_windowWidth + m_margin) * (4631.0f / 38400.0f);
+    const int paramWidth = (m_windowWidth + m_margin * 0.5f) * (4631.0f / 38400.0f);
 
     Rectangle<int> egAtkArea = canvas.removeFromLeft(paramWidth);
     prepareForEgSlider(true, m_margin * 0.35f, egAtkArea);
@@ -193,20 +193,14 @@ void PhantomEnvelopeComponent::resized()
 
     Rectangle<int> egDecArea = canvas.removeFromLeft(paramWidth);
     prepareForEgSlider(true, m_margin * 0.35f, egDecArea);
-    egDecArea.expand(m_margin * 0.5f, 0);
-    egDecArea.removeFromRight(m_margin * 0.5f);
     m_egDecSlider->setBounds(egDecArea);
     
     Rectangle<int> egSusArea = canvas.removeFromLeft(paramWidth);
     prepareForEgSlider(true, m_margin * 0.35f, egSusArea);
-    egSusArea.expand(m_margin * 0.5f, 0);
-    egSusArea.removeFromRight(m_margin * 0.5f);
     m_egSusSlider->setBounds(egSusArea);
     
     Rectangle<int> egRelArea = canvas.removeFromLeft(paramWidth);
     prepareForEgSlider(true, m_margin * 0.35f, egRelArea);
-    egRelArea.expand(m_margin * 0.5f, 0);
-    egRelArea.removeFromLeft(m_margin * 0.5f);
     m_egRelSlider->setBounds(egRelArea);
 }
 

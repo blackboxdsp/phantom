@@ -154,7 +154,7 @@ void PhantomAudioProcessorEditor::resized()
     presetArea.removeFromBottom(margin * 0.75f);
     m_phantomPreset->update(margin, presetArea.removeFromBottom(margin * 2));
 
-    Rectangle<int> graphArea = middleTopSection.removeFromLeft(width * (61.0f / 256.0f) - 4);
+    Rectangle<int> graphArea = middleTopSection.removeFromLeft(width * (61.0f / 256.0f));
 
     Rectangle<int> oscilloscopeArea = graphArea.removeFromTop(graphArea.getHeight() / 2.0f);
     m_phantomOscilloscope->update(margin, sliderDiameter, width, height, oscilloscopeArea);
@@ -183,13 +183,23 @@ void PhantomAudioProcessorEditor::resized()
     int egHeight = bottomSection.getHeight() / 2;
     int egWidth = (bottomSection.getWidth() - margin) / 2;
 
-    Rectangle<int> bottomLeftSection = bottomSection.removeFromLeft(egWidth);
-    m_phantomAmpEg->update(margin, sliderDiameter, width, height, bottomLeftSection.removeFromTop(egHeight));
-    bottomLeftSection.removeFromTop(margin);
-    m_phantomPhasorEg->update(margin, sliderDiameter, width, height, bottomLeftSection);
+    Rectangle<int> bottomTopSection = bottomSection.removeFromTop(egHeight);
 
-    Rectangle<int> bottomRightSection = bottomSection.removeFromRight(egWidth);
-    m_phantomFilterEg->update(margin, sliderDiameter, width, height, bottomRightSection.removeFromTop(egHeight));
-    bottomRightSection.removeFromTop(margin);
-    m_phantomModEg->update(margin, sliderDiameter, width, height, bottomRightSection);
+    bottomTopSection.removeFromBottom(margin * 0.5f);
+
+    Rectangle<int> ampEgArea = bottomTopSection.removeFromLeft(egWidth);
+    m_phantomAmpEg->update(margin, sliderDiameter, width, height, ampEgArea);
+
+    Rectangle<int> phasorEgArea = bottomTopSection.removeFromRight(egWidth);
+    m_phantomPhasorEg->update(margin, sliderDiameter, width, height, phasorEgArea);
+
+    Rectangle<int> bottomBottomSection = bottomSection.removeFromTop(egHeight);
+
+    bottomBottomSection.removeFromTop(margin * 0.75f);
+
+    Rectangle<int> filterEgArea = bottomBottomSection.removeFromLeft(egWidth);
+    m_phantomFilterEg->update(margin, sliderDiameter, width, height, filterEgArea);
+
+    Rectangle<int> modEgArea = bottomBottomSection.removeFromRight(egWidth);
+    m_phantomModEg->update(margin, sliderDiameter, width, height, modEgArea);
 }
