@@ -152,7 +152,9 @@ void PhantomAudioProcessorEditor::resized()
 
     presetArea.expand(0, margin);
     presetArea.removeFromBottom(margin * 0.75f);
-    m_phantomPreset->update(margin, presetArea.removeFromBottom(margin * 2));
+
+    presetArea = presetArea.removeFromBottom(margin * 2);
+    m_phantomPreset->update(margin, presetArea);
 
     Rectangle<int> graphArea = middleTopSection.removeFromLeft(width * (61.0f / 256.0f));
 
