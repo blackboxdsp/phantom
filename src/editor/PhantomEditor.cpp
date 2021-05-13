@@ -152,7 +152,6 @@ void PhantomAudioProcessorEditor::resized()
 
     presetArea.expand(0, margin);
     presetArea.removeFromBottom(margin * 0.75f);
-
     presetArea = presetArea.removeFromBottom(margin * 2);
     m_phantomPreset->update(margin, presetArea);
 

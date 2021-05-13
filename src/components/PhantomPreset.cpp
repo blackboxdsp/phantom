@@ -142,6 +142,9 @@ void PhantomPresetComponent::resized()
     presetNavArea.removeFromRight(m_margin * 1.25f);
     m_presetLeftButton->setBounds(presetNavArea.removeFromRight(m_margin * 1.75f));
 
+    canvas.expand(m_margin * 0.25f, 0);
+    canvas.removeFromLeft(m_margin * 0.25f);
+
     m_presetButton->setBounds(canvas);
 }
 
