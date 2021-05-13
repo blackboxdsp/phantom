@@ -55,14 +55,14 @@ void PhantomOscilloscopeComponent::paint(Graphics& graphics)
             (reader[idx] + 1.0f) * yScale,
             0.0f,
             (float) getHeight()
-        ) * 0.975f;
+        ) * 0.9f;
 
         x2 = (i + 1) * xScale;
         y2 = PhantomWaveshaper::clip(
             (reader[idx + 1] + 1.0f) * yScale,
             0.0f,
             (float) getHeight()
-        ) * 0.975f;
+        ) * 0.9f;
 
         float brightness = (std::abs(reader[idx]) * 0.25f) + 0.75f;
         float saturation = (std::abs(reader[idx]) * 0.35f) + 0.65f;
@@ -79,7 +79,7 @@ void PhantomOscilloscopeComponent::paint(Graphics& graphics)
 
 void PhantomOscilloscopeComponent::resized()
 {
-    
+
 }
 
 void PhantomOscilloscopeComponent::timerCallback()
@@ -94,6 +94,7 @@ void PhantomOscilloscopeComponent::pushBuffer(AudioBuffer<float>& buffer)
 
     const float* reader = buffer.getReadPointer(0, 0);
     const int numToCopy = buffer.getNumSamples();
+
     m_buffer->copyFrom(0, m_bufferIdx, reader, numToCopy);
 
     m_bufferIdx += numToCopy;

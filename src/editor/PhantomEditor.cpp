@@ -157,9 +157,14 @@ void PhantomAudioProcessorEditor::resized()
     Rectangle<int> graphArea = middleTopSection.removeFromLeft(width * (61.0f / 256.0f));
 
     Rectangle<int> oscilloscopeArea = graphArea.removeFromTop(graphArea.getHeight() / 2.0f);
+    oscilloscopeArea.removeFromLeft(8);
+    oscilloscopeArea.removeFromTop(margin * 0.5f);
+    oscilloscopeArea.removeFromBottom(margin * 0.25f);
     m_phantomOscilloscope->update(margin, sliderDiameter, width, height, oscilloscopeArea);
 
     Rectangle<int> analyzerArea = graphArea;
+    analyzerArea.removeFromTop(margin);
+    analyzerArea.removeFromLeft(4);
     m_phantomAnalyzer->update(margin, sliderDiameter, width, height, analyzerArea);
 
     // MIDDLE BOTTOM

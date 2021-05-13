@@ -101,13 +101,57 @@ void PhantomPhasorComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    Rectangle<int> phasor01Area = canvas.removeFromTop(canvas.getHeight() / 2);
-    m_phasor01ShapeSlider->setBounds(phasor01Area.removeFromLeft(m_sliderDiameter));
-    m_phasor01EgIntSlider->setBounds(phasor01Area.removeFromLeft(m_sliderDiameter));
-    m_phasor01LfoIntSlider->setBounds(phasor01Area);
+    canvas.removeFromBottom(m_margin * 0.5f);
 
-    Rectangle<int> phasor02Area = canvas;
-    m_phasor02ShapeSlider->setBounds(phasor02Area.removeFromLeft(m_sliderDiameter));
-    m_phasor02EgIntSlider->setBounds(phasor02Area.removeFromLeft(m_sliderDiameter));
-    m_phasor02LfoIntSlider->setBounds(phasor02Area);
+    const int height = canvas.getHeight();
+    
+    const int phasorWidth = (canvas.getWidth() - m_margin) / 2;
+
+    int paramWidth;
+
+    // PHASOR 01
+    Rectangle<int> phasor01Area = canvas.removeFromLeft(phasorWidth);
+    paramWidth = phasor01Area.getWidth() / 2;
+
+    Rectangle<int> phasor01ModArea = phasor01Area.removeFromLeft(paramWidth);
+
+    Rectangle<int> phasor01EgIntArea = phasor01ModArea.removeFromTop(phasor01ModArea.getHeight() / 2);
+    prepareForSlider(true, m_margin, phasor01EgIntArea);
+    phasor01EgIntArea.removeFromLeft(m_margin * 0.25f);
+    m_phasor01EgIntSlider->setBounds(phasor01EgIntArea);
+
+    Rectangle<int> phasor01LfoIntArea = phasor01ModArea;
+    prepareForSlider(true, m_margin, phasor01LfoIntArea);
+    phasor01LfoIntArea.removeFromLeft(m_margin * 0.25f);
+    m_phasor01LfoIntSlider->setBounds(phasor01LfoIntArea);
+    
+    Rectangle<int> phasor01ShapeArea = phasor01Area;
+    phasor01Area.removeFromBottom(m_margin * 2.0f);
+    prepareForSlider(getLargeSliderDiameter(), false, m_margin, phasor01ShapeArea);
+    phasor01ShapeArea.removeFromLeft(m_margin * 0.25f);
+    phasor01ShapeArea.removeFromBottom(m_margin * 2.0f);
+    m_phasor01ShapeSlider->setBounds(phasor01ShapeArea);
+
+    // PHASOR 02
+    Rectangle<int> phasor02Area = canvas.removeFromRight(phasorWidth);
+    paramWidth = phasor02Area.getWidth() / 2;
+
+    Rectangle<int> phasor02ModArea = phasor02Area.removeFromRight(paramWidth);
+
+    Rectangle<int> phasor02EgIntArea = phasor02ModArea.removeFromTop(phasor02ModArea.getHeight() / 2);
+    prepareForSlider(true, m_margin, phasor02EgIntArea);
+    phasor02EgIntArea.removeFromLeft(m_margin * 0.25f);
+    m_phasor02EgIntSlider->setBounds(phasor02EgIntArea);
+
+    Rectangle<int> phasor02LfoIntArea = phasor02ModArea;
+    prepareForSlider(true, m_margin, phasor02LfoIntArea);
+    phasor02LfoIntArea.removeFromLeft(m_margin * 0.25f);
+    m_phasor02LfoIntSlider->setBounds(phasor02LfoIntArea);
+    
+    Rectangle<int> phasor02ShapeArea = phasor02Area;
+    phasor02Area.removeFromBottom(m_margin * 2.0f);
+    prepareForSlider(getLargeSliderDiameter(), false, m_margin, phasor02ShapeArea);
+    phasor02ShapeArea.removeFromLeft(m_margin * 0.25f);
+    phasor02ShapeArea.removeFromBottom(m_margin * 2.0f);
+    m_phasor02ShapeSlider->setBounds(phasor02ShapeArea);
 }
