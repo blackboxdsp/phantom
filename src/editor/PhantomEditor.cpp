@@ -83,7 +83,7 @@ void PhantomAudioProcessorEditor::init()
 
     float ratio = 16.0f / 9.0f;
     setResizable(true, true);
-    setResizeLimits(720 * ratio, 720, 2160 * ratio, 2160); // 720p - 4K
+    setResizeLimits(720 * ratio, 720, 1440 * ratio, 1440); // 720p - 1440p
     getConstrainer()->setFixedAspectRatio(ratio);
     setSize(960 * ratio, 960);
 }

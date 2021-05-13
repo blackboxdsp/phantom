@@ -32,7 +32,7 @@ void PhantomPresetComponent::init()
     m_presetLabel = std::make_unique<Label>();
     m_presetLabel->setText("PRESET: ", dontSendNotification);
     m_presetLabel->setJustificationType(Justification::centred);
-    addAndMakeVisible(m_presetLabel.get());
+    // addAndMakeVisible(m_presetLabel.get());
 
     m_presetButton = std::make_unique<TextButton>();
     m_presetButton->setButtonText(m_presetManager.getCurrentPresetName());
@@ -126,14 +126,23 @@ void PhantomPresetComponent::resized()
 {
     Rectangle<int> canvas = getLocalBounds();
 
-    const int width = getWidth();
-    m_presetLabel->setBounds(canvas.removeFromLeft(width * 0.3));
-    m_presetButton->setBounds(canvas.removeFromLeft(width * 0.4));
+    canvas.removeFromBottom(m_margin * 0.4f);
 
-    canvas.removeFromLeft(width * 0.1);
+    int width = getWidth();
 
-    m_presetLeftButton->setBounds(canvas.removeFromLeft(width * 0.1));
-    m_presetRightButton->setBounds(canvas);
+    canvas.removeFromLeft(width * 0.25f);
+    canvas.removeFromRight(width * 0.25f);
+
+    width = canvas.getWidth();
+
+    canvas.removeFromLeft(width * 0.3f);
+
+    Rectangle<int> presetNavArea = canvas.removeFromRight(width * 0.3f);
+    m_presetRightButton->setBounds(presetNavArea.removeFromRight(m_margin * 1.75f));
+    presetNavArea.removeFromRight(m_margin * 1.25f);
+    m_presetLeftButton->setBounds(presetNavArea.removeFromRight(m_margin * 1.75f));
+
+    m_presetButton->setBounds(canvas);
 }
 
 void PhantomPresetComponent::addPresetsToMenu(PopupMenu& menu)
