@@ -29,13 +29,13 @@ PhantomPresetComponent::~PhantomPresetComponent()
 void PhantomPresetComponent::init()
 {
     m_presetButton = std::make_unique<TextButton>();
+    m_presetButton->setLookAndFeel(&m_lookAndFeel);
     m_presetButton->setButtonText(m_presetManager.getCurrentPresetName());
     m_presetButton->setColour(TextButton::buttonColourId, Consts::_BLACK_COLOUR.withAlpha(k_idleButtonAlpha));
     m_presetButton->setColour(TextButton::buttonOnColourId, Consts::_BLACK_COLOUR.withAlpha(k_hoverButtonAlpha));
     m_presetButton->setColour(ComboBox::outlineColourId, Consts::_BLACK_COLOUR);
     m_presetButton->setColour(TextButton::textColourOnId, Consts::_SECONDARY_COLOUR);
     m_presetButton->setColour(TextButton::textColourOffId, Consts::_SECONDARY_COLOUR);
-    m_presetButton->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_presetButton.get());
     m_presetButton->onClick = [this](){
         PopupMenu menu;
@@ -89,22 +89,22 @@ void PhantomPresetComponent::init()
     };
 
     m_presetLeftButton = std::make_unique<TextButton>();
+    m_presetLeftButton->setLookAndFeel(&m_lookAndFeel);
     m_presetLeftButton->setButtonText(" ");
     m_presetLeftButton->setColour(TextButton::buttonColourId, Consts::_BLACK_COLOUR.withAlpha(k_idleButtonAlpha));
     m_presetLeftButton->setColour(TextButton::buttonOnColourId, Consts::_BLACK_COLOUR.withAlpha(k_hoverButtonAlpha));
     m_presetLeftButton->setColour(ComboBox::outlineColourId, Consts::_BLACK_COLOUR);
-    m_presetLeftButton->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_presetLeftButton.get());
     m_presetLeftButton->onClick = [this](){
         m_presetManager.loadPresetFile(false);
     };
 
     m_presetRightButton = std::make_unique<TextButton>();
+    m_presetRightButton->setLookAndFeel(&m_lookAndFeel);
     m_presetRightButton->setButtonText(" ");
     m_presetRightButton->setColour(TextButton::buttonColourId, Consts::_BLACK_COLOUR.withAlpha(k_idleButtonAlpha));
     m_presetRightButton->setColour(TextButton::buttonOnColourId, Consts::_BLACK_COLOUR.withAlpha(k_hoverButtonAlpha));
     m_presetRightButton->setColour(ComboBox::outlineColourId, Consts::_BLACK_COLOUR);
-    m_presetRightButton->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_presetRightButton.get());
     m_presetRightButton->onClick = [this](){
         m_presetManager.loadPresetFile(true);
