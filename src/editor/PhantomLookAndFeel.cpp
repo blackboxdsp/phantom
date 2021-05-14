@@ -172,8 +172,8 @@ String PhantomLookAndFeel::getSliderReadout(Slider& slider, StringArray& nameTok
     else if(nameTokens[2].equalsIgnoreCase("CUTOFF") && nameTokens[1].equalsIgnoreCase("FILTER"))
     {
         const float value = slider.getValue();
-	    String readoutVal = (value >= 1000.0 ? String(value / 1000.0, 1) + "k" : String(value, 1));
-        readout = readoutVal + slider.getTextValueSuffix();
+	    String readoutVal = (value >= 1000.0 ? String(value / 1000.0, 1) + " k" : String(value, 1));
+        readout = readoutVal + slider.getTextValueSuffix().substring(1);
     }
     else
     {

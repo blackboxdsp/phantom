@@ -54,7 +54,7 @@ void PhantomOscillatorComponent::init()
     m_oscSyncSlider = std::make_unique<Slider>("PRI_OSC_SYNC");
     m_oscSyncSlider->setLookAndFeel(&m_lookAndFeel);
     m_oscSyncSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_oscSyncSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_oscSyncSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_oscSyncSlider->setDoubleClickReturnValue(true, Consts::_OSC_SYNC_DEFAULT_VAL);
     m_oscSyncSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_SYNC_PARAM_ID, *m_oscSyncSlider));
     addAndMakeVisible(m_oscSyncSlider.get());
@@ -63,7 +63,7 @@ void PhantomOscillatorComponent::init()
     m_osc01RangeSlider = std::make_unique<Slider>("PRI_OSC_01_RANGE");
     m_osc01RangeSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc01RangeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc01RangeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01RangeSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc01RangeSlider->setTextValueSuffix("'");
     m_osc01RangeSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_RANGE_DEFAULT_VAL);
     m_osc01RangeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_01_RANGE_PARAM_ID, *m_osc01RangeSlider));
@@ -72,7 +72,7 @@ void PhantomOscillatorComponent::init()
     m_osc01CoarseTuneSlider = std::make_unique<Slider>("PRI_OSC_01_COARSE_TUNE");
     m_osc01CoarseTuneSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc01CoarseTuneSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc01CoarseTuneSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01CoarseTuneSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc01CoarseTuneSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_COARSE_TUNE_DEFAULT_VAL);
     m_osc01CoarseTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_01_COARSE_TUNE_PARAM_ID, *m_osc01CoarseTuneSlider));
     addAndMakeVisible(m_osc01CoarseTuneSlider.get());
@@ -80,7 +80,7 @@ void PhantomOscillatorComponent::init()
     m_osc01FineTuneSlider = std::make_unique<Slider>("PRI_OSC_01_FINE_TUNE");
     m_osc01FineTuneSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc01FineTuneSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc01FineTuneSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01FineTuneSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc01FineTuneSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_FINE_TUNE_DEFAULT_VAL);
     m_osc01FineTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_01_FINE_TUNE_PARAM_ID, *m_osc01FineTuneSlider));
     addAndMakeVisible(m_osc01FineTuneSlider.get());
@@ -88,7 +88,7 @@ void PhantomOscillatorComponent::init()
     m_osc01ModDepthSlider = std::make_unique<Slider>("PRI_OSC_01_MOD_DEPTH");
     m_osc01ModDepthSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc01ModDepthSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc01ModDepthSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01ModDepthSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc01ModDepthSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_MOD_DEPTH_DEFAULT_VAL);
     m_osc01ModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_01_MOD_DEPTH_PARAM_ID, *m_osc01ModDepthSlider));
     addAndMakeVisible(m_osc01ModDepthSlider.get());
@@ -96,7 +96,7 @@ void PhantomOscillatorComponent::init()
     m_osc01ModSourceSlider = std::make_unique<Slider>("PRI_OSC_01_MOD_SOURCE");
     m_osc01ModSourceSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc01ModSourceSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc01ModSourceSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01ModSourceSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc01ModSourceSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_MOD_SOURCE_DEFAULT_VAL);
     m_osc01ModSourceSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_01_MOD_SOURCE_PARAM_ID, *m_osc01ModSourceSlider));
     addAndMakeVisible(m_osc01ModSourceSlider.get());
@@ -104,7 +104,7 @@ void PhantomOscillatorComponent::init()
     m_osc01ShapeIntSlider = std::make_unique<Slider>("PRI_OSC_01_SHAPE_INT");
     m_osc01ShapeIntSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc01ShapeIntSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc01ShapeIntSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc01ShapeIntSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc01ShapeIntSlider->setDoubleClickReturnValue(true, Consts::_OSC_01_SHAPE_INT_DEFAULT_VAL);
     m_osc01ShapeIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_01_SHAPE_INT_PARAM_ID, *m_osc01ShapeIntSlider));
     addAndMakeVisible(m_osc01ShapeIntSlider.get());
@@ -113,7 +113,7 @@ void PhantomOscillatorComponent::init()
     m_osc02RangeSlider = std::make_unique<Slider>("PRI_OSC_02_RANGE");
     m_osc02RangeSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc02RangeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc02RangeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02RangeSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc02RangeSlider->setTextValueSuffix("'");
     m_osc02RangeSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_RANGE_DEFAULT_VAL);
     m_osc02RangeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_RANGE_PARAM_ID, *m_osc02RangeSlider));
@@ -122,7 +122,7 @@ void PhantomOscillatorComponent::init()
     m_osc02CoarseTuneSlider = std::make_unique<Slider>("PRI_OSC_02_COARSE_TUNE");
     m_osc02CoarseTuneSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc02CoarseTuneSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc02CoarseTuneSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02CoarseTuneSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc02CoarseTuneSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_COARSE_TUNE_DEFAULT_VAL);
     m_osc02CoarseTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_COARSE_TUNE_PARAM_ID, *m_osc02CoarseTuneSlider));
     addAndMakeVisible(m_osc02CoarseTuneSlider.get());
@@ -130,7 +130,7 @@ void PhantomOscillatorComponent::init()
     m_osc02FineTuneSlider = std::make_unique<Slider>("PRI_OSC_02_FINE_TUNE");
     m_osc02FineTuneSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc02FineTuneSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc02FineTuneSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02FineTuneSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc02FineTuneSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_FINE_TUNE_DEFAULT_VAL);
     m_osc02FineTuneSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_FINE_TUNE_PARAM_ID, *m_osc02FineTuneSlider));
     addAndMakeVisible(m_osc02FineTuneSlider.get());
@@ -138,7 +138,7 @@ void PhantomOscillatorComponent::init()
     m_osc02ModDepthSlider = std::make_unique<Slider>("PRI_OSC_02_MOD_DEPTH");
     m_osc02ModDepthSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc02ModDepthSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc02ModDepthSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02ModDepthSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc02ModDepthSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_MOD_DEPTH_DEFAULT_VAL);
     m_osc02ModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_MOD_DEPTH_PARAM_ID, *m_osc02ModDepthSlider));
     addAndMakeVisible(m_osc02ModDepthSlider.get());
@@ -146,7 +146,7 @@ void PhantomOscillatorComponent::init()
     m_osc02ModSourceSlider = std::make_unique<Slider>("PRI_OSC_02_MOD_SOURCE");
     m_osc02ModSourceSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc02ModSourceSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc02ModSourceSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02ModSourceSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc02ModSourceSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_MOD_SOURCE_DEFAULT_VAL);
     m_osc02ModSourceSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_MOD_SOURCE_PARAM_ID, *m_osc02ModSourceSlider));
     addAndMakeVisible(m_osc02ModSourceSlider.get());
@@ -154,7 +154,7 @@ void PhantomOscillatorComponent::init()
     m_osc02ShapeIntSlider = std::make_unique<Slider>("PRI_OSC_02_SHAPE_INT");
     m_osc02ShapeIntSlider->setLookAndFeel(&m_lookAndFeel);
     m_osc02ShapeIntSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    m_osc02ShapeIntSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
+    m_osc02ShapeIntSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_osc02ShapeIntSlider->setDoubleClickReturnValue(true, Consts::_OSC_02_SHAPE_INT_DEFAULT_VAL);
     m_osc02ShapeIntSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_02_SHAPE_INT_PARAM_ID, *m_osc02ShapeIntSlider));
     addAndMakeVisible(m_osc02ShapeIntSlider.get());

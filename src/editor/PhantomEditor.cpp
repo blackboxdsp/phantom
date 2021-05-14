@@ -13,42 +13,55 @@
 PhantomAudioProcessorEditor::PhantomAudioProcessorEditor(PhantomAudioProcessor& p, AudioProcessorValueTreeState& vts) : AudioProcessorEditor(&p), m_processor(p), m_parameters(vts)
 {
     m_phantomAmplifier = std::make_unique<PhantomAmplifierComponent>(m_lookAndFeel, vts);
+    m_phantomAmplifier->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomAmplifier.get());
 
     m_phantomOscillators = std::make_unique<PhantomOscillatorComponent>(m_lookAndFeel, vts);
+    m_phantomOscillators->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomOscillators.get());
 
     m_phantomPhasors = std::make_unique<PhantomPhasorComponent>(m_lookAndFeel, vts);
+    m_phantomPhasors->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomPhasors.get());
 
     m_phantomMixer = std::make_unique<PhantomMixerComponent>(m_lookAndFeel, vts);
+    m_phantomMixer->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomMixer.get());
 
     m_phantomFilter = std::make_unique<PhantomFilterComponent>(m_lookAndFeel, vts);
+    m_phantomFilter->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomFilter.get());
 
     m_phantomLFOs = std::make_unique<PhantomLFOComponent>(m_lookAndFeel, vts);
+    m_phantomLFOs->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomLFOs.get());
 
     m_phantomAmpEg = std::make_unique<PhantomEnvelopeComponent>(EnvelopeType::AMP, m_lookAndFeel, vts);
+    m_phantomAmpEg->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomAmpEg.get());
 
     m_phantomPhasorEg = std::make_unique<PhantomEnvelopeComponent>(EnvelopeType::PHASOR, m_lookAndFeel, vts);
+    m_phantomPhasorEg->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomPhasorEg.get());
 
     m_phantomFilterEg = std::make_unique<PhantomEnvelopeComponent>(EnvelopeType::FILTER, m_lookAndFeel, vts);
+    m_phantomFilterEg->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomFilterEg.get());
 
     m_phantomModEg = std::make_unique<PhantomEnvelopeComponent>(EnvelopeType::MOD, m_lookAndFeel, vts);
+    m_phantomModEg->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomModEg.get());
 
     m_phantomAnalyzer = std::make_unique<PhantomAnalyzerComponent>(m_lookAndFeel, vts);
+    m_phantomAnalyzer->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomAnalyzer.get());
 
     m_phantomOscilloscope = std::make_unique<PhantomOscilloscopeComponent>(m_lookAndFeel, vts);
+    m_phantomOscilloscope->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomOscilloscope.get());
 
     m_phantomPreset = std::make_unique<PhantomPresetComponent>(m_lookAndFeel, m_processor.getPresetManager(), vts);
+    m_phantomPreset->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_phantomPreset.get());
 
     init();
@@ -81,6 +94,8 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 
 void PhantomAudioProcessorEditor::init()
 {
+
+
     float ratio = 16.0f / 9.0f;
     setResizable(true, true);
     setResizeLimits(720 * ratio, 720, 1440 * ratio, 1440); // 720p - 1440p
@@ -167,8 +182,8 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> oscilloscopeArea = graphArea.removeFromTop(graphArea.getHeight() / 2.0f);
     oscilloscopeArea.removeFromLeft(8);
-    oscilloscopeArea.removeFromTop(margin * 0.5f);
-    oscilloscopeArea.removeFromBottom(margin * 0.25f);
+    oscilloscopeArea.removeFromTop(margin * 0.65f);
+    oscilloscopeArea.removeFromBottom(margin * 0.4f);
     m_phantomOscilloscope->update(margin, sliderDiameter, width, height, oscilloscopeArea);
 
     Rectangle<int> analyzerArea = graphArea;
