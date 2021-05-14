@@ -67,14 +67,12 @@ target_compile_definitions(Phantom PUBLIC
 juce_add_binary_data(PhantomData HEADER_NAME PhantomData.h NAMESPACE PhantomData SOURCES
         resources/fonts/montserrat.ttf
         resources/images/background.png
-        resources/presets/algo.xml
-        resources/presets/analog.xml
         resources/presets/buzz-boy.xml
         resources/presets/noise-tap.xml
         resources/presets/overlord.xml
+        resources/presets/pitcher.xml
         resources/presets/richochet.xml
-        resources/presets/siren.xml
-        resources/presets/the-stack.xml)
+        resources/presets/rumbler.xml)
 
 # Link libraries to the plugin's source code and other resources (i.e. binary data)
 target_link_libraries(Phantom PRIVATE

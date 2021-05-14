@@ -3,7 +3,7 @@
 <Phantom pluginVersion="1.0.0-beta" presetName="Overlord" presetType="Bass">
   <PARAM id="ampEgAtk" value="0.239999994635582"/>
   <PARAM id="ampEgDec" value="1.419999957084656"/>
-  <PARAM id="ampEgRel" value="8.449999809265137"/>
+  <PARAM id="ampEgRel" value="2.449999809265137"/>
   <PARAM id="ampEgSus" value="-9.399997711181641"/>
   <PARAM id="filterCutoff" value="102.7000045776367"/>
   <PARAM id="filterDrive" value="0.699999988079071"/>

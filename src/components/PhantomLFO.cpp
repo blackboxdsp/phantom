@@ -30,38 +30,38 @@ void PhantomLFOComponent::init()
 {
     // LFO 01
     m_lfo01RateSlider = std::make_unique<Slider>("PRI_LFO_01_RATE");
+    m_lfo01RateSlider->setLookAndFeel(&m_lookAndFeel);
     m_lfo01RateSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_lfo01RateSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_lfo01RateSlider->setTextValueSuffix(" Hz");
     m_lfo01RateSlider->setDoubleClickReturnValue(true, Consts::_LFO_01_RATE_DEFAULT_VAL);
     m_lfo01RateSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_01_RATE_PARAM_ID, *m_lfo01RateSlider));
-    m_lfo01RateSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_lfo01RateSlider.get());
 
     m_lfo01ShapeSlider = std::make_unique<Slider>("PRI_LFO_01_SHAPE");
+    m_lfo01ShapeSlider->setLookAndFeel(&m_lookAndFeel);
     m_lfo01ShapeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_lfo01ShapeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_lfo01ShapeSlider->setDoubleClickReturnValue(true, Consts::_LFO_01_SHAPE_DEFAULT_VAL);
     m_lfo01ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_01_SHAPE_PARAM_ID, *m_lfo01ShapeSlider));
-    m_lfo01ShapeSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_lfo01ShapeSlider.get());
 
     // LFO 02
     m_lfo02RateSlider = std::make_unique<Slider>("PRI_LFO_02_RATE");
+    m_lfo02RateSlider->setLookAndFeel(&m_lookAndFeel);
     m_lfo02RateSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_lfo02RateSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_lfo02RateSlider->setTextValueSuffix(" Hz");
     m_lfo02RateSlider->setDoubleClickReturnValue(true, Consts::_LFO_01_RATE_DEFAULT_VAL);
     m_lfo02RateSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_02_RATE_PARAM_ID, *m_lfo02RateSlider));
-    m_lfo02RateSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_lfo02RateSlider.get());
 
     m_lfo02ShapeSlider = std::make_unique<Slider>("PRI_LFO_02_SHAPE");
+    m_lfo02ShapeSlider->setLookAndFeel(&m_lookAndFeel);
     m_lfo02ShapeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_lfo02ShapeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_lfo02ShapeSlider->setDoubleClickReturnValue(true, Consts::_LFO_01_SHAPE_DEFAULT_VAL);
     m_lfo02ShapeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_LFO_02_SHAPE_PARAM_ID, *m_lfo02ShapeSlider));
-    m_lfo02ShapeSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_lfo02ShapeSlider.get());
 }
 

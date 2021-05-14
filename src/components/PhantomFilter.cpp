@@ -42,52 +42,52 @@ void PhantomFilterComponent::init()
 {
     m_filterCutoffSlider = std::make_unique<Slider>("PRI_FILTER_CUTOFF");
     m_filterCutoffSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterCutoffSlider->setLookAndFeel(&m_lookAndFeel);
     m_filterCutoffSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_filterCutoffSlider->setTextValueSuffix(" Hz");
     m_filterCutoffSlider->setDoubleClickReturnValue(true, Consts::_FLTR_CUTOFF_DEFAULT_VAL);
     m_filterCutoffSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_CUTOFF_PARAM_ID, *m_filterCutoffSlider));
-    m_filterCutoffSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_filterCutoffSlider.get());
 
     m_filterResoSlider = std::make_unique<Slider>("PRI_FILTER_RESO");
     m_filterResoSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    m_filterResoSlider->setLookAndFeel(&m_lookAndFeel);
     m_filterResoSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_filterResoSlider->setTextValueSuffix(" Q");
     m_filterResoSlider->setDoubleClickReturnValue(true, Consts::_FLTR_RESO_DEFAULT_VAL);
     m_filterResoSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_RESO_PARAM_ID, *m_filterResoSlider));
-    m_filterResoSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_filterResoSlider.get());
 
     m_filterDriveSlider = std::make_unique<Slider>("PRI_FILTER_DRIVE");
+    m_filterDriveSlider->setLookAndFeel(&m_lookAndFeel);
     m_filterDriveSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterDriveSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_filterDriveSlider->setDoubleClickReturnValue(true, Consts::_FLTR_DRIVE_DEFAULT_VAL);
     m_filterDriveSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_DRIVE_PARAM_ID, *m_filterDriveSlider));
-    m_filterDriveSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_filterDriveSlider.get());
 
     m_filterModeSlider = std::make_unique<Slider>("PRI_FILTER_MODE");
+    m_filterModeSlider->setLookAndFeel(&m_lookAndFeel);
     m_filterModeSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterModeSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_filterModeSlider->setDoubleClickReturnValue(true, Consts::_FLTR_MODE_DEFAULT_VAL);
     m_filterModeSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_MODE_PARAM_ID, *m_filterModeSlider));
-    m_filterModeSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_filterModeSlider.get());
 
     m_filterEgModDepthSlider = std::make_unique<Slider>("PRI_FILTER_EG_MOD_DEPTH");
+    m_filterEgModDepthSlider->setLookAndFeel(&m_lookAndFeel);
     m_filterEgModDepthSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterEgModDepthSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_filterEgModDepthSlider->setDoubleClickReturnValue(true, Consts::_FLTR_EG_MOD_DEPTH_DEFAULT_VAL);
     m_filterEgModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_EG_MOD_DEPTH_PARAM_ID, *m_filterEgModDepthSlider));
-    m_filterEgModDepthSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_filterEgModDepthSlider.get());
 
     m_filterLfoModDepthSlider = std::make_unique<Slider>("PRI_FILTER_LFO_MOD_DEPTH");
+    m_filterLfoModDepthSlider->setLookAndFeel(&m_lookAndFeel);
     m_filterLfoModDepthSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_filterLfoModDepthSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_filterLfoModDepthSlider->setDoubleClickReturnValue(true, Consts::_FLTR_LFO_MOD_DEPTH_DEFAULT_VAL);
     m_filterLfoModDepthSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_FLTR_LFO_MOD_DEPTH_PARAM_ID, *m_filterLfoModDepthSlider));
-    m_filterLfoModDepthSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_filterLfoModDepthSlider.get());
 }
 

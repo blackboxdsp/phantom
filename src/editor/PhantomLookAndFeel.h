@@ -21,6 +21,28 @@ public:
     PhantomLookAndFeel() { };
     ~PhantomLookAndFeel() { };
 
+    void drawPopupMenuBackground(
+        Graphics& g,
+        int width,
+        int height
+    ) override;
+
+    void drawPopupMenuItem(
+        Graphics& g,
+        const Rectangle<int>& area,
+        bool isSeparator, bool isActive, bool isHighlighted, bool isTicked, bool hasSubMenu,
+        const String& text,
+        const String& shortcutKeyText,
+        const Drawable* icon,
+        const Colour* textColour
+    ) override;
+
+    void drawPopupMenuSectionHeader(
+        Graphics& g,
+        const Rectangle<int>& area,
+        const String& sectionName
+    ) override;
+
     void drawRotarySlider(
         Graphics& g,
         int x, int y,
@@ -29,6 +51,7 @@ public:
         Slider& s
     ) override;
 
+    Font getPopupMenuFont() override;
     Font getTextButtonFont(TextButton& tb, int buttonHeight) override;
     
     void setFontSize(int windowWidth);

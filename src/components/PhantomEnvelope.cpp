@@ -99,39 +99,39 @@ void PhantomEnvelopeComponent::init()
     }
 
     m_egAtkSlider = std::make_unique<Slider>("SEC_EG_ATTACK");
+    m_egAtkSlider->setLookAndFeel(&m_lookAndFeel);
     m_egAtkSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_egAtkSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_egAtkSlider->setTextValueSuffix(" s");
     m_egAtkSlider->setDoubleClickReturnValue(true, atkDefaultVal);
     m_egAtkSliderAttachment.reset(new SliderAttachment(m_parameters, atkParamId, *m_egAtkSlider));
-    m_egAtkSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_egAtkSlider.get());
 
     m_egDecSlider = std::make_unique<Slider>("SEC_EG_DECAY");
+    m_egDecSlider->setLookAndFeel(&m_lookAndFeel);
     m_egDecSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_egDecSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_egDecSlider->setTextValueSuffix(" s");
     m_egDecSlider->setDoubleClickReturnValue(true, decDefaultVal);
     m_egDecSliderAttachment.reset(new SliderAttachment(m_parameters, decParamId, *m_egDecSlider));
-    m_egDecSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_egDecSlider.get());
 
     m_egSusSlider = std::make_unique<Slider>("SEC_EG_SUSTAIN");
+    m_egSusSlider->setLookAndFeel(&m_lookAndFeel);
     m_egSusSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_egSusSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_egSusSlider->setTextValueSuffix(" dB");
     m_egSusSlider->setDoubleClickReturnValue(true, susDefaultVal);
     m_egSusSliderAttachment.reset(new SliderAttachment(m_parameters, susParamId, *m_egSusSlider));
-    m_egSusSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_egSusSlider.get());
 
     m_egRelSlider = std::make_unique<Slider>("SEC_EG_RELEASE");
+    m_egRelSlider->setLookAndFeel(&m_lookAndFeel);
     m_egRelSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_egRelSlider->setTextBoxStyle(Slider::TextBoxBelow, false, m_textBoxWidth, m_textBoxHeight);
     m_egRelSlider->setTextValueSuffix(" s");
     m_egRelSlider->setDoubleClickReturnValue(true, relDefaultVal);
     m_egRelSliderAttachment.reset(new SliderAttachment(m_parameters, relParamId, *m_egRelSlider));
-    m_egRelSlider->setLookAndFeel(&m_lookAndFeel);
     addAndMakeVisible(m_egRelSlider.get());
 }
 

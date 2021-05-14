@@ -12,6 +12,42 @@
 
 #include "../utils/PhantomData.h"
 
+void PhantomLookAndFeel::drawPopupMenuBackground(
+    Graphics& g,
+    int width,
+    int height
+)
+{
+    g.fillAll(Consts::_WHITE_COLOUR);
+}
+
+void PhantomLookAndFeel::drawPopupMenuItem(
+    Graphics& g,
+    const Rectangle<int>& area,
+    bool isSeparator, bool isActive, bool isHighlighted, bool isTicked, bool hasSubMenu,
+    const String& text,
+    const String& shortcutKeyText,
+    const Drawable* icon,
+    const Colour* textColour
+)
+{
+    g.setFont(getFont());
+    g.drawText(text, area, Justification::left, true);
+}
+
+void PhantomLookAndFeel::drawPopupMenuSectionHeader(
+    Graphics& g,
+    const Rectangle<int>& area,
+    const String& sectionName
+)
+{
+    Font f = getFont();
+    f.setBold(true);
+
+    g.setFont(f);
+    g.drawText(sectionName, area, Justification::left, true);
+}
+
 void PhantomLookAndFeel::drawRotarySlider(
     Graphics& g,
     int x, int y,
@@ -45,6 +81,11 @@ void PhantomLookAndFeel::drawRotarySlider(
 	arcPathFilled.addArc(rx, ry, rw, rw, rotaryStartAngle, angle, true);
 	PathStrokeType(3.0f).createStrokedPath(arcPathFilled, arcPathFilled);
 	g.fillPath(arcPathFilled);
+}
+
+Font PhantomLookAndFeel::getPopupMenuFont()
+{
+    return getFont(m_fontSize);
 }
 
 Font PhantomLookAndFeel::getTextButtonFont(TextButton& tb, int buttonHeight)
@@ -131,7 +172,8 @@ String PhantomLookAndFeel::getSliderReadout(Slider& slider, StringArray& nameTok
     else if(nameTokens[2].equalsIgnoreCase("CUTOFF") && nameTokens[1].equalsIgnoreCase("FILTER"))
     {
         const float value = slider.getValue();
-	    readout = (value >= 1000.0 ? String(value / 1000.0, 1) + "k" : String(value, 1));
+	    String readoutVal = (value >= 1000.0 ? String(value / 1000.0, 1) + "k" : String(value, 1));
+        readout = readoutVal + slider.getTextValueSuffix();
     }
     else
     {
