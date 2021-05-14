@@ -182,7 +182,7 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> oscilloscopeArea = graphArea.removeFromTop(graphArea.getHeight() / 2.0f);
     oscilloscopeArea.removeFromLeft(8);
-    oscilloscopeArea.removeFromTop(margin * 0.65f);
+    oscilloscopeArea.removeFromTop(margin * 0.35f);
     oscilloscopeArea.removeFromBottom(margin * 0.4f);
     m_phantomOscilloscope->update(margin, sliderDiameter, width, height, oscilloscopeArea);
 
