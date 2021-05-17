@@ -16,6 +16,7 @@
 #include "../editor/PhantomLookAndFeel.h"
 
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
+typedef AudioProcessorValueTreeState::ButtonAttachment ButtonAttachment;
 
 /**
  * This class contains the methods and common attributes of component classes, which hold 

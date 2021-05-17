@@ -51,6 +51,11 @@ public:
         Slider& s
     ) override;
 
+    void drawToggleButton(
+        Graphics& g, ToggleButton& b, 
+        bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown
+    ) override;
+
     Font getPopupMenuFont() override;
     Font getTextButtonFont(TextButton& tb, int buttonHeight) override;
     

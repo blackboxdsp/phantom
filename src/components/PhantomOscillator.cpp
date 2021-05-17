@@ -21,6 +21,8 @@ PhantomOscillatorComponent::~PhantomOscillatorComponent()
 {
     m_oscSyncSliderAttachment = nullptr;
     m_oscSyncSlider = nullptr;
+    m_oscSyncButtonAttachment = nullptr;
+    m_oscSyncButton = nullptr;
 
     m_osc01RangeSliderAttachment = nullptr;
     m_osc01RangeSlider = nullptr;
@@ -51,13 +53,19 @@ PhantomOscillatorComponent::~PhantomOscillatorComponent()
 
 void PhantomOscillatorComponent::init()
 {
-    m_oscSyncSlider = std::make_unique<Slider>("PRI_OSC_SYNC");
+    m_oscSyncSlider = std::make_unique<Slider>("PRI_OSC_SYNC_SLIDER");
     m_oscSyncSlider->setLookAndFeel(&m_lookAndFeel);
     m_oscSyncSlider->setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     m_oscSyncSlider->setTextBoxStyle(Slider::NoTextBox, false, m_textBoxWidth, m_textBoxHeight);
     m_oscSyncSlider->setDoubleClickReturnValue(true, Consts::_OSC_SYNC_DEFAULT_VAL);
+    m_oscSyncSlider->setRotaryParameters(0.0f, MathConstants<float>::twoPi, true);
     m_oscSyncSliderAttachment.reset(new SliderAttachment(m_parameters, Consts::_OSC_SYNC_PARAM_ID, *m_oscSyncSlider));
     addAndMakeVisible(m_oscSyncSlider.get());
+
+    m_oscSyncButton = std::make_unique<ToggleButton>("PRI_OSC_SYNC_BUTTON");
+    m_oscSyncButton->setLookAndFeel(&m_lookAndFeel);
+    m_oscSyncButtonAttachment.reset(new ButtonAttachment(m_parameters, Consts::_OSC_SYNC_PARAM_ID, *m_oscSyncButton));
+    addAndMakeVisible(m_oscSyncButton.get());
 
     // OSCILLATOR 01
     m_osc01RangeSlider = std::make_unique<Slider>("PRI_OSC_01_RANGE");
@@ -163,6 +171,7 @@ void PhantomOscillatorComponent::init()
 void PhantomOscillatorComponent::reset()
 {
     m_oscSyncSlider->setValue(Consts::_OSC_SYNC_DEFAULT_VAL);
+    m_oscSyncButton->setToggleState((bool) Consts::_OSC_SYNC_DEFAULT_VAL, false);
     
     m_osc01RangeSlider->setValue(Consts::_OSC_01_RANGE_DEFAULT_VAL);
     m_osc01CoarseTuneSlider->setValue(Consts::_OSC_01_COARSE_TUNE_DEFAULT_VAL);
@@ -280,5 +289,6 @@ void PhantomOscillatorComponent::resized()
     canvas.removeFromLeft(m_margin);
     canvas.removeFromTop(m_margin * 1.25f);
 
+    m_oscSyncButton->setBounds(canvas);
     m_oscSyncSlider->setBounds(canvas);
 }

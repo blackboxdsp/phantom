@@ -63,16 +63,21 @@ void PhantomLookAndFeel::drawRotarySlider(
 	const float ry = centerY - radius;
 	const float rw = radius * 2.0f;
 
+    StringArray nameTokens = StringArray::fromTokens(s.getName(), "_", "");
+
     if(sliderPos == 0.0f)
         sliderPos = 0.01f;
 
+    if(nameTokens[2].equalsIgnoreCase("SYNC"))
+        sliderPos = 1.0f;
+
     const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
 
-    StringArray nameTokens = StringArray::fromTokens(s.getName(), "_", "");
     String readout = getSliderReadout(s, nameTokens);
 
+    const bool useInactiveColour = nameTokens[2].equalsIgnoreCase("SYNC") && s.getValue() < 0.5f;
     const bool usePrimaryColour = nameTokens[0].equalsIgnoreCase("PRI");
-    g.setColour(usePrimaryColour ? Consts::_PRIMARY_COLOUR : Consts::_SECONDARY_COLOUR);
+    g.setColour(useInactiveColour ? Consts::_INACTIVE_COLOUR : usePrimaryColour ? Consts::_PRIMARY_COLOUR : Consts::_SECONDARY_COLOUR);
 
     g.setFont(getFont());
     g.drawText(readout, centerX - radius, centerY - (m_fontSize * 5.0f / 12.0f), rw, m_fontSize, Justification::centred);
@@ -81,6 +86,17 @@ void PhantomLookAndFeel::drawRotarySlider(
 	arcPathFilled.addArc(rx, ry, rw, rw, rotaryStartAngle, angle, true);
 	PathStrokeType(3.0f).createStrokedPath(arcPathFilled, arcPathFilled);
 	g.fillPath(arcPathFilled);
+}
+
+void PhantomLookAndFeel::drawToggleButton(
+    Graphics& g, ToggleButton& b, 
+    bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown
+)
+{
+    /**
+     * NOTE: This is empty for the purpose of having "button-like sliders" 
+     * in the sense of functionality.
+     */
 }
 
 Font PhantomLookAndFeel::getPopupMenuFont()
@@ -107,9 +123,16 @@ String PhantomLookAndFeel::getSliderReadout(Slider& slider, StringArray& nameTok
 {   
     String readout;
 
-    if(nameTokens[3].equalsIgnoreCase("RANGE") && nameTokens[1].equalsIgnoreCase("OSC"))
+    if(nameTokens[1].equalsIgnoreCase("OSC"))
     {
-        readout = String(std::exp2f(3 - ((int) slider.getValue()) + 1)) + slider.getTextValueSuffix();
+        if(nameTokens[2].equalsIgnoreCase("SYNC"))
+            readout = "SYNC";
+
+        else if(nameTokens[3].equalsIgnoreCase("RANGE"))
+            readout = String(std::exp2f(3 - ((int) slider.getValue()) + 1)) + slider.getTextValueSuffix();
+
+        else
+            readout = String(slider.getValue(), 2) + slider.getTextValueSuffix();
     }
     else if(nameTokens[3].equalsIgnoreCase("SHAPE") && nameTokens[1].equalsIgnoreCase("PHASOR"))
     {
@@ -177,7 +200,7 @@ String PhantomLookAndFeel::getSliderReadout(Slider& slider, StringArray& nameTok
     }
     else
     {
-        readout = String(slider.getValue()) + slider.getTextValueSuffix();
+        readout = String(slider.getValue(), 2) + slider.getTextValueSuffix();
     }
 
     return readout;

@@ -90,7 +90,7 @@ void PhantomPresetComponent::init()
 
     m_presetLeftButton = std::make_unique<TextButton>();
     m_presetLeftButton->setLookAndFeel(&m_lookAndFeel);
-    m_presetLeftButton->setButtonText(" ");
+    m_presetLeftButton->setButtonText("  ");
     m_presetLeftButton->setColour(TextButton::buttonColourId, Consts::_BLACK_COLOUR.withAlpha(k_idleButtonAlpha));
     m_presetLeftButton->setColour(TextButton::buttonOnColourId, Consts::_BLACK_COLOUR.withAlpha(k_hoverButtonAlpha));
     m_presetLeftButton->setColour(ComboBox::outlineColourId, Consts::_BLACK_COLOUR);
@@ -101,7 +101,7 @@ void PhantomPresetComponent::init()
 
     m_presetRightButton = std::make_unique<TextButton>();
     m_presetRightButton->setLookAndFeel(&m_lookAndFeel);
-    m_presetRightButton->setButtonText(" ");
+    m_presetRightButton->setButtonText("  ");
     m_presetRightButton->setColour(TextButton::buttonColourId, Consts::_BLACK_COLOUR.withAlpha(k_idleButtonAlpha));
     m_presetRightButton->setColour(TextButton::buttonOnColourId, Consts::_BLACK_COLOUR.withAlpha(k_hoverButtonAlpha));
     m_presetRightButton->setColour(ComboBox::outlineColourId, Consts::_BLACK_COLOUR);

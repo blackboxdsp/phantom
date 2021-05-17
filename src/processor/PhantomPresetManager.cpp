@@ -88,8 +88,6 @@ bool PhantomPresetManager::setPresetIdx()
 
 std::unique_ptr<XmlElement> PhantomPresetManager::loadStateFromXml(std::unique_ptr<XmlElement> xml)
 {
-    DBG("LOADING!");
-
     if(xml->hasTagName(Consts::_PLUGIN_NAME))
     {
         bool doPluginVersionsMatch = String(Consts::_PLUGIN_VERSION).equalsIgnoreCase(xml->getStringAttribute("pluginVersion"));
