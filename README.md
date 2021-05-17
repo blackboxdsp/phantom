@@ -1,4 +1,4 @@
-# Phantom (v.1.0.0-alpha)
+# Phantom (v.1.0.0-beta)
 
 [![phantom](https://github.com/blackboxdsp/phantom/workflows/phantom/badge.svg)](https://github.com/blackboxdsp/phantom/actions?query=workflow%3Aphantom)
 [![JUCE](https://img.shields.io/badge/JUCE-v6.0.8-ff69b4)](https://juce.com/)
