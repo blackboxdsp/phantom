@@ -18,7 +18,10 @@ void PhantomLookAndFeel::drawPopupMenuBackground(
     int height
 )
 {
-    g.fillAll(Consts::_WHITE_COLOUR);
+    Rectangle<int> area(0, 0, width, height);
+
+    g.setColour(Consts::_WHITE_COLOUR);
+    g.fillRoundedRectangle(area.toFloat().expanded(width * 1.4f), 4.0f);
 }
 
 void PhantomLookAndFeel::drawPopupMenuItem(
@@ -31,8 +34,45 @@ void PhantomLookAndFeel::drawPopupMenuItem(
     const Colour* textColour
 )
 {
-    g.setFont(getFont());
-    g.drawText(text, area, Justification::left, true);
+    g.setColour(Consts::_BLACK_COLOUR);
+
+    if(isSeparator)
+    {
+        Range<int> range = area.getHorizontalRange();
+        g.drawHorizontalLine(area.getCentreY(), range.getStart(), range.getEnd());
+    }
+    else
+    {
+        if(isHighlighted)
+            g.fillAll(Consts::_WHITE_COLOUR.withMultipliedBrightness(0.9f));
+
+        if(!isActive)
+            g.setColour(Consts::_WHITE_COLOUR.withMultipliedBrightness(0.7f));
+
+        const float padding = getPadding() * 1.5f;
+        const float halfPadding = padding * 0.5f;
+
+        Font f = getFont(m_fontSize * 1.2f);
+        g.setFont(f);
+
+        Rectangle<int> padded(padding, 0, area.getWidth() - padding, area.getHeight());
+        g.drawText(text, padded, Justification::left, true);
+
+        if(hasSubMenu)
+        {
+            Path triangle;
+
+            Point<int> p1(area.getRight() - padding, area.getCentreY());
+            Point<int> p2(p1.getX() - halfPadding, p1.getY() - halfPadding * 0.5f);
+            Point<int> p3(p1.getX() - halfPadding, p1.getY() + halfPadding * 0.5f);
+
+            triangle.addTriangle(p1.toFloat(), p2.toFloat(), p3.toFloat());
+
+            g.setColour(Consts::_WHITE_COLOUR.withMultipliedBrightness(0.2f));
+            g.fillPath(triangle);
+
+        }
+    }
 }
 
 void PhantomLookAndFeel::drawPopupMenuSectionHeader(
@@ -41,11 +81,16 @@ void PhantomLookAndFeel::drawPopupMenuSectionHeader(
     const String& sectionName
 )
 {
-    Font f = getFont();
-    f.setBold(true);
+    g.setColour(Consts::_BLACK_COLOUR);
 
+    Font f = getFont(m_fontSize * 1.5f);
+    f.setBold(true);
     g.setFont(f);
-    g.drawText(sectionName, area, Justification::left, true);
+
+    const float padding = getPadding() * 0.8f;
+
+    Rectangle<int> padded(padding, 0, area.getWidth() - padding, area.getHeight());
+    g.drawText(sectionName, padded, Justification::left, true);
 }
 
 void PhantomLookAndFeel::drawRotarySlider(
@@ -99,6 +144,27 @@ void PhantomLookAndFeel::drawToggleButton(
      * NOTE: This is empty for the purpose of having "button-like sliders" 
      * in the sense of functionality.
      */
+}
+
+void PhantomLookAndFeel::drawCornerResizer(
+    Graphics& g,
+    int width, int height,
+    bool isMouseOver, bool isMouseDragging
+)
+{
+    g.setColour ((isMouseOver || isMouseDragging)
+        ? Consts::_INACTIVE_COLOUR : Consts::_BLACK_COLOUR);
+
+    const float lineThickness = jmin(width, height) * 0.1f;
+
+    for (float i = 0.0f; i < 1.0f; i += 0.3f)
+        g.drawLine (
+            width * i,
+            height + 1.0f,
+            width + 1.0f,
+            height * i,
+            lineThickness
+        );
 }
 
 Font PhantomLookAndFeel::getPopupMenuFont()
@@ -225,4 +291,9 @@ Font PhantomLookAndFeel::getFont(float fontSize) const
     f.setHeight(fontSize);
 
     return f;
+}
+
+float PhantomLookAndFeel::getPadding()
+{
+    return m_fontSize * 0.75f;
 }

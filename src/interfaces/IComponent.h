@@ -172,6 +172,11 @@ public:
         return m_lookAndFeel;
     }
 
+    int getMargin()
+    {
+        return m_margin;
+    }
+
     /**
      * NOTE: Each individual component must override and define its own `paint(Graphics& g)` and `resized()`
      * methods in order to be drawn to the screen.

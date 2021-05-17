@@ -98,9 +98,9 @@ void PhantomAudioProcessorEditor::init()
 
     float ratio = 16.0f / 9.0f;
     setResizable(true, true);
-    setResizeLimits(720 * ratio, 720, 1440 * ratio, 1440); // 720p - 1440p
+    setResizeLimits(540 * ratio, 540, 1440 * ratio, 1440); // 720p - 1440p
     getConstrainer()->setFixedAspectRatio(ratio);
-    setSize(960 * ratio, 960);
+    setSize(720 * ratio, 720);
 
     setLookAndFeel(&m_lookAndFeel);
 
@@ -182,7 +182,7 @@ void PhantomAudioProcessorEditor::resized()
 
     Rectangle<int> oscilloscopeArea = graphArea.removeFromTop(graphArea.getHeight() / 2.0f);
     oscilloscopeArea.removeFromLeft(8);
-    oscilloscopeArea.removeFromTop(margin * 0.3f);
+    oscilloscopeArea.removeFromTop(margin * 0.4f);
     oscilloscopeArea.removeFromBottom(margin * 0.4f);
     m_phantomOscilloscope->update(margin, sliderDiameter, width, height, oscilloscopeArea);
 

@@ -56,6 +56,12 @@ public:
         bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown
     ) override;
 
+    void drawCornerResizer(
+        Graphics& g,
+        int width, int height,
+        bool isMouseOver, bool isMouseDragging
+    ) override;
+
     Font getPopupMenuFont() override;
     Font getTextButtonFont(TextButton& tb, int buttonHeight) override;
     
@@ -82,6 +88,8 @@ private:
 
     Font getFont() const;
     Font getFont(float fontSize) const;
+
+    float getPadding();
 
     float m_fontSize = 12.0f;
     float m_strokeWidth = 1.8f;

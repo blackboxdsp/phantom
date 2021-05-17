@@ -43,11 +43,13 @@ void PhantomPresetComponent::init()
         menu.setLookAndFeel(&getLookAndFeel());
 
         menu.addItem(PopupMenu::Item("Copy to clipboard")
+            .setColour(Consts::_BLACK_COLOUR)
             .setAction([this](){
                 SystemClipboard::copyTextToClipboard(*m_presetManager.saveStateToText());
             })
         );
         menu.addItem(PopupMenu::Item("Paste from clipboard")
+            .setColour(Consts::_BLACK_COLOUR)
             .setAction([this](){
                 m_presetManager.loadStateFromText(SystemClipboard::getTextFromClipboard());
             })
@@ -56,6 +58,7 @@ void PhantomPresetComponent::init()
         menu.addSeparator();
 
         menu.addItem(PopupMenu::Item("Initialize")
+            .setColour(Consts::_BLACK_COLOUR)
             .setAction([this](){
                 m_presetManager.init();
 
@@ -64,6 +67,7 @@ void PhantomPresetComponent::init()
             })
         );
         menu.addItem(PopupMenu::Item("Save as")
+            .setColour(Consts::_BLACK_COLOUR)
             .setAction([this](){
                 String presetDirPath = File::getSpecialLocation(File::userApplicationDataDirectory).getFullPathName()
                     + "/Black Box DSP/Phantom/Presets";
@@ -87,7 +91,7 @@ void PhantomPresetComponent::init()
         addPresetsToMenu(menu);
 
         PhantomAudioProcessorEditor* editor = findParentComponentOfClass<PhantomAudioProcessorEditor>();
-        menu.showMenu(PopupMenu::Options().withParentComponent(editor));
+        menu.showMenu(PopupMenu::Options().withParentComponent(editor).withStandardItemHeight(getMargin() * 2.0f));
     };
 
     m_presetLeftButton = std::make_unique<TextButton>();
@@ -173,6 +177,7 @@ void PhantomPresetComponent::addPresetsToMenu(PopupMenu& menu)
         String presetName = String(pf.getFileNameWithoutExtension());
         typeDirSubMenu.addItem(
             PopupMenu::Item(presetName)
+            .setColour(Consts::_BLACK_COLOUR)
             .setEnabled(!presetName.equalsIgnoreCase(m_presetManager.getCurrentPresetName()))
             .setAction([this, pf](){
                 File presetFile = File(pf.getFullPathName());
