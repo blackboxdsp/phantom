@@ -208,6 +208,8 @@ void PhantomPresetManager::writePresetFiles()
      * NOTE: If you wish to add a preset to the stock group, be sure to precompile the data 
      * so that it is available in the PhantomData header file.
      */ 
+
+    saveXmlToFile(parseXML(PhantomData::algorhythm_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::buzzboy_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::noisetap_xml), presetDir);
     saveXmlToFile(parseXML(PhantomData::overlord_xml), presetDir);

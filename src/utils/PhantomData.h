@@ -12,7 +12,10 @@ namespace PhantomData
     const int            montserrat_ttfSize = 245708;
 
     extern const char*   background_png;
-    const int            background_pngSize = 115287;
+    const int            background_pngSize = 114969;
+
+    extern const char*   algorhythm_xml;
+    const int            algorhythm_xmlSize = 2561;
 
     extern const char*   buzzboy_xml;
     const int            buzzboy_xmlSize = 2511;
@@ -33,7 +36,7 @@ namespace PhantomData
     const int            rumbler_xmlSize = 2654;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 8;
+    const int namedResourceListSize = 9;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

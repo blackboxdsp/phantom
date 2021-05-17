@@ -67,6 +67,7 @@ target_compile_definitions(Phantom PUBLIC
 juce_add_binary_data(PhantomData HEADER_NAME PhantomData.h NAMESPACE PhantomData SOURCES
         resources/fonts/montserrat.ttf
         resources/images/background.png
+        resources/presets/algorhythm.xml
         resources/presets/buzz-boy.xml
         resources/presets/noise-tap.xml
         resources/presets/overlord.xml

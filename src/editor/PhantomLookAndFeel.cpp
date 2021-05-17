@@ -200,7 +200,7 @@ String PhantomLookAndFeel::getSliderReadout(Slider& slider, StringArray& nameTok
             readout = String(std::exp2f(3 - ((int) slider.getValue()) + 1)) + slider.getTextValueSuffix();
 
         else if(nameTokens[3].equalsIgnoreCase("MOD") && nameTokens[4].equalsIgnoreCase("SOURCE"))
-            readout = String(slider.getValue() < 0.5f ? "EG" : "LFO"); 
+            readout = String(slider.getValue() < 0.5f ? "MOD EG" : "LFO 2"); 
 
         else
             readout = String(slider.getValue(), 2) + slider.getTextValueSuffix();
