@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Phantom pluginVersion="1.0.0-beta" presetName="Pitcher" presetType="Lead">
+  <PARAM id="ampEgAtk" value="0.01999999955296516"/>
+  <PARAM id="ampEgDec" value="0.07999999821186066"/>
+  <PARAM id="ampEgRel" value="0.8699999451637268"/>
+  <PARAM id="ampEgSus" value="0.0"/>
+  <PARAM id="filterCutoff" value="1573.599975585938"/>
+  <PARAM id="filterDrive" value="0.6599999666213989"/>
+  <PARAM id="filterEgModDepth" value="0.0"/>
+  <PARAM id="filterLfoModDepth" value="0.0"/>
+  <PARAM id="filterMode" value="0.0"/>
+  <PARAM id="filterReso" value="3.559999942779541"/>
+  <PARAM id="fltrEgAtk" value="0.119999997317791"/>
+  <PARAM id="fltrEgDec" value="0.6200000047683716"/>
+  <PARAM id="fltrEgRel" value="0.7999999523162842"/>
+  <PARAM id="fltrEgSus" value="0.0"/>
+  <PARAM id="level" value="0.0"/>
+  <PARAM id="lfo01Rate" value="74.23999786376953"/>
+  <PARAM id="lfo01Shape" value="0.0"/>
+  <PARAM id="lfo02Rate" value="100.0"/>
+  <PARAM id="lfo02Shape" value="3.0"/>
+  <PARAM id="mixerAmpGain" value="1.0"/>
+  <PARAM id="mixerNoise" value="0.0"/>
+  <PARAM id="mixerOscBalance" value="1.0"/>
+  <PARAM id="mixerRngMod" value="0.7899999618530273"/>
+  <PARAM id="modEgAtk" value="0.009999999776482582"/>
+  <PARAM id="modEgDec" value="0.1500000059604645"/>
+  <PARAM id="modEgRel" value="0.2000000029802322"/>
+  <PARAM id="modEgSus" value="-15.0"/>
+  <PARAM id="osc01CoarseTune" value="0.0"/>
+  <PARAM id="osc01FineTune" value="0.0"/>
+  <PARAM id="osc01ModDepth" value="0.0"/>
+  <PARAM id="osc01ModSource" value="0.0"/>
+  <PARAM id="osc01Range" value="1.0"/>
+  <PARAM id="osc01ShapeInt" value="0.0"/>
+  <PARAM id="osc02CoarseTune" value="0.0"/>
+  <PARAM id="osc02FineTune" value="11.20000457763672"/>
+  <PARAM id="osc02ModDepth" value="0.0"/>
+  <PARAM id="osc02ModSource" value="1.0"/>
+  <PARAM id="osc02Range" value="1.0"/>
+  <PARAM id="osc02ShapeInt" value="0.0"/>
+  <PARAM id="oscSync" value="0.0"/>
+  <PARAM id="phaseEgAtk" value="0.009999999776482582"/>
+  <PARAM id="phaseEgDec" value="1.870000004768372"/>
+  <PARAM id="phaseEgRel" value="5.110000133514404"/>
+  <PARAM id="phaseEgSus" value="0.0"/>
+  <PARAM id="phasor01EgInt"/>
+  <PARAM id="phasor01LfoInt" value="0.0"/>
+  <PARAM id="phasor01Shape"/>
+  <PARAM id="phasor02EgInt" value="1.0"/>
+  <PARAM id="phasor02LfoInt" value="1.0"/>
+  <PARAM id="phasor02Shape" value="0.0"/>
+  <PARAM id="mixerRingMod"/>
+</Phantom>

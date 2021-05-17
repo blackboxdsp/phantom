@@ -17,9 +17,8 @@ out/
 # Confidential stuff
 conf/
 
-# Miscellaneous project stuff
-design/
-
+# Miscellaneous Ableton stuff
 project/Backup/
+project/Presets/
 project/Samples/
 project/Desktop.ini

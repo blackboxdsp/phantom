@@ -68,6 +68,8 @@ copy_plugin_binaries() {
         OPER_SYS=MacOS
 
         rm -rf "${DIST_DIR}/macos"
+        
+        mkdir "${DIST_DIR}"
         mkdir "${DIST_DIR}/macos" 
 
         cp -r "./bin/${PLUGIN_NAME}_artefacts/VST3/${PLUGIN_NAME}.vst3" "${DIST_DIR}/macos/${PLUGIN_NAME}.vst3" || log_exit "\n[Error] Failed to copy plugin binaries (VST3)\n"
@@ -77,6 +79,8 @@ copy_plugin_binaries() {
         OPER_SYS=Windows
 
         rm -rf "${DIST_DIR}/windows" 
+
+        mkdir "${DIST_DIR}"
         mkdir "${DIST_DIR}/windows"
 
         cp "./bin/${PLUGIN_NAME}_artefacts/${BUILD_TYPE}/VST3/${PLUGIN_NAME}.vst3/Contents/x86_64-win/${PLUGIN_NAME}.vst3" "${DIST_DIR}/windows/${PLUGIN_NAME}.vst3"  || log_exit "\n[Error] Failed to copy plugin binaries (VST3)\n"

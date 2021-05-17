@@ -30,21 +30,31 @@ juce_generate_juce_header(Phantom)
 
 # Declare necessary source files to include into the target
 target_sources(Phantom PRIVATE
-        src/PhantomAmplifier.cpp
-        src/PhantomAnalyzer.cpp
-        src/PhantomEditor.cpp
-        src/PhantomEnvelopeGenerator.cpp
-        src/PhantomFilter.cpp
-        src/PhantomLFO.cpp
-        src/PhantomMixer.cpp
-        src/PhantomOscillator.cpp
-        src/PhantomOscilloscope.cpp
-        src/PhantomPhasor.cpp
-        src/PhantomProcessor.cpp
-        src/PhantomSound.cpp
-        src/PhantomSynth.cpp
-        src/PhantomVoice.cpp
-        src/PhantomWaveshaper.cpp)
+        src/components/PhantomAmplifier.cpp
+        src/components/PhantomAnalyzer.cpp
+        src/components/PhantomEnvelope.cpp
+        src/components/PhantomFilter.cpp
+        src/components/PhantomLFO.cpp
+        src/components/PhantomMixer.cpp
+        src/components/PhantomOscillator.cpp
+        src/components/PhantomOscilloscope.cpp
+        src/components/PhantomPhasor.cpp
+        src/components/PhantomPreset.cpp
+        src/editor/PhantomEditor.cpp
+        src/editor/PhantomLookAndFeel.cpp
+        src/effects/PhantomAmplifier.cpp
+        src/effects/PhantomFilter.cpp
+        src/effects/PhantomMixer.cpp
+        src/effects/PhantomPhasor.cpp
+        src/effects/PhantomWaveshaper.cpp
+        src/generators/PhantomEnvelope.cpp
+        src/generators/PhantomLFO.cpp
+        src/generators/PhantomOscillator.cpp
+        src/processor/PhantomPresetManager.cpp
+        src/processor/PhantomProcessor.cpp
+        src/processor/PhantomSound.cpp
+        src/processor/PhantomSynth.cpp
+        src/processor/PhantomVoice.cpp)
 
 # Preprocessor definitions for our target
 target_compile_definitions(Phantom PUBLIC
@@ -54,18 +64,20 @@ target_compile_definitions(Phantom PUBLIC
         JUCE_DISPLAY_SPLASH_SCREEN=0)
 
 # Add binary data from resources folder
-juce_add_binary_data(PhantomData HEADER_NAME "PhantomData.h" NAMESPACE PhantomData SOURCES
-        resources/presets/algo.xml
-        resources/presets/analog.xml
+juce_add_binary_data(PhantomData HEADER_NAME PhantomData.h NAMESPACE PhantomData SOURCES
+        resources/fonts/montserrat.ttf
+        resources/images/background.png
+        resources/presets/algorhythm.xml
         resources/presets/buzz-boy.xml
         resources/presets/noise-tap.xml
         resources/presets/overlord.xml
+        resources/presets/pitcher.xml
         resources/presets/richochet.xml
-        resources/presets/siren.xml
-        resources/presets/the-stack.xml)
+        resources/presets/rumbler.xml)
 
 # Link libraries to the plugin's source code and other resources (i.e. binary data)
 target_link_libraries(Phantom PRIVATE
         PhantomData
         juce::juce_audio_utils
-        juce::juce_dsp)
+        juce::juce_dsp
+        juce::juce_opengl)

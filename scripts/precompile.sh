@@ -42,7 +42,7 @@ build_plugin_binaries
 copy_header_file() {
     rm -f src/${FILENAME}
 
-    cp -f bin/juce_binarydata_${PLUGIN_NAME}Data/JuceLibraryCode/${FILENAME} src/${FILENAME} || log_exit "\n[Error] Failed to copy header file\n"
+    cp -f bin/juce_binarydata_${PLUGIN_NAME}Data/JuceLibraryCode/${FILENAME} src/utils/${FILENAME} || log_exit "\n[Error] Failed to copy header file\n"
     echo -e "[Success] Copied generated header file to src directory!\n"
 }
 
