@@ -94,13 +94,11 @@ PhantomAudioProcessorEditor::~PhantomAudioProcessorEditor()
 
 void PhantomAudioProcessorEditor::init()
 {
-
-
-    float ratio = 16.0f / 9.0f;
     setResizable(true, true);
-    setResizeLimits(540 * ratio, 540, 1440 * ratio, 1440); // 720p - 1440p
-    getConstrainer()->setFixedAspectRatio(ratio);
-    setSize(720 * ratio, 720);
+    setResizeLimits(960, 960 * k_screenRatio, 2560, 2560 * k_screenRatio);
+    setSize(1280, 1280 * k_screenRatio);
+
+    getConstrainer()->setFixedAspectRatio(1.0f / k_screenRatio);
 
     setLookAndFeel(&m_lookAndFeel);
 

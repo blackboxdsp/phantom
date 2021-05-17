@@ -108,21 +108,42 @@ public:
         update(margin, sliderDiameter, window.getWidth(), window.getHeight(), bounds);
     };
 
+    /**
+     * Computes a slightly larger slider diameter.
+     * @returns The diameter (px) of a larger slider.
+     */
     int getLargeSliderDiameter()
     {
         return m_windowWidth * PhantomLookAndFeel::_LARGE_SLIDER_PER_WIDTH;
     };
 
+    /**
+     * Determines if a slider is larger or not.
+     * @returns true if the slider diameter is equal to a large slider diameter.
+     */
     bool isLargeSlider(const int sliderDiameter)
     {
         return sliderDiameter == getLargeSliderDiameter();
     }
 
+    /**
+     * Prepares a Rectangle for a slider so that it draws correctly.
+     * @param removeOtherHalf Boolean value that if true will remove the left half of the given Rectangle area.
+     * @param expandBy An interger value to expand the bottom of the Rectangle area by.
+     * @param bounds The Rectangle object itself to use as bounds for a component.
+     */
     void prepareForSlider(const bool removeOtherHalf, const int expandBy, Rectangle <int>& bounds)
     {
         prepareForSlider(m_sliderDiameter, removeOtherHalf, expandBy, bounds);
     }
 
+    /**
+     * Prepares a Rectangle for a slider so that it draws correctly.
+     * @param sliderDiameter The slider diameter to use in sectioning space for the slider.
+     * @param removeOtherHalf Boolean value that if true will remove the left half of the given Rectangle area.
+     * @param expandBy An interger value to expand the bottom of the Rectangle area by.
+     * @param bounds The Rectangle object itself to use as bounds for a component.
+     */
     void prepareForSlider(const int sliderDiameter, const bool removeOtherHalf, const int expandBy, Rectangle<int>& bounds)
     {
         if(removeOtherHalf)
@@ -144,11 +165,20 @@ public:
         }
     }
 
+    /**
+     * Removes the margin space around a given Rectangle.
+     * @param rectangle The Rectangle to remove the margin space around.
+     */
     void removeMarginAround(Rectangle <int>& rectangle)
     {
         removeMarginAround(m_margin, rectangle);
     }
 
+    /**
+     * Removes the margin space around a given Rectangle.
+     * @param margin The amount of space to remove on each side.
+     * @param rectangle The Rectangle to remove the margin space around.
+     */
     void removeMarginAround(const int margin, Rectangle<int>& rectangle)
     {
         rectangle.removeFromTop(margin);
@@ -157,21 +187,39 @@ public:
         rectangle.removeFromLeft(margin);
     }
 
-    void removeTitleSpaceFrom(const int margin, Rectangle<int>& rectangle)
-    {
-        rectangle.removeFromTop(margin);
-    }
-
+    /**
+     * Removes space from the top of a component for the purpose of making room for the title (in the background PNG).
+     * @param rectangle The Rectangle to remove the top space from.
+     */
     void removeTitleSpaceFrom(Rectangle<int>& rectangle)
     {
         removeTitleSpaceFrom(m_margin, rectangle);
     }
 
+    /**
+     * Removes space from the top of a component for the purpose of making room for the title (in the background PNG).
+     * @param margin The amount of space to remove from the top.
+     * @param rectangle The Rectangle to remove the top space from.
+     */
+    void removeTitleSpaceFrom(const int margin, Rectangle<int>& rectangle)
+    {
+        rectangle.removeFromTop(margin);
+    }
+
+    /**
+     * For referencing the look and feel from places that can't access the member variable, such as `PopupMenu`s in 
+     * button lambdas.
+     * @returns A reference to the look and feel member variable.
+     */
     PhantomLookAndFeel& getLookAndFeel()
     {
         return m_lookAndFeel;
     }
 
+    /**
+     * For retrieving the margin (px) member variable from this component.
+     * @returns The calculated margin member variable of this component.
+     */
     int getMargin()
     {
         return m_margin;
@@ -190,8 +238,10 @@ public:
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(IComponent)
 
+    /** A reference to the look and feel object, managed by the editor. */
     PhantomLookAndFeel& m_lookAndFeel;
 
+    /** A reference to the plugin state. */
     AudioProcessorValueTreeState& m_parameters;
 
     /** The width value for general text boxes. */

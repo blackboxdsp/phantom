@@ -87,21 +87,27 @@ private:
     /** OpenGL context object for faster rendering. */
     OpenGLContext m_openGlContext; 
 
-    /** GUI components */
+    /**
+     * NOTE: The following Phantom*Component declarations are the pointers to the various
+     * GUI components that make up the synthesizier's visual side.
+     */
+
     std::unique_ptr<PhantomAmplifierComponent> m_phantomAmplifier;
     std::unique_ptr<PhantomOscillatorComponent> m_phantomOscillators;
     std::unique_ptr<PhantomPhasorComponent> m_phantomPhasors;
     std::unique_ptr<PhantomMixerComponent> m_phantomMixer;
     std::unique_ptr<PhantomFilterComponent> m_phantomFilter;
-
     std::unique_ptr<PhantomLFOComponent> m_phantomLFOs;
-    
     std::unique_ptr<PhantomEnvelopeComponent> m_phantomAmpEg;
     std::unique_ptr<PhantomEnvelopeComponent> m_phantomPhasorEg;
     std::unique_ptr<PhantomEnvelopeComponent> m_phantomFilterEg;
     std::unique_ptr<PhantomEnvelopeComponent> m_phantomModEg;
-
     std::unique_ptr<PhantomPresetComponent> m_phantomPreset;
+
+    /** 
+     * A constant-value screen ratio to use for the GUI.
+     */
+    const float k_screenRatio = 9.0f / 16.0f;
 };
 
 #endif

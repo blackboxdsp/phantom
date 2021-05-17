@@ -162,8 +162,14 @@ private:
      */
     const float k_oscSyncPhaseThreshold = 0.2f;
 
+    /**
+     * Boolean value that is true when the note is in any stage but the release stage.
+     */
     bool m_isNoteOn = false;
 
+    /**
+     * Boolean value that is true when when the envelopes have completed.
+     */
     bool m_isNoteCleared = true;
     
     /**
@@ -175,8 +181,6 @@ private:
      * Multiplier for smoothing abrupt releases of notes.
      */
     float m_tailOff = 0.0f;
-
-    int count = 0;
 };
 
 #endif

@@ -33,7 +33,6 @@ private:
 
     std::unique_ptr<Slider> m_oscSyncSlider;
     std::unique_ptr<SliderAttachment> m_oscSyncSliderAttachment;
-
     std::unique_ptr<ToggleButton> m_oscSyncButton;
     std::unique_ptr<ButtonAttachment> m_oscSyncButtonAttachment;
 

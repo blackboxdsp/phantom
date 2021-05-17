@@ -13,7 +13,7 @@ log_exit() {
 start_time=$(date +%s)
 
 PLUGIN_NAME=Phantom
-BUILD_TYPE=Debug
+BUILD_TYPE=Release
 FILENAME=${PLUGIN_NAME}Data.h
 
 for i in "$@"; do

@@ -65,7 +65,16 @@ public:
     Font getPopupMenuFont() override;
     Font getTextButtonFont(TextButton& tb, int buttonHeight) override;
     
+    /**
+     * Sets the font size (px) of the look and feel configuration.
+     * @param windowWidth The window width (px) of the plugin, used for calculating the font size from a ratio.
+     */
     void setFontSize(int windowWidth);
+    
+    /**
+     * Sets the stoke width size (px) of the look and feel configuration.
+     * @param windowWidth The window width (px) of the plugin, used for calculating the stroke width from a ratio.
+     */
     void setStrokeWidth(int windowWidth);
 
     /**
@@ -84,14 +93,37 @@ public:
     static constexpr float _STROKE_PER_WIDTH = 3.0f / 6400.0f;
 
 private:
+    /**
+     * Computes the appopriate readout values for sliders, taking into account some important questions like number polarity.
+     * @param slider The slider value to compute the readout for.
+     * @param nameTokens The StringArray of tokens parsed from the slider's name beforehand.
+     * @returns The complete readout string for the slider including the appropriate suffix.
+     */
     String getSliderReadout(Slider& slider, StringArray& nameTokens);
 
+    /**
+     * Retrieves the font at the default font size.
+     * @returns The Montserrat font at the default font size.
+     */
     Font getFont() const;
+    
+    /**
+     * Retrieves the default font at the given size.
+     * @param fontSize The size (px) to set the font to.
+     * @returns The Montserrat font at the given size (px).
+     */
     Font getFont(float fontSize) const;
 
+    /**
+     * Calculates padding for things like a PopupMenu.
+     * @returns The padding amount (px) calculated from the font size.
+     */
     float getPadding();
 
+    /** The font size (px) to use for text and layouts. */
     float m_fontSize = 12.0f;
+
+    /** The stroke width (px) to use in drawing sliders and other visual components. */ 
     float m_strokeWidth = 1.8f;
 };
 

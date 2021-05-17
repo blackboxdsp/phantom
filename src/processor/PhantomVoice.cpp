@@ -82,8 +82,6 @@ void PhantomVoice::stopNote(float velocity, bool allowTailOff)
         return;
     }
 
-    DBG("Note OFF!" << " ... " << velocity);
-
     m_isNoteOn = false;
 
     m_ampEnv->noteOff();
