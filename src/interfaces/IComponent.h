@@ -167,6 +167,11 @@ public:
         removeTitleSpaceFrom(m_margin, rectangle);
     }
 
+    PhantomLookAndFeel& getLookAndFeel()
+    {
+        return m_lookAndFeel;
+    }
+
     /**
      * NOTE: Each individual component must override and define its own `paint(Graphics& g)` and `resized()`
      * methods in order to be drawn to the screen.

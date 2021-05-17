@@ -39,6 +39,8 @@ void PhantomPresetComponent::init()
     addAndMakeVisible(m_presetButton.get());
     m_presetButton->onClick = [this](){
         PopupMenu menu;
+        
+        menu.setLookAndFeel(&getLookAndFeel());
 
         menu.addItem(PopupMenu::Item("Copy to clipboard")
             .setAction([this](){
@@ -151,6 +153,8 @@ void PhantomPresetComponent::addPresetsToMenu(PopupMenu& menu)
 {
     String previousTypeDir = String("");
     PopupMenu typeDirSubMenu;
+
+    typeDirSubMenu.setLookAndFeel(&getLookAndFeel());
 
     for(File pf : m_presetManager.getPresetFiles())
     {

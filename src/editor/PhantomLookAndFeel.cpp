@@ -65,14 +65,6 @@ void PhantomLookAndFeel::drawRotarySlider(
 
     StringArray nameTokens = StringArray::fromTokens(s.getName(), "_", "");
 
-    if(sliderPos == 0.0f)
-        sliderPos = 0.01f;
-
-    if(nameTokens[2].equalsIgnoreCase("SYNC"))
-        sliderPos = 1.0f;
-
-    const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-
     String readout = getSliderReadout(s, nameTokens);
 
     const bool useInactiveColour = nameTokens[2].equalsIgnoreCase("SYNC") && s.getValue() < 0.5f;
@@ -82,8 +74,18 @@ void PhantomLookAndFeel::drawRotarySlider(
     g.setFont(getFont());
     g.drawText(readout, centerX - radius, centerY - (m_fontSize * 5.0f / 12.0f), rw, m_fontSize, Justification::centred);
 
-	Path arcPathFilled;
-	arcPathFilled.addArc(rx, ry, rw, rw, rotaryStartAngle, angle, true);
+    if(std::abs(sliderPos) <= 0.01f)
+        sliderPos = sliderPos < 0.0f ? -0.01f : 0.01f;
+
+    if(nameTokens[2].equalsIgnoreCase("SYNC"))
+        sliderPos = 1.0f;
+
+    const bool isDepthSlider = nameTokens.contains("DEPTH");
+    const float startAngle = isDepthSlider ? (rotaryEndAngle - rotaryStartAngle) * 0.5f + rotaryStartAngle : rotaryStartAngle;
+    const float endAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
+	
+    Path arcPathFilled;
+	arcPathFilled.addArc(rx, ry, rw, rw, startAngle, endAngle, true);
 	PathStrokeType(3.0f).createStrokedPath(arcPathFilled, arcPathFilled);
 	g.fillPath(arcPathFilled);
 }
@@ -130,6 +132,9 @@ String PhantomLookAndFeel::getSliderReadout(Slider& slider, StringArray& nameTok
 
         else if(nameTokens[3].equalsIgnoreCase("RANGE"))
             readout = String(std::exp2f(3 - ((int) slider.getValue()) + 1)) + slider.getTextValueSuffix();
+
+        else if(nameTokens[3].equalsIgnoreCase("MOD") && nameTokens[4].equalsIgnoreCase("SOURCE"))
+            readout = String(slider.getValue() < 0.5f ? "EG" : "LFO"); 
 
         else
             readout = String(slider.getValue(), 2) + slider.getTextValueSuffix();
