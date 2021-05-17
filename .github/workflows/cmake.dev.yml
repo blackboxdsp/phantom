@@ -6,9 +6,6 @@ on:
       - "**"
       - "!main"
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
   build:
     runs-on: ${{matrix.os}}
@@ -16,38 +13,38 @@ jobs:
       matrix:
         os: [windows-latest, macos-latest]
 
+    env:
+      BUILD_TYPE: Release
+
     steps:
     - name: "Preparation"
       uses: actions/checkout@v2
 
-    - name: "1/7 (JUCE): Clone Repository"
+    - name: "1/6: Clone (JUCE)"
       uses: actions/checkout@v2
       with:
         repository: juce-framework/JUCE
         path: ${{runner.workspace}}/phantom/JUCE
   
     # JUCE
-    - name: "2/7 (JUCE): Create Build Environment"
+    - name: "2/6: Configuration (JUCE)"
       working-directory: ${{runner.workspace}}/phantom/JUCE
-      run: cmake -E make_directory ${{runner.workspace}}/phantom/JUCE/bin
+      run: cmake -B bin .
 
-    - name: "3/7 (JUCE): Configuration"
-      working-directory: ${{runner.workspace}}/phantom/JUCE/bin
-      run: cmake ${{runner.workspace}}/phantom/JUCE
-
-    - name: "4/7 (JUCE): Build"
-      working-directory: ${{runner.workspace}}/phantom/JUCE/bin
-      run: cmake --build .
+    - name: "3/6: Build (JUCE)"
+      working-directory: ${{runner.workspace}}/phantom/JUCE
+      run: cmake --build bin
 
     # Phantom
-    - name: "5/7 (Phantom): Create Build Environment"
+    - name: "4/6: Precompilation (Phantom)"
       working-directory: ${{runner.workspace}}/phantom
-      run: cmake -E make_directory ${{runner.workspace}}/phantom/bin
-    
-    - name: "6/7 (Phantom): Configuration"
-      working-directory: ${{runner.workspace}}/phantom/bin
-      run: cmake ${{runner.workspace}}/phantom
+      run: chmod +x ./scripts/precompile.sh && ./scripts/precompile.sh
 
-    - name: "7/7 (Phantom): Build"
-      working-directory: ${{runner.workspace}}/phantom/bin
-      run: cmake --build .
+    - name: "5/5: Configuration (Phantom)"
+      working-directory: ${{runner.workspace}}/phantom
+      run: cmake -B bin .
+
+    - name: "6/5: Build (Phantom)"
+      working-directory: ${{runner.workspace}}/phantom
+      run: cmake --build bin --config ${{ env.BUILD_TYPE }} --target Phantom_All
+      

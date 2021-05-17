@@ -11,8 +11,14 @@ juce/
 
 # Binaries and executables
 bin/
+dist/
 out/
 
-# Miscellaneous project stuff
-design/
-project/
+# Confidential stuff
+conf/
+
+# Miscellaneous Ableton stuff
+project/Backup/
+project/Presets/
+project/Samples/
+project/Desktop.ini
