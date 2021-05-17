@@ -59,7 +59,7 @@ private:
     /**
      * The number of voices to use in the synth.
      */
-    const int k_numVoices = 1;
+    const int k_numVoices = 4;
 };
 
 #endif
