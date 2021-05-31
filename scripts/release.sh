@@ -145,7 +145,7 @@ compress_plugin_binaries() {
 }
 
 upload_plugin_zip() {
-    gsutil cp ${DIST_ZIP} gs://${DIST_BUCKET} || log_exit "\n[Error] Failed to copy ${DIST_ZIP} to Cloud Storage\n"
+    gsutil cp ${DIST_ZIP} gs://staging/${DIST_BUCKET} || log_exit "\n[Error] Failed to copy ${DIST_ZIP} to Cloud Storage\n"
     echo -e "\n[Success] Uploaded plugin zip to Cloud Storage bucket \"${DIST_BUCKET}\"!"
 }
 
